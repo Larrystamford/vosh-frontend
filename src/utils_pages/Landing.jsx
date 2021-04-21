@@ -104,13 +104,13 @@ export const Landing = ({
           }
         >
           <div className="landing_WelcomeMessageWrapper">
+            
+            <p className="landing_WelcomeWord">vosh</p>
             <img
               src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+White.png"
               alt="loco logo"
-              style={{ height: 60 }}
+              style={{ height: 30 }}
             />
-            <p className="landing_WelcomeWord">SHOPLOCOLOCO</p>
-            <p className="landing_WelcomeText">shopping meets entertainment</p>
           </div>
 
           {showStartButton ? (

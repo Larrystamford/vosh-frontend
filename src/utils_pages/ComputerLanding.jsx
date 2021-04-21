@@ -9,7 +9,7 @@ export const ComputerLanding = ({ }) => {
         >
           <div className="computer_MessageBox">
       
-            <p className="computer_WordHeader">SHOPLOCOLOCO</p>
+            <p className="computer_WordHeader">VOSH</p>
             <p className="computer_WelcomeText">Watch genuine shopping recommendations from the internet!</p>
             <p
               className="computer_NormalText"

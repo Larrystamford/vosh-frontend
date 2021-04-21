@@ -10,7 +10,8 @@
   scroll-snap-align: start;
   scroll-snap-stop: always;
 
-  background-color: #ff8b00;
+  /* background-color: #ff8b00; */
+  background-color: #3c4c56;
 }
 
 .landing_body h4 {
@@ -38,7 +39,7 @@
 .landing_WelcomeWord {
   font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
-  font-size: 33px;
+  font-size: 49px;
   width: 100%;
   text-align: center;
   color: white;
