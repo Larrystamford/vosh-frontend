@@ -1,0 +1,90 @@
+.formMain {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+
+  background-color: white;
+}
+
+.formMainLocal {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+
+  background-color: white;
+}
+
+.loginButtonWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 60px;
+  position: absolute;
+}
+
+.Form_WelcomeMessageWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 25%;
+  position: absolute;
+}
+
+.Form_ManualWelcomeMessageWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 8%;
+  position: absolute;
+}
+
+.Form_WelcomeWord {
+  font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
+  font-size: 40px;
+  color: #ff8b00;
+}
+.Form_WelcomeText {
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
+  font-size: 20px;
+  color: #ff8b00;
+}
+
+.loginButtonWrapperLocal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media only screen and (min-width: 1100px) {
+  .formMain {
+    height: 700px;
+    width: 415px;
+  }
+}
+
+/* iphone5 */
+@media only screen and (max-height: 580px) {
+  .Form_WelcomeWord {
+    font-size: 30px;
+  }
+  .Form_WelcomeText {
+    font-size: 16px;
+  }
+  .Form_ManualWelcomeMessageWrapper > img {
+    display: none;
+  }
+}

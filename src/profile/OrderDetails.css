@@ -1,0 +1,63 @@
+.order_main_wrapper {
+  position: relative;
+}
+
+.order_wrap {
+  height: 95vh;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.order_details_header {
+  position: relative;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.order_shipping_details {
+  height: 15rem;
+}
+
+.order_shipment_header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 2rem;
+  padding: 1.5rem;
+  padding-bottom: 0rem;
+}
+
+.order_shipment_header > p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.order_shipment_timeline {
+  width: 30%;
+  font-weight: 600;
+}
+
+.order_summary_row {
+  padding-left: 2.7rem;
+  padding-top: 1rem;
+}
+
+.order_summary_row > p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.order_customer_support {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  margin-top: -2rem;
+}

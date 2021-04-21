@@ -1,0 +1,116 @@
+.landing_body {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+
+  background-color: #ff8b00;
+}
+
+.landing_body h4 {
+  color: white;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.landing_loading_icons {
+  position: absolute;
+  bottom: 10rem;
+  font-size: 16px;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.landing_WelcomeMessageWrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 30%;
+  position: absolute;
+}
+.landing_WelcomeWord {
+  font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
+  font-size: 35px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  padding-top: 0.3rem;
+}
+.landing_WelcomeText {
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: 500;
+}
+.landing_SpecialEdition {
+  font-family: butler bold, "Times New Roman", Times, serif, butler bold,
+    Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  width: 15rem;
+  text-align: center;
+  padding-top: 2rem;
+  color: #222222;
+}
+
+.computer_WelcomeMessageWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 15%;
+  position: absolute;
+}
+.computer_WelcomeText {
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-size: 20px;
+  width: 18rem;
+  text-align: center;
+}
+.computer_WelcomeWord {
+  font-family: butler bold, "Times New Roman", Times, serif, butler bold,
+    Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  font-size: 46px;
+  width: 15rem;
+  text-align: center;
+  color: #222222;
+}
+.computer_QrWrapper {
+  margin-top: 3rem;
+}
+.computer_QrWrapper > img {
+  border: 9px solid white;
+}
+
+@media only screen and (min-width: 1100px) {
+  .landing_body {
+    height: 700px;
+    width: 415px;
+  }
+  .landing_image {
+    height: 550px;
+    width: 300px;
+  }
+}
+
+/* iphone5 */
+@media only screen and (max-height: 580px) {
+  .landing_WelcomeWord {
+    font-size: 30px;
+  }
+  .landing_WelcomeText {
+    font-size: 16px;
+  }
+}

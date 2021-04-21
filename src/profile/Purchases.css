@@ -1,0 +1,96 @@
+.Purchases_body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Purchases_item_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.Purchases_item_row {
+  min-height: 6rem;
+  width: 100%;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.Purchases_picture {
+  height: 5rem;
+  width: 22%;
+  object-fit: cover;
+}
+
+.Purchases_description {
+  height: 90%;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.Purchases_description_row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Purchases_description > p {
+  padding: 3px;
+  font-size: 12px;
+}
+.Purchases_description_row > p {
+  padding: 2px;
+  font-size: 12px;
+
+  color: gray;
+}
+
+.Purchases_NoInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  height: 10rem;
+}
+.Purchases_NoInfo > p {
+  margin-top: -3rem;
+  text-align: center;
+  width: 80%;
+}
+.Purchases_shipping_info {
+  margin: 10px;
+}
+.Purchases_shipping_info > p {
+  font-size: 13px;
+}
+
+.Purchases_more_details_and_review {
+  width: 95%;
+  height: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  font-size: 14px;
+}
+
+.Purchases_more_details_and_review > span {
+  font-weight: 500;
+}

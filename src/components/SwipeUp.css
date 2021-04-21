@@ -1,0 +1,63 @@
+.SwipeUpIcon {
+  animation: MoveUpDown 1.2s linear 2;
+
+  position: absolute;
+  left: 50%;
+  top: 79%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  color: white;
+}
+
+.SwipeUpIcon2 {
+  animation: MoveUpDown2 1.2s linear 2;
+
+  position: absolute;
+  left: 55%;
+  top: 80%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  color: white;
+}
+
+.SwipeUpIcon3 {
+  animation: MoveUpDown3 1.2s linear 2;
+
+  position: absolute;
+  left: 55%;
+  top: 84%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  color: white;
+  font-size: 14px;
+}
+
+@keyframes MoveUpDown {
+  0% {
+    top: 79%;
+  }
+  100% {
+    top: 70%;
+  }
+}
+
+@keyframes MoveUpDown2 {
+  0% {
+    top: 80%;
+  }
+  100% {
+    top: 71%;
+  }
+}
+
+@keyframes MoveUpDown3 {
+  0% {
+    top: 84%;
+  }
+  100% {
+    top: 75%;
+  }
+}

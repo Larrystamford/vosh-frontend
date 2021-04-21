@@ -1,0 +1,52 @@
+.videoSidebar {
+  position: absolute;
+  bottom: 80px;
+  right: 0.7rem;
+  color: white;
+  z-index: 500;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.videoSidebar__button {
+  padding: 15px;
+  text-align: center;
+}
+
+.shareStatus {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+  right: 0.4rem;
+  position: absolute;
+  width: 5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+.sidebar_amazonlogolink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 100%;
+}
+
+.sidebar_amazonlogolink > p {
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 16px;
+  text-overflow: clip;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 75%;
+  padding-left: 1.8rem;
+}
+
+#simple-dialog-title > h2 {
+  text-align: center;
+}

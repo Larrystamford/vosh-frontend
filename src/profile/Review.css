@@ -1,0 +1,95 @@
+.review_body {
+  position: relative;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: white;
+
+  overflow-y: scroll;
+}
+
+.review_header {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  height: 2.8rem;
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+  background-color: white;
+}
+
+.review_body_wrapper {
+  height: 94%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review_image {
+  height: 90%;
+  width: 60%;
+}
+
+.review_preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid lightslategrey;
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 70%;
+  height: 80%;
+  background-color: rgb(245, 245, 245);
+}
+.review_input_div {
+  width: 95%;
+}
+.review_input_div > textarea {
+  height: 100%;
+  border: none;
+  outline-width: 0;
+  margin-left: 10px;
+  width: 90%;
+  word-break: break-word;
+  outline: none;
+  font-size: 13px;
+  background-color: rgb(245, 245, 245);
+}
+
+.review_flex_column_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 59%;
+  width: 100%;
+}
+
+.review_done_div {
+  height: 6%;
+  position: relative;
+  width: 100%;
+}
+
+.review_done_div > p {
+  position: absolute;
+  right: 0;
+  width: 5rem;
+  font-weight: 500;
+}
+
+.review_flex_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+}

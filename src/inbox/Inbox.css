@@ -1,0 +1,130 @@
+.inbox {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  background-color: white;
+  overflow-y: scroll;
+}
+
+.inbox_top_bar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  height: 22px;
+  padding: 10px;
+  position: sticky;
+  border-bottom: 1px solid whitesmoke;
+  top: 0;
+  justify-content: center;
+  font-weight: bold;
+  font-family: sans-serif, serif, butler bold, Century Gothic, CenturyGothic,
+    AppleGothic;
+}
+
+.inbox_date_separation_bar {
+  padding: 10px 10px 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(75, 75, 75);
+}
+
+.inbox_row {
+  background-color: white;
+
+  width: 93%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.inbox_picture {
+  width: 15%;
+}
+.inbox_picture_image {
+  display: inline-block;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid white;
+}
+
+.inbox_NameCommentReplies {
+  width: 70%;
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+}
+
+.inbox_broadcast_message {
+  width: 85%;
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.inbox_link_picture {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inbox_link_picture_image {
+  display: inline-block;
+  width: 2.4rem;
+  height: 3.3rem;
+  object-fit: cover;
+}
+
+.inbox_link_action {
+  width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inbox_Name {
+  color: black;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.inbox_Name > p:first-letter {
+  text-transform: capitalize;
+}
+.inbox_inbox_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.inbox_Comment {
+  width: 90%;
+  color: rgb(75, 75, 75);
+  margin: 4px;
+  font-size: 13px;
+  min-height: 1.6rem;
+}
+
+.inbox_comments_Comment {
+  width: 90%;
+  color: rgb(75, 75, 75);
+  margin: 4px;
+  font-size: 13px;
+  min-height: 1.6rem;
+}
+
+.noSelect {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  -o-tap-highlight-color: transparent;
+  text-decoration: "none";
+  tap-highlight-color: transparent;
+}

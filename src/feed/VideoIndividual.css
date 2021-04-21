@@ -1,0 +1,25 @@
+.video {
+  position: relative;
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.video__player {
+  object-fit: fill;
+  width: 100vw;
+  height: 100vh;
+}
+
+@media only screen and (min-width: 1100px) {
+  .video__player {
+    height: 700px !important;
+    width: 415px !important;
+  }
+
+  .video {
+    height: 700px !important;
+    width: 415px !important;
+  }
+}

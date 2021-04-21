@@ -1,0 +1,350 @@
+.buy_shoppingBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.buy_checkoutBox {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+
+  overflow-y: scroll;
+}
+
+.buy_PictureNamePriceStockRow {
+  height: 10%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.buy_Picture {
+  height: 5.5rem;
+  width: 5.5rem;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.buy_NamePriceStock {
+  height: 90%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.buy_SelectionsBox {
+  height: 45%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  overflow-y: scroll;
+
+  position: relative;
+}
+.buy_TypesRow {
+  padding: 5px;
+  margin: 10px;
+  width: 85%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.buy_ColorsRow {
+  padding: 5px;
+  width: 85%;
+  margin: 10px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.buy_WrapQuantityTotal {
+  margin-top: 0rem;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  bottom: 0;
+}
+.buy_QuantityRow {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  width: 85%;
+  margin: 10px;
+
+  height: 7.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.buy_QuantityRow > p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.buy_PurchaseRow {
+  height: 7.5%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.buy_SelectionsTags {
+  background-color: white;
+  padding: 2px 12px 2px 12px;
+  border-radius: 5px;
+  margin: 0px 10px 7px 0px;
+  display: inline;
+  border: 2px solid lightgray;
+}
+.buy_SelectionsTags > p {
+  font-size: 14px;
+}
+
+.buy_NamePriceStock > p {
+  font-size: 14px;
+  color: rgb(88, 88, 88);
+}
+
+.buy_SelectionsWords > p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.buy_SelectionsWords {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 90vw;
+  margin: 10px;
+}
+
+.buy_main_wrapper {
+  margin-top: 1.3rem;
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  min-height: 93%;
+}
+
+.buy_order_summary_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 10rem;
+  width: 90%;
+}
+.buy_address_edit_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 17rem;
+  width: 90%;
+}
+.buy_shipping_rect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: 30px;
+  width: 90%;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightslategrey;
+}
+.buy_shipping_rect > p {
+  font-size: 13px;
+}
+.buy_shipping_rect_change {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 20px;
+  width: 90%;
+}
+.buy_card_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  height: 95px;
+}
+
+.buy_label {
+  color: #6b7c93;
+  font-weight: 300;
+  letter-spacing: 0.025em;
+  width: 100%;
+  height: 45px;
+}
+
+.buy_StripePayButton {
+  white-space: nowrap;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  height: 38px;
+  line-height: 40px;
+  padding: 0 14px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  background-color: #6772e5;
+  text-decoration: none;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+  margin-top: 10px;
+}
+
+.buy_StripePayButton:hover {
+  color: #fff;
+  cursor: pointer;
+  background-color: #7795f8;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.StripeElement {
+  min-width: 80%;
+  display: block;
+  margin: 10px 0 20px 0;
+  max-width: 500px;
+  padding: 10px 14px;
+  font-size: 1em;
+  font-family: "Source Code Pro", monospace;
+  box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
+    rgba(0, 0, 0, 0.0196078) 0px 1px 0px;
+  border: 0;
+  outline: 0;
+  border-radius: 4px;
+  background: white;
+}
+
+.StripeElement--focus {
+  box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px,
+    rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
+  -webkit-transition: all 150ms ease;
+  transition: all 150ms ease;
+}
+
+.StripeElement.PaymentRequestButton {
+  padding: 0;
+  height: 40px;
+}
+
+.buy_cancelButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.product_item_slider_icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  opacity: 100;
+}
+
+.product_item_picture {
+  height: 17rem;
+  width: 17rem !important;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* iphone 5 */
+@media only screen and (max-height: 580px) {
+  .buy_SelectionsBox {
+    height: 40%;
+  }
+  .buy_QuantityRow > p {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .buy_address_edit_wrapper {
+    min-height: 14rem;
+  }
+
+  .buy_order_summary_wrapper {
+    min-height: 6rem;
+  }
+
+  .buy_Picture {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
+}
+
+@media only screen and (min-height: 780px) {
+  .buy_QuantityRow > p {
+    font-size: 15px;
+  }
+
+  .buy_SelectionsWords > p {
+    font-size: 15px;
+  }
+
+  .buy_address_edit_wrapper {
+    min-height: 20rem;
+  }
+
+  .buy_order_summary_wrapper {
+    min-height: 12rem;
+  }
+
+  .buy_main_wrapper > p {
+    font-size: 16px;
+  }
+
+  .buy_address_edit_wrapper > p {
+    font-size: 16px;
+  }
+
+  .buy_shipping_rect > p {
+    font-size: 15px;
+  }
+
+  .buy_SelectionsTags {
+    padding: 3px 13px 3px 13px;
+    margin: 0px 11px 8px 0px;
+  }
+  .buy_SelectionsTags > p {
+    font-size: 14px;
+  }
+  .buy_NamePriceStock > p {
+    font-size: 15px;
+  }
+}

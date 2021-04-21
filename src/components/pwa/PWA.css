@@ -1,0 +1,107 @@
+#PWA_paper {
+  height: 47%;
+  min-height: 20rem;
+  width: 70%;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+#PWA_paper_purchase {
+  height: 43%;
+  min-height: 15rem;
+  width: 70%;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.PWA_words_group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+}
+
+#PWA_paper p {
+  text-align: center;
+  font-size: 13px;
+  color: gray;
+  width: 85%;
+}
+
+#PWA_paper h4 {
+  text-align: center;
+  font-family: butler bold, "Times New Roman", Times, serif, butler bold,
+    Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+}
+
+.PWA_share_icon {
+  height: 20px;
+  width: 20px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.PWA_dots_icon {
+  height: 20px;
+  width: 20px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.PWA_close_button_apple {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid lightgrey;
+  padding: 5px;
+  height: 1rem;
+  width: 90%;
+  padding: 10px;
+}
+
+.PWA_close_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid lightgrey;
+  padding: 15px;
+  height: 1rem;
+  width: 90%;
+  margin-top: -4px;
+}
+
+.PWA_Not_Safari_Buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  min-height: 5rem;
+  height: 5rem;
+}
+
+/* iphone5 */
+@media only screen and (max-height: 580px) {
+  .PWA_tap_instructions {
+    font-size: 12px;
+  }
+
+  #PWA_paper p {
+    font-size: 12px;
+  }
+
+  .PWA_words_group > p {
+    font-size: 12px;
+  }
+}

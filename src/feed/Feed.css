@@ -1,0 +1,129 @@
+html {
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+}
+
+.feed {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: #333333;
+  display: grid;
+  place-items: center;
+}
+
+.feed_videos {
+  position: relative;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow: scroll;
+  width: 100vw;
+  scroll-snap-type: y mandatory;
+}
+
+.ProfileFeed_bottom {
+  height: 2.5rem;
+  width: 100vw;
+  border-top: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1010;
+
+  position: absolute;
+  bottom: 0;
+  color: white;
+}
+
+.ProfileFeed_bottom > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProfileFeed_bottom_words {
+  font-weight: 600;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.feed_hide {
+  height: 100vh;
+  background-color: white;
+  display: grid;
+  place-items: center;
+
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+.feed_noVideoMessage {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feed_noVideoMessage > p {
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
+  text-align: center;
+  width: 80%;
+  color: white;
+}
+
+.feed_categories_selection {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feed_categories_selection_word_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  height: 1.6rem;
+  width: 5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.feed_categories_selection_word_icon > p {
+  font-size: 18px;
+  font-weight: 600;
+  text-overflow: clip;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media only screen and (min-width: 1100px) {
+  .feed {
+    height: 700px;
+    width: 415px;
+  }
+
+  .feed_videos {
+    height: 100%;
+  }
+
+  .ProfileFeed_bottom {
+    width: 415px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 330px;
+  }
+
+  .Feed_linear_progress {
+    width: 415px !important;
+  }
+}

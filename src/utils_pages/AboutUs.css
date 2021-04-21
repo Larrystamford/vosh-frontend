@@ -1,0 +1,149 @@
+.AboutUs_body {
+  position: relative;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: scroll;
+}
+
+.AboutUs_header {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  height: 6%;
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+}
+
+.AboutUs_body_wrapper {
+  height: 94%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.AboutUs_image {
+  height: 90%;
+  width: 60%;
+}
+
+.AboutUs_preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid lightslategrey;
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 70%;
+  height: 70%;
+  background-color: rgb(245, 245, 245);
+}
+.AboutUs_input_div {
+  width: 95%;
+}
+.AboutUs_input_div > textarea {
+  height: 100%;
+  border: none;
+  outline-width: 0;
+  margin-left: 10px;
+  width: 90%;
+  word-break: break-word;
+  outline: none;
+  font-size: 13px;
+  background-color: rgb(245, 245, 245);
+}
+
+.AboutUs_flex_column_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 59%;
+  width: 100%;
+}
+
+.AboutUs_done_div {
+  height: 6%;
+  position: relative;
+  width: 100%;
+}
+
+.AboutUs_done_div > p {
+  position: absolute;
+  right: 0;
+  width: 5rem;
+  font-weight: 500;
+}
+
+.AboutUs_flex_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+}
+
+.aboutUs_top_image_name {
+  height: 30%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.aboutUs_top_image {
+  height: 6rem;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aboutUs_top_name {
+  height: 15%;
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.aboutUs_top_name > p {
+  color: black;
+}
+
+.aboutUs_top_image_circular {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+
+  border: 2px solid white;
+
+  object-fit: cover;
+}
+
+.aboutUs_bottomDesc {
+  height: 75%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.aboutUs_bottomDesc > p {
+  width: 75%;
+  padding: 1rem;
+  color: black;
+}

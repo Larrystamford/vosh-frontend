@@ -1,0 +1,220 @@
+.comments_overall {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.comments_box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
+  margin-top: 3.6rem;
+
+  /* white-space: nowrap; */
+  overflow: scroll;
+
+  /* padding-bottom: 2rem; */
+}
+
+.comments_title {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 10rem;
+  align-items: center;
+  justify-content: space-between;
+  height: 39px;
+  padding-top: 1rem;
+
+  margin-right: 0.8rem;
+  top: 0;
+  z-index: 1000;
+}
+
+.comments_row {
+  width: 90%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.comments_picture {
+  width: 15%;
+}
+.comments_picture_image {
+  display: inline-block;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comments_NameCommentReplies {
+  width: 85%;
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+}
+
+.comments_name_and_rating {
+  display: flex;
+  flex-direction: row;
+}
+.comments_Name {
+  color: rgb(75, 75, 75);
+  font-size: 14px;
+}
+.review_item_name {
+  color: rgb(104, 104, 104);
+  font-size: 13px;
+}
+.comments_Rating {
+  color: rgb(75, 75, 75);
+  font-size: 14px;
+  margin-left: 1rem;
+}
+
+.comment_comment_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.comments_Comment {
+  width: 90%;
+  color: black;
+  margin: 4px;
+  font-size: 14px;
+  min-height: 1.6rem;
+}
+.comments_Replies {
+  color: rgb(119, 119, 119);
+  font-size: 15px;
+}
+
+.comment_like_and_number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* subComments */
+
+.subComments_row {
+  width: 97%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+}
+.subComments_picture {
+  width: 15%;
+}
+.subComments_picture_image {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.subComments_NameCommentRepliesWrapper {
+  width: inherit;
+  height: inherit;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.subComments_NameCommentReplies {
+  width: 90%;
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+}
+.subComments_Name {
+  color: rgb(75, 75, 75);
+  font-size: 13px;
+}
+.subComments_Comment {
+  color: black;
+  margin: 4px;
+  font-size: 13px;
+}
+
+.sub_comment_like_and_number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment_footer {
+  border-top: 1px solid lightgray;
+  height: 5rem;
+  z-index: 3001;
+  background-color: white;
+  width: 100%;
+}
+.comment_form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+.comment_footer > form > input {
+  flex: 1;
+  border-radius: 30px;
+  padding-left: 15px;
+  border: none;
+  width: 80vw;
+  outline-width: 0;
+  font-size: 15px;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+
+.comment_footer > form > input:focus {
+  outline: none !important;
+}
+
+.comment_footer > form > button {
+  border: none;
+  background-color: inherit;
+}
+.comment_footer > form > button > .MuiSvgIcon-root {
+  padding-right: 15px;
+  color: rgb(88, 148, 168);
+  width: 5vw;
+  padding-top: 14px;
+  padding-bottom: 12px;
+}
+
+.noSelect {
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  -o-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+.comment_cancelButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+button {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+  -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+  outline: none !important;
+}

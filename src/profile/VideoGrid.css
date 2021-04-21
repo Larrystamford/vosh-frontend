@@ -1,0 +1,48 @@
+/* for the images */
+.profile_bottom_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile_bottom_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
+
+.profile_bottom_grid_history {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+}
+
+.profile_bottom_grid_container {
+  padding: 1px;
+  text-align: center;
+  height: 200px;
+}
+
+.profile_bottom_grid_video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.profile_bottom_imageOrVideoIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  opacity: 100;
+}
+
+/* audio::-webkit-media-controls-timeline,
+video::-webkit-media-controls-timeline {
+  display: none;
+} */
+audio::-webkit-media-controls,
+video::-webkit-media-controls {
+  display: none;
+}

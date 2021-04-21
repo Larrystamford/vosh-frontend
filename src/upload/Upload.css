@@ -1,0 +1,178 @@
+.upload_image_preview_main {
+  width: 90px;
+  height: 9rem;
+
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.upload_body {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+}
+
+.upload_header {
+  display: flex;
+
+  align-items: center;
+  height: 20px;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid lightgray;
+  background-color: white;
+
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.upload_header > p {
+  font-weight: bold;
+  padding: 30px;
+}
+
+.upload_input_container {
+  display: flex;
+
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.upload_input_container > input {
+  border: none;
+  margin-left: 10px;
+  width: 75%;
+  font-size: 14px;
+  outline: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.upload_CaptionPreview {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-around;
+  height: 10rem;
+  border-bottom: 1px solid lightgray;
+
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.upload_Caption {
+  width: 60%;
+  height: 8rem;
+}
+.upload_Caption > textarea {
+  height: 100%;
+  border: none;
+  outline-width: 0;
+  margin-left: 10px;
+  width: 90%;
+  word-break: break-word;
+  outline: none;
+  font-size: 14px;
+}
+
+.upload_item_header {
+  position: relative;
+  padding-bottom: 20px;
+  width: 100%;
+}
+.upload_cancelIcon {
+  position: absolute;
+  right: 0px;
+  top: -4px;
+}
+
+.upload_CategoriesFormBody {
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.upload_CategoriesFormBodyWrapper {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.upload_addAnotherItem {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.upload_addAnotherItem > p {
+  font-size: 12px;
+  color: darkslategray;
+  width: 30%;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.upload_mainCategoriesBox {
+  margin: 10px;
+  width: 85%;
+
+  display: flex;
+
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.upload_mainCategoriesTag {
+  background-color: rgb(241, 241, 241);
+  padding: 2px 12px 2px 12px;
+  border-radius: 5px;
+  margin: 0px 10px 7px 0px;
+  display: inline;
+}
+.upload_mainCategoriesTag > p {
+  font-size: 14px;
+}
+
+.upload_addImageButton {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+}
+
+.upload_postItem {
+  -ms-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+@media only screen and (min-width: 1100px) {
+  .upload_body {
+    height: 700px;
+    width: 415px;
+  }
+}

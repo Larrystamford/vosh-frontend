@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.shoplocoloco.www.twa",
+      "sha256_cert_fingerprints": [
+        "43:3C:AE:34:6C:F5:CA:05:74:2A:99:49:89:CE:DA:99:5F:4C:14:AA:91:B4:BD:FB:86:06:9A:C2:67:F1:69:63",
+        "BD:83:D3:88:07:A5:98:C4:3E:EB:E5:84:84:BE:08:3C:4F:2E:35:AF:9D:97:60:F0:FE:B2:37:FA:E8:84:01:D4"
+      ]
+    }
+  }
+]

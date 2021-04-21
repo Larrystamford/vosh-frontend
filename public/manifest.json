@@ -1,0 +1,35 @@
+{
+  "short_name": "LocoLoco",
+  "name": "Shoplocoloco",
+  "icons": [
+    {
+      "src": "icon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "orientation": "portrait",
+  "screenshots": [
+    {
+      "src": "https://media2locoloco-us.s3.amazonaws.com/screenshot_landing.png",
+      "sizes": "1280x720",
+      "type": "image/jpg"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ff8b00",
+  "categories": ["shopping", "fun", "videos", "shop", "entertainment", "buy"],
+  "scope": "/"
+}
