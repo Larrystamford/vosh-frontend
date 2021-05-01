@@ -84,7 +84,7 @@ export const HistoryGrid = ({
             style={{
               position: "absolute",
               bottom: "3.4rem",
-              color: "#ff8b00",
+              color: "lightgrey",
             }}
           />
         ) : null}
@@ -115,7 +115,7 @@ export const HistoryGrid = ({
           style={{
             position: "absolute",
             bottom: "3.4rem",
-            color: "#ff8b00",
+            color: "lightgrey",
           }}
         />
       ) : null}

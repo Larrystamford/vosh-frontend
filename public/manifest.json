@@ -29,7 +29,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ff8b00",
+  "background_color": "#6620f5",
   "categories": ["shopping", "fun", "videos", "shop", "entertainment", "buy"],
   "scope": "/"
 }

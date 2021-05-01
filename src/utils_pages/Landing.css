@@ -11,7 +11,7 @@
   scroll-snap-stop: always;
 
   /* background-color: #ff8b00; */
-  background-color: #3c4c56;
+  background-color: var(--vosh-color-1);
 }
 
 .landing_body h4 {

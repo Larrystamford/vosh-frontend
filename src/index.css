@@ -25,6 +25,11 @@ textarea {
   -webkit-user-select: text;
 }
 
+:root {
+  --vosh-color-1: #6620f5;
+  --vosh-color-2: #5d9ee6;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -85,6 +90,6 @@ html {
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(70deg, white 60%, #3c4c56 60%);
+    background: linear-gradient(70deg, white 60%, var(--vosh-color-1) 60%);
   }
 }

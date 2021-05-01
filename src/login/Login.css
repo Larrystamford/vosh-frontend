@@ -48,13 +48,13 @@
   font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
   font-size: 40px;
-  color: #ff8b00;
+  color: var(--vosh-color-1);
 }
 .Form_WelcomeText {
   font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
   font-size: 20px;
-  color: #ff8b00;
+  color: var(--vosh-color-1);
 }
 
 .loginButtonWrapperLocal {

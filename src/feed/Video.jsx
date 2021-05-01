@@ -531,16 +531,16 @@ function Video({
                   bottom: "3.4rem",
                   opacity: 0.8,
                   width: "100%",
-                  backgroundColor: "#ff8b00",
-                  color: "#ff8b00",
+                  backgroundColor: "var(--vosh-color-1)",
+                  color: "var(--vosh-color-1)",
                 }
               : {
                   position: "absolute",
                   bottom: "2.4rem",
                   opacity: 0.8,
                   width: "100%",
-                  backgroundColor: "#ff8b00",
-                  color: "#ff8b00",
+                  backgroundColor: "var(--vosh-color-1)",
+                  color: "var(--vosh-color-1)",
                 }
           }
         />

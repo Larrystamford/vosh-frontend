@@ -133,7 +133,7 @@
   height: 24px;
   width: 24px;
   border-radius: 25px;
-  background-color: #ff8b00;
+  background-color: var(--vosh-color-1);
   border: 1px solid white;
   display: flex;
   align-items: center;

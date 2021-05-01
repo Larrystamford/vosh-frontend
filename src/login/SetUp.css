@@ -36,7 +36,7 @@
   padding-bottom: 30px;
   font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
-  color: #ff8b00;
+  color: var(--vosh-color-1);
 }
 
 .SlidingSetUpBody {

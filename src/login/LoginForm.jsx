@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = (props) => {
   const responseGoogle = async (res) => {
-    await props.oauthGoogle(res.accessToken);
+    await props.oauthGoogle(res.tokenId);
   };
 
   let googleClient, redirect_uri;
@@ -316,7 +316,7 @@ const LoginForm = (props) => {
       <div className="formMain">
         <div className="Form_WelcomeMessageWrapper">
           <p className="Form_WelcomeText">Welcome to</p>
-          <p className="Form_WelcomeWord">SHOPLOCOLOCO</p>
+          <p className="Form_WelcomeWord">VOSH</p>
           <p className="Form_WelcomeText">Shopping meets Entertainment</p>
           <img
             src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
@@ -358,7 +358,7 @@ const LoginForm = (props) => {
       <div className="formMain">
         <div className="Form_WelcomeMessageWrapper">
           <p className="Form_WelcomeText">Welcome to</p>
-          <p className="Form_WelcomeWord">SHOPLOCOLOCO</p>
+          <p className="Form_WelcomeWord">VOSH</p>
           <p className="Form_WelcomeText">Shopping meets Entertainment</p>
 
           <img
@@ -371,7 +371,6 @@ const LoginForm = (props) => {
         <div className="loginButtonWrapper">
           <GoogleLogin
             clientId={googleClient}
-            autoLoad={false}
             buttonText="Continue With Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}

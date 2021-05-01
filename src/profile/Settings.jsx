@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ContactSupportIcon from "@material-ui/icons/ContactSupport";
 import InfoIcon from "@material-ui/icons/Info";
+import VerifiedUserOutlinedIcon from '@material-ui/icons/VerifiedUserOutlined';
 
 import { useHistory } from "react-router";
 
@@ -60,6 +61,21 @@ export const Settings = ({ openSettings, toggleDrawer }) => {
           </ListItemIcon>
           <ListItemText primary={"about us"} />
         </ListItem>
+
+        <ListItem
+        button
+        key={"verified"}
+        onClick={() =>
+          history.push({
+            pathname: "/verified",
+          })
+        }
+      >
+        <ListItemIcon>
+          <VerifiedUserOutlinedIcon />
+        </ListItemIcon>
+        <ListItemText primary={"verified"} />
+      </ListItem>
 
         <ListItem
           button

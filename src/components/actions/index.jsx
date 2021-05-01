@@ -11,9 +11,11 @@ import { Exception } from "../../components/tracking/Tracker";
 
 export const oauthGoogle = (data) => {
   return async (dispatch) => {
-    const res = await axios.post("/v1/users/oauth/google", {
+    const res = await axios.post("/v1/users/googleOAuth", {
       access_token: data,
     });
+
+    console.log(res, "Hellosoo")
 
     localStorage.setItem("USER_ID", res.data.userId);
     localStorage.setItem("USER_NAME", res.data.userName);

@@ -21,6 +21,7 @@ import ConditionalRoute from "./ConditionalRoute";
 
 import Login from "./login/Login";
 import { Logout } from "./login/Logout";
+import { Verified } from "./verified/Verified";
 import { Feed } from "./feed/Feed";
 import { Discover } from "./discover/Discover";
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
@@ -115,6 +116,7 @@ function App() {
           exact
           component={BottomNavigationBar}
         />
+
         <Route
           path={[
             "/",
@@ -129,6 +131,7 @@ function App() {
           exact
           component={Feed}
         />
+
         <Route path="/" component={InstallPWA} />
 
         <Switch>
@@ -142,6 +145,7 @@ function App() {
           <Route path="/room/:id" component={Room} />
           <Route path="/review" component={Review} />
           <Route path="/about-us" component={AboutUs} />
+          <Route path="/getVerified" component={Verified} />
           <Route path="/logout" exact component={Logout} />
 
           <Route component={PageNoExist} />
