@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import Video from "./Video";
 import "./Feed.css";
 import axios from "../axios";
-import { SlidingSetUp } from "../login/SlidingSetUp";
+import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 import { useWindowSize } from "../customHooks/useWindowSize";
+import { LinearProgress } from "@material-ui/core";
 
 import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
 
-import ColoredLinearProgress from "../utils/ColoredLinearProgress";
 import { CategoriesSelection } from "./CategoriesSelection";
 import { Landing } from "../utils_pages/Landing";
 import { BottomNavigationBar } from "../components/BottomNavigationBar";
@@ -112,14 +112,14 @@ export const Feed = (props) => {
     });
     const feeds = response.data;
 
-    const combineFeedVideos = []
+    const combineFeedVideos = [];
     for (const feedData of feeds) {
       if (feedData && feedData.id != 0) {
         let feedDataVideos = feedData.videos;
         feedDataVideos = feedDataVideos.map((eachVideo) => {
           return { ...eachVideo, ...{ feedId: feedData.id } };
         });
-        combineFeedVideos.push(...feedDataVideos)
+        combineFeedVideos.push(...feedDataVideos);
 
         watchRef.current.watchedFeedId = feedData.id;
         watchRef.current.currentVideosCount += feedDataVideos.length;
@@ -153,15 +153,15 @@ export const Feed = (props) => {
     );
     const feeds = response.data;
 
-    const combineCatVideos = []
+    const combineCatVideos = [];
     for (const feedData of feeds) {
       if (feedData && feedData.id != 0) {
         let feedDataVideos = feedData.videos;
         feedDataVideos = feedDataVideos.map((eachVideo) => {
           return { ...eachVideo, ...{ feedId: feedData.id } };
         });
-        combineCatVideos.push(...feedDataVideos)
-        
+        combineCatVideos.push(...feedDataVideos);
+
         watchRef.current.watchedFeedId = feedData.id;
         watchRef.current.currentVideosCount += feedDataVideos.length;
       } else {
@@ -182,7 +182,7 @@ export const Feed = (props) => {
 
   // initial load main feed
   useEffect(() => {
-    if (localStorage.getItem("refreshed") != "true") {  
+    if (localStorage.getItem("refreshed") != "true") {
       setWelcomeScreen(true);
       setTimeout(() => setShowStartButton(true), 1600);
     }
@@ -238,7 +238,7 @@ export const Feed = (props) => {
 
   return (
     <div className={displayFeed ? "feed" : "feed_hide"}>
-      <SlidingSetUp
+      <StaySlidingSetUp
         open={checked}
         handleClose={handleSetUpClose}
         fromPath="feed"
@@ -254,7 +254,8 @@ export const Feed = (props) => {
           />
         ) : null}
         {isLoadingVideos ? (
-          <ColoredLinearProgress
+          <LinearProgress
+            color="secondary"
             className="Feed_linear_progress"
             style={
               size.height / size.width > 2
@@ -263,16 +264,12 @@ export const Feed = (props) => {
                     bottom: "3.4rem",
                     opacity: 0.8,
                     width: "100%",
-                    backgroundColor: "var(--vosh-color-1)",
-                    color: "var(--vosh-color-1)",
                   }
                 : {
                     position: "absolute",
                     bottom: "2.4rem",
                     opacity: 0.8,
                     width: "100%",
-                    backgroundColor: "var(--vosh-color-1)",
-                    color: "var(--vosh-color-1)",
                   }
             }
           />

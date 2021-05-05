@@ -102,6 +102,15 @@
   transform: translate(-50%, -50%);
 }
 
+.verified_next {
+  font-size: 18px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  color: #3e4fae;
+  font-weight: bold;
+}
+
 /* iphone5 */
 @media only screen and (max-height: 580px) {
   .verified_WelcomeWord {
@@ -112,5 +121,14 @@
   }
   .verified_ManualWelcomeMessageWrapper > img {
     display: none;
+  }
+
+  .verified_next {
+    font-size: 16px;
+    position: absolute;
+    bottom: 13px;
+    right: 13px;
+    color: #3e4fae;
+    font-weight: bold;
   }
 }

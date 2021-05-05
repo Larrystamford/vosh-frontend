@@ -46,3 +46,9 @@ audio::-webkit-media-controls,
 video::-webkit-media-controls {
   display: none;
 }
+
+@media only screen and (max-height: 580px) {
+  .profile_bottom_grid_container {
+    height: 150px;
+  }
+}

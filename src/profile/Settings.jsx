@@ -67,7 +67,7 @@ export const Settings = ({ openSettings, toggleDrawer }) => {
         key={"verified"}
         onClick={() =>
           history.push({
-            pathname: "/verified",
+            pathname: "/getVerified",
           })
         }
       >

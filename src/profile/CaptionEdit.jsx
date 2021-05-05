@@ -17,21 +17,26 @@ export const CaptionEdit = ({
   const [caption, setCaption] = useState("");
 
   const handleSaveCaption = async () => {
-    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-      profileBio: caption,
-    });
-    setProfileBio(caption);
-    setOpenCaption(false);
+    if (caption.length > 75) {
+      alert("Maximum 75 Characters");
+    } else {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        profileBio: caption,
+      });
+      setProfileBio(caption);
+      setOpenCaption(false);
+    }
   };
 
   return (
     <Dialog open={openCaption} onClose={handleCaptionClose}>
       <DialogContent>
-        <DialogContentText>Describe yourself</DialogContentText>
+        <DialogContentText>
+          Your Profile Bio ({caption.length} chars)
+        </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
-          label="bio"
           type="text"
           fullWidth
           value={caption}

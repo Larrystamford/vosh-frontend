@@ -3,6 +3,8 @@ import "./Profile.css";
 import { useGlobalState } from "../GlobalStates";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
+import { useHistory } from "react-router";
+
 import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
 
 import { VideoGrid } from "./VideoGrid";
@@ -13,7 +15,7 @@ import { CaptionEdit } from "./CaptionEdit";
 import { Purchases } from "./Purchases";
 import { Sell } from "./Sell";
 import { Settings } from "./Settings";
-import { SlidingSetUp } from "../login/SlidingSetUp";
+import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import { ProfileFeed } from "../feed/ProfileFeed";
 
@@ -39,13 +41,14 @@ import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import ReactPixel from "react-facebook-pixel";
 
 export const PersonalProfile = (props) => {
+  const history = useHistory();
+
   const [scrolledBottomCount, setScrolledBottomCount] = useState(0);
   const scrollRef = useBottomScrollListener(() => {
     setScrolledBottomCount(scrolledBottomCount + 1);
   });
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [loggedInUserId, setLoggedInUserId] = useGlobalState("loggedInUserId");
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
   );
@@ -185,8 +188,6 @@ export const PersonalProfile = (props) => {
             console.log(err + "failed to get user address on app load");
           });
 
-        setLoggedInUserId(res.data.userId);
-
         axios.get("/v1/users/get/" + res.data.userId).then((response) => {
           let data = response.data[0];
 
@@ -212,11 +213,16 @@ export const PersonalProfile = (props) => {
     })();
 
     // INFO OF LOGGED IN USER
-
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
       axios.get("/v1/users/get/" + userId).then((response) => {
         let data = response.data[0];
+
+        if (data.accountType == "pro") {
+          history.push({
+            pathname: "/ProProfile",
+          });
+        }
         let likedVideosRemoveRepeats = data.likedVideos;
         likedVideosRemoveRepeats = [...new Set(likedVideosRemoveRepeats)];
 
@@ -563,7 +569,6 @@ export const PersonalProfile = (props) => {
               <p style={historyView ? {} : { color: "grey" }}>history</p>
             </div>
 
-        
             {sales.length > 0 ? (
               <div className="profile_icon_and_name">
                 <CreateOutlinedIcon
@@ -596,7 +601,7 @@ export const PersonalProfile = (props) => {
           ) : null}
           {historyView ? (
             <HistoryGrid
-              userId={loggedInUserId}
+              userId={localStorage.getItem("USER_ID")}
               seenVideos={seenVideos}
               setSeenVideos={setSeenVideos}
               handleChangeView={handleChangeView}
@@ -617,7 +622,7 @@ export const PersonalProfile = (props) => {
       </div>
       <Settings openSettings={openSettings} toggleDrawer={toggleDrawer} />
       {isLoggedIn ? null : (
-        <SlidingSetUp open={checked} handleClose={handleSetUpClose} />
+        <StaySlidingSetUp open={checked} handleClose={handleSetUpClose} />
       )}
       {"Notification" in window &&
         "serviceWorker" in navigator &&

@@ -70,7 +70,7 @@
 }
 
 .personal_profile_top_header {
-  height: 10%;
+  height: 2.5rem;
   width: 100%;
   border-bottom: 1px solid lightgray;
   display: flex;
@@ -133,12 +133,13 @@
   height: 24px;
   width: 24px;
   border-radius: 25px;
-  background-color: var(--vosh-color-1);
+  background-color: var(--vosh-color-2);
   border: 1px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .personal_profile_edit_image_caption {
   color: black;
 }
@@ -269,4 +270,16 @@
   align-items: center;
   font-weight: bold;
   font-size: 14px;
+}
+
+/* iphone5 */
+@media only screen and (max-height: 580px) {
+  .profile_top_image_circular {
+    width: 70px;
+    height: 70px;
+  }
+
+  .personal_profile_top {
+    height: 25rem;
+  }
 }

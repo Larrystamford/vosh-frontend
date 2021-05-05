@@ -15,7 +15,7 @@ import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import Button from "@material-ui/core/Button";
 
-import { SlidingSetUp } from "../login/SlidingSetUp";
+import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 // import captureVideoFrame from "capture-video-frame";
 
 export const Upload = (props) => {
@@ -706,7 +706,7 @@ export const Upload = (props) => {
       >
         <p style={{ fontWeight: "bold" }}>POST</p>
       </Button>
-      <SlidingSetUp open={checked} handleClose={handleSetUpClose} />
+      <StaySlidingSetUp open={checked} handleClose={handleSetUpClose} />
     </div>
   );
 };

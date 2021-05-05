@@ -9,7 +9,7 @@ import { ReviewRow } from "./ReviewRow";
 
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 
-import { SlidingSetUp } from "../login/SlidingSetUp";
+import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import axios from "../axios";
 
@@ -400,7 +400,7 @@ export const Comments = (props) => {
           onClick={() => props.handleClose()}
         />
       </Dialog>
-      <SlidingSetUp open={checked} handleClose={handleSetUpClose} />
+      <StaySlidingSetUp open={checked} handleClose={handleSetUpClose} />
     </div>
   );
 };

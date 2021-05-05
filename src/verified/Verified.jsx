@@ -3,6 +3,8 @@ import "./Verified.css";
 
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import axios from "../axios";
+import { useHistory } from "react-router";
+import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import clsx from "clsx";
 import Button from "@material-ui/core/Button";
@@ -19,6 +21,8 @@ import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ForwardOutlinedIcon from "@material-ui/icons/ForwardOutlined";
+
+import { useWindowSize } from "../customHooks/useWindowSize";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Verified = () => {
+  const size = useWindowSize();
+  const history = useHistory();
   const classes = useStyles();
 
   const restrictedNames = [
@@ -59,17 +65,20 @@ export const Verified = () => {
     "search",
     "vosh",
     "getVerified",
+    "editProProfile",
   ];
 
   const [values, setValues] = useState({
     username: "",
-    tiktokUsername: "",
-    instagramUsername: "",
-    youtubeUsername: "",
+    tiktokUserName: "",
+    instagramUserName: "",
+    youtubeUserName: "",
   });
 
   const [usernameMessage, setUsernameMessage] = useState("");
   const [usernameMessageColor, setUsernameMessageColor] = useState("");
+
+  const [requestLogin, setRequestLogin] = useState(true);
 
   useDidMountEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
@@ -105,22 +114,33 @@ export const Verified = () => {
       }
     }
 
-    const res = await axios.get("/v1/users/userNameTaken/" + values.username);
+    if (values.username == localStorage.getItem("USER_NAME")) {
+      return true;
+    }
 
+    const res = await axios.get("/v1/users/userNameTaken/" + values.username);
     return !res.data.userNameTaken;
   };
 
   const onSubmitUserName = async () => {
     const validUserName = await checkUserName();
     if (validUserName) {
-      const res = await axios.put("/v1/users/setNewUserName", {
-        userId: localStorage.getItem("USER_ID"),
-        newUserName: values.username,
-      });
+      const res = await axios.put(
+        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        {
+          userName: values.username,
+          accountType: "pro",
+          tiktokUserName: values.tiktokUserName,
+          instagramUserName: values.instagramUserName,
+          youtubeUserName: values.youtubeUserName,
+        }
+      );
 
       if (res.status == "201") {
-        localStorage.setItem("USER_NAME", res.data);
-        // go to next page
+        localStorage.setItem("USER_NAME", res.data[0].userName);
+        history.push({
+          pathname: "/profile",
+        });
       } else {
         alert("username is invalid");
       }
@@ -150,6 +170,7 @@ export const Verified = () => {
         <p className="verified_Header2Text">vosh.club/{values.username}</p>
 
         <TextField
+          size={size.height < 580 ? "small" : null}
           label="Claim Your Username"
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
@@ -178,12 +199,13 @@ export const Verified = () => {
             style={{ height: 25 }}
           />
           <TextField
+            size={size.height < 580 ? "small" : null}
             label="Your TikTok Username"
             id="outlined-start-adornment"
             className={clsx(classes.margin, classes.textField)}
             variant="outlined"
-            value={values.tiktokUsername}
-            onChange={handleChange("tiktokUsername")}
+            value={values.tiktokUserName}
+            onChange={handleChange("tiktokUserName")}
             onKeyDown={handleKeyDown}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
@@ -201,12 +223,13 @@ export const Verified = () => {
             style={{ height: 25 }}
           />
           <TextField
+            size={size.height < 580 ? "small" : null}
             label="Your Instagram Username"
             id="outlined-start-adornment"
             className={clsx(classes.margin, classes.textField)}
             variant="outlined"
-            value={values.instagramUsername}
-            onChange={handleChange("instagramUsername")}
+            value={values.instagramUserName}
+            onChange={handleChange("instagramUserName")}
             onKeyDown={handleKeyDown}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
@@ -224,12 +247,13 @@ export const Verified = () => {
             style={{ height: 25 }}
           />
           <TextField
+            size={size.height < 580 ? "small" : null}
             label="Your Youtube Username"
             id="outlined-start-adornment"
             className={clsx(classes.margin, classes.textField)}
             variant="outlined"
-            value={values.youtubeUsername}
-            onChange={handleChange("youtubeUsername")}
+            value={values.youtubeUserName}
+            onChange={handleChange("youtubeUserName")}
             onKeyDown={handleKeyDown}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
@@ -244,20 +268,17 @@ export const Verified = () => {
       </div>
 
       {focused ? null : (
-        <p
-          style={{
-            fontSize: "18px",
-            position: "absolute",
-            bottom: "30px",
-            right: "30px",
-            color: "#3e4fae",
-            fontWeight: "bold",
-          }}
-          onClick={() => onSubmitUserName()}
-        >
+        <p className="verified_next" onClick={() => onSubmitUserName()}>
           Next
         </p>
       )}
+
+      <StaySlidingSetUp
+        open={requestLogin && !localStorage.getItem("USER_ID")}
+        handleClose={() => {
+          setRequestLogin(false);
+        }}
+      />
     </div>
   );
 };

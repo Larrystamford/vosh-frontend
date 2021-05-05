@@ -1,0 +1,473 @@
+/* for editing */
+.EditProProfile {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+
+.edit_pro_profile_top {
+  height: 28rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit_pro_profile_top_header {
+  height: 7%;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.edit_pro_profile_top_image_name {
+  height: 40%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.edit_pro_profile_top_image {
+  height: 80%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit_pro_profile_edit_image {
+  color: white;
+}
+
+.edit_pro_profile_edit_image_circle {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  height: 20px;
+  width: 20px;
+  border-radius: 25px;
+  background-color: var(--vosh-color-2);
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit_pro_profile_edit_image_caption {
+  color: white;
+}
+.edit_pro_profile_edit_image_circle_caption {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  height: 15px;
+  width: 15px;
+  border-radius: 25px;
+  background-color: var(--vosh-color-2);
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit_pro_profile_top_name {
+  height: 10%;
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.edit_pro_profile_top_statistics {
+  height: 15%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit_pro_profile_bottom {
+}
+
+.edit_pro_profile_followers_flex_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.edit_pro_profile_followers_flex_box > p {
+  font-size: 12px;
+}
+
+.edit_pro_profile_top_edit_button {
+  height: 1.5rem;
+  width: 4rem;
+  border-radius: 3px;
+  border: 1px solid lightgrey;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit_pro_profile_top_edit_button > p {
+  font-size: 14px;
+}
+
+/* for viewing */
+
+.pro_profile_top {
+  height: 20rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-top;
+  justify-content: space-between;
+}
+
+.pro_profile_top_social_medias {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 93%;
+}
+
+.pro_profile_top_header {
+  height: 1.1rem;
+}
+
+.pro_profile_top_header > div {
+  width: 93%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ProProfile {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+
+  width: 100vw;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
+
+  z-index: 4000;
+}
+
+.pro_profile_feed {
+  z-index: 2000;
+}
+
+.pro_profile_wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.pro_profile_top_image_name {
+  height: 8rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pro_profile_top_image {
+  height: 67%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_top_name {
+  height: 15%;
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.pro_profile_top_name > p {
+  font-size: 14px;
+}
+
+.pro_profile_top_left {
+  width: 30%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.pro_profile_top_right {
+  width: 70%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.pro_profile_top_image_circular {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.pro_profile_top_statistics {
+  height: 10%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_top_statistics_details {
+  width: 25%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_top_follow {
+  height: 3rem;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_top_description {
+  height: 3rem;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_top_profileBio {
+  width: 90%;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pro_profile_top_profileBio > span {
+  font-size: 14px;
+}
+
+.pro_profile_top_selector {
+  height: 3.1rem;
+  width: 100%;
+  border-top: 2px solid lightgray;
+  border-bottom: 1px solid lightgray;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: scroll;
+}
+
+.pro_profile_top_linker {
+  height: 11.5rem;
+  width: 90%;
+  border: 2px solid lightgrey;
+  border-radius: 6px;
+  margin: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  overflow-y: scroll;
+}
+
+.pro_profile_top_link_div {
+  min-height: 2.2rem;
+  width: 97%;
+  background-color: var(--vosh-color-7);
+  margin-top: 5px;
+
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.pro_profile_top_link_div > p {
+  margin: 5px;
+  color: white;
+  font-size: 15px;
+}
+
+.pro_profile_top_follow_button {
+  height: 2rem;
+  width: 5.5rem;
+  border-radius: 3px;
+  background-color: var(--follow_button_color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_top_following_button {
+  height: 2rem;
+  width: 5.5rem;
+  border-radius: 3px;
+  background-color: var(--following_button_color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro_profile_icon_and_name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 4rem;
+}
+
+.pro_profile_icon_and_name > p {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.pro_profile_bottom {
+}
+
+.pro_profile_arrow_and_desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.pro_profile_bottom_snackbar_temp {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3.5rem;
+  width: 85%;
+  z-index: 10000;
+}
+
+@media only screen and (min-width: 1100px) {
+  .EditProProfile {
+    height: 700px;
+    width: 415px;
+  }
+
+  .ProProfile {
+    height: 700px;
+    width: 415px;
+  }
+}
+
+/* iphone5 */
+@media only screen and (max-height: 580px) {
+  .pro_profile_top_profileBio {
+    font-size: 13px;
+  }
+
+  .pro_profile_top_profileBio > span {
+    font-size: 13px;
+  }
+
+  .pro_profile_top_link_div > p {
+    font-size: 13px;
+  }
+  .pro_profile_icon_and_name > p {
+    font-size: 8px;
+  }
+
+  .pro_profile_top_name > p {
+    font-size: 13px;
+  }
+
+  .pro_profile_top_following_button {
+    height: 1.6rem;
+    width: 4.5rem;
+    font-size: 13px;
+  }
+
+  .pro_profile_top_follow_button {
+    height: 1.6rem;
+    width: 4.5rem;
+    font-size: 13px;
+  }
+
+  .pro_profile_top {
+    height: 17rem;
+    width: 100%;
+  }
+
+  .pro_profile_top_selector {
+    height: 2.5rem;
+  }
+
+  .pro_profile_top_link_div {
+    min-height: 1.7rem;
+  }
+
+  .pro_profile_top_linker {
+    height: 8.5rem;
+    width: 90%;
+    border: 2px solid lightgrey;
+    border-radius: 6px;
+    margin: 1rem;
+    margin-top: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    overflow-y: scroll;
+  }
+}

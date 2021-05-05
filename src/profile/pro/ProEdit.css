@@ -1,0 +1,120 @@
+.SlidingEdit_Body {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  background-color: white;
+}
+
+.SlidingEdit_Header {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  height: 2.6rem;
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+  background-color: white;
+}
+
+.SlidingEdit_Pannels_Wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.SlidingEdit_Pannel {
+  margin-top: 1rem;
+  width: 91%;
+  height: 2.4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.SlidingEdit_TypeAndIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.SlidingEdit_TypeAndIcon > p {
+  font-size: 14px;
+}
+
+.SlidingEdit_TypeLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+}
+
+.SlidingEdit_TypeLeft {
+  font-size: 14px;
+}
+
+.Draggable_Item {
+  width: 80vw;
+  border: 1px solid grey;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background: linear-gradient(
+    to right,
+    rgb(162, 162, 162) 0%,
+    rgb(162, 162, 162) 6%,
+    white 6%,
+    white 100%
+  );
+}
+
+.Draggable_Link_Item_Content {
+  max-width: 6rem;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
+}
+
+.Draggable_Icon_Wrap {
+  position: absolute;
+  left: 0;
+  margin-left: 1.1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SlidingEdit_AddNewLink {
+  width: 80vw;
+  margin: 1rem;
+  padding: 0rem 1rem 0rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid var(--vosh-color-8);
+  background-color: var(--vosh-color-8);
+}
+
+.SlidingEdit_AddNewLinkDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SlidingEdit_AddNewLinkDetails > span {
+  font-size: 14px;
+}

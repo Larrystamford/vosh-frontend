@@ -26,8 +26,21 @@ textarea {
 }
 
 :root {
-  --vosh-color-1: #6620f5;
-  --vosh-color-2: #5d9ee6;
+  --vosh-color-1: black;
+  --vosh-color-2: #545454;
+  --vosh-color-3: white;
+  --vosh-color-4: #f0f0f0;
+  --vosh-color-5: #3c4c56;
+  --vosh-color-6: #949ba5;
+  --vosh-color-7: #ac8d83;
+  --vosh-color-8: #c9b89c;
+}
+
+p,
+span,
+div {
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
 }
 
 body {

@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import Ticker from "react-ticker";
 
 import { Buy } from "./Buy";
-import { SlidingSetUp } from "../login/SlidingSetUp";
+import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import VideocamIcon from "@material-ui/icons/Videocam";
@@ -131,7 +131,7 @@ function VideoFooter({
         </Ticker>
       </div>
 
-      <SlidingSetUp open={checked} handleClose={handleSetUpClose} />
+      <StaySlidingSetUp open={checked} handleClose={handleSetUpClose} />
     </div>
   );
 }

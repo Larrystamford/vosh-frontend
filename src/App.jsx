@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,6 +21,9 @@ import ConditionalRoute from "./ConditionalRoute";
 
 import Login from "./login/Login";
 import { Logout } from "./login/Logout";
+import { ProProfile } from "./profile/pro/ProProfile";
+import { EditProProfile } from "./profile/pro/EditProProfile";
+import { ProEdit } from "./profile/pro/ProEdit";
 import { Verified } from "./verified/Verified";
 import { Feed } from "./feed/Feed";
 import { Discover } from "./discover/Discover";
@@ -50,6 +53,10 @@ axios.defaults.headers.common["Authorization"] = jwtToken;
 function App() {
   const size = useWindowSize();
   document.documentElement.style.setProperty("--vh", `${size.height * 0.01}px`);
+
+  const appRef = useRef({
+    userProfileName: "/",
+  });
 
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
   useEffect(() => {
@@ -83,6 +90,8 @@ function App() {
   if (size.width > 1100 && window.location.pathname != "/privacy-policy") {
     return <ComputerLanding />;
   }
+
+  console.log(appRef.current.userProfileName);
 
   return (
     <Provider
@@ -146,9 +155,13 @@ function App() {
           <Route path="/review" component={Review} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/getVerified" component={Verified} />
+          <Route path="/ProProfile" component={EditProProfile} />
+          <Route path="/ProEdit" component={ProEdit} />
           <Route path="/logout" exact component={Logout} />
+          <Route path="/404" exact component={PageNoExist} />
+          <Route path="/" exact />
 
-          <Route component={PageNoExist} />
+          <Route component={ProProfile} />
         </Switch>
       </Router>
     </Provider>

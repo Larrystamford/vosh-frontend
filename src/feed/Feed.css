@@ -96,7 +96,7 @@ html {
 }
 
 .feed_categories_selection_word_icon > p {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   text-overflow: clip;
   /* Required for text-overflow to do anything */
