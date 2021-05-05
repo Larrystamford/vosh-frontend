@@ -6,6 +6,8 @@ import axios from "../axios";
 import { useHistory } from "react-router";
 import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
+import { convertUsernameToSocialLink } from "../helpers/CommonFunctions";
+
 import clsx from "clsx";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -72,7 +74,7 @@ export const Verified = () => {
     username: "",
     tiktokUserName: "",
     instagramUserName: "",
-    youtubeUserName: "",
+    pinterestUsername: "",
   });
 
   const [usernameMessage, setUsernameMessage] = useState("");
@@ -125,14 +127,54 @@ export const Verified = () => {
   const onSubmitUserName = async () => {
     const validUserName = await checkUserName();
     if (validUserName) {
+      const socialAccounts = [];
+      let socialLink;
+      if (values.tiktokUserName != "") {
+        socialLink = convertUsernameToSocialLink(
+          "TikTok",
+          values.tiktokUserName
+        );
+
+        socialAccounts.push({
+          id: socialLink,
+          socialLink: socialLink,
+          userIdentifier: values.tiktokUserName,
+          socialType: "TikTok",
+        });
+      }
+      if (values.instagramUserName != "") {
+        socialLink = convertUsernameToSocialLink(
+          "Instagram",
+          values.instagramUserName
+        );
+
+        socialAccounts.push({
+          id: socialLink,
+          socialLink: socialLink,
+          userIdentifier: values.instagramUserName,
+          socialType: "Instagram",
+        });
+      }
+      if (values.pinterestUsername != "") {
+        socialLink = convertUsernameToSocialLink(
+          "Pinterest",
+          values.pinterestUsername
+        );
+
+        socialAccounts.push({
+          id: socialLink,
+          socialLink: socialLink,
+          userIdentifier: values.pinterestUsername,
+          socialType: "Pinterest",
+        });
+      }
+
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),
         {
           userName: values.username,
           accountType: "pro",
-          tiktokUserName: values.tiktokUserName,
-          instagramUserName: values.instagramUserName,
-          youtubeUserName: values.youtubeUserName,
+          socialAccounts: socialAccounts,
         }
       );
 
@@ -243,17 +285,17 @@ export const Verified = () => {
         </div>
         <div className="socialLogoTextFlex">
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/youtube.png"
+            src="https://media2locoloco-us.s3.amazonaws.com/pinterest.png"
             style={{ height: 25 }}
           />
           <TextField
             size={size.height < 580 ? "small" : null}
-            label="Your Youtube Username"
+            label="Your Pinterest Username"
             id="outlined-start-adornment"
             className={clsx(classes.margin, classes.textField)}
             variant="outlined"
-            value={values.youtubeUserName}
-            onChange={handleChange("youtubeUserName")}
+            value={values.pinterestUsername}
+            onChange={handleChange("pinterestUsername")}
             onKeyDown={handleKeyDown}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}

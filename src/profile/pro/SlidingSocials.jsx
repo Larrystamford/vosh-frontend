@@ -22,19 +22,6 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 
-import axios from "../../axios";
-
-const initial = Array.from({ length: 3 }, (v, k) => k).map((k) => {
-  const custom = {
-    id: `${k}`,
-    socialLink: "youtbe.com",
-    userIdentifier: "larrystamford",
-    socialType: "Youtube",
-  };
-
-  return custom;
-});
-
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
@@ -145,7 +132,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
+export const SlidingSocials = ({
+  openSocials,
+  handleSocialsClose,
+  linksState,
+  setlinksState,
+}) => {
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -156,7 +148,6 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
     setOpenLinkEdit(false);
   };
 
-  const [linkState, setlinkState] = useState({ items: initial });
   const [openCancel, setOpenCancel] = useState(false);
   const [inputValues, setInputValues] = useState({
     userIdentifier: "",
@@ -171,9 +162,9 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
     setDeleteItem(item);
   };
   const handleDeleteItem = (index) => {
-    let currentItems = [...linkState["items"]];
+    let currentItems = [...linksState["items"]];
     currentItems.splice(index, 1);
-    setlinkState({ items: currentItems });
+    setlinksState({ items: currentItems });
   };
 
   function onDragEnd(result) {
@@ -186,12 +177,12 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
     }
 
     const items = reorder(
-      linkState.items,
+      linksState.items,
       result.source.index,
       result.destination.index
     );
 
-    setlinkState({ items });
+    setlinksState({ items });
   }
 
   return (
@@ -206,7 +197,7 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
       <div className="SlidingEdit_Body">
         <div className="SlidingEdit_Header">
           <ArrowBackIosOutlinedIcon
-            onClick={handleSocialsClose}
+            onClick={() => handleSocialsClose(linksState.items)}
             style={{ paddingLeft: 14 }}
           />
           <span
@@ -227,7 +218,7 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <DraggableList
-                  items={linkState.items}
+                  items={linksState.items}
                   setOpenCancel={setOpenCancel}
                   handleSelectDeleteItem={handleSelectDeleteItem}
                   setInputValues={setInputValues}
@@ -248,10 +239,7 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
           }}
         >
           <div className="SlidingEdit_AddNewLinkDetails">
-            <AddOutlinedIcon
-              onClick={handleSocialsClose}
-              style={{ margin: 5 }}
-            />
+            <AddOutlinedIcon style={{ margin: 5 }} />
             <span>Add new social link</span>
           </div>
         </div>
@@ -270,8 +258,8 @@ export const SlidingSocials = ({ openSocials, handleSocialsClose }) => {
         openLinkEdit={openLinkEdit}
         setOpenLinkEdit={setOpenLinkEdit}
         handleLinkEditClose={handleLinkEditClose}
-        linkState={linkState}
-        setlinkState={setlinkState}
+        linksState={linksState}
+        setlinksState={setlinksState}
         editingIndex={editingIndex}
       />
     </Dialog>

@@ -83,8 +83,8 @@ export const LinkEdit = ({
   openLinkEdit,
   setOpenLinkEdit,
   handleLinkEditClose,
-  linkState,
-  setlinkState,
+  linksState,
+  setlinksState,
   inputValues,
   setInputValues,
   editingIndex,
@@ -111,30 +111,33 @@ export const LinkEdit = ({
         inputValues.socialType,
         inputValues.userIdentifier
       );
-      if (editingIndex > -1) {
-        let prevItems = linkState["items"];
-        prevItems[editingIndex] = {
-          id: socialLink,
-          socialLink: socialLink,
-          userIdentifier: inputValues.userIdentifier,
-          socialType: inputValues.socialType,
-        };
-        setlinkState({ items: prevItems });
+      if (socialLink.includes("https")) {
+        if (editingIndex > -1) {
+          let prevItems = linksState["items"];
+          prevItems[editingIndex] = {
+            id: socialLink,
+            socialLink: socialLink,
+            userIdentifier: inputValues.userIdentifier,
+            socialType: inputValues.socialType,
+          };
+          setlinksState({ items: prevItems });
+        } else {
+          setlinksState((prevState) => ({
+            items: [
+              ...prevState["items"],
+              {
+                id: socialLink,
+                socialLink: socialLink,
+                userIdentifier: inputValues.userIdentifier,
+                socialType: inputValues.socialType,
+              },
+            ],
+          }));
+        }
+        setOpenLinkEdit(false);
       } else {
-        setlinkState((prevState) => ({
-          items: [
-            ...prevState["items"],
-            {
-              id: socialLink,
-              socialLink: socialLink,
-              userIdentifier: inputValues.userIdentifier,
-              socialType: inputValues.socialType,
-            },
-          ],
-        }));
+        alert("Please include HTTPS:// in your link");
       }
-
-      setOpenLinkEdit(false);
     } else {
       alert("Fields cannot be empty");
     }

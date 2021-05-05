@@ -18,37 +18,41 @@ export const ConfirmDelete = ({
 
     return (
       <DialogContentText id="alert-dialog-description">
-        {text}
+        <p
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {text}
+        </p>
       </DialogContentText>
     );
   };
 
   return (
-    <div>
-      <Dialog
-        open={openCancel}
-        onClose={() => setOpenCancel(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
-        <DialogContent>
-          <div style={{ width: "90vw" }}>{PromptText()}</div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenCancel(false)}>Cancel</Button>
-          <Button
-            onClick={() => {
-              setOpenCancel(false);
-              handleDeleteItem(deleteIndex);
-            }}
-            color="primary"
-            autoFocus
-          >
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={openCancel}
+      onClose={() => setOpenCancel(false)}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
+      <DialogContent>{PromptText()}</DialogContent>
+      <DialogActions>
+        <Button onClick={() => setOpenCancel(false)}>Cancel</Button>
+        <Button
+          onClick={() => {
+            setOpenCancel(false);
+            handleDeleteItem(deleteIndex);
+          }}
+          color="primary"
+          autoFocus
+        >
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };

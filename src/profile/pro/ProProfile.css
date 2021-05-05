@@ -113,7 +113,7 @@
 }
 
 .edit_pro_profile_followers_flex_box > p {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .edit_pro_profile_top_edit_button {
@@ -134,7 +134,7 @@
 /* for viewing */
 
 .pro_profile_top {
-  height: 20rem;
+  min-height: 16rem;
   width: 100%;
 
   display: flex;
@@ -272,9 +272,7 @@
 }
 
 .pro_profile_top_description {
-  height: 3rem;
   width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -284,12 +282,12 @@
   width: 90%;
   text-align: center;
   font-size: 14px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .pro_profile_top_profileBio > span {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .pro_profile_top_selector {
@@ -443,7 +441,7 @@
   }
 
   .pro_profile_top {
-    height: 17rem;
+    min-height: 16rem;
     width: 100%;
   }
 
@@ -469,5 +467,9 @@
     justify-content: flex-start;
 
     overflow-y: scroll;
+  }
+
+  .edit_pro_profile_followers_flex_box > p {
+    font-size: 14px;
   }
 }

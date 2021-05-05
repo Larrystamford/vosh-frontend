@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 
 import { SlidingSocials } from "./SlidingSocials";
+import { SimpleBottomNotification } from "../../components/SimpleBottomNotification";
 
 import TextField from "@material-ui/core/TextField";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
@@ -20,22 +21,58 @@ import { Exception } from "../../components/tracking/Tracker";
 
 export const ProEdit = () => {
   const history = useHistory();
+  const [safeToEdit, setSafeToEdit] = useState(false);
+  const [linksState, setlinksState] = useState({ items: [] });
+  const [showNotif, setShowNotif] = useState("");
+
+  useEffect(() => {
+    const userId = localStorage.getItem("USER_ID");
+    if (userId) {
+      axios.get("/v1/users/get/" + userId).then((response) => {
+        let data = response.data[0];
+        setlinksState({ items: data.socialAccounts });
+        if (response.status == 200) {
+          setSafeToEdit(true);
+        }
+      });
+    }
+  }, []);
 
   // edit pannel open
   const [openSocials, setOpenSocials] = useState(false);
   const handleSocialsOpen = () => {
-    setOpenSocials(true);
-    window.history.pushState(
-      {
-        socials: "socials",
-      },
-      "",
-      ""
-    );
+    if (safeToEdit) {
+      setOpenSocials(true);
+      window.history.pushState(
+        {
+          socials: "socials",
+        },
+        "",
+        ""
+      );
+    }
   };
-  const handleSocialsClose = () => {
-    setOpenSocials(false);
-    window.history.back();
+  const handleSocialsClose = async (updatedSocialAccounts) => {
+    if (safeToEdit) {
+      const res = await axios.put(
+        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        {
+          socialAccounts: updatedSocialAccounts,
+        }
+      );
+
+      if (res.status == 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
+      }
+
+      setOpenSocials(false);
+      window.history.back();
+    }
   };
   useDidMountEffect(() => {
     const handleSocialsPop = () => {
@@ -111,7 +148,11 @@ export const ProEdit = () => {
       <SlidingSocials
         openSocials={openSocials}
         handleSocialsClose={handleSocialsClose}
+        linksState={linksState}
+        setlinksState={setlinksState}
       />
+
+      {showNotif && <SimpleBottomNotification message={showNotif} />}
     </div>
   );
 };

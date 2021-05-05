@@ -7,6 +7,7 @@ import { Snackbar } from "@material-ui/core";
 
 import { ProfileFeed } from "../../feed/ProfileFeed";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
+import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
 
@@ -37,6 +38,7 @@ export const ProProfile = ({ match, location }) => {
   const [followings, setFollowings] = useState([]);
   const [videos, setVideos] = useState([]);
   const [profileBio, setProfileBio] = useState("");
+  const [socialAccounts, setSocialAccounts] = useState([]);
 
   const [scrollView, setScrollView] = useState(false);
   const [viewIndex, setViewIndex] = useState(0);
@@ -69,6 +71,7 @@ export const ProProfile = ({ match, location }) => {
             setVideos(data.videos.reverse());
             setUsername(data.userName);
             setUserId(data._id);
+            setSocialAccounts(data.socialAccounts);
             if (data.profileBio) {
               setProfileBio(data.profileBio);
             }
@@ -262,18 +265,26 @@ export const ProProfile = ({ match, location }) => {
             </div>
             <div className="pro_profile_top_right">
               <div className="pro_profile_top_social_medias">
-                <img
-                  src="https://media2locoloco-us.s3.amazonaws.com/tik-tok.png"
-                  style={{ height: 26, margin: 10 }}
-                />
-                <img
-                  src="https://media2locoloco-us.s3.amazonaws.com/youtube.png"
-                  style={{ height: 30, margin: 10 }}
-                />
-                <img
-                  src="https://media2locoloco-us.s3.amazonaws.com/instagram.png"
-                  style={{ height: 26, margin: 10 }}
-                />
+                {socialAccounts
+                  .slice(0, 5)
+                  .map(({ socialType, socialLink }) => (
+                    <img
+                      src={convertSocialTypeToImage(socialType)}
+                      style={{ height: 23, margin: 10 }}
+                      onClick={() => window.open(socialLink, "_blank")}
+                    />
+                  ))}
+              </div>
+              <div className="pro_profile_top_social_medias">
+                {socialAccounts
+                  .slice(5, 10)
+                  .map(({ socialType, socialLink }) => (
+                    <img
+                      src={convertSocialTypeToImage(socialType)}
+                      style={{ height: 23, margin: 10 }}
+                      onClick={() => window.open(socialLink, "_blank")}
+                    />
+                  ))}
               </div>
               <div className="pro_profile_top_description">
                 <span className="pro_profile_top_profileBio">{profileBio}</span>
