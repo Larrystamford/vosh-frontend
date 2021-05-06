@@ -39,6 +39,7 @@ export const ProProfile = ({ match, location }) => {
   const [videos, setVideos] = useState([]);
   const [profileBio, setProfileBio] = useState("");
   const [socialAccounts, setSocialAccounts] = useState([]);
+  const [proLinks, setProLinks] = useState([]);
 
   const [scrollView, setScrollView] = useState(false);
   const [viewIndex, setViewIndex] = useState(0);
@@ -72,6 +73,8 @@ export const ProProfile = ({ match, location }) => {
             setUsername(data.userName);
             setUserId(data._id);
             setSocialAccounts(data.socialAccounts);
+            setProLinks(data.proLinks);
+
             if (data.profileBio) {
               setProfileBio(data.profileBio);
             }
@@ -228,145 +231,135 @@ export const ProProfile = ({ match, location }) => {
         />
       ) : (
         <div className="ProProfile">
-          <div className="pro_profile_top_header"></div>
           <div className="pro_profile_top">
-            <div className="pro_profile_top_left">
-              <div className="pro_profile_top_image_name">
-                <div className="pro_profile_top_image">
-                  {image ? (
-                    <img
-                      src={image}
-                      className="pro_profile_top_image_circular"
-                      alt="temp avatar"
-                    />
-                  ) : null}
-                </div>
-                <div className="pro_profile_top_name">
-                  <p>@{username}</p>
-                </div>
-              </div>
-              <div className="pro_profile_top_follow">
-                {isFollowing ? (
-                  <div
-                    className="pro_profile_top_following_button"
-                    onClick={handleUnfollow}
-                  >
-                    <p style={{ color: "white" }}>Following</p>
+            <div className="pro_profile_top_header"></div>
+            <div className="pro_profile_top_with_left_right">
+              <div className="pro_profile_top_left">
+                <div className="pro_profile_top_image_name">
+                  <div className="pro_profile_top_image">
+                    {image ? (
+                      <img
+                        src={image}
+                        className="pro_profile_top_image_circular"
+                        alt="temp avatar"
+                      />
+                    ) : null}
                   </div>
-                ) : (
-                  <div
-                    className="pro_profile_top_follow_button"
-                    onClick={handleFollow}
-                  >
-                    <p style={{ color: "white" }}>Follow</p>
+                  <div className="pro_profile_top_name">
+                    <p>@{username}</p>
                   </div>
-                )}
+                </div>
+                <div className="pro_profile_top_follow">
+                  {isFollowing ? (
+                    <div
+                      className="pro_profile_top_following_button"
+                      onClick={handleUnfollow}
+                    >
+                      <p style={{ color: "white" }}>Following</p>
+                    </div>
+                  ) : (
+                    <div
+                      className="pro_profile_top_follow_button"
+                      onClick={handleFollow}
+                    >
+                      <p style={{ color: "white" }}>Follow</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="pro_profile_top_right">
-              <div className="pro_profile_top_social_medias">
-                {socialAccounts
-                  .slice(0, 5)
-                  .map(({ socialType, socialLink }) => (
-                    <img
-                      src={convertSocialTypeToImage(socialType)}
-                      style={{ height: 23, margin: 10 }}
-                      onClick={() => window.open(socialLink, "_blank")}
-                    />
+              <div className="pro_profile_top_right">
+                <div className="pro_profile_top_social_medias">
+                  {socialAccounts
+                    .slice(0, 5)
+                    .map(({ socialType, socialLink }) => (
+                      <img
+                        src={convertSocialTypeToImage(socialType)}
+                        style={{ height: 23, margin: 10 }}
+                        onClick={() => window.open(socialLink, "_blank")}
+                      />
+                    ))}
+                </div>
+                <div className="pro_profile_top_social_medias">
+                  {socialAccounts
+                    .slice(5, 10)
+                    .map(({ socialType, socialLink }) => (
+                      <img
+                        src={convertSocialTypeToImage(socialType)}
+                        style={{ height: 23, margin: 10 }}
+                        onClick={() => window.open(socialLink, "_blank")}
+                      />
+                    ))}
+                </div>
+                <div className="pro_profile_top_description">
+                  <span className="pro_profile_top_profileBio">
+                    {profileBio}
+                  </span>
+                </div>
+                <div className="pro_profile_top_linker">
+                  {proLinks.map(({ proLinkName, proLink }) => (
+                    <div
+                      className="pro_profile_top_link_div"
+                      onClick={() => window.open(proLink, "_blank")}
+                    >
+                      <p>{proLinkName.toUpperCase()}</p>
+                    </div>
                   ))}
-              </div>
-              <div className="pro_profile_top_social_medias">
-                {socialAccounts
-                  .slice(5, 10)
-                  .map(({ socialType, socialLink }) => (
-                    <img
-                      src={convertSocialTypeToImage(socialType)}
-                      style={{ height: 23, margin: 10 }}
-                      onClick={() => window.open(socialLink, "_blank")}
-                    />
-                  ))}
-              </div>
-              <div className="pro_profile_top_description">
-                <span className="pro_profile_top_profileBio">{profileBio}</span>
-              </div>
-              <div className="pro_profile_top_linker">
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="pro_profile_top_selector">
-            <div className="pro_profile_icon_and_name">
-              <WallpaperOutlinedIcon style={{ color: "black" }} />
-              <p style={{ color: "black" }}>gallery</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
+            <div className="pro_profile_top_selector">
+              <div className="pro_profile_icon_and_name">
+                <WallpaperOutlinedIcon style={{ color: "black" }} />
+                <p style={{ color: "black" }}>gallery</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
             </div>
           </div>
 

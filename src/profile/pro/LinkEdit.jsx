@@ -5,60 +5,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {
-  convertSocialTypeToImage,
-  convertSocialTypeToHelper,
-  convertUsernameToSocialLink,
-} from "../../helpers/CommonFunctions";
 
 import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import MenuItem from "@material-ui/core/MenuItem";
-import { slice } from "lodash";
 
-const SocialMediaTypes = [
-  {
-    label: "TikTok",
-  },
-  {
-    label: "Instagram",
-  },
-  {
-    label: "Youtube",
-  },
-  {
-    label: "Twitch",
-  },
-  {
-    label: "Pinterest",
-  },
-  {
-    label: "Facebook",
-  },
-  {
-    label: "Twitter",
-  },
-  {
-    label: "Discord",
-  },
-  {
-    label: "Spotify",
-  },
-  {
-    label: "Telegram",
-  },
-  {
-    label: "Whatsapp",
-  },
-  {
-    label: "Snapchat",
-  },
-  {
-    label: "Email",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +41,6 @@ export const LinkEdit = ({
   editingIndex,
 }) => {
   const [focused, setFocused] = useState(false);
-  const [linkDetails, setLinkDetails] = useState("");
 
   const size = useWindowSize();
   const classes = useStyles();
@@ -106,19 +56,14 @@ export const LinkEdit = ({
   };
 
   const handleLinkEditSave = () => {
-    if (inputValues.socialType != "" && inputValues.userIdentifier != "") {
-      const socialLink = convertUsernameToSocialLink(
-        inputValues.socialType,
-        inputValues.userIdentifier
-      );
-      if (socialLink.includes("https")) {
+    if (inputValues.proLinkName != "" && inputValues.proLink != "") {
+      if (inputValues.proLink.includes("http")) {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           prevItems[editingIndex] = {
-            id: socialLink,
-            socialLink: socialLink,
-            userIdentifier: inputValues.userIdentifier,
-            socialType: inputValues.socialType,
+            id: inputValues.proLink,
+            proLink: inputValues.proLink,
+            proLinkName: inputValues.proLinkName,
           };
           setlinksState({ items: prevItems });
         } else {
@@ -126,10 +71,9 @@ export const LinkEdit = ({
             items: [
               ...prevState["items"],
               {
-                id: socialLink,
-                socialLink: socialLink,
-                userIdentifier: inputValues.userIdentifier,
-                socialType: inputValues.socialType,
+                id: inputValues.proLink,
+                proLink: inputValues.proLink,
+                proLinkName: inputValues.proLinkName,
               },
             ],
           }));
@@ -146,74 +90,36 @@ export const LinkEdit = ({
   return (
     <Dialog open={openLinkEdit}>
       <DialogContent>
-        <DialogContentText>Add New Social Link</DialogContentText>
+        <DialogContentText>
+          {editingIndex == -1 ? "Add New Link" : "Edit Link"}
+        </DialogContentText>
         <TextField
-          className={clsx(classes.margin, classes.textField)}
           size={size.height < 580 ? "small" : null}
+          label="Link Name"
           id="outlined-start-adornment"
-          select
-          label="Select Social"
+          className={clsx(classes.margin, classes.textField)}
           variant="outlined"
-          onChange={handleChange("socialType")}
+          value={inputValues.proLinkName}
+          onChange={handleChange("proLinkName")}
           onKeyDown={handleKeyDown}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
-          value={inputValues.socialType}
-        >
-          {SocialMediaTypes.map((option) => (
-            <MenuItem key={option.label} value={option.label}>
-              <img
-                style={{ height: 15, paddingRight: 10 }}
-                src={convertSocialTypeToImage(option.label)}
-              />
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        />
 
-        {inputValues.socialType ? (
-          <TextField
-            size={size.height < 580 ? "small" : null}
-            label={convertSocialTypeToHelper(inputValues.socialType)}
-            id="outlined-start-adornment"
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            value={inputValues.userIdentifier}
-            onChange={handleChange("userIdentifier")}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            style={{ backgroundColor: "white", marginTop: "1rem" }}
-            InputProps={
-              convertSocialTypeToHelper(inputValues.socialType) ==
-                "Your Username" && {
-                startAdornment: (
-                  <InputAdornment position="start">@</InputAdornment>
-                ),
-              }
-            }
-          />
-        ) : (
-          <TextField
-            size={size.height < 580 ? "small" : null}
-            label="Your Username"
-            id="outlined-start-adornment"
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            value={inputValues.userIdentifier}
-            onChange={handleChange("userIdentifier")}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            style={{ backgroundColor: "white", marginTop: "1rem" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">@</InputAdornment>
-              ),
-            }}
-          />
-        )}
+        <TextField
+          size={size.height < 580 ? "small" : null}
+          label="https://www.website.com"
+          id="outlined-start-adornment"
+          className={clsx(classes.margin, classes.textField)}
+          variant="outlined"
+          value={inputValues.proLink}
+          onChange={handleChange("proLink")}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          style={{ backgroundColor: "white", marginTop: "1rem" }}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleLinkEditClose} color="primary">

@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Verified = () => {
+export const VerifiedUsername = () => {
   const size = useWindowSize();
   const history = useHistory();
   const classes = useStyles();
@@ -76,9 +76,6 @@ export const Verified = () => {
 
   const [values, setValues] = useState({
     username: "",
-    tiktokUserName: "",
-    instagramUserName: "",
-    pinterestUsername: "",
   });
 
   const [usernameMessage, setUsernameMessage] = useState("");
@@ -131,62 +128,16 @@ export const Verified = () => {
   const onSubmitUserName = async () => {
     const validUserName = await checkUserName();
     if (validUserName) {
-      const socialAccounts = [];
-      let socialLink;
-      if (values.tiktokUserName != "") {
-        socialLink = convertUsernameToSocialLink(
-          "TikTok",
-          values.tiktokUserName
-        );
-
-        socialAccounts.push({
-          id: socialLink,
-          socialLink: socialLink,
-          userIdentifier: values.tiktokUserName,
-          socialType: "TikTok",
-        });
-      }
-      if (values.instagramUserName != "") {
-        socialLink = convertUsernameToSocialLink(
-          "Instagram",
-          values.instagramUserName
-        );
-
-        socialAccounts.push({
-          id: socialLink,
-          socialLink: socialLink,
-          userIdentifier: values.instagramUserName,
-          socialType: "Instagram",
-        });
-      }
-      if (values.pinterestUsername != "") {
-        socialLink = convertUsernameToSocialLink(
-          "Pinterest",
-          values.pinterestUsername
-        );
-
-        socialAccounts.push({
-          id: socialLink,
-          socialLink: socialLink,
-          userIdentifier: values.pinterestUsername,
-          socialType: "Pinterest",
-        });
-      }
-
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),
         {
           userName: values.username,
-          accountType: "pro",
-          socialAccounts: socialAccounts,
         }
       );
 
       if (res.status == "201") {
         localStorage.setItem("USER_NAME", res.data[0].userName);
-        history.push({
-          pathname: "/profile",
-        });
+        history.goBack();
       } else {
         alert("username is invalid");
       }
@@ -217,7 +168,7 @@ export const Verified = () => {
 
         <TextField
           size={size.height < 580 ? "small" : null}
-          label="Claim Your Username"
+          label="Change Your Username"
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
           variant="outlined"
@@ -237,85 +188,11 @@ export const Verified = () => {
         </p>
       </div>
 
-      <div className="socialNamesWrapper">
-        <p className="verified_Header2Text">Social Media Accounts</p>
-        <div className="socialLogoTextFlex">
-          <img
-            src="https://media2locoloco-us.s3.amazonaws.com/tik-tok.png"
-            style={{ height: 25 }}
-          />
-          <TextField
-            size={size.height < 580 ? "small" : null}
-            label="Your TikTok Username"
-            id="outlined-start-adornment"
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            value={values.tiktokUserName}
-            onChange={handleChange("tiktokUserName")}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            style={{ backgroundColor: "white" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">@</InputAdornment>
-              ),
-            }}
-          />
-        </div>
-        <div className="socialLogoTextFlex">
-          <img
-            src="https://media2locoloco-us.s3.amazonaws.com/instagram.png"
-            style={{ height: 25 }}
-          />
-          <TextField
-            size={size.height < 580 ? "small" : null}
-            label="Your Instagram Username"
-            id="outlined-start-adornment"
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            value={values.instagramUserName}
-            onChange={handleChange("instagramUserName")}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            style={{ backgroundColor: "white" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">@</InputAdornment>
-              ),
-            }}
-          />
-        </div>
-        <div className="socialLogoTextFlex">
-          <img
-            src="https://media2locoloco-us.s3.amazonaws.com/pinterest.png"
-            style={{ height: 25 }}
-          />
-          <TextField
-            size={size.height < 580 ? "small" : null}
-            label="Your Pinterest Username"
-            id="outlined-start-adornment"
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            value={values.pinterestUsername}
-            onChange={handleChange("pinterestUsername")}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            style={{ backgroundColor: "white" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">@</InputAdornment>
-              ),
-            }}
-          />
-        </div>
-      </div>
+      <div className="socialNamesWrapper"></div>
 
       {focused ? null : (
         <p className="verified_next" onClick={() => onSubmitUserName()}>
-          Next
+          Done
         </p>
       )}
 

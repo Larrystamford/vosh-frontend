@@ -37,9 +37,10 @@ export const EditProProfile = ({ match, location }) => {
   const [image, setImage] = useState("");
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
-  const [videos, setVideos] = useState([]);
+  const [proVideos, setProVideos] = useState([]);
   const [profileBio, setProfileBio] = useState("");
   const [socialAccounts, setSocialAccounts] = useState([]);
+  const [proLinks, setProLinks] = useState([]);
 
   const [scrollView, setScrollView] = useState(false);
   const [viewIndex, setViewIndex] = useState(0);
@@ -122,10 +123,11 @@ export const EditProProfile = ({ match, location }) => {
         setImage(data.picture);
         setFollowings(data.followings);
         setFollowers(data.followers);
-        setVideos(data.videos.reverse());
+        setProVideos(data.proVideos.reverse());
         setUsername(data.userName);
         setUserId(data._id);
         setSocialAccounts(data.socialAccounts);
+        setProLinks(data.proLinks);
 
         if (data.profileBio) {
           setProfileBio(data.profileBio);
@@ -237,196 +239,141 @@ export const EditProProfile = ({ match, location }) => {
     <>
       {scrollView ? (
         <ProfileFeed
-          videos={videos}
+          videos={proVideos}
           viewIndex={viewIndex}
           handleChangeView={handleChangeView}
         />
       ) : (
         <div className="ProProfile">
-          <div className="pro_profile_top_header"></div>
           <div className="pro_profile_top">
-            <div className="pro_profile_top_left">
-              <div className="pro_profile_top_image_name">
-                <div className="pro_profile_top_image">
-                  {image ? (
-                    <div
-                      style={{ position: "relative" }}
-                      onClick={handleUploadClick}
-                    >
-                      <img
-                        src={image}
-                        className="pro_profile_top_image_circular"
-                        alt="temp avatar"
-                      />
-                      <div className="edit_pro_profile_edit_image_circle">
-                        <CreateIcon
-                          className="edit_pro_profile_edit_image"
-                          style={{ fontSize: 14 }}
+            <div className="pro_profile_top_header"></div>
+            <div className="pro_profile_top_with_left_right">
+              <div className="pro_profile_top_left">
+                <div className="pro_profile_top_image_name">
+                  <div className="pro_profile_top_image">
+                    {image ? (
+                      <div
+                        style={{ position: "relative" }}
+                        onClick={handleUploadClick}
+                      >
+                        <img
+                          src={image}
+                          className="pro_profile_top_image_circular"
+                          alt="temp avatar"
+                        />
+                        <div className="edit_pro_profile_edit_image_circle">
+                          <CreateIcon
+                            className="edit_pro_profile_edit_image"
+                            style={{ fontSize: 14 }}
+                          />
+                        </div>
+                        <input
+                          ref={hiddenFileInput}
+                          type="file"
+                          name="file"
+                          onChange={(e) => {
+                            handleFileUpload(e.target.files[0]);
+                          }}
                         />
                       </div>
-                      <input
-                        ref={hiddenFileInput}
-                        type="file"
-                        name="file"
-                        onChange={(e) => {
-                          handleFileUpload(e.target.files[0]);
-                        }}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-                <div className="pro_profile_top_name">
-                  <p>@{username}</p>
-                </div>
-              </div>
-              <div className="pro_profile_top_follow">
-                <div className="edit_pro_profile_followers_flex_box">
-                  <p style={{ fontSize: "16px", fontWeight: "700" }}>
-                    {followers.length}
-                  </p>
-                  <p>Followers</p>
-                </div>
-              </div>
-              <div className="pro_profile_top_follow">
-                <div
-                  className="edit_pro_profile_top_edit_button"
-                  onClick={() => {
-                    history.push("/ProEdit");
-                  }}
-                >
-                  <p>Edit</p>
-                </div>
-              </div>
-            </div>
-            <div className="pro_profile_top_right">
-              <div className="pro_profile_top_social_medias">
-                {socialAccounts
-                  .slice(0, 5)
-                  .map(({ socialType, socialLink }) => (
-                    <img
-                      src={convertSocialTypeToImage(socialType)}
-                      style={{ height: 23, margin: 10 }}
-                      onClick={() => window.open(socialLink, "_blank")}
-                    />
-                  ))}
-              </div>
-              <div className="pro_profile_top_social_medias">
-                {socialAccounts
-                  .slice(5, 10)
-                  .map(({ socialType, socialLink }) => (
-                    <img
-                      src={convertSocialTypeToImage(socialType)}
-                      style={{ height: 23, margin: 10 }}
-                      onClick={() => window.open(socialLink, "_blank")}
-                    />
-                  ))}
-              </div>
-              <div className="pro_profile_top_description">
-                <div
-                  className="pro_profile_top_profileBio"
-                  style={{ position: "relative", width: "90%" }}
-                  onClick={handleCaptionOpen}
-                >
-                  <span>{profileBio}</span>
-
-                  <div className="edit_pro_profile_edit_image_circle_caption">
-                    <CreateIcon
-                      className="edit_pro_profile_edit_image_caption"
-                      style={{ fontSize: 12 }}
-                    />
+                    ) : null}
+                  </div>
+                  <div className="pro_profile_top_name">
+                    <p>@{username}</p>
                   </div>
                 </div>
-                <CaptionEdit
-                  openCaption={openCaption}
-                  setOpenCaption={setOpenCaption}
-                  handleCaptionOpen={handleCaptionOpen}
-                  handleCaptionClose={handleCaptionClose}
-                  setProfileBio={setProfileBio}
-                />
-              </div>
-              <div className="pro_profile_top_linker">
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
+                <div className="pro_profile_top_follow">
+                  <div className="edit_pro_profile_followers_flex_box">
+                    <p style={{ fontSize: "16px", fontWeight: "700" }}>
+                      {followers.length}
+                    </p>
+                    <p>Followers</p>
+                  </div>
                 </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
-                </div>
-                <div className="pro_profile_top_link_div">
-                  <p>AMAZON SHOPPING FINDS</p>
+                <div className="pro_profile_top_follow">
+                  <div
+                    className="edit_pro_profile_top_edit_button"
+                    onClick={() => {
+                      history.push("/ProEdit");
+                    }}
+                  >
+                    <p>Edit</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+              <div className="pro_profile_top_right">
+                <div className="pro_profile_top_social_medias">
+                  {socialAccounts
+                    .slice(0, 5)
+                    .map(({ socialType, socialLink }) => (
+                      <img
+                        src={convertSocialTypeToImage(socialType)}
+                        style={{ height: 23, margin: 10 }}
+                        onClick={() => window.open(socialLink, "_blank")}
+                      />
+                    ))}
+                </div>
+                <div className="pro_profile_top_social_medias">
+                  {socialAccounts
+                    .slice(5, 10)
+                    .map(({ socialType, socialLink }) => (
+                      <img
+                        src={convertSocialTypeToImage(socialType)}
+                        style={{ height: 23, margin: 10 }}
+                        onClick={() => window.open(socialLink, "_blank")}
+                      />
+                    ))}
+                </div>
+                <div className="pro_profile_top_description">
+                  <div
+                    className="pro_profile_top_profileBio"
+                    style={{ position: "relative", width: "90%" }}
+                    onClick={handleCaptionOpen}
+                  >
+                    <span>{profileBio}</span>
 
-          <div className="pro_profile_top_selector">
-            <div className="pro_profile_icon_and_name">
-              <WallpaperOutlinedIcon style={{ color: "black" }} />
-              <p style={{ color: "black" }}>gallery</p>
+                    <div className="edit_pro_profile_edit_image_circle_caption">
+                      <CreateIcon
+                        className="edit_pro_profile_edit_image_caption"
+                        style={{ fontSize: 12 }}
+                      />
+                    </div>
+                  </div>
+                  <CaptionEdit
+                    openCaption={openCaption}
+                    setOpenCaption={setOpenCaption}
+                    handleCaptionOpen={handleCaptionOpen}
+                    handleCaptionClose={handleCaptionClose}
+                    setProfileBio={setProfileBio}
+                  />
+                </div>
+                <div className="pro_profile_top_linker">
+                  {proLinks.map(({ proLinkName, proLink }) => (
+                    <div
+                      className="pro_profile_top_link_div"
+                      onClick={() => window.open(proLink, "_blank")}
+                    >
+                      <p>{proLinkName.toUpperCase()}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
-            </div>
-            <div className="pro_profile_icon_and_name">
-              <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-              <p style={{ color: "gray" }}>saved</p>
+
+            <div className="pro_profile_top_selector">
+              <div className="pro_profile_icon_and_name">
+                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
+                <p style={{ color: "gray" }}>saved</p>
+              </div>
+              <div className="pro_profile_icon_and_name">
+                <WallpaperOutlinedIcon style={{ color: "black" }} />
+                <p style={{ color: "black" }}>all</p>
+              </div>
             </div>
           </div>
 
           <div className="pro_profile_bottom">
-            <VideoGrid videos={videos} handleChangeView={handleChangeView} />
+            <VideoGrid videos={proVideos} handleChangeView={handleChangeView} />
           </div>
 
           {isLoggedIn ? null : (

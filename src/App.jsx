@@ -23,8 +23,10 @@ import Login from "./login/Login";
 import { Logout } from "./login/Logout";
 import { ProProfile } from "./profile/pro/ProProfile";
 import { EditProProfile } from "./profile/pro/EditProProfile";
+import { ContentTagging } from "./profile/pro/ContentTagging";
 import { ProEdit } from "./profile/pro/ProEdit";
 import { Verified } from "./verified/Verified";
+import { VerifiedUsername } from "./verified/VerifiedUsername";
 import { Feed } from "./feed/Feed";
 import { Discover } from "./discover/Discover";
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
@@ -155,12 +157,13 @@ function App() {
           <Route path="/review" component={Review} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/getVerified" component={Verified} />
+          <Route path="/changeUsername" component={VerifiedUsername} />
           <Route path="/ProProfile" component={EditProProfile} />
           <Route path="/ProEdit" component={ProEdit} />
+          <Route path="/ContentTagging" component={ContentTagging} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/404" exact component={PageNoExist} />
           <Route path="/" exact />
-
           <Route component={ProProfile} />
         </Switch>
       </Router>

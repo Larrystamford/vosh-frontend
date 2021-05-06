@@ -86,6 +86,15 @@
   color: grey;
 }
 
+.Draggable_Link_Item_Content_2 {
+  max-width: 9rem;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
+}
+
 .Draggable_Icon_Wrap {
   position: absolute;
   left: 0;
@@ -117,4 +126,45 @@
 
 .SlidingEdit_AddNewLinkDetails > span {
   font-size: 14px;
+}
+
+.Tagging_Main {
+  height: 90%;
+}
+
+.gallery_slider_header {
+  min-height: 2.7rem;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+}
+
+.Tagging_Top_Main {
+  height: 57vh;
+  width: 100%;
+}
+
+.gallery_slider_body {
+  height: 95vh;
+
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gallery_image_box {
+  height: 5rem;
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* bigger than iphone 5 */
+@media only screen and (min-height: 580px) {
+  .gallery_image_box {
+    height: 6.5rem;
+    text-align: center;
+    border: 1px solid black;
+  }
 }

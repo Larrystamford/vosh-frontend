@@ -30,7 +30,7 @@
 }
 
 .edit_pro_profile_top_image_name {
-  height: 40%;
+  min-height: 40%;
   width: 100%;
 
   display: flex;
@@ -109,7 +109,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 .edit_pro_profile_followers_flex_box > p {
@@ -134,13 +134,22 @@
 /* for viewing */
 
 .pro_profile_top {
-  min-height: 16rem;
+  min-height: 24rem;
   width: 100%;
 
   display: flex;
-  flex-direction: row;
-  align-items: flex-top;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+}
+
+.pro_profile_top_with_left_right {
+  min-height: 16rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .pro_profile_top_social_medias {
@@ -153,6 +162,7 @@
 
 .pro_profile_top_header {
   height: 1.1rem;
+  width: 100%;
 }
 
 .pro_profile_top_header > div {
@@ -205,7 +215,7 @@
 }
 
 .pro_profile_top_name {
-  height: 15%;
+  height: 30%;
   width: 100%;
 
   display: flex;
@@ -214,6 +224,8 @@
 }
 .pro_profile_top_name > p {
   font-size: 14px;
+  max-width: 95%;
+  word-wrap: break-word;
 }
 
 .pro_profile_top_left {
@@ -332,6 +344,7 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
+  text-align: center;
 }
 
 .pro_profile_top_link_div > p {
@@ -425,7 +438,9 @@
   }
 
   .pro_profile_top_name > p {
-    font-size: 13px;
+    font-size: 12px;
+    max-width: 95%;
+    word-wrap: break-word;
   }
 
   .pro_profile_top_following_button {
@@ -441,8 +456,11 @@
   }
 
   .pro_profile_top {
+    min-height: 20rem;
+  }
+
+  .pro_profile_top_with_left_right {
     min-height: 16rem;
-    width: 100%;
   }
 
   .pro_profile_top_selector {
@@ -470,6 +488,6 @@
   }
 
   .edit_pro_profile_followers_flex_box > p {
-    font-size: 14px;
+    font-size: 13px;
   }
 }

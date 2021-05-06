@@ -1,3 +1,5 @@
+import axios from "../axios";
+
 export const getCombinedName = (color, name, size) => {
   let newColor = "";
   let newName = "";
@@ -104,4 +106,13 @@ export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
   } else if (socialType == "Email") {
     return userIdentifier;
   }
+};
+
+export const downloadAndSaveTikToks = async () => {
+  // const res = await axios.put(
+  //   "/v1/users/update/" + localStorage.getItem("USER_ID"),
+  //   {
+  //     processingTikToksStartTime: true,
+  //   }
+  // );
 };

@@ -5,9 +5,8 @@ import { useGlobalState } from "../../GlobalStates";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useHistory } from "react-router";
 
-import { LinkEditSocial } from "./LinkEditSocial";
+import { LinkEditCategory } from "./LinkEditCategory";
 import { ConfirmDelete } from "./ConfirmDelete";
-import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
@@ -53,20 +52,22 @@ function Draggable_Item({
           </div>
           <div className="SlidingEdit_TypeLeft">
             <img
-              src={convertSocialTypeToImage(item.socialType)}
+              src={item.proCategoryImage}
               style={{ height: 18, margin: 3 }}
             />
           </div>
           <div className="SlidingEdit_TypeAndIcon">
-            <p className="Draggable_Link_Item_Content">{item.userIdentifier}</p>
+            <p className="Draggable_Link_Item_Content_2">
+              {item.proCategoryName}
+            </p>
 
             <EditOutlinedIcon
               style={{ fontSize: 22, marginLeft: "0.5rem" }}
               onClick={() => {
                 setEditingIndex(index);
                 setInputValues({
-                  socialType: item.socialType,
-                  userIdentifier: item.userIdentifier,
+                  proCategoryImage: item.proCategoryImage,
+                  proCategoryName: item.proCategoryName,
                 });
                 setOpenLinkEdit(true);
               }}
@@ -74,7 +75,7 @@ function Draggable_Item({
             <DeleteOutlineOutlinedIcon
               style={{ fontSize: 22, marginLeft: "0.5rem" }}
               onClick={() => {
-                handleSelectDeleteItem(index, item.userIdentifier);
+                handleSelectDeleteItem(index, item.proCategoryName);
                 setOpenCancel(true);
               }}
             />
@@ -132,11 +133,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-export const SlidingSocials = ({
-  openSocials,
-  handleSocialsClose,
-  socialItems,
-  setSocialItems,
+export const SlidingCategories = ({
+  openCategories,
+  handleCategoriesClose,
+  proCategories,
+  setProCategories,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -150,8 +151,8 @@ export const SlidingSocials = ({
 
   const [openCancel, setOpenCancel] = useState(false);
   const [inputValues, setInputValues] = useState({
-    userIdentifier: "",
-    socialType: "",
+    proCategoryName: "",
+    proCategoryImage: "",
   });
   const [editingIndex, setEditingIndex] = useState(false);
 
@@ -162,9 +163,9 @@ export const SlidingSocials = ({
     setDeleteItem(item);
   };
   const handleDeleteItem = (index) => {
-    let currentItems = [...socialItems["items"]];
+    let currentItems = [...proCategories["items"]];
     currentItems.splice(index, 1);
-    setSocialItems({ items: currentItems });
+    setProCategories({ items: currentItems });
   };
 
   function onDragEnd(result) {
@@ -177,17 +178,17 @@ export const SlidingSocials = ({
     }
 
     const items = reorder(
-      socialItems.items,
+      proCategories.items,
       result.source.index,
       result.destination.index
     );
 
-    setSocialItems({ items });
+    setProCategories({ items });
   }
 
   return (
     <Dialog
-      open={openSocials}
+      open={openCategories}
       TransitionComponent={Transition}
       keepMounted
       aria-labelledby="alert-dialog-slide-title"
@@ -197,7 +198,7 @@ export const SlidingSocials = ({
       <div className="SlidingEdit_Body">
         <div className="SlidingEdit_Header">
           <ArrowBackIosOutlinedIcon
-            onClick={() => handleSocialsClose(socialItems.items)}
+            onClick={() => handleCategoriesClose(proCategories.items)}
             style={{ paddingLeft: 14 }}
           />
           <span
@@ -210,7 +211,7 @@ export const SlidingSocials = ({
               transform: "translate(-50%, -50%)",
             }}
           >
-            Social Accounts
+            Categories
           </span>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -218,7 +219,7 @@ export const SlidingSocials = ({
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <DraggableList
-                  items={socialItems.items}
+                  items={proCategories.items}
                   setOpenCancel={setOpenCancel}
                   handleSelectDeleteItem={handleSelectDeleteItem}
                   setInputValues={setInputValues}
@@ -234,13 +235,13 @@ export const SlidingSocials = ({
           className="SlidingEdit_AddNewLink"
           onClick={() => {
             setEditingIndex(-1);
-            setInputValues({ socialType: "", userIdentifier: "" });
+            setInputValues({ proCategoryName: "", proCategoryImage: "" });
             setOpenLinkEdit(true);
           }}
         >
           <div className="SlidingEdit_AddNewLinkDetails">
             <AddOutlinedIcon style={{ margin: 5 }} />
-            <span>Add new social link</span>
+            <span>Add new category</span>
           </div>
         </div>
       </div>
@@ -252,14 +253,14 @@ export const SlidingSocials = ({
         deleteIndex={deleteIndex}
         handleDeleteItem={handleDeleteItem}
       />
-      <LinkEditSocial
+      <LinkEditCategory
         inputValues={inputValues}
         setInputValues={setInputValues}
         openLinkEdit={openLinkEdit}
         setOpenLinkEdit={setOpenLinkEdit}
         handleLinkEditClose={handleLinkEditClose}
-        linksState={socialItems}
-        setlinksState={setSocialItems}
+        linksState={proCategories}
+        setlinksState={setProCategories}
         editingIndex={editingIndex}
       />
     </Dialog>
