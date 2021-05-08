@@ -21,6 +21,7 @@ import LinkOutlinedIcon from "@material-ui/icons/LinkOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CategoryOutlinedIcon from "@material-ui/icons/CategoryOutlined";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
@@ -282,6 +283,25 @@ export const ProEdit = () => {
           </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p>Content Tagging</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() =>
+            history.push({
+              pathname: "/logout",
+            })
+          }
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <ExitToAppIcon style={{ fontSize: 20 }} />
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Log Out</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />
