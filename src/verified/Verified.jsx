@@ -82,7 +82,6 @@ export const Verified = () => {
     username: "",
     tiktokUserName: "",
     instagramUserName: "",
-    pinterestUsername: "",
   });
 
   const [importing, setImporting] = useGlobalState("tiktokImporting");
@@ -107,7 +106,9 @@ export const Verified = () => {
     return () => clearTimeout(delayDebounceFn);
   }, [values.username]);
 
-  const [focused, setFocused] = useState(false);
+  const [focused1, setFocused1] = useState(false);
+  const [focused2, setFocused2] = useState(false);
+  const [focused3, setFocused3] = useState(false);
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -163,19 +164,6 @@ export const Verified = () => {
           socialLink: socialLink,
           userIdentifier: values.instagramUserName,
           socialType: "Instagram",
-        });
-      }
-      if (values.pinterestUsername != "") {
-        socialLink = convertUsernameToSocialLink(
-          "Pinterest",
-          values.pinterestUsername
-        );
-
-        socialAccounts.push({
-          id: socialLink,
-          socialLink: socialLink,
-          userIdentifier: values.pinterestUsername,
-          socialType: "Pinterest",
         });
       }
 
@@ -242,8 +230,8 @@ export const Verified = () => {
           value={values.username}
           onChange={handleChange("username")}
           onKeyDown={handleKeyDown}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={() => setFocused1(true)}
+          onBlur={() => setFocused1(false)}
           style={{ backgroundColor: "white" }}
         />
 
@@ -255,12 +243,23 @@ export const Verified = () => {
         </p>
       </div>
 
-      <div className="socialNamesWrapper">
-        <p className="verified_Header2Text">Social Media Accounts</p>
-        <div className="socialLogoTextFlex">
+      <div
+        className="socialNamesWrapper"
+        style={focused1 ? { zIndex: -1 } : null}
+      >
+        <p
+          style={focused1 ? { zIndex: -1 } : null}
+          className="verified_Header2Text"
+        >
+          Social Media Accounts
+        </p>
+        <div
+          className="socialLogoTextFlex"
+          style={focused1 ? { zIndex: -1 } : null}
+        >
           <img
             src="https://media2locoloco-us.s3.amazonaws.com/tik-tok.png"
-            style={{ height: 25 }}
+            style={focused1 ? { zIndex: -1, height: 25 } : { height: 25 }}
           />
           <TextField
             size={size.height < 580 ? "small" : null}
@@ -271,20 +270,24 @@ export const Verified = () => {
             value={values.tiktokUserName}
             onChange={handleChange("tiktokUserName")}
             onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onFocus={() => setFocused2(true)}
+            onBlur={() => setFocused2(false)}
             style={{ backgroundColor: "white" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">@</InputAdornment>
               ),
             }}
+            style={focused1 ? { zIndex: -1 } : null}
           />
         </div>
-        <div className="socialLogoTextFlex">
+        <div
+          className="socialLogoTextFlex"
+          style={focused1 ? { zIndex: -1 } : null}
+        >
           <img
             src="https://media2locoloco-us.s3.amazonaws.com/instagram.png"
-            style={{ height: 25 }}
+            style={focused1 ? { zIndex: -1, height: 25 } : { height: 25 }}
           />
           <TextField
             size={size.height < 580 ? "small" : null}
@@ -295,43 +298,20 @@ export const Verified = () => {
             value={values.instagramUserName}
             onChange={handleChange("instagramUserName")}
             onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onFocus={() => setFocused3(true)}
+            onBlur={() => setFocused3(false)}
             style={{ backgroundColor: "white" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">@</InputAdornment>
               ),
             }}
-          />
-        </div>
-        <div className="socialLogoTextFlex">
-          <img
-            src="https://media2locoloco-us.s3.amazonaws.com/pinterest.png"
-            style={{ height: 25 }}
-          />
-          <TextField
-            size={size.height < 580 ? "small" : null}
-            label="Your Pinterest Username"
-            id="outlined-start-adornment"
-            className={clsx(classes.margin, classes.textField)}
-            variant="outlined"
-            value={values.pinterestUsername}
-            onChange={handleChange("pinterestUsername")}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            style={{ backgroundColor: "white" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">@</InputAdornment>
-              ),
-            }}
+            style={focused1 ? { zIndex: -1 } : null}
           />
         </div>
       </div>
 
-      {focused ? null : (
+      {focused1 || focused2 || focused3 ? null : (
         <p className="verified_next" onClick={() => onSubmitUserName()}>
           Next
         </p>

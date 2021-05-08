@@ -10,7 +10,6 @@ import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -57,7 +56,7 @@ export const LinkEdit = ({
 
   const handleLinkEditSave = () => {
     if (inputValues.proLinkName != "" && inputValues.proLink != "") {
-      if (inputValues.proLink.includes("http")) {
+      if (inputValues.proLink.toLowerCase().includes("http")) {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           prevItems[editingIndex] = {

@@ -110,7 +110,7 @@ export const LinkEditSocial = ({
         inputValues.socialType,
         inputValues.userIdentifier
       );
-      if (socialLink.includes("http")) {
+      if (socialLink.toLowerCase().includes("http")) {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           prevItems[editingIndex] = {

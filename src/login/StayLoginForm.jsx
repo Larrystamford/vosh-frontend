@@ -149,7 +149,7 @@ const StayLoginForm = (props) => {
           <img
             src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
             alt="loco logo"
-            style={focused ? { zIndex: -1 } : { height: 20 }}
+            style={focused ? { zIndex: -1, height: 20 } : { height: 20 }}
           />
           {signUp ? (
             <p
