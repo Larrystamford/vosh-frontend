@@ -135,22 +135,38 @@ const StayLoginForm = (props) => {
   // MANUAL SIGN UP
   if (manualForm) {
     return (
-      <div className="formMainLocal">
-        {!focused && (
-          <div className="Form_ManualWelcomeMessageWrapper">
-            <p className="Form_WelcomeWord">Vosh</p>
-            <img
-              src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
-              alt="loco logo"
-              style={{ height: 20 }}
-            />
-            {signUp ? (
-              <p className="Form_WelcomeText">Sign Up</p>
-            ) : (
-              <p className="Form_WelcomeText">Sign In</p>
-            )}
-          </div>
-        )}
+      <div className="formMainLocal" style={focused ? { zIndex: -1 } : null}>
+        <div
+          className="Form_ManualWelcomeMessageWrapper"
+          style={focused ? { zIndex: -1 } : null}
+        >
+          <p
+            className="Form_WelcomeWord"
+            style={focused ? { zIndex: -1 } : null}
+          >
+            Vosh
+          </p>
+          <img
+            src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
+            alt="loco logo"
+            style={focused ? { zIndex: -1 } : { height: 20 }}
+          />
+          {signUp ? (
+            <p
+              className="Form_WelcomeText"
+              style={focused ? { zIndex: -1 } : null}
+            >
+              Sign Up
+            </p>
+          ) : (
+            <p
+              className="Form_WelcomeText"
+              style={focused ? { zIndex: -1 } : null}
+            >
+              Sign In
+            </p>
+          )}
+        </div>
 
         {signUp ? (
           <div className="loginButtonWrapperLocal">
