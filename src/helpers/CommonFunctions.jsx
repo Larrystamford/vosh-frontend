@@ -111,6 +111,7 @@ export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
 export const downloadAndSaveTikToks = async () => {
   let res;
   for (let i = 0; i < 6; i++) {
+    console.log("download try count " + i);
     if (i == 6) {
       axios.post("/v1/email/severeError", {
         userId: localStorage.getItem("USER_ID"),
@@ -124,31 +125,34 @@ export const downloadAndSaveTikToks = async () => {
       break;
     }
 
-    res = await axios.get(
-      "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID")
-    );
     console.log("getting tiktoks info");
-
-    if (res.status == 200) {
-      console.log("downloading tiktoks");
-
+    try {
       res = await axios.get(
-        "v1/tiktok/download/" + localStorage.getItem("USER_ID")
+        "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID")
       );
 
-      if (res.status == 200) {
-        console.log("saving tiktoks");
+      try {
+        console.log("downloading tiktoks");
         res = await axios.get(
-          "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID")
+          "v1/tiktok/download/" + localStorage.getItem("USER_ID")
         );
 
-        if (res.status == 200) {
-          return "success";
-        } else {
+        try {
+          console.log("saving tiktoks");
+          res = await axios.get(
+            "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID")
+          );
+
+          if (res.status == 200) {
+            return "success";
+          }
+        } catch {
           continue;
         }
+      } catch {
+        continue;
       }
-    } else {
+    } catch {
       continue;
     }
   }
