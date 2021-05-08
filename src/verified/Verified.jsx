@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Verified.css";
+import { useGlobalState } from "../GlobalStates";
 
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import axios from "../axios";
 import { useHistory } from "react-router";
 import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
-import { convertUsernameToSocialLink } from "../helpers/CommonFunctions";
+import {
+  convertUsernameToSocialLink,
+  downloadAndSaveTikToks,
+} from "../helpers/CommonFunctions";
 
 import clsx from "clsx";
 import Button from "@material-ui/core/Button";
@@ -80,6 +84,8 @@ export const Verified = () => {
     instagramUserName: "",
     pinterestUsername: "",
   });
+
+  const [importing, setImporting] = useGlobalState("tiktokImporting");
 
   const [usernameMessage, setUsernameMessage] = useState("");
   const [usernameMessageColor, setUsernameMessageColor] = useState("");
@@ -179,11 +185,15 @@ export const Verified = () => {
           userName: values.username,
           accountType: "pro",
           socialAccounts: socialAccounts,
+          processingTikToksStartTime: new Date().getTime(),
         }
       );
 
       if (res.status == "201") {
         localStorage.setItem("USER_NAME", res.data[0].userName);
+
+        handleImportStart();
+
         history.push({
           pathname: "/profile",
         });
@@ -193,6 +203,14 @@ export const Verified = () => {
     } else {
       alert("username is invalid");
     }
+  };
+
+  const handleImportStart = async () => {
+    setImporting(true);
+    await downloadAndSaveTikToks();
+    setImporting(false);
+
+    console.log("import success");
   };
 
   const handleKeyDown = (event) => {

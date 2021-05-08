@@ -38,6 +38,13 @@
   opacity: 100;
 }
 
+.Video_Grid_redirect_button {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--vosh-color-7);
+  font-size: 14px;
+}
+
 /* audio::-webkit-media-controls-timeline,
 video::-webkit-media-controls-timeline {
   display: none;

@@ -348,14 +348,25 @@ export const EditProProfile = ({ match, location }) => {
                   />
                 </div>
                 <div className="pro_profile_top_linker">
-                  {proLinks.map(({ proLinkName, proLink }) => (
+                  {proLinks.length > 0 ? (
+                    proLinks.map(({ proLinkName, proLink }) => (
+                      <div
+                        className="pro_profile_top_link_div"
+                        onClick={() => window.open(proLink, "_blank")}
+                      >
+                        <p>{proLinkName.toUpperCase()}</p>
+                      </div>
+                    ))
+                  ) : (
                     <div
                       className="pro_profile_top_link_div"
-                      onClick={() => window.open(proLink, "_blank")}
+                      onClick={() => {
+                        history.push("/ProEdit");
+                      }}
                     >
-                      <p>{proLinkName.toUpperCase()}</p>
+                      <p>Set Up Your Links!</p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             </div>

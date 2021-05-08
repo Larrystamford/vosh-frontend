@@ -8,5 +8,6 @@ const initialState = {
   loggedInUserId: "",
   newNotifcationsNum: 0,
   globalModalOpened: false,
+  tiktokImporting: false,
 };
 export const { useGlobalState } = createGlobalState(initialState);

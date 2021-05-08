@@ -8,8 +8,8 @@ import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 import { SlidingSocials } from "./SlidingSocials";
 import { SlidingLinks } from "./SlidingLinks";
 import { SlidingCategories } from "./SlidingCategories";
-
 import { SimpleBottomNotification } from "../../components/SimpleBottomNotification";
+import { downloadAndSaveTikToks } from "../../helpers/CommonFunctions";
 
 import { useSwipeable } from "react-swipeable";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,6 +27,10 @@ import LinkOutlinedIcon from "@material-ui/icons/LinkOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CategoryOutlinedIcon from "@material-ui/icons/CategoryOutlined";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
+import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
@@ -52,12 +56,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const displayPreviewFile = (mediaType, url, coverImageUrl) => {
+  if (mediaType == "video") {
+    return (
+      <div
+        className="profile_bottom_grid_video"
+        style={{ position: "relative" }}
+      >
+        <VideoLibraryIcon className="profile_bottom_imageOrVideoIcon" />
+        <img className="profile_bottom_grid_video" src={coverImageUrl} />
+      </div>
+    );
+  } else if (mediaType == "image") {
+    return (
+      <div
+        className="profile_bottom_grid_video"
+        style={{ position: "relative" }}
+      >
+        <PhotoLibraryIcon className="profile_bottom_imageOrVideoIcon" />
+        <img className="profile_bottom_grid_video" src={url} />
+      </div>
+    );
+  }
+};
+
 export const ContentTagging = () => {
+  const [importing, setImporting] = useGlobalState("tiktokImporting");
+
   const classes = useStyles();
   const [checked, setChecked] = React.useState(true);
 
   const history = useHistory();
   const [safeToEdit, setSafeToEdit] = useState(false);
+  const [videos, setVideos] = useState([]);
+  const [proVideos, setProVideos] = useState([]);
   const [proCategories, setProCategories] = useState({ items: [] });
   const [showNotif, setShowNotif] = useState("");
 
@@ -78,6 +110,8 @@ export const ContentTagging = () => {
       axios.get("/v1/users/get/" + userId).then((response) => {
         let data = response.data[0];
         setProCategories({ items: data.proCategories });
+        setProVideos(data.proVideos.reverse());
+        setVideos(data.videos.reverse());
 
         if (response.status == 200) {
           setSafeToEdit(true);
@@ -85,6 +119,27 @@ export const ContentTagging = () => {
       });
     }
   }, []);
+
+  const handleImportClicked = async () => {
+    setSafeToEdit(false);
+    setImporting(true);
+    await downloadAndSaveTikToks();
+    setImporting(false);
+
+    const userId = localStorage.getItem("USER_ID");
+    if (userId) {
+      axios.get("/v1/users/get/" + userId).then((response) => {
+        let data = response.data[0];
+        setVideos(data.videos.reverse());
+
+        if (response.status == 200) {
+          setSafeToEdit(true);
+        }
+      });
+    }
+
+    console.log("import success");
+  };
 
   // edit categories
   const [openCategories, setOpenCategories] = useState(false);
@@ -162,16 +217,46 @@ export const ContentTagging = () => {
           <div className="Tagging_Top_Main">Editing</div>
         </Collapse>
         <Collapse {...handlers} in={checked} collapsedHeight={"95vh"}>
-          <div className="gallery_slider_header">Gallery</div>
+          <div className="gallery_slider_header">
+            <div className="SlidingEdit_TypeLeft">
+              <p style={{ fontSize: 15, fontWeight: "bold" }}>Gallery</p>
+            </div>
+            <div className="SlidingEdit_TypeAndIcon">
+              {importing ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  className={classes.button}
+                  startIcon={
+                    <CircularProgress size={20} style={{ color: "white" }} />
+                  }
+                >
+                  Importing
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  className={classes.button}
+                  onClick={handleImportClicked}
+                >
+                  Import
+                </Button>
+              )}
+            </div>
+          </div>
           <div className="gallery_slider_body">
-            <div className="if not videos show import + sign"></div>
-            <div className="gallery_image_box"></div>
-            <div className="gallery_image_box">Tagged</div>
-            <div className="gallery_image_box"></div>
-            <div className="gallery_image_box"></div>
-            <div className="gallery_image_box"></div>
-            <div className="gallery_image_box"></div>
-            <div className="gallery_image_box"></div>
+            {videos.map((eachVideo, i) => (
+              <div className="gallery_image_box">
+                {displayPreviewFile(
+                  eachVideo.mediaType,
+                  eachVideo.url,
+                  eachVideo.coverImageUrl
+                )}
+              </div>
+            ))}
           </div>
         </Collapse>
       </div>

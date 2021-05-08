@@ -109,10 +109,47 @@ export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
 };
 
 export const downloadAndSaveTikToks = async () => {
-  // const res = await axios.put(
-  //   "/v1/users/update/" + localStorage.getItem("USER_ID"),
-  //   {
-  //     processingTikToksStartTime: true,
-  //   }
-  // );
+  let res;
+  for (let i = 0; i < 6; i++) {
+    if (i == 6) {
+      axios.post("/v1/email/severeError", {
+        userId: localStorage.getItem("USER_ID"),
+        userName: localStorage.getItem("USER_NAME"),
+      });
+
+      alert(
+        "We are unable to download your content now. We are working on it and will contact you via email when solved."
+      );
+
+      break;
+    }
+
+    res = await axios.get(
+      "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID")
+    );
+    console.log("getting tiktoks info");
+
+    if (res.status == 200) {
+      console.log("downloading tiktoks");
+
+      res = await axios.get(
+        "v1/tiktok/download/" + localStorage.getItem("USER_ID")
+      );
+
+      if (res.status == 200) {
+        console.log("saving tiktoks");
+        res = await axios.get(
+          "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID")
+        );
+
+        if (res.status == 200) {
+          return "success";
+        } else {
+          continue;
+        }
+      }
+    } else {
+      continue;
+    }
+  }
 };
