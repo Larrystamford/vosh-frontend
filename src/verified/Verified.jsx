@@ -218,7 +218,10 @@ export const Verified = () => {
         </p>
       </div>
 
-      <div className="userNamesWrapper">
+      <div
+        className="userNamesWrapper"
+        style={focused2 || focused3 ? { display: "none" } : null}
+      >
         <p className="verified_Header2Text">vosh.club/{values.username}</p>
 
         <TextField
@@ -245,21 +248,13 @@ export const Verified = () => {
 
       <div
         className="socialNamesWrapper"
-        style={focused1 ? { zIndex: -1 } : null}
+        style={focused1 ? { display: "none" } : null}
       >
-        <p
-          style={focused1 ? { zIndex: -1 } : null}
-          className="verified_Header2Text"
-        >
-          Social Media Accounts
-        </p>
-        <div
-          className="socialLogoTextFlex"
-          style={focused1 ? { zIndex: -1 } : null}
-        >
+        <p className="verified_Header2Text">Social Media Accounts</p>
+        <div className="socialLogoTextFlex">
           <img
             src="https://media2locoloco-us.s3.amazonaws.com/tik-tok.png"
-            style={focused1 ? { zIndex: -1, height: 25 } : { height: 25 }}
+            style={{ height: 25 }}
           />
           <TextField
             size={size.height < 580 ? "small" : null}
@@ -278,16 +273,12 @@ export const Verified = () => {
                 <InputAdornment position="start">@</InputAdornment>
               ),
             }}
-            style={focused1 ? { zIndex: -1 } : null}
           />
         </div>
-        <div
-          className="socialLogoTextFlex"
-          style={focused1 ? { zIndex: -1 } : null}
-        >
+        <div className="socialLogoTextFlex">
           <img
             src="https://media2locoloco-us.s3.amazonaws.com/instagram.png"
-            style={focused1 ? { zIndex: -1, height: 25 } : { height: 25 }}
+            style={{ height: 25 }}
           />
           <TextField
             size={size.height < 580 ? "small" : null}
@@ -306,7 +297,6 @@ export const Verified = () => {
                 <InputAdornment position="start">@</InputAdornment>
               ),
             }}
-            style={focused1 ? { zIndex: -1 } : null}
           />
         </div>
       </div>
