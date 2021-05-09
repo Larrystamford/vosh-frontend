@@ -10,6 +10,7 @@ import { SlidingLinks } from "./SlidingLinks";
 import { SlidingCategories } from "./SlidingCategories";
 import { SimpleBottomNotification } from "../../components/SimpleBottomNotification";
 import { downloadAndSaveTikToks } from "../../helpers/CommonFunctions";
+import { ContentCategory } from "./ContentCategory";
 
 import { useSwipeable } from "react-swipeable";
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,6 +32,7 @@ import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import AddIcon from "@material-ui/icons/Add";
 
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
@@ -53,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     fill: theme.palette.common.white,
     stroke: theme.palette.divider,
     strokeWidth: 1,
+  },
+  buttonRoot: {
+    backgroundColor: "#c7c7c7",
+    color: "black",
   },
 }));
 
@@ -82,16 +88,26 @@ const displayPreviewFile = (mediaType, url, coverImageUrl) => {
 
 export const ContentTagging = () => {
   const [importing, setImporting] = useGlobalState("tiktokImporting");
+  const [proCategories, setProCategories] = useGlobalState("proCategories");
 
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = useState(true);
 
   const history = useHistory();
   const [safeToEdit, setSafeToEdit] = useState(false);
   const [videos, setVideos] = useState([]);
   const [proVideos, setProVideos] = useState([]);
-  const [proCategories, setProCategories] = useState({ items: [] });
   const [showNotif, setShowNotif] = useState("");
+  const [openContentCategory, setOpenContentCategory] = useState(false);
+  const [categorySelection, setCategorySelection] = useState({});
+  const reduceCategory = () => {
+    for (const [key, value] of Object.entries(categorySelection)) {
+      if (value == true) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   const handlers = useSwipeable({
     onSwiped: (event) => {
@@ -121,7 +137,6 @@ export const ContentTagging = () => {
   }, []);
 
   const handleImportClicked = async () => {
-    setSafeToEdit(false);
     setImporting(true);
     await downloadAndSaveTikToks();
     setImporting(false);
@@ -131,10 +146,6 @@ export const ContentTagging = () => {
       axios.get("/v1/users/get/" + userId).then((response) => {
         let data = response.data[0];
         setVideos(data.videos.reverse());
-
-        if (response.status == 200) {
-          setSafeToEdit(true);
-        }
       });
     }
 
@@ -155,12 +166,12 @@ export const ContentTagging = () => {
       );
     }
   };
-  const handleCategoriesClose = async (updatedCategories) => {
+  const handleCategoriesClose = async () => {
     if (safeToEdit) {
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),
         {
-          proCategories: updatedCategories,
+          proCategories: proCategories.items,
         }
       );
 
@@ -174,7 +185,6 @@ export const ContentTagging = () => {
       }
 
       setOpenCategories(false);
-      window.history.back();
     }
   };
   useDidMountEffect(() => {
@@ -185,6 +195,7 @@ export const ContentTagging = () => {
     if (openCategories) {
       window.addEventListener("popstate", handleCategoriesPop);
     } else {
+      handleCategoriesClose();
       window.removeEventListener("popstate", handleCategoriesPop);
     }
   }, [openCategories]);
@@ -214,7 +225,49 @@ export const ContentTagging = () => {
 
       <div className="Tagging_Main">
         <Collapse in={checked}>
-          <div className="Tagging_Top_Main">Editing</div>
+          <div className="Tagging_Top_Main">
+            <div className="Tagging_Top_Main_Left">
+              <div className="Tagging_Top_Main_Left_Image_Body">
+                <img
+                  className="Tagging_Top_Main_Left_Image"
+                  src="https://media2locoloco-us.s3.amazonaws.com/screenshot_landing.png"
+                />
+              </div>
+            </div>
+            <div className="Tagging_Top_Main_Right">
+              <div className="Tagging_Top_Main_Right_Tag_Body">
+                <div className="Tagging_Choices_2_Wrapper">
+                  <div
+                    className="Tagging_Choices_Left"
+                    onClick={() => {
+                      setOpenContentCategory(true);
+                    }}
+                    style={
+                      reduceCategory()
+                        ? { border: "1px solid lightblue" }
+                        : { border: "1px solid lightgrey" }
+                    }
+                  >
+                    <p>Categories</p>
+                  </div>
+                  <div
+                    className="Tagging_Choices_Right"
+                    onClick={handleCategoriesOpen}
+                  >
+                    <AddIcon style={{ fontSize: 18 }} />
+                  </div>
+                </div>
+                <div className="Tagging_Choices">Item Links</div>
+                <div className="Tagging_Choices">Hashtags</div>
+                <div
+                  className="Tagging_Choices"
+                  style={{ backgroundColor: "#c7c7c7" }}
+                >
+                  SAVE
+                </div>
+              </div>
+            </div>
+          </div>
         </Collapse>
         <Collapse {...handlers} in={checked} collapsedHeight={"95vh"}>
           <div className="gallery_slider_header">
@@ -225,7 +278,9 @@ export const ContentTagging = () => {
               {importing ? (
                 <Button
                   variant="contained"
-                  color="primary"
+                  classes={{
+                    root: classes.buttonRoot,
+                  }}
                   size="small"
                   className={classes.button}
                   startIcon={
@@ -237,9 +292,11 @@ export const ContentTagging = () => {
               ) : (
                 <Button
                   variant="contained"
-                  color="primary"
                   size="small"
                   className={classes.button}
+                  classes={{
+                    root: classes.buttonRoot,
+                  }}
                   onClick={handleImportClicked}
                 >
                   Import
@@ -263,9 +320,15 @@ export const ContentTagging = () => {
 
       <SlidingCategories
         openCategories={openCategories}
-        handleCategoriesClose={handleCategoriesClose}
         proCategories={proCategories}
         setProCategories={setProCategories}
+      />
+      <ContentCategory
+        openContentCategory={openContentCategory}
+        setOpenContentCategory={setOpenContentCategory}
+        proCategories={proCategories}
+        categorySelection={categorySelection}
+        setCategorySelection={setCategorySelection}
       />
 
       {showNotif && <SimpleBottomNotification message={showNotif} />}

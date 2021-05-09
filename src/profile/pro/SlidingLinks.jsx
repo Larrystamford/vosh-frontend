@@ -50,8 +50,7 @@ function Draggable_Item({
           <div className="Draggable_Icon_Wrap">
             <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
-          <div className="SlidingEdit_TypeLeft">
-          </div>
+          <div className="SlidingEdit_TypeLeft"></div>
           <div className="SlidingEdit_TypeAndIcon">
             <p className="Draggable_Link_Item_Content_2">{item.proLinkName}</p>
 
@@ -127,12 +126,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-export const SlidingLinks = ({
-  openLinks,
-  handleLinksClose,
-  proLinks,
-  setProLinks,
-}) => {
+export const SlidingLinks = ({ openLinks, proLinks, setProLinks }) => {
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -192,7 +186,7 @@ export const SlidingLinks = ({
       <div className="SlidingEdit_Body">
         <div className="SlidingEdit_Header">
           <ArrowBackIosOutlinedIcon
-            onClick={() => handleLinksClose(proLinks.items)}
+            onClick={() => history.goBack()}
             style={{ paddingLeft: 14 }}
           />
           <span

@@ -9,5 +9,6 @@ const initialState = {
   newNotifcationsNum: 0,
   globalModalOpened: false,
   tiktokImporting: false,
+  proCategories: { items: [] },
 };
 export const { useGlobalState } = createGlobalState(initialState);

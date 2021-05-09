@@ -134,7 +134,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const SlidingSocials = ({
   openSocials,
-  handleSocialsClose,
   socialItems,
   setSocialItems,
 }) => {
@@ -197,7 +196,7 @@ export const SlidingSocials = ({
       <div className="SlidingEdit_Body">
         <div className="SlidingEdit_Header">
           <ArrowBackIosOutlinedIcon
-            onClick={() => handleSocialsClose(socialItems.items)}
+            onClick={() => history.goBack()}
             style={{ paddingLeft: 14 }}
           />
           <span

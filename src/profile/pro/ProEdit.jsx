@@ -32,7 +32,8 @@ export const ProEdit = () => {
 
   const [socialItems, setSocialItems] = useState({ items: [] });
   const [proLinks, setProLinks] = useState({ items: [] });
-  const [proCategories, setProCategories] = useState({ items: [] });
+  const [proCategories, setProCategories] = useGlobalState("proCategories");
+
 
   const [showNotif, setShowNotif] = useState("");
 
@@ -66,12 +67,12 @@ export const ProEdit = () => {
       );
     }
   };
-  const handleSocialsClose = async (updatedSocialAccounts) => {
+  const handleSocialsClose = async () => {
     if (safeToEdit) {
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),
         {
-          socialAccounts: updatedSocialAccounts,
+          socialAccounts: socialItems.items,
         }
       );
 
@@ -85,7 +86,6 @@ export const ProEdit = () => {
       }
 
       setOpenSocials(false);
-      window.history.back();
     }
   };
   useDidMountEffect(() => {
@@ -96,6 +96,7 @@ export const ProEdit = () => {
     if (openSocials) {
       window.addEventListener("popstate", handleSocialsPop);
     } else {
+      handleSocialsClose();
       window.removeEventListener("popstate", handleSocialsPop);
     }
   }, [openSocials]);
@@ -114,12 +115,12 @@ export const ProEdit = () => {
       );
     }
   };
-  const handleLinksClose = async (updatedLinks) => {
+  const handleLinksClose = async () => {
     if (safeToEdit) {
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),
         {
-          proLinks: updatedLinks,
+          proLinks: proLinks.items,
         }
       );
 
@@ -133,7 +134,6 @@ export const ProEdit = () => {
       }
 
       setOpenLinks(false);
-      window.history.back();
     }
   };
   useDidMountEffect(() => {
@@ -144,6 +144,7 @@ export const ProEdit = () => {
     if (openLinks) {
       window.addEventListener("popstate", handleLinksPop);
     } else {
+      handleLinksClose();
       window.removeEventListener("popstate", handleLinksPop);
     }
   }, [openLinks]);
@@ -162,12 +163,13 @@ export const ProEdit = () => {
       );
     }
   };
-  const handleCategoriesClose = async (updatedCategories) => {
+  const handleCategoriesClose = async () => {
+    console.log(safeToEdit);
     if (safeToEdit) {
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),
         {
-          proCategories: updatedCategories,
+          proCategories: proCategories.items,
         }
       );
 
@@ -181,7 +183,6 @@ export const ProEdit = () => {
       }
 
       setOpenCategories(false);
-      window.history.back();
     }
   };
   useDidMountEffect(() => {
@@ -192,6 +193,7 @@ export const ProEdit = () => {
     if (openCategories) {
       window.addEventListener("popstate", handleCategoriesPop);
     } else {
+      handleCategoriesClose();
       window.removeEventListener("popstate", handleCategoriesPop);
     }
   }, [openCategories]);
@@ -311,21 +313,18 @@ export const ProEdit = () => {
 
       <SlidingSocials
         openSocials={openSocials}
-        handleSocialsClose={handleSocialsClose}
         socialItems={socialItems}
         setSocialItems={setSocialItems}
       />
 
       <SlidingLinks
         openLinks={openLinks}
-        handleLinksClose={handleLinksClose}
         proLinks={proLinks}
         setProLinks={setProLinks}
       />
 
       <SlidingCategories
         openCategories={openCategories}
-        handleCategoriesClose={handleCategoriesClose}
         proCategories={proCategories}
         setProCategories={setProCategories}
       />
