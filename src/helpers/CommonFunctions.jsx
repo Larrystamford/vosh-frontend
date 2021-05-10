@@ -108,29 +108,43 @@ export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
   }
 };
 
+export const downloadAndSaveTikToksWithRetry = async (nthTry) => {
+  try {
+    const res = await downloadAndSaveTikToks();
+    return res;
+  } catch (e) {
+    if (nthTry === 1) {
+      return Promise.reject(e);
+    }
+    console.log("download restart", nthTry, "time");
+    await waitFor(10000);
+    return downloadAndSaveTikToksWithRetry(nthTry - 1);
+  }
+};
+
 export const downloadAndSaveTikToks = async () => {
   try {
     let res;
     console.log("getting tiktoks info");
-    res = await retryPromiseWithDelay(
-      axios.get("v1/tiktok/getInfo/" + localStorage.getItem("USER_ID")),
-      5,
+    res = await retryGetPromiseWithDelay(
+      "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID"),
+      2,
       10000
     );
 
     console.log("downloading tiktoks");
 
-    res = await retryPromiseWithDelay(
-      axios.get("v1/tiktok/download/" + localStorage.getItem("USER_ID")),
-      5,
+    res = await retryGetPromiseWithDelay(
+      "v1/tiktok/download/" + localStorage.getItem("USER_ID"),
+      2,
       10000
     );
 
     console.log("saving tiktoks");
 
-    res = await retryPromiseWithDelay(
-      axios.get("v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID")),
-      5,
+    res = await retryGetPromiseWithDelay(
+      "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID"),
+      2,
       10000
     );
 
@@ -158,9 +172,12 @@ function waitFor(millSeconds) {
     }, millSeconds);
   });
 }
-async function retryPromiseWithDelay(promise, nthTry, delayTime) {
+
+async function retryGetPromiseWithDelay(promiseLink, nthTry, delayTime) {
   try {
-    const res = await promise;
+    await waitFor(5000);
+    console.log("promise with delay", promiseLink);
+    const res = await axios.get(promiseLink);
     return res;
   } catch (e) {
     if (nthTry === 1) {
@@ -169,6 +186,6 @@ async function retryPromiseWithDelay(promise, nthTry, delayTime) {
     console.log("retrying", nthTry, "time");
     // wait for delayTime amount of time before calling this method again
     await waitFor(delayTime);
-    return retryPromiseWithDelay(promise, nthTry - 1, delayTime);
+    return retryGetPromiseWithDelay(promiseLink, nthTry - 1, delayTime);
   }
 }

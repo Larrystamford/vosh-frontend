@@ -105,7 +105,7 @@ export const LinkEditCategory = ({
       if (editingIndex > -1) {
         let prevItems = linksState["items"];
         prevItems[editingIndex] = {
-          id: inputValues.proCategoryName,
+          id: inputValues.proCategoryName + new Date().getTime(),
           proCategoryName: inputValues.proCategoryName,
           proCategoryImage: inputValues.proCategoryImage,
         };
@@ -115,7 +115,7 @@ export const LinkEditCategory = ({
           items: [
             ...prevState["items"],
             {
-              id: inputValues.proCategoryName,
+              id: inputValues.proCategoryName + new Date().getTime(),
               proCategoryName: inputValues.proCategoryName,
               proCategoryImage: inputValues.proCategoryImage,
             },

@@ -42,8 +42,8 @@ export const ContentCategory = ({
   proCategories,
   categorySelection,
   setCategorySelection,
+  handleDoneCategories,
 }) => {
-  console.log(categorySelection);
   const classes = useStyles();
 
   const handleChange = (event) => {
@@ -53,10 +53,6 @@ export const ContentCategory = ({
     });
   };
 
-  const handleSaveCategories = () => {
-    setOpenContentCategory(false);
-  };
-
   return (
     <Dialog open={openContentCategory}>
       <DialogContent>
@@ -64,6 +60,23 @@ export const ContentCategory = ({
         <div>
           <FormControl component="fieldset" className={classes.formControl}>
             <FormGroup>
+              {proCategories.items.length == 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }}
+                  onClick={() => {
+                    handleDoneCategories(true);
+                  }}
+                >
+                  <FormControlLabel
+                    control={<Checkbox name="Add a Category" />}
+                    label="Add a Category"
+                  />
+                </div>
+              )}
               {proCategories.items.map(
                 ({ id, proCategoryName, proCategoryImage }) => (
                   <div
@@ -96,7 +109,12 @@ export const ContentCategory = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={handleSaveCategories}>
+        <Button
+          color="primary"
+          onClick={() => {
+            handleDoneCategories(false);
+          }}
+        >
           Done
         </Button>
       </DialogActions>

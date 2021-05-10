@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Video from "./Video";
 import "./Feed.css";
 import axios from "../axios";
-import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 import { useWindowSize } from "../customHooks/useWindowSize";
 import { LinearProgress } from "@material-ui/core";
 
@@ -238,11 +237,6 @@ export const Feed = (props) => {
 
   return (
     <div className={displayFeed ? "feed" : "feed_hide"}>
-      <StaySlidingSetUp
-        open={checked}
-        handleClose={handleSetUpClose}
-        fromPath="feed"
-      />
       <div className="feed_videos">
         {welcomeScreen ? (
           <Landing

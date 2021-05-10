@@ -119,6 +119,19 @@
   background-color: var(--vosh-color-8);
 }
 
+.SlidingEdit_AddOldLink {
+  width: 80vw;
+  margin: 1rem;
+  padding: 0rem 1rem 0rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid var(--vosh-color-7);
+  background-color: var(--vosh-color-7);
+}
+
 .SlidingEdit_AddNewLinkDetails {
   display: flex;
   justify-content: center;
@@ -127,6 +140,14 @@
 
 .SlidingEdit_AddNewLinkDetails > span {
   font-size: 14px;
+}
+
+.SlidingEdit_HashTagBody {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .Tagging_Main {
@@ -181,7 +202,10 @@
 .Tagging_Top_Main_Left_Image_Body {
   height: 78%;
   width: 85%;
+
+  position: relative;
 }
+
 .Tagging_Top_Main_Left_Image {
   height: 100%;
   width: 100%;
@@ -249,6 +273,25 @@
 }
 
 .gallery_image_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volumeIcon {
+  position: absolute;
+  color: white;
+  right: 0;
+  padding: 10px;
+}
+
+.Link_Previous_Content_Box {
+  height: 2rem;
+  border-radius: 9px;
+
+  background-color: rgb(192, 192, 161);
+
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

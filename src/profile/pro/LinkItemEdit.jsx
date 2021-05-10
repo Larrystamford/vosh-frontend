@@ -29,15 +29,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const LinkEdit = ({
+export const LinkItemEdit = ({
   openLinkEdit,
   setOpenLinkEdit,
   handleLinkEditClose,
   linksState,
-  setlinksState,
+  setLinksState,
   inputValues,
   setInputValues,
   editingIndex,
+  setPreviousLinks,
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -55,27 +56,30 @@ export const LinkEdit = ({
   };
 
   const handleLinkEditSave = () => {
-    if (inputValues.proLinkName != "" && inputValues.proLink != "") {
-      if (inputValues.proLink.toLowerCase().includes("http")) {
+    if (inputValues.itemLink != "" && inputValues.itemLinkName != "") {
+      if (inputValues.itemLink.toLowerCase().includes("http")) {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
-          prevItems[editingIndex] = {
-            id: inputValues.proLink + new Date().getTime(),
-            proLink: inputValues.proLink,
-            proLinkName: inputValues.proLinkName,
+          const linkEditObj = {
+            id: inputValues.itemLink + new Date().getTime(),
+            itemLink: inputValues.itemLink,
+            itemLinkName: inputValues.itemLinkName,
           };
-          setlinksState({ items: prevItems });
+          prevItems[editingIndex] = linkEditObj;
+
+          setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
+          setLinksState({ items: prevItems });
         } else {
-          setlinksState((prevState) => ({
-            items: [
-              ...prevState["items"],
-              {
-                id: inputValues.proLink + new Date().getTime(),
-                proLink: inputValues.proLink,
-                proLinkName: inputValues.proLinkName,
-              },
-            ],
+          const linkObj = {
+            id: inputValues.itemLink + new Date().getTime(),
+            itemLink: inputValues.itemLink,
+            itemLinkName: inputValues.itemLinkName,
+          };
+
+          setLinksState((prevState) => ({
+            items: [...prevState["items"], linkObj],
           }));
+          setPreviousLinks((prevState) => [linkObj, ...prevState]);
         }
         setOpenLinkEdit(false);
       } else {
@@ -90,16 +94,16 @@ export const LinkEdit = ({
     <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
-          {editingIndex == -1 ? "Add New Link" : "Edit Link"}
+          {editingIndex == -1 ? "Add New Product Link" : "Edit Product Link"}
         </DialogContentText>
         <TextField
           size={size.height < 580 ? "small" : null}
-          label="Link Name"
+          label="Product Name"
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
           variant="outlined"
-          value={inputValues.proLinkName}
-          onChange={handleChange("proLinkName")}
+          value={inputValues.itemLinkName}
+          onChange={handleChange("itemLinkName")}
           onKeyDown={handleKeyDown}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -112,8 +116,8 @@ export const LinkEdit = ({
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
           variant="outlined"
-          value={inputValues.proLink}
-          onChange={handleChange("proLink")}
+          value={inputValues.itemLink}
+          onChange={handleChange("itemLink")}
           onKeyDown={handleKeyDown}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}

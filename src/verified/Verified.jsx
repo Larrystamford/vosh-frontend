@@ -9,7 +9,7 @@ import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import {
   convertUsernameToSocialLink,
-  downloadAndSaveTikToks,
+  downloadAndSaveTikToksWithRetry,
 } from "../helpers/CommonFunctions";
 
 import clsx from "clsx";
@@ -195,7 +195,7 @@ export const Verified = () => {
 
   const handleImportStart = async () => {
     setImporting(true);
-    await downloadAndSaveTikToks();
+    await downloadAndSaveTikToksWithRetry(3);
     setImporting(false);
 
     console.log("import success");
