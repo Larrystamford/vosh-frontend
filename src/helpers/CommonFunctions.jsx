@@ -114,6 +114,15 @@ export const downloadAndSaveTikToksWithRetry = async (nthTry) => {
     return res;
   } catch (e) {
     if (nthTry === 1) {
+      axios.post("/v1/email/severeError", {
+        userId: localStorage.getItem("USER_ID"),
+        userName: localStorage.getItem("USER_NAME"),
+      });
+
+      alert(
+        "We are unable to download your content now. We are working on it and will contact you via email when solved."
+      );
+
       return Promise.reject(e);
     }
     console.log("download restart", nthTry, "time");
@@ -128,7 +137,7 @@ export const downloadAndSaveTikToks = async () => {
     console.log("getting tiktoks info");
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID"),
-      2,
+      3,
       10000
     );
 
@@ -136,7 +145,7 @@ export const downloadAndSaveTikToks = async () => {
 
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/download/" + localStorage.getItem("USER_ID"),
-      2,
+      3,
       10000
     );
 
@@ -144,24 +153,14 @@ export const downloadAndSaveTikToks = async () => {
 
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID"),
-      2,
+      3,
       10000
     );
 
-    console.log(res);
-
     return "success";
-  } catch {
-    axios.post("/v1/email/severeError", {
-      userId: localStorage.getItem("USER_ID"),
-      userName: localStorage.getItem("USER_NAME"),
-    });
-
-    alert(
-      "We are unable to download your content now. We are working on it and will contact you via email when solved."
-    );
-
-    return "failure";
+  } catch (e) {
+    console.log("restarting download");
+    return e;
   }
 };
 
@@ -178,6 +177,23 @@ async function retryGetPromiseWithDelay(promiseLink, nthTry, delayTime) {
     await waitFor(5000);
     console.log("promise with delay", promiseLink);
     const res = await axios.get(promiseLink);
+    return res;
+  } catch (e) {
+    if (nthTry === 1) {
+      return Promise.reject(e);
+    }
+    console.log("retrying", nthTry, "time");
+    // wait for delayTime amount of time before calling this method again
+    await waitFor(delayTime);
+    return retryGetPromiseWithDelay(promiseLink, nthTry - 1, delayTime);
+  }
+}
+
+async function retryPostPromiseWithDelay(promiseLink, body, nthTry, delayTime) {
+  try {
+    await waitFor(5000);
+    console.log("promise with delay", promiseLink);
+    const res = await axios.post(promiseLink, body);
     return res;
   } catch (e) {
     if (nthTry === 1) {

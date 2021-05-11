@@ -69,16 +69,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const displayPreviewFile = (mediaType, url, coverImageUrl, proCategories) => {
+const displayPreviewFile = (
+  i,
+  mediaType,
+  url,
+  coverImageUrl,
+  proCategories,
+  heartSticker
+) => {
   if (mediaType == "video") {
     return (
       <div
         className="profile_bottom_grid_video"
         style={{ position: "relative" }}
       >
-        {proCategories.length > 0 ? (
+        {proCategories.length > 0 || heartSticker.includes(i) ? (
           <LoyaltyIcon
-            style={{ color: "orange" }}
+            style={{ color: "rgb(182, 81, 81)" }}
             className="profile_bottom_imageOrVideoIcon"
           />
         ) : (
@@ -123,6 +130,8 @@ export const ContentTagging = () => {
   const [openContentCategory, setOpenContentCategory] = useState(false);
   const [openImport, setOpenImport] = useState(false);
   const [openSelect, setOpenSelect] = useState(-1);
+
+  const [heartSticker, setHeartSticker] = useState([]);
 
   const [categorySelection, setCategorySelection] = useState({});
   const setCategorySelectionTrack = (values) => {
@@ -174,6 +183,8 @@ export const ContentTagging = () => {
   }, []);
 
   const handleImportClicked = async () => {
+    let isMounted = true; // note this flag denote mount status
+
     setImporting(true);
     await downloadAndSaveTikToksWithRetry(3);
     setImporting(false);
@@ -183,15 +194,20 @@ export const ContentTagging = () => {
       axios.get("/v1/users/get/" + userId).then((response) => {
         let data = response.data[0];
 
-        setVideos(
-          data.videos.sort((a, b) => {
-            return b.tiktokCreatedAt - a.tiktokCreatedAt;
-          })
-        );
+        if (isMounted) {
+          setVideos(
+            data.videos.sort((a, b) => {
+              return b.tiktokCreatedAt - a.tiktokCreatedAt;
+            })
+          );
+        }
       });
     }
 
     console.log("import done");
+    return () => {
+      isMounted = false;
+    };
   };
 
   const handleSelectVideoWithChanges = (i) => {
@@ -288,7 +304,6 @@ export const ContentTagging = () => {
     setChangesMade(true);
     setItemLinks(values);
   };
-  console.log(previousLinks);
 
   const [openItemLinks, setOpenItemLinks] = useState(false);
   const handleItemLinksOpen = () => {
@@ -478,6 +493,7 @@ export const ContentTagging = () => {
             localStorage.getItem("USER_ID"),
           {
             previousProductLinks: itemLinks.items,
+            proVideo: displayVideoId,
           }
         );
 
@@ -489,6 +505,8 @@ export const ContentTagging = () => {
         } else {
           setShowNotif("Error");
         }
+
+        setHeartSticker([...heartSticker, videoI]);
 
         setChangesMade(false);
         setPreviousCats(selectedCategories);
@@ -653,10 +671,12 @@ export const ContentTagging = () => {
                 style={i == videoI ? { border: "3px solid #f5f5f5" } : null}
               >
                 {displayPreviewFile(
+                  i,
                   eachVideo.mediaType,
                   eachVideo.url,
                   eachVideo.coverImageUrl,
-                  eachVideo.proCategories
+                  eachVideo.proCategories,
+                  heartSticker
                 )}
               </div>
             ))}

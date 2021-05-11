@@ -11,14 +11,6 @@ import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 import { ProfileFeed } from "../../feed/ProfileFeed";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import WallpaperOutlinedIcon from "@material-ui/icons/WallpaperOutlined";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import Button from "@material-ui/core/Button";
-import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
-import ShareIcon from "@material-ui/icons/Share";
 import CreateIcon from "@material-ui/icons/Create";
 
 import { useHistory } from "react-router";
@@ -41,6 +33,7 @@ export const EditProProfile = ({ match, location }) => {
   const [profileBio, setProfileBio] = useState("");
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
+  const [proCategories, setProCategories] = useState([]);
 
   const [scrollView, setScrollView] = useState(false);
   const [viewIndex, setViewIndex] = useState(0);
@@ -128,6 +121,7 @@ export const EditProProfile = ({ match, location }) => {
         setUserId(data._id);
         setSocialAccounts(data.socialAccounts);
         setProLinks(data.proLinks);
+        setProCategories(data.proCategories);
 
         if (data.profileBio) {
           setProfileBio(data.profileBio);
@@ -235,11 +229,22 @@ export const EditProProfile = ({ match, location }) => {
     history.goBack();
   };
 
+  const [selectedCategoryName, setSelectedCategoryName] = useState("all");
+  const handleCategorySelection = (name) => {
+    setSelectedCategoryName(name);
+  };
+
   return (
     <>
       {scrollView ? (
         <ProfileFeed
-          videos={proVideos}
+          videos={proVideos.filter((video) => {
+            if (selectedCategoryName == "all") {
+              return video;
+            } else {
+              return video.proCategories.includes(selectedCategoryName);
+            }
+          })}
           viewIndex={viewIndex}
           handleChangeView={handleChangeView}
         />
@@ -354,7 +359,7 @@ export const EditProProfile = ({ match, location }) => {
                         className="pro_profile_top_link_div"
                         onClick={() => window.open(proLink, "_blank")}
                       >
-                        <p>{proLinkName.toUpperCase()}</p>
+                        <p>{proLinkName}</p>
                       </div>
                     ))
                   ) : (
@@ -372,19 +377,60 @@ export const EditProProfile = ({ match, location }) => {
             </div>
 
             <div className="pro_profile_top_selector">
-              <div className="pro_profile_icon_and_name">
-                <FavoriteBorderOutlinedIcon style={{ color: "gray" }} />
-                <p style={{ color: "gray" }}>saved</p>
-              </div>
-              <div className="pro_profile_icon_and_name">
-                <WallpaperOutlinedIcon style={{ color: "black" }} />
+              <div
+                className="pro_profile_icon_and_name"
+                onClick={() => {
+                  handleCategorySelection("all");
+                }}
+              >
+                <img
+                  src="https://media2locoloco-us.s3.amazonaws.com/all.png"
+                  style={{ height: 20 }}
+                />
                 <p style={{ color: "black" }}>all</p>
+
+                <div
+                  className="pro_profile_icon_and_name_underline"
+                  style={
+                    selectedCategoryName == "all" ? null : { display: "none" }
+                  }
+                ></div>
               </div>
+              {proCategories.map(
+                ({ id, proCategoryName, proCategoryImage }) => (
+                  <div
+                    className="pro_profile_icon_and_name"
+                    onClick={() => {
+                      handleCategorySelection(proCategoryName);
+                    }}
+                  >
+                    <img src={proCategoryImage} style={{ height: 20 }} />
+                    <p style={{ color: "black" }}>{proCategoryName}</p>
+                    <div
+                      className="pro_profile_icon_and_name_underline"
+                      style={
+                        selectedCategoryName == proCategoryName
+                          ? null
+                          : { display: "none" }
+                      }
+                    ></div>
+                  </div>
+                )
+              )}
             </div>
           </div>
 
           <div className="pro_profile_bottom">
-            <VideoGrid videos={proVideos} handleChangeView={handleChangeView} />
+            <VideoGrid
+              videos={proVideos.filter((video) => {
+                if (selectedCategoryName == "all") {
+                  return video;
+                } else {
+                  return video.proCategories.includes(selectedCategoryName);
+                }
+              })}
+              handleChangeView={handleChangeView}
+            />
           </div>
 
           {isLoggedIn ? null : (

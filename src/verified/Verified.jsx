@@ -84,8 +84,6 @@ export const Verified = () => {
     instagramUserName: "",
   });
 
-  const [importing, setImporting] = useGlobalState("tiktokImporting");
-
   const [usernameMessage, setUsernameMessage] = useState("");
   const [usernameMessageColor, setUsernameMessageColor] = useState("");
 
@@ -194,10 +192,6 @@ export const Verified = () => {
   };
 
   const handleImportStart = async () => {
-    setImporting(true);
-    await downloadAndSaveTikToksWithRetry(3);
-    setImporting(false);
-
     console.log("import success");
   };
 

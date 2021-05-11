@@ -5,6 +5,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+
+import { makeStyles } from "@material-ui/core/styles";
 
 export const ConfirmImport = ({
   openImport,
@@ -19,9 +23,10 @@ export const ConfirmImport = ({
     >
       <DialogTitle id="alert-dialog-title">{"Confirm Import"}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          <p>Importing your content from TikTok might take a few minutes</p>
-        </DialogContentText>
+        <span>
+          Import your videos from your TikTok account. (First time imports might
+          take a few minutes)
+        </span>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpenImport(false)}>Cancel</Button>

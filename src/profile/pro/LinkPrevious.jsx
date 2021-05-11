@@ -80,14 +80,16 @@ export const LinkPrevious = ({
     <Dialog open={openLinkPrevious}>
       <DialogContent>
         <DialogContentText>Select Previous Products</DialogContentText>
-        {previousLinks.map(({ id, itemLink, itemLinkName }) => (
-          <div
-            className="Link_Previous_Content_Box"
-            onClick={() => handleSelectedLink(id, itemLink, itemLinkName)}
-          >
-            {itemLinkName}
-          </div>
-        ))}
+        {previousLinks
+          .filter((v, i, a) => a.findIndex((t) => t.itemLinkName === v.itemLinkName) === i)
+          .map(({ id, itemLink, itemLinkName }) => (
+            <div
+              className="Link_Previous_Content_Box"
+              onClick={() => handleSelectedLink(id, itemLink, itemLinkName)}
+            >
+              {itemLinkName}
+            </div>
+          ))}
       </DialogContent>
       <DialogActions>
         <Button

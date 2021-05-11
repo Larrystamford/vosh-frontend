@@ -40,7 +40,7 @@ export const VideoGrid = ({ videos, handleChangeView }) => {
             history.push("/ContentTagging");
           }}
         >
-          <p>Check Import Status</p>
+          <p>Import & Tag Your TikToks</p>
         </div>
       </div>
     );

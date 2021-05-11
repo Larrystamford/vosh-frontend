@@ -381,6 +381,16 @@
   align-items: center;
   justify-content: center;
   min-width: 4rem;
+  min-height: 2.5rem;
+  position: relative;
+}
+
+.pro_profile_icon_and_name_underline {
+  position: absolute;
+  bottom: 0;
+  width: 2rem;
+  border-bottom: 3px solid lightgrey;
+  border-radius: 10px;
 }
 
 .pro_profile_icon_and_name > p {
