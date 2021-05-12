@@ -11,7 +11,6 @@ import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const categoryIcons = [
   {
     link: "https://dciv99su0d7r5.cloudfront.net/Amazon.png",
@@ -36,6 +35,9 @@ const categoryIcons = [
   },
   {
     link: "https://dciv99su0d7r5.cloudfront.net/Pacsun.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/fire.png",
   },
   {
     link: "https://dciv99su0d7r5.cloudfront.net/store.png",

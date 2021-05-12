@@ -22,6 +22,7 @@ import ConditionalRoute from "./ConditionalRoute";
 import Login from "./login/Login";
 import { Logout } from "./login/Logout";
 import { ProProfile } from "./profile/pro/ProProfile";
+import StayLoginFormPage from "./login/StayLoginFormPage";
 import { EditProProfile } from "./profile/pro/EditProProfile";
 import { ContentTagging } from "./profile/pro/ContentTagging";
 import { ProEdit } from "./profile/pro/ProEdit";
@@ -146,7 +147,6 @@ function App() {
         <Route path="/" component={InstallPWA} />
 
         <Switch>
-          <Route path="/login" component={Login} />
           <Route path="/discover" component={Discover} />
           <Route path="/upload" component={Upload} />
           <Route path="/profile" exact component={PersonalProfile} />
@@ -161,6 +161,7 @@ function App() {
           <Route path="/ProProfile" component={EditProProfile} />
           <Route path="/ProEdit" component={ProEdit} />
           <Route path="/ContentTagging" component={ContentTagging} />
+          <Route path="/login" component={StayLoginFormPage} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/404" exact component={PageNoExist} />
           <Route path="/" exact />

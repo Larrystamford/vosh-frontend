@@ -150,6 +150,15 @@ export const ContentTagging = () => {
     ...{ delta: 15, trackMouse: true, trackTouch: true },
   });
 
+  const handlersUp = useSwipeable({
+    onSwiped: (event) => {
+      if (event.dir == "Up") {
+        setChecked(false);
+      }
+    },
+    ...{ delta: 15, trackMouse: true, trackTouch: true },
+  });
+
   const [previousLinks, setPreviousLinks] = useState([]);
   const [previousCats, setPreviousCats] = useState([]);
   const [previousSubCats, setPreviousSubCats] = useState([]);
@@ -237,6 +246,8 @@ export const ContentTagging = () => {
 
   const [videoI, setVideoI] = useState(-1);
   const handleSelectVideo = (i) => {
+    setChecked(true);
+
     setVideoI(i);
     setCategorySelection({});
     setSelectedCategories([]);
@@ -644,8 +655,8 @@ export const ContentTagging = () => {
             </div>
           </div>
         </Collapse>
-        <Collapse {...handlers} in={checked} collapsedHeight={"95vh"}>
-          <div className="gallery_slider_header">
+        <Collapse in={checked} collapsedHeight={"95vh"}>
+          <div {...handlers} className="gallery_slider_header">
             <div className="SlidingEdit_TypeLeft">
               <p style={{ fontSize: 15, fontWeight: "bold" }}>Gallery</p>
             </div>
@@ -681,23 +692,29 @@ export const ContentTagging = () => {
               )}
             </div>
           </div>
-          <div className="gallery_slider_body">
-            {videos.map((eachVideo, i) => (
-              <div
-                className="gallery_image_box"
-                onClick={() => handleSelectVideoWithChanges(i)}
-                style={i == videoI ? { border: "3px solid #f5f5f5" } : null}
-              >
-                {displayPreviewFile(
-                  i,
-                  eachVideo.mediaType,
-                  eachVideo.url,
-                  eachVideo.coverImageUrl,
-                  eachVideo.proCategories,
-                  heartSticker
-                )}
-              </div>
-            ))}
+          <div {...handlersUp} className="gallery_slider_body_wrapper">
+            <div className="gallery_slider_body">
+              {videos.map((eachVideo, i) => (
+                <div
+                  className="gallery_image_box"
+                  onClick={() => handleSelectVideoWithChanges(i)}
+                  style={i == videoI ? { border: "3px solid #f5f5f5" } : null}
+                >
+                  {displayPreviewFile(
+                    i,
+                    eachVideo.mediaType,
+                    eachVideo.url,
+                    eachVideo.coverImageUrl,
+                    eachVideo.proCategories,
+                    heartSticker
+                  )}
+                </div>
+              ))}
+              <div className="gallery_image_box"></div>
+              <div className="gallery_image_box"></div>
+              <div className="gallery_image_box"></div>
+              <div className="gallery_image_box"></div>
+            </div>
           </div>
         </Collapse>
       </div>

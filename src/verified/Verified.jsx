@@ -178,10 +178,8 @@ export const Verified = () => {
       if (res.status == "201") {
         localStorage.setItem("USER_NAME", res.data[0].userName);
 
-        handleImportStart();
-
         history.push({
-          pathname: "/profile",
+          pathname: "/login",
         });
       } else {
         alert("username is invalid");
@@ -189,10 +187,6 @@ export const Verified = () => {
     } else {
       alert("username is invalid");
     }
-  };
-
-  const handleImportStart = async () => {
-    console.log("import success");
   };
 
   const handleKeyDown = (event) => {

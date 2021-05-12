@@ -120,7 +120,12 @@ export const EditProProfile = ({ match, location }) => {
         setImage(data.picture);
         setFollowings(data.followings);
         setFollowers(data.followers);
-        setProVideos(data.proVideos.reverse());
+        setProVideos(
+          data.proVideos.sort((a, b) => {
+            return b.tiktokCreatedAt - a.tiktokCreatedAt;
+          })
+        );
+
         setUsername(data.userName);
         setUserId(data._id);
         setSocialAccounts(data.socialAccounts);

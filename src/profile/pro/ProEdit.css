@@ -261,6 +261,10 @@
   border-radius: 4px;
 }
 
+.gallery_slider_body_wrapper {
+  overflow-y: scroll;
+}
+
 .gallery_slider_body {
   height: 95vh;
 
