@@ -278,6 +278,12 @@
   align-items: center;
 }
 
+.content_tagging_video_box {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 .volumeIcon {
   position: absolute;
   color: white;
@@ -295,6 +301,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.product_linking_group_name {
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 /* bigger than iphone 5 */

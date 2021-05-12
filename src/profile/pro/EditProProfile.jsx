@@ -3,6 +3,9 @@ import "./ProProfile.css";
 import { Link } from "react-router-dom";
 import { VideoGrid } from "../VideoGrid";
 import { useGlobalState } from "../../GlobalStates";
+
+import { ImageLoad } from "../../components/ImageLoad";
+
 import { Snackbar } from "@material-ui/core";
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
 import { CaptionEdit } from "../CaptionEdit";
@@ -10,14 +13,14 @@ import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
 import { ProfileFeed } from "../../feed/ProfileFeed";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
-
 import CreateIcon from "@material-ui/icons/Create";
+import * as legoData from "../../components/lego-loader";
 
 import { useHistory } from "react-router";
-
 import axios from "../../axios";
-
 import { PageView } from "../../components/tracking/Tracker";
+
+import Lottie from "react-lottie";
 
 export const EditProProfile = ({ match, location }) => {
   const history = useHistory();
@@ -108,6 +111,7 @@ export const EditProProfile = ({ match, location }) => {
   }, [openCaption]);
 
   // load data
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -137,6 +141,8 @@ export const EditProProfile = ({ match, location }) => {
           "--following_button_color",
           "red"
         );
+
+        setIsLoading(false);
       });
     } else {
       setIsLoggedIn(false);
@@ -250,187 +256,212 @@ export const EditProProfile = ({ match, location }) => {
         />
       ) : (
         <div className="ProProfile">
-          <div className="pro_profile_top">
-            <div className="pro_profile_top_header"></div>
-            <div className="pro_profile_top_with_left_right">
-              <div className="pro_profile_top_left">
-                <div className="pro_profile_top_image_name">
-                  <div className="pro_profile_top_image">
-                    {image ? (
-                      <div
-                        style={{ position: "relative" }}
-                        onClick={handleUploadClick}
-                      >
-                        <img
-                          src={image}
-                          className="pro_profile_top_image_circular"
-                          alt="temp avatar"
-                        />
-                        <div className="edit_pro_profile_edit_image_circle">
-                          <CreateIcon
-                            className="edit_pro_profile_edit_image"
-                            style={{ fontSize: 14 }}
+          {isLoading ? (
+            <div className="pro_profile_top">
+              <div className="pro_profile_loading">
+                <Lottie
+                  options={{
+                    loop: true,
+                    autoplay: true,
+                    animationData: legoData.default,
+                    rendererSettings: {
+                      preserveAspectRatio: "xMidYMid slice",
+                    },
+                  }}
+                  height={220}
+                  width={220}
+                />
+                <p className="pro_profile_loading_word">Vosh</p>
+              </div>
+            </div>
+          ) : (
+            <div className="pro_profile_top">
+              <div className="pro_profile_top_header"></div>
+
+              <div className="pro_profile_top_with_left_right">
+                <div className="pro_profile_top_left">
+                  <div className="pro_profile_top_image_name">
+                    <div className="pro_profile_top_image">
+                      {image ? (
+                        <div
+                          style={{ position: "relative" }}
+                          onClick={handleUploadClick}
+                        >
+                          <ImageLoad
+                            src={image}
+                            className="pro_profile_top_image_circular"
+                          />
+
+                          <div className="edit_pro_profile_edit_image_circle">
+                            <CreateIcon
+                              className="edit_pro_profile_edit_image"
+                              style={{ fontSize: 14 }}
+                            />
+                          </div>
+                          <input
+                            ref={hiddenFileInput}
+                            type="file"
+                            name="file"
+                            onChange={(e) => {
+                              handleFileUpload(e.target.files[0]);
+                            }}
                           />
                         </div>
-                        <input
-                          ref={hiddenFileInput}
-                          type="file"
-                          name="file"
-                          onChange={(e) => {
-                            handleFileUpload(e.target.files[0]);
-                          }}
-                        />
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className="pro_profile_top_name">
-                    <p>@{username}</p>
-                  </div>
-                </div>
-                <div className="pro_profile_top_follow">
-                  <div className="edit_pro_profile_followers_flex_box">
-                    <p style={{ fontSize: "16px", fontWeight: "700" }}>
-                      {followers.length}
-                    </p>
-                    <p>Followers</p>
-                  </div>
-                </div>
-                <div className="pro_profile_top_follow">
-                  <div
-                    className="edit_pro_profile_top_edit_button"
-                    onClick={() => {
-                      history.push("/ProEdit");
-                    }}
-                  >
-                    <p>Edit</p>
-                  </div>
-                </div>
-              </div>
-              <div className="pro_profile_top_right">
-                <div className="pro_profile_top_social_medias">
-                  {socialAccounts
-                    .slice(0, 5)
-                    .map(({ socialType, socialLink }) => (
-                      <img
-                        src={convertSocialTypeToImage(socialType)}
-                        style={{ height: 23, margin: 10 }}
-                        onClick={() => window.open(socialLink, "_blank")}
-                      />
-                    ))}
-                </div>
-                <div className="pro_profile_top_social_medias">
-                  {socialAccounts
-                    .slice(5, 10)
-                    .map(({ socialType, socialLink }) => (
-                      <img
-                        src={convertSocialTypeToImage(socialType)}
-                        style={{ height: 23, margin: 10 }}
-                        onClick={() => window.open(socialLink, "_blank")}
-                      />
-                    ))}
-                </div>
-                <div className="pro_profile_top_description">
-                  <div
-                    className="pro_profile_top_profileBio"
-                    style={{ position: "relative", width: "90%" }}
-                    onClick={handleCaptionOpen}
-                  >
-                    <span>{profileBio}</span>
-
-                    <div className="edit_pro_profile_edit_image_circle_caption">
-                      <CreateIcon
-                        className="edit_pro_profile_edit_image_caption"
-                        style={{ fontSize: 12 }}
-                      />
+                      ) : null}
+                    </div>
+                    <div className="pro_profile_top_name">
+                      <p>@{username}</p>
                     </div>
                   </div>
-                  <CaptionEdit
-                    openCaption={openCaption}
-                    setOpenCaption={setOpenCaption}
-                    handleCaptionOpen={handleCaptionOpen}
-                    handleCaptionClose={handleCaptionClose}
-                    setProfileBio={setProfileBio}
-                  />
-                </div>
-                <div className="pro_profile_top_linker">
-                  {proLinks.length > 0 ? (
-                    proLinks.map(({ proLinkName, proLink }) => (
-                      <div
-                        className="pro_profile_top_link_div"
-                        onClick={() => window.open(proLink, "_blank")}
-                      >
-                        <p>{proLinkName}</p>
-                      </div>
-                    ))
-                  ) : (
+                  <div className="pro_profile_top_follow">
+                    <div className="edit_pro_profile_followers_flex_box">
+                      <p style={{ fontSize: "16px", fontWeight: "700" }}>
+                        {followers.length}
+                      </p>
+                      <p>Followers</p>
+                    </div>
+                  </div>
+                  <div className="pro_profile_top_follow">
                     <div
-                      className="pro_profile_top_link_div"
+                      className="edit_pro_profile_top_edit_button"
                       onClick={() => {
                         history.push("/ProEdit");
                       }}
                     >
-                      <p>Set Up Your Links!</p>
+                      <p>Edit</p>
                     </div>
-                  )}
+                  </div>
+                </div>
+                <div className="pro_profile_top_right">
+                  <div className="pro_profile_top_social_medias">
+                    {socialAccounts
+                      .slice(0, 5)
+                      .map(({ socialType, socialLink }) => (
+                        <img
+                          src={convertSocialTypeToImage(socialType)}
+                          style={{ height: 23, margin: 10 }}
+                          onClick={() => window.open(socialLink, "_blank")}
+                        />
+                      ))}
+                  </div>
+                  <div className="pro_profile_top_social_medias">
+                    {socialAccounts
+                      .slice(5, 10)
+                      .map(({ socialType, socialLink }) => (
+                        <img
+                          src={convertSocialTypeToImage(socialType)}
+                          style={{ height: 23, margin: 10 }}
+                          onClick={() => window.open(socialLink, "_blank")}
+                        />
+                      ))}
+                  </div>
+                  <div className="pro_profile_top_description">
+                    <div
+                      className="pro_profile_top_profileBio"
+                      style={{ position: "relative", width: "90%" }}
+                      onClick={handleCaptionOpen}
+                    >
+                      <span>{profileBio}</span>
+
+                      <div className="edit_pro_profile_edit_image_circle_caption">
+                        <CreateIcon
+                          className="edit_pro_profile_edit_image_caption"
+                          style={{ fontSize: 12 }}
+                        />
+                      </div>
+                    </div>
+                    <CaptionEdit
+                      openCaption={openCaption}
+                      setOpenCaption={setOpenCaption}
+                      handleCaptionOpen={handleCaptionOpen}
+                      handleCaptionClose={handleCaptionClose}
+                      setProfileBio={setProfileBio}
+                    />
+                  </div>
+                  <div className="pro_profile_top_linker">
+                    {proLinks.length > 0 ? (
+                      proLinks.map(({ proLinkName, proLink }) => (
+                        <div
+                          className="pro_profile_top_link_div"
+                          onClick={() => window.open(proLink, "_blank")}
+                        >
+                          <p>{proLinkName}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <div
+                        className="pro_profile_top_link_div"
+                        onClick={() => {
+                          history.push("/ProEdit");
+                        }}
+                      >
+                        <p>Set Up Your Links!</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="pro_profile_top_selector">
-              <div
-                className="pro_profile_icon_and_name"
-                onClick={() => {
-                  handleCategorySelection("all");
-                }}
-              >
-                <img
-                  src="https://media2locoloco-us.s3.amazonaws.com/all.png"
-                  style={{ height: 20 }}
-                />
-                <p style={{ color: "black" }}>all</p>
-
+              <div className="pro_profile_top_selector">
                 <div
-                  className="pro_profile_icon_and_name_underline"
-                  style={
-                    selectedCategoryName == "all" ? null : { display: "none" }
-                  }
-                ></div>
-              </div>
-              {proCategories.map(
-                ({ id, proCategoryName, proCategoryImage }) => (
+                  className="pro_profile_icon_and_name"
+                  onClick={() => {
+                    handleCategorySelection("all");
+                  }}
+                >
+                  <img
+                    src="https://dciv99su0d7r5.cloudfront.net/all.png"
+                    style={{ height: 20 }}
+                  />
+                  <p style={{ color: "black" }}>all</p>
+
                   <div
-                    className="pro_profile_icon_and_name"
-                    onClick={() => {
-                      handleCategorySelection(proCategoryName);
-                    }}
-                  >
-                    <img src={proCategoryImage} style={{ height: 20 }} />
-                    <p style={{ color: "black" }}>{proCategoryName}</p>
+                    className="pro_profile_icon_and_name_underline"
+                    style={
+                      selectedCategoryName == "all" ? null : { display: "none" }
+                    }
+                  ></div>
+                </div>
+                {proCategories.map(
+                  ({ id, proCategoryName, proCategoryImage }) => (
                     <div
-                      className="pro_profile_icon_and_name_underline"
-                      style={
-                        selectedCategoryName == proCategoryName
-                          ? null
-                          : { display: "none" }
-                      }
-                    ></div>
-                  </div>
-                )
-              )}
+                      className="pro_profile_icon_and_name"
+                      onClick={() => {
+                        handleCategorySelection(proCategoryName);
+                      }}
+                    >
+                      <img src={proCategoryImage} style={{ height: 20 }} />
+                      <p style={{ color: "black" }}>{proCategoryName}</p>
+                      <div
+                        className="pro_profile_icon_and_name_underline"
+                        style={
+                          selectedCategoryName == proCategoryName
+                            ? null
+                            : { display: "none" }
+                        }
+                      ></div>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="pro_profile_bottom">
-            <VideoGrid
-              videos={proVideos.filter((video) => {
-                if (selectedCategoryName == "all") {
-                  return video;
-                } else {
-                  return video.proCategories.includes(selectedCategoryName);
-                }
-              })}
-              handleChangeView={handleChangeView}
-            />
+            {isLoading ? (
+              <div></div>
+            ) : (
+              <VideoGrid
+                videos={proVideos.filter((video) => {
+                  if (selectedCategoryName == "all") {
+                    return video;
+                  } else {
+                    return video.proCategories.includes(selectedCategoryName);
+                  }
+                })}
+                handleChangeView={handleChangeView}
+              />
+            )}
           </div>
 
           {isLoggedIn ? null : (

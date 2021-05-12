@@ -107,7 +107,7 @@ export const Landing = ({
             
             <p className="landing_WelcomeWord">vosh</p>
             <img
-              src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+White.png"
+              src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
               alt="loco logo"
               style={{ height: 30 }}
             />

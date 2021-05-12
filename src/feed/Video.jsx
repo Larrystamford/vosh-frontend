@@ -55,6 +55,10 @@ function Video({
   setLikedVideoIds,
   productImages,
   originalCreator,
+  proShareCount,
+  proCategories,
+  affiliateGroupName,
+  affiliateProducts,
 }) {
   const [playing, setPlaying] = useState(false);
   const [playingForButton, setPlayingForButton] = useState(true);
@@ -494,6 +498,10 @@ function Video({
           setCommentsOpen={setCommentsOpen}
           openAmazon={openAmazon}
           setOpenAmazon={setOpenAmazon}
+          proShareCount={proShareCount}
+          proCategories={proCategories}
+          affiliateGroupName={affiliateGroupName}
+          affiliateProducts={affiliateProducts}
         />
       )}
 

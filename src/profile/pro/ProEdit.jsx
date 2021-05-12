@@ -241,7 +241,7 @@ export const ProEdit = () => {
         <div className="SlidingEdit_Pannel" onClick={handleSocialsOpen}>
           <div className="SlidingEdit_TypeLeft">
             <img
-              src="https://media2locoloco-us.s3.amazonaws.com/instagram.png"
+              src="https://dciv99su0d7r5.cloudfront.net/instagram.png"
               style={{ height: 15, margin: 3 }}
             />
           </div>

@@ -20,31 +20,31 @@ export const getCombinedName = (color, name, size) => {
 
 export const convertSocialTypeToImage = (socialType) => {
   if (socialType == "TikTok") {
-    return "https://media2locoloco-us.s3.amazonaws.com/tik-tok.png";
+    return "https://dciv99su0d7r5.cloudfront.net/tik-tok.png";
   } else if (socialType == "Instagram") {
-    return "https://media2locoloco-us.s3.amazonaws.com/instagram.png";
+    return "https://dciv99su0d7r5.cloudfront.net/instagram.png";
   } else if (socialType == "Youtube") {
-    return "https://media2locoloco-us.s3.amazonaws.com/youtube.png";
+    return "https://dciv99su0d7r5.cloudfront.net/youtube.png";
   } else if (socialType == "Twitch") {
-    return "https://media2locoloco-us.s3.amazonaws.com/twitch.png";
+    return "https://dciv99su0d7r5.cloudfront.net/twitch.png";
   } else if (socialType == "Pinterest") {
-    return "https://media2locoloco-us.s3.amazonaws.com/pinterest.png";
+    return "https://dciv99su0d7r5.cloudfront.net/pinterest.png";
   } else if (socialType == "Facebook") {
-    return "https://media2locoloco-us.s3.amazonaws.com/facebook.png";
+    return "https://dciv99su0d7r5.cloudfront.net/facebook.png";
   } else if (socialType == "Twitter") {
-    return "https://media2locoloco-us.s3.amazonaws.com/twitter.png";
+    return "https://dciv99su0d7r5.cloudfront.net/twitter.png";
   } else if (socialType == "Discord") {
-    return "https://media2locoloco-us.s3.amazonaws.com/discord.png";
+    return "https://dciv99su0d7r5.cloudfront.net/discord.png";
   } else if (socialType == "Spotify") {
-    return "https://media2locoloco-us.s3.amazonaws.com/spotify.png";
+    return "https://dciv99su0d7r5.cloudfront.net/spotify.png";
   } else if (socialType == "Telegram") {
-    return "https://media2locoloco-us.s3.amazonaws.com/telegram.png";
+    return "https://dciv99su0d7r5.cloudfront.net/telegram.png";
   } else if (socialType == "Whatsapp") {
-    return "https://media2locoloco-us.s3.amazonaws.com/whatsapp.png";
+    return "https://dciv99su0d7r5.cloudfront.net/whatsapp.png";
   } else if (socialType == "Snapchat") {
-    return "https://media2locoloco-us.s3.amazonaws.com/snapchat.png";
+    return "https://dciv99su0d7r5.cloudfront.net/snapchat.png";
   } else if (socialType == "Email") {
-    return "https://media2locoloco-us.s3.amazonaws.com/envelope.png";
+    return "https://dciv99su0d7r5.cloudfront.net/envelope.png";
   }
 };
 

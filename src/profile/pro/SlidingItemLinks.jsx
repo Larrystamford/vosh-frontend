@@ -147,6 +147,10 @@ export const SlidingItemLinks = ({
 
   const [openLinkPrevious, setOpenLinkPrevious] = useState(false);
 
+  const [affiliateGroupName, setAffiliateGroupName] = useState(
+    "Product Links!"
+  );
+
   const [openCancel, setOpenCancel] = useState(false);
   const [inputValues, setInputValues] = useState({
     itemLink: "",
@@ -212,6 +216,7 @@ export const SlidingItemLinks = ({
             Product Linking
           </span>
         </div>
+
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {(provided) => (
@@ -284,3 +289,7 @@ export const SlidingItemLinks = ({
     </Dialog>
   );
 };
+
+// <div className="product_linking_group_name">
+// Product Links!
+// </div>

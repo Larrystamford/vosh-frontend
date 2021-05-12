@@ -148,7 +148,7 @@ const LoginForm = (props) => {
             <p className="Form_WelcomeWord">SHOPLOCOLOCO</p>
             <p className="Form_WelcomeText">Shopping meets Entertainment</p>
             <img
-              src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
+              src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
               alt="loco logo"
               style={{ height: 60 }}
             />
@@ -319,7 +319,7 @@ const LoginForm = (props) => {
           <p className="Form_WelcomeWord">VOSH</p>
           <p className="Form_WelcomeText">Shopping meets Entertainment</p>
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
+            src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
             alt="loco logo"
             style={{ height: 80 }}
           />
@@ -362,7 +362,7 @@ const LoginForm = (props) => {
           <p className="Form_WelcomeText">Shopping meets Entertainment</p>
 
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+Orange.png"
+            src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
             alt="loco logo"
             style={{ height: 60 }}
           />

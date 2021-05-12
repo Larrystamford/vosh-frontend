@@ -285,7 +285,7 @@ export const Inbox = () => {
       {notifications.length == 0 && !loading && (
         <div className="inbox_row">
           {typeOfNotifications(
-            "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+            "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             "broadcast",
             "shoplocoloco",
             "Welcome to Loco Loco! Get a tailor-made shopping experience by signing in now!",

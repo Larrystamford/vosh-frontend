@@ -67,7 +67,7 @@ export const DropDownMenu = ({
             title: "Your order is on it's way!",
             text: "Open to view",
             image:
-              "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+              "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             tag: "shipping-update",
             url: "https://www.shoplocoloco.com/inbox",
           });
@@ -85,7 +85,7 @@ export const DropDownMenu = ({
               "Your order has been delivered! Share with us your experience by dropping a review.",
             text: "Open to view",
             image:
-              "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+              "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             tag: "shipping-delivered",
             url: "https://www.shoplocoloco.com/inbox",
           });
@@ -103,7 +103,7 @@ export const DropDownMenu = ({
               "We are sorry! A full refund has been credited back to your bank account.",
             text: "Open to view",
             image:
-              "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+              "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             tag: "shipping-refunded",
             url: "https://www.shoplocoloco.com/inbox",
           });

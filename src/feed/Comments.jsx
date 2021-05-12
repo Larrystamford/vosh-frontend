@@ -119,7 +119,7 @@ export const Comments = (props) => {
       axios.post("/v1/notifications/sendPushNotification/" + commentUserId, {
         title: "Your comment received a reply",
         text: "Open to view",
-        image: "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+        image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "new-reply",
         url: "https://www.shoplocoloco.com/inbox",
       });
@@ -151,7 +151,7 @@ export const Comments = (props) => {
       axios.post("/v1/notifications/sendPushNotification/" + commentUserId, {
         title: "Your comment received a reply",
         text: "Open to view",
-        image: "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+        image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "new-reply",
         url: "https://www.shoplocoloco.com/inbox",
       });
@@ -182,7 +182,7 @@ export const Comments = (props) => {
       axios.post("/v1/notifications/sendPushNotification/" + props.sellerId, {
         title: "Your video received a comment",
         text: "Open to view",
-        image: "https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png",
+        image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "new-comment",
         url: "https://www.shoplocoloco.com/inbox",
       });

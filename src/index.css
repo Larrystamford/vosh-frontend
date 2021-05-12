@@ -71,28 +71,28 @@ html {
 @font-face {
   font-family: "butler regular";
   src: local("butler regular"),
-    url("https://media2locoloco-us.s3.amazonaws.com/Butler_Regular.otf")
+    url("https://dciv99su0d7r5.cloudfront.net/Butler_Regular.otf")
       format("truetype");
 }
 
 @font-face {
   font-family: "butler bold";
   src: local("butler bold"),
-    url("https://media2locoloco-us.s3.amazonaws.com/Butler_Bold.otf")
+    url("https://dciv99su0d7r5.cloudfront.net/Butler_Bold.otf")
       format("truetype");
 }
 
 @font-face {
   font-family: "Avenir Black";
   src: local("Avenir-Black"),
-    url("https://media2locoloco-us.s3.amazonaws.com/Avenir-Black.otf")
+    url("https://dciv99su0d7r5.cloudfront.net/Avenir-Black.otf")
       format("truetype");
 }
 
 @font-face {
   font-family: "Poppins Regular";
   src: local("Poppins-Regular"),
-    url("https://media2locoloco-us.s3.amazonaws.com/Poppins-Regular.otf")
+    url("https://dciv99su0d7r5.cloudfront.net/Poppins-Regular.otf")
       format("truetype");
 }
 

@@ -13,7 +13,7 @@ export const PrivacyPolicy = () => {
         <meta property="og:title" content="Shoplocoloco Privacy Policy" />
         <meta
           property="og:image"
-          content="https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png"
+          content="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
         />
         <meta
           property="og:description"

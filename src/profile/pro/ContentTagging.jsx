@@ -80,7 +80,7 @@ const displayPreviewFile = (
   if (mediaType == "video") {
     return (
       <div
-        className="profile_bottom_grid_video"
+        className="content_tagging_video_box"
         style={{ position: "relative" }}
       >
         {proCategories.length > 0 || heartSticker.includes(i) ? (
@@ -91,7 +91,7 @@ const displayPreviewFile = (
         ) : (
           <VideoLibraryIcon className="profile_bottom_imageOrVideoIcon" />
         )}
-        <img className="profile_bottom_grid_video" src={coverImageUrl} />
+        <img className="content_tagging_video_box" src={coverImageUrl} />
       </div>
     );
   } else if (mediaType == "image") {
@@ -173,6 +173,23 @@ export const ContentTagging = () => {
           setDisplayVideo(sortedVideos[0].url);
           setDisplayVideoId(sortedVideos[0]._id);
           setVideoI(0);
+
+          if (sortedVideos[0].proCategories.length > 0) {
+            const catSelection = {};
+            for (const eachProCat of sortedVideos[0].proCategories) {
+              catSelection[eachProCat] = true;
+            }
+            setCategorySelection(catSelection);
+          }
+
+          if (sortedVideos[0].categories.length > 0) {
+            setSelectedCategories(sortedVideos[0].categories);
+            setSelectedSubCategories(sortedVideos[0].subCategories);
+          }
+
+          if (sortedVideos[0].affiliateProducts.length > 0) {
+            setItemLinks({ items: sortedVideos[0].affiliateProducts });
+          }
         }
 
         if (response.status == 200) {
@@ -477,6 +494,7 @@ export const ContentTagging = () => {
           categories: selectedCategories,
           subCategories: selectedSubCategories,
           proCategories: proCategories,
+          affiliateGroupName: "Item Links",
           affiliateProducts: itemLinks.items,
         });
 

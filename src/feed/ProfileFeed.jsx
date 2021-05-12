@@ -24,6 +24,8 @@ export const ProfileFeed = (props) => {
   const [notifPrompt, setNotifPrompt] = useState(false);
   const [promptType, setPromptType] = useState("");
 
+  console.log(videos);
+
   return (
     <div className="feed" style={{ zIndex: "1005" }}>
       <div className="feed_videos" style={{ zIndex: "1005" }}>
@@ -54,6 +56,10 @@ export const ProfileFeed = (props) => {
               amazonOrInternal,
               productImages,
               originalCreator,
+              proShareCount,
+              proCategories,
+              affiliateGroupName,
+              affiliateProducts,
             },
             index
           ) => (
@@ -93,6 +99,10 @@ export const ProfileFeed = (props) => {
               setLikedVideoIds={props.setLikedVideoIds} // to push from history to liked grid
               productImages={productImages}
               originalCreator={originalCreator}
+              proShareCount={proShareCount}
+              proCategories={proCategories}
+              affiliateGroupName={affiliateGroupName}
+              affiliateProducts={affiliateProducts}
             />
           )
         )}

@@ -47,12 +47,17 @@ function VideoSidebar({
   setCommentsOpen,
   openAmazon,
   setOpenAmazon,
+  proShareCount,
+  proCategories,
+  affiliateGroupName,
+  affiliateProducts,
 }) {
   const [liked, setLiked] = useState(profileFeedType == "likedVideos");
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
   );
+  const [openAffiliate, setOpenAffiliate] = useState(false);
 
   const handleCommentPop = useCallback(() => {
     // setGlobalModalOpened(false);
@@ -62,15 +67,21 @@ function VideoSidebar({
     // setGlobalModalOpened(false);
     setOpenAmazon(false);
   }, []);
+  const handleAffiliatePop = useCallback(() => {
+    // setGlobalModalOpened(false);
+    setOpenAffiliate(false);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("popstate", handleCommentPop);
     window.addEventListener("popstate", handleAmazonPop);
+    window.addEventListener("popstate", handleAffiliatePop);
 
     // cleanup this component
     return () => {
       window.removeEventListener("popstate", handleCommentPop);
       window.removeEventListener("popstate", handleAmazonPop);
+      window.removeEventListener("popstate", handleAffiliatePop);
     };
   }, []);
 
@@ -100,6 +111,7 @@ function VideoSidebar({
     }
   };
 
+  // amazon
   const handleAmazonOpen = () => {
     setOpenAmazon(true);
     setGlobalModalOpened(true);
@@ -112,6 +124,22 @@ function VideoSidebar({
     );
   };
   const handleAmazonClose = () => {
+    window.history.back();
+  };
+
+  // affiliate
+  const handleAffiliateOpen = () => {
+    setOpenAffiliate(true);
+    setGlobalModalOpened(true);
+    window.history.pushState(
+      {
+        affiliate: "affiliate",
+      },
+      "",
+      ""
+    );
+  };
+  const handleAffiliateClose = () => {
     window.history.back();
   };
 
@@ -201,7 +229,9 @@ function VideoSidebar({
             onClick={() => handleLikeButtonClicked("like")}
           />
         )}
-        <p>{liked ? likesCount + 1 : likesCount}</p>
+        <p>
+          {liked ? likesCount + 1 + proShareCount : likesCount + proShareCount}
+        </p>
       </div>
 
       <div className="videoSidebar__button">
@@ -217,7 +247,7 @@ function VideoSidebar({
             style={{ color: "white" }}
             onClick={() => {
               onVideoClick();
-              handleLikeButtonClicked("like")
+              handleLikeButtonClicked("like");
               window.open(smallShopLink, "_blank");
               Event(
                 "ecommerce",
@@ -241,6 +271,16 @@ function VideoSidebar({
           />
         </div>
       ) : null}
+
+      {affiliateGroupName && (
+        <div className="videoSidebar__button">
+          <LoyaltyIcon
+            fontSize="default"
+            style={{ color: "white" }}
+            onClick={handleAffiliateOpen}
+          />
+        </div>
+      )}
 
       <div className="videoSidebar__button">
         <CopyToClipboard text={videoLink}>
@@ -288,7 +328,7 @@ function VideoSidebar({
               <ListItem
                 onClick={() => {
                   onVideoClick();
-                  handleLikeButtonClicked("like")
+                  handleLikeButtonClicked("like");
                   window.open(amazon.amazon_link, "_blank");
                   Event(
                     "ecommerce",
@@ -307,6 +347,41 @@ function VideoSidebar({
                     onClick={() => setOpenAmazon(true)}
                   />
                   <p>{amazon.amazon_name}</p>
+                </div>
+              </ListItem>
+            ))}
+          </List>
+        </Dialog>
+      )}
+
+      {openAffiliate && (
+        <Dialog
+          onClose={handleAffiliateClose}
+          aria-labelledby="simple-dialog-title"
+          open={openAffiliate}
+        >
+          <DialogTitle id="simple-dialog-title">
+            {affiliateGroupName}
+          </DialogTitle>
+          <List style={{ overflowY: "scroll", maxHeight: "14rem" }}>
+            {affiliateProducts.map((products) => (
+              <ListItem
+                onClick={() => {
+                  onVideoClick();
+                  handleLikeButtonClicked("like");
+                  window.open(products.itemLink, "_blank");
+                  return false;
+                }}
+                key={products.itemLinkName}
+                style={{ minWidth: "19rem" }}
+              >
+                <div className="sidebar_amazonlogolink">
+                  <img
+                    style={{ height: 22, paddingRight: 30 }}
+                    src="https://dciv99su0d7r5.cloudfront.net/link+(1).png"
+                  />
+
+                  <p>{products.itemLinkName}</p>
                 </div>
               </ListItem>
             ))}

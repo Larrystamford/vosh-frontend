@@ -19,7 +19,7 @@ export const ComputerLanding = ({ }) => {
 
             <div className="computer_QrWrapper">
             <img
-              src="https://media2locoloco-us.s3.amazonaws.com/locoQR.png"
+              src="https://dciv99su0d7r5.cloudfront.net/locoQR.png"
               alt="qr_code"
               style={{ height: 150 }}
 
@@ -30,7 +30,7 @@ export const ComputerLanding = ({ }) => {
 
           <div className="computer_MessageBox">
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/computer_no_bg.png"
+            src="https://dciv99su0d7r5.cloudfront.net/computer_no_bg.png"
             alt="computer landing phones"
             style={{ height: 450 }}
           />
@@ -38,7 +38,7 @@ export const ComputerLanding = ({ }) => {
 
         <img
         className="computer_bottom_right_logo"
-        src="https://media2locoloco-us.s3.amazonaws.com/ShopLocoLoco+Small+Symbol+White.png"
+        src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
         alt="loco logo"
         style={{ height: 25, padding: 20 }}
       />

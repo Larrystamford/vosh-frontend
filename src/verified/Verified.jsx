@@ -247,7 +247,7 @@ export const Verified = () => {
         <p className="verified_Header2Text">Social Media Accounts</p>
         <div className="socialLogoTextFlex">
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/tik-tok.png"
+            src="https://dciv99su0d7r5.cloudfront.net/tik-tok.png"
             style={{ height: 25 }}
           />
           <TextField
@@ -271,7 +271,7 @@ export const Verified = () => {
         </div>
         <div className="socialLogoTextFlex">
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/instagram.png"
+            src="https://dciv99su0d7r5.cloudfront.net/instagram.png"
             style={{ height: 25 }}
           />
           <TextField

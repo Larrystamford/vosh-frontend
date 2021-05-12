@@ -7,7 +7,7 @@ export const RoomPreview = ({ sender, message }) => {
       <div className="roomPreview_info">
         <div className="roomPreview_picture">
           <img
-            src="https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png"
+            src="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
             className="roomPreview_picture_image"
             alt="temp avatar"
           />

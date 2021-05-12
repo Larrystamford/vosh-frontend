@@ -11,45 +11,70 @@ import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 import { makeStyles } from "@material-ui/core/styles";
 
+
 const categoryIcons = [
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/store.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Amazon.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/bonus.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Depop.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/house.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Shein (2).png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/bag.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Shopee.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/wristwatch.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Walmart+(2).png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/necklace.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Lazada+(2).png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/sneakers.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Ulta.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/baseball-cap.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/Pacsun.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/cat.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/store.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/dog.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/bonus.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/pawprint.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/house.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/confetti.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/bag.png",
   },
   {
-    link: "https://media2locoloco-us.s3.amazonaws.com/online-shopping.png",
+    link: "https://dciv99su0d7r5.cloudfront.net/wristwatch.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/necklace.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/sneakers.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/baseball-cap.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/cat.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/dog.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/pawprint.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/confetti.png",
+  },
+  {
+    link: "https://dciv99su0d7r5.cloudfront.net/online-shopping.png",
   },
 ];
 

@@ -35,7 +35,7 @@ export const AboutUs = (props) => {
         <div className="aboutUs_top_image_name">
           <div className="aboutUs_top_image">
             <img
-              src="https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png"
+              src="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
               className="aboutUs_top_image_circular"
               alt="temp avatar"
             />

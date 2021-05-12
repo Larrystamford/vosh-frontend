@@ -73,7 +73,7 @@ export const InstantPWA = ({ setShowPWA }) => {
           <Paper id="PWA_paper" elevation={4} className={classes.paper}>
             <img
               width="70px"
-              src="https://media2locoloco-us.s3.amazonaws.com/icon-192x192.png"
+              src="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
               alt="Icon"
             />
             <div className="PWA_words_group">
