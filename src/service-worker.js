@@ -38,8 +38,8 @@ function openPushNotification(event) {
 self.addEventListener("push", receivePushNotification);
 self.addEventListener("notificationclick", openPushNotification);
 
-const staticCacheName = "site-static-v43";
-const dynamicCacheName = "site-dynamic-v43";
+const staticCacheName = "site-static-v44";
+const dynamicCacheName = "site-dynamic-v44";
 
 const assets = [
   "/favicon.ico",
