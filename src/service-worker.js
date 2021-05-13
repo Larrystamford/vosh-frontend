@@ -38,8 +38,8 @@ function openPushNotification(event) {
 self.addEventListener("push", receivePushNotification);
 self.addEventListener("notificationclick", openPushNotification);
 
-const staticCacheName = "site-static-v44";
-const dynamicCacheName = "site-dynamic-v44";
+const staticCacheName = "site-static-v45";
+const dynamicCacheName = "site-dynamic-v45";
 
 const assets = [
   "/favicon.ico",
@@ -111,21 +111,15 @@ function getCacheOrFetch(event) {
           fetch(event.request).then((fetchRes) => {
             return caches.open(dynamicCacheName).then((cache) => {
               if (
-                event.request.url.indexOf("/logout") > -1 ||
-                event.request.url.indexOf("/video") > -1 ||
-                event.request.url.indexOf("/review") > -1 ||
-                event.request.url.indexOf("/profile") > -1 ||
-                event.request.url.indexOf("/inbox") > -1 ||
                 event.request.url.indexOf("google-analytics") > -1 ||
                 event.request.url.indexOf("service-worker") > -1 ||
                 event.request.url.indexOf("hot-update") > -1 ||
                 event.request.url.indexOf("manifest.json") > -1 ||
                 event.request.url.indexOf("api.shoplocoloco") > -1 ||
                 event.request.url.indexOf("stripe") > -1 ||
-                event.request.url.indexOf("pay.google.com") > -1 ||
-                event.request.url.indexOf(".mp4") > -1 ||
-                event.request.url.indexOf(".mov") > -1
+                event.request.url.indexOf("pay.google.com") > -1
               ) {
+                console.log("not cacheing these", event.request.url, fetchRes);
                 return fetchRes;
               }
 
