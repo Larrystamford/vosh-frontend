@@ -38,7 +38,7 @@ export const SetTheme = () => {
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
-      axios.get("/v1/users/get/" + userId).then((response) => {
+      axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
         console.log(data);
         setProTheme(data.proTheme);

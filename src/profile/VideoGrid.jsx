@@ -18,7 +18,6 @@ export const VideoGrid = ({
   selectedCategoryName,
 }) => {
   useEffect(() => {
-    console.log("hello");
     setShowVideos(videos.slice(0, 6));
   }, [selectedCategoryName]);
 

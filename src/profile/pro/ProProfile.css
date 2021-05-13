@@ -146,7 +146,7 @@
 }
 
 .pro_profile_top_with_left_right {
-  height: 85%;
+  height: 82%;
   width: 100%;
 
   display: flex;
@@ -327,7 +327,7 @@
 }
 
 .pro_profile_top_selector {
-  height: 15%;
+  height: 18%;
   width: 100%;
   border-top: 2px solid lightgray;
   border-bottom: 1px solid lightgray;
@@ -380,10 +380,10 @@
 }
 
 .pro_profile_top_follow_button {
-  height: 2rem;
+  height: 2.1rem;
   width: 5.5rem;
   border-radius: 3px;
-  background-color: var(--follow_button_color);
+  background-color: var(--vosh-color-6);
 
   display: flex;
   align-items: center;
@@ -391,10 +391,10 @@
 }
 
 .pro_profile_top_following_button {
-  height: 2rem;
+  height: 2.1rem;
   width: 5.5rem;
   border-radius: 3px;
-  background-color: var(--following_button_color);
+  background-color: var(--vosh-color-5);
 
   display: flex;
   align-items: center;
@@ -484,13 +484,13 @@
   }
 
   .pro_profile_top_following_button {
-    height: 1.6rem;
+    height: 1.7rem;
     width: 4.5rem;
     font-size: 13px;
   }
 
   .pro_profile_top_follow_button {
-    height: 1.6rem;
+    height: 1.7rem;
     width: 4.5rem;
     font-size: 13px;
   }

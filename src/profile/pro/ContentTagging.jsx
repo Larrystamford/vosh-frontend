@@ -165,7 +165,7 @@ export const ContentTagging = () => {
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
-      axios.get("/v1/users/get/" + userId).then((response) => {
+      axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
         const sortedVideos = data.videos.sort((a, b) => {
           return b.tiktokCreatedAt - a.tiktokCreatedAt;
@@ -217,7 +217,7 @@ export const ContentTagging = () => {
 
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
-      axios.get("/v1/users/get/" + userId).then((response) => {
+      axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
 
         if (isMounted) {

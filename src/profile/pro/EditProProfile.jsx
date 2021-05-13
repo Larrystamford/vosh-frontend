@@ -126,7 +126,7 @@ export const EditProProfile = ({ match, location }) => {
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
-      axios.get("/v1/users/get/" + userId).then((response) => {
+      axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
         setImage(data.picture);
         setFollowings(data.followings);
