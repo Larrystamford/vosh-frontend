@@ -139,7 +139,7 @@ function getCacheOrFetch(event) {
       .catch(() => {
         if (
           event.request.url &&
-          event.request.url.indexOf("shoplocoloco.com") > -1 &&
+          event.request.url.indexOf("vosh.club") > -1 &&
           event.request.url.indexOf(".css") < 0 &&
           event.request.url.indexOf(".js") < 0
         ) {

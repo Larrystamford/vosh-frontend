@@ -87,8 +87,6 @@ export const Verified = () => {
   const [usernameMessage, setUsernameMessage] = useState("");
   const [usernameMessageColor, setUsernameMessageColor] = useState("");
 
-  const [requestLogin, setRequestLogin] = useState(true);
-
   useDidMountEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       const validUserName = await checkUserName();
@@ -165,25 +163,13 @@ export const Verified = () => {
         });
       }
 
-      const res = await axios.put(
-        "/v1/users/update/" + localStorage.getItem("USER_ID"),
-        {
+      history.push({
+        pathname: "/login",
+        state: {
           userName: values.username,
-          accountType: "pro",
           socialAccounts: socialAccounts,
-          processingTikToksStartTime: new Date().getTime(),
-        }
-      );
-
-      if (res.status == "201") {
-        localStorage.setItem("USER_NAME", res.data[0].userName);
-
-        history.push({
-          pathname: "/login",
-        });
-      } else {
-        alert("username is invalid");
-      }
+        },
+      });
     } else {
       alert("username is invalid");
     }
@@ -294,13 +280,6 @@ export const Verified = () => {
           Next
         </p>
       )}
-
-      <StaySlidingSetUp
-        open={requestLogin && !localStorage.getItem("USER_ID")}
-        handleClose={() => {
-          setRequestLogin(false);
-        }}
-      />
     </div>
   );
 };

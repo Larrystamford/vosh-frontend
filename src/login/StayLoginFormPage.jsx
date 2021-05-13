@@ -32,6 +32,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import ForwardOutlinedIcon from "@material-ui/icons/ForwardOutlined";
 
+import axios from "../axios";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -119,6 +121,24 @@ const StayLoginFormPage = (props) => {
           email: values.email,
           password: values.password,
         });
+
+
+        if (
+          props.location &&
+          props.location.state &&
+          props.location.state.userName
+        ) {
+          const res = await axios.put(
+            "/v1/users/update/" + localStorage.getItem("USER_ID"),
+            {
+              userName: props.location.state.userName,
+              accountType: "pro",
+              socialAccounts: props.location.state.socialAccounts,
+              processingTikToksStartTime: new Date().getTime(),
+            }
+          );
+          localStorage.setItem("USER_NAME", res.data[0].userName);
+        }
       } else {
         await props.signIn({
           email: values.email,
