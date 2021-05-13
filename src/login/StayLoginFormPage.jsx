@@ -141,6 +141,12 @@ const StayLoginFormPage = (props) => {
                   accountType: "pro",
                   socialAccounts: props.location.state.socialAccounts,
                   processingTikToksStartTime: new Date().getTime(),
+                  proTheme: {
+                    background1:
+                      "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+                    background2:
+                      "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+                  },
                 }
               );
               localStorage.setItem("USER_NAME", res.data[0].userName);

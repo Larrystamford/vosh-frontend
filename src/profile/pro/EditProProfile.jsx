@@ -43,6 +43,7 @@ export const EditProProfile = ({ match, location }) => {
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
   const [proCategories, setProCategories] = useState([]);
+  const [proTheme, setProTheme] = useState({});
 
   const [showVideos, setShowVideos] = useState([]);
 
@@ -118,6 +119,8 @@ export const EditProProfile = ({ match, location }) => {
     }
   }, [openCaption]);
 
+  console.log(proTheme);
+
   // load data
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -128,6 +131,7 @@ export const EditProProfile = ({ match, location }) => {
         setImage(data.picture);
         setFollowings(data.followings);
         setFollowers(data.followers);
+        setProTheme(data.proTheme);
 
         const sortedProVideos = data.proVideos.sort((a, b) => {
           return b.tiktokCreatedAt - a.tiktokCreatedAt;
@@ -147,12 +151,8 @@ export const EditProProfile = ({ match, location }) => {
         // set theme up
         // theme1 to theme6 -> front end helper function to return the respective colors
         document.documentElement.style.setProperty(
-          "--follow_button_color",
-          "blue"
-        );
-        document.documentElement.style.setProperty(
-          "--following_button_color",
-          "red"
+          "--background1",
+          data.proTheme.background1
         );
 
         setIsLoading(false);
@@ -289,8 +289,12 @@ export const EditProProfile = ({ match, location }) => {
             </div>
           ) : (
             <div className="pro_profile_top">
-
-              <div className="pro_profile_top_with_left_right">
+              <div
+                className="pro_profile_top_with_left_right"
+                style={{
+                  backgroundImage: `url(${proTheme.background1})`,
+                }}
+              >
                 <div className="pro_profile_top_left">
                   <div className="pro_profile_top_image_name">
                     <div className="pro_profile_top_image">
@@ -390,7 +394,12 @@ export const EditProProfile = ({ match, location }) => {
                       setProfileBio={setProfileBio}
                     />
                   </div>
-                  <div className="pro_profile_top_linker">
+                  <div
+                    className="pro_profile_top_linker"
+                    style={{
+                      backgroundImage: `url(${proTheme.background2})`,
+                    }}
+                  >
                     {proLinks.length > 0 ? (
                       proLinks.map(({ proLinkName, proLink }) => (
                         <div

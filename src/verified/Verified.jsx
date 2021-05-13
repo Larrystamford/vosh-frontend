@@ -111,7 +111,7 @@ export const Verified = () => {
   };
 
   const checkUserName = async () => {
-    let format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+    let format = /[!@#$%^&*()+\=\[\]{};':"\\|,<>\/?]+/;
 
     if (format.test(values.username) || values.username == "") {
       return false;
@@ -171,6 +171,12 @@ export const Verified = () => {
             accountType: "pro",
             socialAccounts: socialAccounts,
             processingTikToksStartTime: new Date().getTime(),
+            proTheme: {
+              background1:
+                "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+              background2:
+                "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+            },
           }
         );
         localStorage.setItem("USER_NAME", res.data[0].userName);
