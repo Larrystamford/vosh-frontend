@@ -113,7 +113,8 @@ function getCacheOrFetch(event) {
                 event.request.url.indexOf("manifest.json") > -1 ||
                 event.request.url.indexOf("localhost:5000") > -1 ||
                 event.request.url.indexOf("stripe") > -1 ||
-                event.request.url.indexOf("dciv99su0d7r5") > -1 ||
+                event.request.url.indexOf("media2locoloco") > -1 ||
+                event.request.url.indexOf("stripe") > -1
               ) {
                 console.log("not cacheing these", event.request.url, fetchRes);
                 return fetchRes;
