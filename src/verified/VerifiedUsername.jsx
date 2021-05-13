@@ -105,7 +105,7 @@ export const VerifiedUsername = () => {
   };
 
   const checkUserName = async () => {
-    let format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+    let format = /[!@#$%^&*()+\=\[\]{};':"\\|,<>\/?]+/;
 
     if (format.test(values.username) || values.username == "") {
       return false;

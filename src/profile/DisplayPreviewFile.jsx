@@ -20,7 +20,6 @@ export const DisplayPreviewFile = ({
         style={{ position: "relative" }}
         onClick={onClick}
       >
-        <VideoLibraryIcon className="profile_bottom_imageOrVideoIcon" />
         <OnImagesLoaded
           onLoaded={() => setShowImage(true)}
           onTimeout={() => setShowImage(true)}
@@ -29,7 +28,7 @@ export const DisplayPreviewFile = ({
           <img
             style={{
               opacity: showImage ? 1 : 0,
-              transition: "all 1.5s",
+              transition: "all 1.3s",
               border: "1px solid white",
             }}
             className="profile_bottom_grid_video"

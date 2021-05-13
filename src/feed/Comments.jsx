@@ -385,7 +385,7 @@ export const Comments = (props) => {
                       disabled={!input}
                       type="submit"
                     >
-                      <SendIcon />
+                      <SendIcon style={{ fontSize: 25 }} />
                     </button>
                   </form>
                 </div>

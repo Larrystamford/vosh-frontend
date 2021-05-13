@@ -53,12 +53,24 @@ export const VideoGrid = ({
     <div className="profile_bottom_container">
       <div className="profile_bottom_grid">
         {showVideos.map((eachVideo, i) => (
-          <DisplayPreviewFile
-            mediaType={eachVideo.mediaType}
-            url={eachVideo.url}
-            coverImageUrl={eachVideo.coverImageUrl}
-            onClick={() => handleChangeView(i)}
-          />
+          <div
+            className="profile_bottom_grid_video"
+            style={{ position: "relative" }}
+          >
+            <VideoLibraryIcon
+              className="profile_bottom_imageOrVideoIcon"
+              style={{
+                opacity: 0.9,
+                zIndex: 10000,
+              }}
+            />
+            <DisplayPreviewFile
+              mediaType={eachVideo.mediaType}
+              url={eachVideo.url}
+              coverImageUrl={eachVideo.coverImageUrl}
+              onClick={() => handleChangeView(i)}
+            />
+          </div>
         ))}
       </div>
       <div style={{ height: "3rem" }}></div>
