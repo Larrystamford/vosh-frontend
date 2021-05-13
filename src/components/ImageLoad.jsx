@@ -13,7 +13,7 @@ export const ImageLoad = ({ src, className, style, onClick }) => {
       <img
         style={{
           opacity: showImage ? 1 : 0,
-          transition: "all 1.5s",
+          transition: "all 1.3s",
           ...style,
         }}
         className={className}

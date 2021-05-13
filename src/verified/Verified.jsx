@@ -163,13 +163,31 @@ export const Verified = () => {
         });
       }
 
-      history.push({
-        pathname: "/login",
-        state: {
-          userName: values.username,
-          socialAccounts: socialAccounts,
-        },
-      });
+      if (localStorage.getItem("USER_ID")) {
+        const res = await axios.put(
+          "/v1/users/update/" + localStorage.getItem("USER_ID"),
+          {
+            userName: values.username,
+            accountType: "pro",
+            socialAccounts: socialAccounts,
+            processingTikToksStartTime: new Date().getTime(),
+          }
+        );
+        localStorage.setItem("USER_NAME", res.data[0].userName);
+
+        history.push({
+          pathname: "/profile",
+          state: {},
+        });
+      } else {
+        history.push({
+          pathname: "/login",
+          state: {
+            userName: values.username,
+            socialAccounts: socialAccounts,
+          },
+        });
+      }
     } else {
       alert("username is invalid");
     }

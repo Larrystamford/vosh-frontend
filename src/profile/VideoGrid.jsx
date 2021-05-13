@@ -15,11 +15,12 @@ export const VideoGrid = ({
   setShowVideos,
   handleChangeView,
   scrolledBottomCount,
+  selectedCategoryName,
 }) => {
-  // const historyRef = useRef({
-  //   skip: 6,
-  //   end: false,
-  // });
+  useEffect(() => {
+    console.log("hello");
+    setShowVideos(videos.slice(0, 6));
+  }, [selectedCategoryName]);
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowVideos((prevState) => [

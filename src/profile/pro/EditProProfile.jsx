@@ -133,7 +133,6 @@ export const EditProProfile = ({ match, location }) => {
           return b.tiktokCreatedAt - a.tiktokCreatedAt;
         });
         setProVideos(sortedProVideos);
-        setShowVideos(sortedProVideos.slice(0, 6));
 
         setUsername(data.userName);
         setUserId(data._id);
@@ -477,6 +476,7 @@ export const EditProProfile = ({ match, location }) => {
                 setShowVideos={setShowVideos}
                 handleChangeView={handleChangeView}
                 scrolledBottomCount={scrolledBottomCount}
+                selectedCategoryName={selectedCategoryName}
               />
             )}
           </div>
