@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { useDidMountEffect } from "../customHooks/useDidMountEffect";
+
 import "./VideoGrid.css";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
@@ -7,9 +9,30 @@ import { useHistory } from "react-router";
 
 import OnImagesLoaded from "react-on-images-loaded";
 
-export const VideoGrid = ({ videos, handleChangeView }) => {
-  const history = useHistory();
+export const VideoGrid = ({
+  videos,
+  showVideos,
+  setShowVideos,
+  handleChangeView,
+  scrolledBottomCount,
+}) => {
+  // const historyRef = useRef({
+  //   skip: 6,
+  //   end: false,
+  // });
 
+  const getHistoryFeed = (scrolledBottomCount) => {
+    setShowVideos((prevState) => [
+      ...prevState,
+      ...videos.slice(scrolledBottomCount * 6, scrolledBottomCount * 6 + 6),
+    ]);
+  };
+
+  useDidMountEffect(() => {
+    getHistoryFeed(scrolledBottomCount);
+  }, [scrolledBottomCount]);
+
+  const history = useHistory();
   if (videos.length == 0) {
     return (
       <div className="Purchases_NoInfo">
@@ -28,7 +51,7 @@ export const VideoGrid = ({ videos, handleChangeView }) => {
   return (
     <div className="profile_bottom_container">
       <div className="profile_bottom_grid">
-        {videos.map((eachVideo, i) => (
+        {showVideos.map((eachVideo, i) => (
           <DisplayPreviewFile
             mediaType={eachVideo.mediaType}
             url={eachVideo.url}

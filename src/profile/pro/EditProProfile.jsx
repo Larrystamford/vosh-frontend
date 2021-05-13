@@ -21,12 +21,18 @@ import axios from "../../axios";
 import { PageView } from "../../components/tracking/Tracker";
 
 import Lottie from "react-lottie";
+import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
 export const EditProProfile = ({ match, location }) => {
   const history = useHistory();
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
   );
+  const [scrolledBottomCount, setScrolledBottomCount] = useState(0);
+  const scrollRef = useBottomScrollListener(() => {
+    setScrolledBottomCount(scrolledBottomCount + 1);
+  });
+
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [image, setImage] = useState("");
@@ -37,6 +43,8 @@ export const EditProProfile = ({ match, location }) => {
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
   const [proCategories, setProCategories] = useState([]);
+
+  const [showVideos, setShowVideos] = useState([]);
 
   const [scrollView, setScrollView] = useState(false);
   const [viewIndex, setViewIndex] = useState(0);
@@ -120,11 +128,12 @@ export const EditProProfile = ({ match, location }) => {
         setImage(data.picture);
         setFollowings(data.followings);
         setFollowers(data.followers);
-        setProVideos(
-          data.proVideos.sort((a, b) => {
-            return b.tiktokCreatedAt - a.tiktokCreatedAt;
-          })
-        );
+
+        const sortedProVideos = data.proVideos.sort((a, b) => {
+          return b.tiktokCreatedAt - a.tiktokCreatedAt;
+        });
+        setProVideos(sortedProVideos);
+        setShowVideos(sortedProVideos.slice(0, 6));
 
         setUsername(data.userName);
         setUserId(data._id);
@@ -260,7 +269,7 @@ export const EditProProfile = ({ match, location }) => {
           handleChangeView={handleChangeView}
         />
       ) : (
-        <div className="ProProfile">
+        <div className="ProProfile" ref={scrollRef}>
           {isLoading ? (
             <div className="pro_profile_top">
               <div className="pro_profile_loading">
@@ -464,7 +473,10 @@ export const EditProProfile = ({ match, location }) => {
                     return video.proCategories.includes(selectedCategoryName);
                   }
                 })}
+                showVideos={showVideos}
+                setShowVideos={setShowVideos}
                 handleChangeView={handleChangeView}
+                scrolledBottomCount={scrolledBottomCount}
               />
             )}
           </div>
