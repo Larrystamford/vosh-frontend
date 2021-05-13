@@ -184,7 +184,7 @@ const Login = (props) => {
                 Password
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
+                id="outlined-adornment-password2"
                 type={values.showPassword ? "text" : "password"}
                 value={values.password}
                 onChange={handleChange("password")}
@@ -226,7 +226,7 @@ const Login = (props) => {
                 Password
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
+                id="outlined-adornment-password3"
                 type={values.showPassword ? "text" : "password"}
                 value={values.password}
                 onChange={handleChange("password")}

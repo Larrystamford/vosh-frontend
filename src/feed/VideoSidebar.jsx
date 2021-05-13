@@ -230,7 +230,13 @@ function VideoSidebar({
           />
         )}
         <p>
-          {liked ? likesCount + 1 + proShareCount : likesCount + proShareCount}
+          {liked
+            ? proShareCount
+              ? likesCount + 1 + proShareCount
+              : likesCount + 1
+            : proShareCount
+            ? likesCount + proShareCount
+            : likesCount}
         </p>
       </div>
 

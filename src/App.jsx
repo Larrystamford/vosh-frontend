@@ -52,6 +52,10 @@ import { Exception } from "./components/tracking/Tracker";
 
 const jwtToken = localStorage.getItem("JWT_TOKEN");
 axios.defaults.headers.common["Authorization"] = jwtToken;
+axios.defaults.headers.common = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
 
 function App() {
   const size = useWindowSize();

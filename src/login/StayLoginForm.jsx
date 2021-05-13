@@ -191,7 +191,7 @@ const StayLoginForm = (props) => {
                 Password
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
+                id="outlined-adornment-password6"
                 type={values.showPassword ? "text" : "password"}
                 value={values.password}
                 onChange={handleChange("password")}
@@ -237,7 +237,7 @@ const StayLoginForm = (props) => {
                 Password
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password"
+                id="outlined-adornment-password7"
                 type={values.showPassword ? "text" : "password"}
                 value={values.password}
                 onChange={handleChange("password")}

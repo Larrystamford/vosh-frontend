@@ -267,7 +267,7 @@ export const EditProProfile = ({ match, location }) => {
                 <Lottie
                   options={{
                     loop: true,
-                    autoplay: true,
+                    autoPlay: true,
                     animationData: legoData.default,
                     rendererSettings: {
                       preserveAspectRatio: "xMidYMid slice",

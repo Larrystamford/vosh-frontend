@@ -52,13 +52,15 @@ export const signUp = (data) => {
       localStorage.setItem("PICTURE", res.data.picture);
       localStorage.setItem("JWT_TOKEN", res.data.token);
       axios.defaults.headers.common["Authorization"] = res.data.token;
+      axios.defaults.headers.common = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      };
 
       dispatch({
         type: AUTH_SIGN_UP,
         payload: res.data.token,
       });
-
-      axios.defaults.headers.common["Authorization"] = res.data.token;
     } catch (err) {
       Exception(err, "email has already been registered");
       dispatch({
@@ -81,6 +83,10 @@ export const signIn = (data) => {
       localStorage.setItem("PICTURE", res.data.picture);
       localStorage.setItem("JWT_TOKEN", res.data.token);
       axios.defaults.headers.common["Authorization"] = res.data.token;
+      axios.defaults.headers.common = {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      };
 
       // Step 3: Dispatch user just sign up
       dispatch({

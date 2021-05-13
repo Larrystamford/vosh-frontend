@@ -585,7 +585,7 @@ export const ContentTagging = () => {
                   <VolumeUpOutlinedIcon className="volumeIcon" />
                 )}
                 <video
-                  autoplay="autoplay"
+                  autoPlay="autoplay"
                   className="Tagging_Top_Main_Left_Image"
                   playsInline
                   muted={muted}
