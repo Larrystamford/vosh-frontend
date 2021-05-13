@@ -289,7 +289,6 @@ export const EditProProfile = ({ match, location }) => {
             </div>
           ) : (
             <div className="pro_profile_top">
-              <div className="pro_profile_top_header"></div>
 
               <div className="pro_profile_top_with_left_right">
                 <div className="pro_profile_top_left">

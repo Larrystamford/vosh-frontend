@@ -64,6 +64,8 @@ const StayLoginFormPage = (props) => {
       "318894449479-83da2ctgvdlqim67222hbrasmon78qte.apps.googleusercontent.com";
   }
 
+  const [nextClicked, setNextClicked] = useState(false);
+
   const [webView, setWebView] = useState(false);
   let isWebview = /(Version\/\d+.*\/\d+.0.0.0 Mobile|; ?wv|(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari))/i.test(
     navigator.userAgent
@@ -78,7 +80,7 @@ const StayLoginFormPage = (props) => {
   useEffect(() => {
     if (props.errorMessage == "nil") {
       history.push({
-        pathname: "/profile",
+        pathname: "/proProfile",
       });
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
       alert(props.errorMessage);
@@ -111,39 +113,53 @@ const StayLoginFormPage = (props) => {
   };
 
   const onSubmitSignUp = async () => {
-    if (!validateEmail(values.email)) {
-      alert("Please enter a valid email address");
-    } else if (values.email == "" || values.password == "") {
-      alert("Empty fields are not allowed");
-    } else {
-      if (signUp) {
-        await props.signUp({
-          email: values.email,
-          password: values.password,
-        });
-
-
-        if (
-          props.location &&
-          props.location.state &&
-          props.location.state.userName
-        ) {
-          const res = await axios.put(
-            "/v1/users/update/" + localStorage.getItem("USER_ID"),
-            {
-              userName: props.location.state.userName,
-              accountType: "pro",
-              socialAccounts: props.location.state.socialAccounts,
-              processingTikToksStartTime: new Date().getTime(),
-            }
-          );
-          localStorage.setItem("USER_NAME", res.data[0].userName);
-        }
+    if (!nextClicked) {
+      setNextClicked(true);
+      if (!validateEmail(values.email)) {
+        alert("Please enter a valid email address");
+        setNextClicked(false);
+      } else if (values.email == "" || values.password == "") {
+        alert("Empty fields are not allowed");
+        setNextClicked(false);
       } else {
-        await props.signIn({
-          email: values.email,
-          password: values.password,
-        });
+        if (signUp) {
+          await props.signUp({
+            email: values.email,
+            password: values.password,
+          });
+
+          if (
+            props.location &&
+            props.location.state &&
+            props.location.state.userName
+          ) {
+            try {
+              const res = await axios.put(
+                "/v1/users/update/" + localStorage.getItem("USER_ID"),
+                {
+                  userName: props.location.state.userName,
+                  accountType: "pro",
+                  socialAccounts: props.location.state.socialAccounts,
+                  processingTikToksStartTime: new Date().getTime(),
+                }
+              );
+              localStorage.setItem("USER_NAME", res.data[0].userName);
+            } catch {
+              alert("Try again");
+              setNextClicked(false);
+            }
+          }
+        } else {
+          try {
+            await props.signIn({
+              email: values.email,
+              password: values.password,
+            });
+          } catch {
+            alert("Try again");
+            setNextClicked(false);
+          }
+        }
       }
     }
   };
@@ -316,14 +332,26 @@ const StayLoginFormPage = (props) => {
         )}
         {focused ? null : (
           <p
-            style={{
-              fontSize: "16px",
-              position: "absolute",
-              bottom: "30px",
-              right: "30px",
-              color: "#3e4fae",
-              fontWeight: "bold",
-            }}
+            style={
+              nextClicked
+                ? {
+                    fontSize: "16px",
+                    position: "absolute",
+                    bottom: "30px",
+                    right: "30px",
+                    color: "#3e4fcc",
+                    fontWeight: "bold",
+                    opacity: 0.3,
+                  }
+                : {
+                    fontSize: "16px",
+                    position: "absolute",
+                    bottom: "30px",
+                    right: "30px",
+                    color: "#3e4fae",
+                    fontWeight: "bold",
+                  }
+            }
             onClick={async () => {
               await onSubmitSignUp();
             }}

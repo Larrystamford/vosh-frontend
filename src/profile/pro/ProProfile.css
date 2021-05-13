@@ -144,12 +144,15 @@
 }
 
 .pro_profile_top_with_left_right {
-  min-height: 16rem;
+  height: 85%;
+  width: 100%;
 
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+
+  padding-top: 1rem;
 }
 
 .pro_profile_top_social_medias {
@@ -318,7 +321,7 @@
 }
 
 .pro_profile_top_selector {
-  height: 3.1rem;
+  height: 15%;
   width: 100%;
   border-top: 2px solid lightgray;
   border-bottom: 1px solid lightgray;
@@ -482,14 +485,6 @@
 
   .pro_profile_top {
     min-height: 20rem;
-  }
-
-  .pro_profile_top_with_left_right {
-    min-height: 16rem;
-  }
-
-  .pro_profile_top_selector {
-    height: 2.5rem;
   }
 
   .pro_profile_top_link_div {
