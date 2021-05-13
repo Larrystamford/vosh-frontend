@@ -137,15 +137,14 @@ function getCacheOrFetch(event) {
         );
       })
       .catch(() => {
-        console.log(event.request.url);
-        // if (
-        //   event.request.url &&
-        //   event.request.url.indexOf("vosh.club") > -1 &&
-        //   event.request.url.indexOf(".css") < 0 &&
-        //   event.request.url.indexOf(".js") < 0
-        // ) {
-        //   console.log("conditional offline", event.request.url);
-        // }
+        if (
+          event.request.url &&
+          event.request.url.indexOf("vosh.club") > -1 &&
+          event.request.url.indexOf(".css") < 0 &&
+          event.request.url.indexOf(".js") < 0
+        ) {
+          console.log("conditional offline", event.request.url);
+        }
       })
   );
 }
