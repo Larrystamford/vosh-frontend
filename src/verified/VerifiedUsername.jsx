@@ -190,6 +190,20 @@ export const VerifiedUsername = () => {
 
       <div className="socialNamesWrapper"></div>
 
+      <p
+        className="verified_next"
+        style={{
+          position: "absolute",
+          bottom: "10px",
+          left: "15px",
+          color: "#3e4fae",
+          opacity: 0.7,
+        }}
+        onClick={() => history.goBack()}
+      >
+        Back
+      </p>
+
       {focused ? null : (
         <p className="verified_next" onClick={() => onSubmitUserName()}>
           Done

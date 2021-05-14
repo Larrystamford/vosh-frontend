@@ -423,7 +423,12 @@ export const EditProProfile = ({ match, location }) => {
                 </div>
               </div>
 
-              <div className="pro_profile_top_selector">
+              <div
+                className="pro_profile_top_selector"
+                style={{
+                  backgroundImage: `url(${proTheme.background1})`,
+                }}
+              >
                 <div
                   className="pro_profile_icon_and_name"
                   onClick={() => {
@@ -468,7 +473,12 @@ export const EditProProfile = ({ match, location }) => {
             </div>
           )}
 
-          <div className="pro_profile_bottom">
+          <div
+            className="pro_profile_bottom"
+            style={{
+              backgroundImage: `url(${proTheme.background1})`,
+            }}
+          >
             {isLoading ? (
               <div></div>
             ) : (

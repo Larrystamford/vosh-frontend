@@ -689,12 +689,10 @@ export const ContentTagging = () => {
                   variant="contained"
                   size="small"
                   className={classes.button}
-                  classes={{
-                    root: classes.buttonRoot,
-                  }}
                   onClick={() => {
                     setOpenImport(true);
                   }}
+                  color="primary"
                 >
                   Import
                 </Button>
