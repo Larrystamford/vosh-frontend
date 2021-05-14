@@ -51,9 +51,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export const Comments = (props) => {
-  const [reviewOrComment, setReviewOrComment] = useState(
-    props.openCommentsFromInbox ? "comment" : "review"
-  );
+  const [reviewOrComment, setReviewOrComment] = useState("comment");
 
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
   const [keyboard, setKeyboard] = useGlobalState("keyboard");
@@ -261,44 +259,8 @@ export const Comments = (props) => {
             }
           ></div>
           <div className="comments_title">
-            <p
-              style={
-                reviewOrComment == "review"
-                  ? { width: "4rem", color: "black" }
-                  : { width: "4rem", color: "grey" }
-              }
-              onClick={() => setReviewOrComment("review")}
-            >
-              Reviews
-            </p>
-            <p style={{ fontWeight: 700 }}>|</p>
-            <p
-              style={
-                reviewOrComment == "comment"
-                  ? { width: "4rem", color: "black" }
-                  : { width: "4rem", color: "grey" }
-              }
-              onClick={() => setReviewOrComment("comment")}
-            >
-              Comments
-            </p>
+            <p onClick={() => setReviewOrComment("comment")}>Comments</p>
           </div>
-
-          {reviewOrComment == "review" && (
-            <div className="comments_box">
-              {reverseReview.map(
-                ({ userName, itemName, userPicture, rating, text }, index) => (
-                  <ReviewRow
-                    userName={userName}
-                    itemName={itemName}
-                    userPicture={userPicture}
-                    rating={rating}
-                    text={text}
-                  />
-                )
-              )}
-            </div>
-          )}
 
           {reviewOrComment == "comment" && (
             <>
@@ -380,13 +342,17 @@ export const Comments = (props) => {
                         }, 500);
                       }}
                     />
-                    <button
+
+                    <SendIcon
                       onClick={handleSendMessage}
                       disabled={!input}
-                      type="submit"
-                    >
-                      <SendIcon style={{ fontSize: 25 }} />
-                    </button>
+                      style={{
+                        fontSize: 19,
+                        color: "grey",
+                        paddingRight: 15,
+                        paddingTop: 15,
+                      }}
+                    />
                   </form>
                 </div>
               )}
@@ -404,3 +370,47 @@ export const Comments = (props) => {
     </div>
   );
 };
+
+// const [reviewOrComment, setReviewOrComment] = useState(
+//   props.openCommentsFromInbox ? "comment" : "review"
+// );
+
+// <div className="comments_title">
+// <p
+//   style={
+//     reviewOrComment == "review"
+//       ? { width: "4rem", color: "black" }
+//       : { width: "4rem", color: "grey" }
+//   }
+//   onClick={() => setReviewOrComment("review")}
+// >
+//   Reviews
+// </p>
+// <p style={{ fontWeight: 700 }}>|</p>
+// <p
+//   style={
+//     reviewOrComment == "comment"
+//       ? { width: "4rem", color: "black" }
+//       : { width: "4rem", color: "grey" }
+//   }
+//   onClick={() => setReviewOrComment("comment")}
+// >
+//   Comments
+// </p>
+// </div>
+
+// {reviewOrComment == "review" && (
+//   <div className="comments_box">
+//     {reverseReview.map(
+//       ({ userName, itemName, userPicture, rating, text }, index) => (
+//         <ReviewRow
+//           userName={userName}
+//           itemName={itemName}
+//           userPicture={userPicture}
+//           rating={rating}
+//           text={text}
+//         />
+//       )
+//     )}
+//   </div>
+// )}

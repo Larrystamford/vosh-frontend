@@ -15,7 +15,6 @@ export const oauthGoogle = (data) => {
       access_token: data,
     });
 
-    console.log(res, "Hellosoo");
 
     localStorage.setItem("USER_ID", res.data.userId);
     localStorage.setItem("USER_NAME", res.data.userName);

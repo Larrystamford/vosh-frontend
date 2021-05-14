@@ -4,6 +4,8 @@ import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import "./VideoGrid.css";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
+
 import { DisplayPreviewFile } from "./DisplayPreviewFile";
 import { useHistory } from "react-router";
 
@@ -21,6 +23,8 @@ export const VideoGrid = ({
     setShowVideos(videos.slice(0, 6));
   }, [selectedCategoryName]);
 
+  console.log(scrolledBottomCount);
+
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowVideos((prevState) => [
       ...prevState,
@@ -29,7 +33,9 @@ export const VideoGrid = ({
   };
 
   useDidMountEffect(() => {
-    getHistoryFeed(scrolledBottomCount);
+    if (scrolledBottomCount != 0) {
+      getHistoryFeed(scrolledBottomCount);
+    }
   }, [scrolledBottomCount]);
 
   const history = useHistory();
@@ -56,7 +62,7 @@ export const VideoGrid = ({
             className="profile_bottom_grid_video"
             style={{ position: "relative" }}
           >
-            <VideoLibraryIcon
+            <LocalMallIcon
               className="profile_bottom_imageOrVideoIcon"
               style={{
                 opacity: 0.9,
@@ -72,7 +78,6 @@ export const VideoGrid = ({
           </div>
         ))}
       </div>
-      <div style={{ height: "3rem" }}></div>
     </div>
   );
 };

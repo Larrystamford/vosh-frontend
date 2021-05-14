@@ -164,7 +164,6 @@ export const ProEdit = () => {
     }
   };
   const handleCategoriesClose = async () => {
-    console.log(safeToEdit);
     if (safeToEdit) {
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),

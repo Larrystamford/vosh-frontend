@@ -57,6 +57,7 @@ export const ProProfile = ({ match, location }) => {
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const handleCategorySelection = (name) => {
+    setScrolledBottomCount(0);
     setSelectedCategoryName(name);
   };
 
@@ -404,7 +405,15 @@ export const ProProfile = ({ match, location }) => {
                         <img
                           src={convertSocialTypeToImage(socialType)}
                           style={{ height: 23, margin: 10 }}
-                          onClick={() => window.open(socialLink, "_blank")}
+                          onClick={() => {
+                            if (socialType == "Email") {
+                              window.open(
+                                `mailto:${socialLink}?subject=From Vosh`
+                              );
+                            } else {
+                              window.open(socialLink, "_blank");
+                            }
+                          }}
                         />
                       ))}
                   </div>
@@ -415,7 +424,15 @@ export const ProProfile = ({ match, location }) => {
                         <img
                           src={convertSocialTypeToImage(socialType)}
                           style={{ height: 23, margin: 10 }}
-                          onClick={() => window.open(socialLink, "_blank")}
+                          onClick={() => {
+                            if (socialType == "Email") {
+                              window.open(
+                                `mailto:${socialLink}?subject=From Vosh`
+                              );
+                            } else {
+                              window.open(socialLink, "_blank");
+                            }
+                          }}
                         />
                       ))}
                   </div>

@@ -117,8 +117,8 @@
 }
 
 .edit_pro_profile_top_edit_button {
-  height: 1.5rem;
-  width: 4rem;
+  height: 2rem;
+  width: 4.8rem;
   border-radius: 3px;
   border: 1px solid lightgrey;
 
@@ -130,7 +130,8 @@
 }
 
 .edit_pro_profile_top_edit_button > p {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 /* for viewing */
@@ -153,7 +154,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 
   padding-top: 1rem;
 
@@ -248,9 +249,9 @@
 }
 .pro_profile_top_name > p {
   font-size: 14px;
-  max-width: 95%;
-  word-wrap: break-word;
   font-weight: bold;
+  margin-left: 7px;
+  overflow-wrap: break-word;
 }
 
 .pro_profile_top_left {
@@ -300,7 +301,7 @@
 }
 
 .pro_profile_top_follow {
-  height: 3rem;
+  height: 2.7rem;
   width: 100%;
 
   display: flex;
@@ -341,7 +342,7 @@
 }
 
 .pro_profile_top_linker {
-  height: 11.5rem;
+  height: 10.5rem;
   width: 90%;
   border: 2px solid lightgrey;
   border-radius: 6px;
@@ -426,8 +427,8 @@
 }
 
 .pro_profile_bottom {
-  height: 60%;
   width: 100%;
+  padding-bottom: 3rem;
 
   background-repeat: repeat;
   background-position: center;
@@ -481,8 +482,6 @@
 
   .pro_profile_top_name > p {
     font-size: 12px;
-    max-width: 95%;
-    word-wrap: break-word;
   }
 
   .pro_profile_top_following_button {
@@ -526,5 +525,14 @@
 
   .edit_pro_profile_followers_flex_box > p {
     font-size: 13px;
+  }
+
+  .edit_pro_profile_top_edit_button {
+    height: 1.5rem;
+    width: 4rem;
+  }
+
+  .edit_pro_profile_top_edit_button > p {
+    font-size: 14px;
   }
 }

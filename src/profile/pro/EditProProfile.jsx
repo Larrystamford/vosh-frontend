@@ -119,8 +119,6 @@ export const EditProProfile = ({ match, location }) => {
     }
   }, [openCaption]);
 
-  console.log(proTheme);
-
   // load data
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -250,6 +248,7 @@ export const EditProProfile = ({ match, location }) => {
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("all");
   const handleCategorySelection = (name) => {
+    setScrolledBottomCount(0);
     setSelectedCategoryName(name);
   };
 
@@ -330,11 +329,15 @@ export const EditProProfile = ({ match, location }) => {
                     </div>
                   </div>
                   <div className="pro_profile_top_follow">
-                    <div className="edit_pro_profile_followers_flex_box">
-                      <p style={{ fontSize: "16px", fontWeight: "700" }}>
-                        {followers.length}
-                      </p>
-                      <p>Followers</p>
+                    <div
+                      className="edit_pro_profile_top_edit_button"
+                      onClick={() => {
+                        alert(
+                          "Upcoming Feature: Easily track your clicks and more"
+                        );
+                      }}
+                    >
+                      <p>Stats</p>
                     </div>
                   </div>
                   <div className="pro_profile_top_follow">
@@ -356,7 +359,15 @@ export const EditProProfile = ({ match, location }) => {
                         <img
                           src={convertSocialTypeToImage(socialType)}
                           style={{ height: 23, margin: 10 }}
-                          onClick={() => window.open(socialLink, "_blank")}
+                          onClick={() => {
+                            if (socialType == "Email") {
+                              window.open(
+                                `mailto:${socialLink}?subject=From Vosh`
+                              );
+                            } else {
+                              window.open(socialLink, "_blank");
+                            }
+                          }}
                         />
                       ))}
                   </div>
@@ -367,7 +378,15 @@ export const EditProProfile = ({ match, location }) => {
                         <img
                           src={convertSocialTypeToImage(socialType)}
                           style={{ height: 23, margin: 10 }}
-                          onClick={() => window.open(socialLink, "_blank")}
+                          onClick={() => {
+                            if (socialType == "Email") {
+                              window.open(
+                                `mailto:${socialLink}?subject=From Vosh`
+                              );
+                            } else {
+                              window.open(socialLink, "_blank");
+                            }
+                          }}
                         />
                       ))}
                   </div>

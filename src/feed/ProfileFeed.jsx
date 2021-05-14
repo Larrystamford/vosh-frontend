@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Video from "./Video";
+import ProfileVideo from "./ProfileVideo";
 import "./Feed.css";
 import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
 
@@ -23,8 +23,6 @@ export const ProfileFeed = (props) => {
 
   const [notifPrompt, setNotifPrompt] = useState(false);
   const [promptType, setPromptType] = useState("");
-
-  console.log(videos);
 
   return (
     <div className="feed" style={{ zIndex: "1005" }}>
@@ -63,7 +61,7 @@ export const ProfileFeed = (props) => {
             },
             index
           ) => (
-            <Video
+            <ProfileVideo
               loggedInUserId={loggedInUserId}
               sellerId={user}
               id={_id}

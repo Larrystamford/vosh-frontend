@@ -320,6 +320,7 @@ function VideoSidebar({
         setPromptType={setPromptType}
         profileFeedType={profileFeedType}
         openCommentsFromInbox={openCommentsFromInbox}
+        affiliateGroupName={affiliateGroupName}
       />
 
       {openAmazon && (

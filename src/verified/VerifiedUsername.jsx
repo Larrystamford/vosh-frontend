@@ -194,8 +194,7 @@ export const VerifiedUsername = () => {
         className="verified_next"
         style={{
           position: "absolute",
-          bottom: "10px",
-          left: "15px",
+          left: "20px",
           color: "#3e4fae",
           opacity: 0.7,
         }}

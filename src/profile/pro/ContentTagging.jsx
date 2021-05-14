@@ -497,12 +497,12 @@ export const ContentTagging = () => {
 
   // submit
   const handleSubmit = async () => {
-    if (
-      Object.keys(categorySelection).length == 0 ||
-      selectedCategories.length == 0 ||
-      itemLinks.items.length == 0
-    ) {
-      alert("Please complete tagging before publishing");
+    if (Object.keys(categorySelection).length == 0) {
+      alert("Assign your video to at least one category");
+    } else if (selectedCategories.length == 0) {
+      alert("Choose at least one hashtag");
+    } else if (itemLinks.items.length == 0) {
+      alert("Add at least one product link");
     } else {
       const proCategories = [];
       for (const [key, value] of Object.entries(categorySelection)) {

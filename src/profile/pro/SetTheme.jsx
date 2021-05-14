@@ -40,7 +40,6 @@ export const SetTheme = () => {
     if (userId) {
       axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
-        console.log(data);
         setProTheme(data.proTheme);
       });
     }
@@ -78,7 +77,6 @@ export const SetTheme = () => {
     }
   };
 
-  console.log(proTheme);
   const getFileUrl = async (file) => {
     let formData = new FormData();
     formData.append("media", file);

@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
   height: 90%;
-  margin-top: 3.6rem;
+  margin-top: 0.6rem;
 
   /* white-space: nowrap; */
   overflow: scroll;
@@ -21,18 +21,20 @@
 }
 
 .comments_title {
-  position: absolute;
   display: flex;
   flex-direction: row;
   width: 10rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 39px;
   padding-top: 1rem;
 
   margin-right: 0.8rem;
   top: 0;
   z-index: 1000;
+}
+
+.comments_title > p {
 }
 
 .comments_row {
@@ -168,8 +170,8 @@
 .comment_form {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   background-color: white;
 }
 .comment_footer > form > input {
@@ -180,7 +182,7 @@
   width: 80vw;
   outline-width: 0;
   font-size: 15px;
-  padding-top: 10px;
+  padding-top: 15px;
   padding-bottom: 12px;
 }
 
@@ -196,7 +198,7 @@
   padding-right: 15px;
   color: grey;
   width: 5vw;
-  padding-top: 14px;
+  padding-top: 12px;
   padding-bottom: 12px;
 }
 

@@ -99,7 +99,6 @@ function App() {
     return <ComputerLanding />;
   }
 
-  console.log(appRef.current.userProfileName);
 
   return (
     <Provider

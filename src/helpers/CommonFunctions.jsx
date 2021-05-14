@@ -111,6 +111,9 @@ export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
 export const downloadAndSaveTikToksWithRetry = async (nthTry) => {
   try {
     const res = await downloadAndSaveTikToks();
+    if (res == "failed") {
+      throw new Error("downloadAndSaveFuncError");
+    }
     return res;
   } catch (e) {
     if (nthTry === 1) {
@@ -160,7 +163,7 @@ export const downloadAndSaveTikToks = async () => {
     return "success";
   } catch (e) {
     console.log("restarting download");
-    return e;
+    return "failed";
   }
 };
 
