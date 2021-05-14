@@ -183,7 +183,10 @@ export const ContentTagging = () => {
           setDisplayVideoId(sortedVideos[0]._id);
           setVideoI(0);
 
-          if (sortedVideos[0].proCategories.length > 0) {
+          if (
+            sortedVideos[0].proCategories &&
+            sortedVideos[0].proCategories.length > 0
+          ) {
             const catSelection = {};
             for (const eachProCat of sortedVideos[0].proCategories) {
               catSelection[eachProCat] = true;
@@ -191,12 +194,18 @@ export const ContentTagging = () => {
             setCategorySelection(catSelection);
           }
 
-          if (sortedVideos[0].categories.length > 0) {
+          if (
+            sortedVideos[0].categories &&
+            sortedVideos[0].categories.length > 0
+          ) {
             setSelectedCategories(sortedVideos[0].categories);
             setSelectedSubCategories(sortedVideos[0].subCategories);
           }
 
-          if (sortedVideos[0].affiliateProducts.length > 0) {
+          if (
+            sortedVideos[0].affiliateProducts &&
+            sortedVideos[0].affiliateProducts.length > 0
+          ) {
             setItemLinks({ items: sortedVideos[0].affiliateProducts });
           }
         }
@@ -258,7 +267,7 @@ export const ContentTagging = () => {
     setDisplayVideo(videos[i].url);
     setDisplayVideoId(videos[i]._id);
 
-    if (videos[i].proCategories.length > 0) {
+    if (videos[i].proCategories && videos[i].proCategories.length > 0) {
       const catSelection = {};
       for (const eachProCat of videos[i].proCategories) {
         catSelection[eachProCat] = true;
@@ -266,12 +275,12 @@ export const ContentTagging = () => {
       setCategorySelection(catSelection);
     }
 
-    if (videos[i].categories.length > 0) {
+    if (videos[i].categories && videos[i].categories.length > 0) {
       setSelectedCategories(videos[i].categories);
       setSelectedSubCategories(videos[i].subCategories);
     }
 
-    if (videos[i].affiliateProducts.length > 0) {
+    if (videos[i].affiliateProducts && videos[i].affiliateProducts.length > 0) {
       setItemLinks({ items: videos[i].affiliateProducts });
     }
   };

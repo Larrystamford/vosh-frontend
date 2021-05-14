@@ -79,11 +79,38 @@ const StayLoginFormPage = (props) => {
 
   useEffect(() => {
     if (props.errorMessage == "nil") {
-      history.push({
-        pathname: "/proProfile",
-      });
+      if (
+        props.location &&
+        props.location.state &&
+        props.location.state.userName
+      ) {
+        axios
+          .put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+            userName: props.location.state.userName,
+            accountType: "pro",
+            socialAccounts: props.location.state.socialAccounts,
+            processingTikToksStartTime: new Date().getTime(),
+            proTheme: {
+              background1:
+                "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+              background2:
+                "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+            },
+          })
+          .then((res) => {
+            localStorage.setItem("USER_NAME", res.data[0].userName);
+            history.push({
+              pathname: "/proProfile",
+            });
+          })
+          .catch((err) => {
+            alert("Try again");
+            setNextClicked(false);
+          });
+      }
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
       alert(props.errorMessage);
+      setNextClicked(false);
     }
   }, [props.errorMessage]);
 
@@ -127,34 +154,6 @@ const StayLoginFormPage = (props) => {
             email: values.email,
             password: values.password,
           });
-
-          if (
-            props.location &&
-            props.location.state &&
-            props.location.state.userName
-          ) {
-            try {
-              const res = await axios.put(
-                "/v1/users/update/" + localStorage.getItem("USER_ID"),
-                {
-                  userName: props.location.state.userName,
-                  accountType: "pro",
-                  socialAccounts: props.location.state.socialAccounts,
-                  processingTikToksStartTime: new Date().getTime(),
-                  proTheme: {
-                    background1:
-                      "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
-                    background2:
-                      "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
-                  },
-                }
-              );
-              localStorage.setItem("USER_NAME", res.data[0].userName);
-            } catch {
-              alert("Try again");
-              setNextClicked(false);
-            }
-          }
         } else {
           try {
             await props.signIn({
