@@ -210,8 +210,8 @@ export const ContentTagging = () => {
     let isMounted = true; // note this flag denote mount status
 
     setImporting(true);
+
     const result = await downloadAndSaveTikToksWithRetry(3);
-    setImporting(false);
 
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -231,6 +231,8 @@ export const ContentTagging = () => {
     if (result == "success") {
       alert("Import done");
     }
+
+    setImporting(false);
 
     return () => {
       isMounted = false;

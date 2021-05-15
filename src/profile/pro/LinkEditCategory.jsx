@@ -129,27 +129,31 @@ export const LinkEditCategory = ({
       inputValues.proCategoryName != "" &&
       inputValues.proCategoryImage != ""
     ) {
-      if (editingIndex > -1) {
-        let prevItems = linksState["items"];
-        prevItems[editingIndex] = {
-          id: inputValues.proCategoryName + new Date().getTime(),
-          proCategoryName: inputValues.proCategoryName,
-          proCategoryImage: inputValues.proCategoryImage,
-        };
-        setlinksState({ items: prevItems });
+      if (inputValues.proCategoryName.length > 8) {
+        alert("Sorry, maximum 8 Characters!");
       } else {
-        setlinksState((prevState) => ({
-          items: [
-            ...prevState["items"],
-            {
-              id: inputValues.proCategoryName + new Date().getTime(),
-              proCategoryName: inputValues.proCategoryName,
-              proCategoryImage: inputValues.proCategoryImage,
-            },
-          ],
-        }));
+        if (editingIndex > -1) {
+          let prevItems = linksState["items"];
+          prevItems[editingIndex] = {
+            id: inputValues.proCategoryName + new Date().getTime(),
+            proCategoryName: inputValues.proCategoryName,
+            proCategoryImage: inputValues.proCategoryImage,
+          };
+          setlinksState({ items: prevItems });
+        } else {
+          setlinksState((prevState) => ({
+            items: [
+              ...prevState["items"],
+              {
+                id: inputValues.proCategoryName + new Date().getTime(),
+                proCategoryName: inputValues.proCategoryName,
+                proCategoryImage: inputValues.proCategoryImage,
+              },
+            ],
+          }));
+        }
+        setOpenLinkEdit(false);
       }
-      setOpenLinkEdit(false);
     } else {
       alert("Fields cannot be empty");
     }
@@ -183,7 +187,7 @@ export const LinkEditCategory = ({
         </TextField>
         <TextField
           size={size.height < 580 ? "small" : null}
-          label="Category Name"
+          label={`Category Name (${inputValues.proCategoryName.length}/8)`}
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
           variant="outlined"

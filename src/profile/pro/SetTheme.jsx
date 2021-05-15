@@ -7,14 +7,15 @@ import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 
 import { ImageLoad } from "../../components/ImageLoad";
 
-import { SlidingSocials } from "./SlidingSocials";
-import { SlidingLinks } from "./SlidingLinks";
-import { SlidingCategories } from "./SlidingCategories";
+import { ColorSelection } from "./ColorSelection";
 
 import { SimpleBottomNotification } from "../../components/SimpleBottomNotification";
 
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
+
+import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
+import CategoryOutlinedIcon from "@material-ui/icons/CategoryOutlined";
 
 import CreateIcon from "@material-ui/icons/Create";
 
@@ -28,12 +29,15 @@ export const SetTheme = () => {
     arrangement: "",
     background1: "",
     background2: "",
+    linkBoxColor: "",
     fontType: "",
     color1: "",
     color2: "",
     color3: "",
   });
   const [showNotif, setShowNotif] = useState("");
+
+  const [openColorSelection, setOpenColorSelection] = useState(false);
 
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
@@ -75,6 +79,20 @@ export const SetTheme = () => {
         });
       }
     }
+  };
+
+  const handleSetLinkBoxColor = (event) => {
+    setProTheme((prevState) => ({
+      ...prevState,
+      linkBoxColor: event.target.value,
+    }));
+  };
+
+  const handleSaveLinkBoxColor = async () => {
+    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      proTheme: proTheme,
+    });
+    setOpenColorSelection(false);
   };
 
   const getFileUrl = async (file) => {
@@ -142,7 +160,7 @@ export const SetTheme = () => {
               />
             </div>
 
-            <p>Background 1</p>
+            <p>Background</p>
           </div>
 
           <div className="SlidingEdit_Pannels_BackgroundImageCircleAndWords">
@@ -173,11 +191,42 @@ export const SetTheme = () => {
               />
             </div>
 
-            <p>Background 2</p>
+            <p>Box Background</p>
+          </div>
+        </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            setOpenColorSelection(true);
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <div
+              style={{
+                height: 20,
+                width: 20,
+                backgroundColor: proTheme.linkBoxColor,
+                borderRadius: 5,
+              }}
+            ></div>
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Link Box Color</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
           </div>
         </div>
       </div>
 
+      <ColorSelection
+        openColorSelection={openColorSelection}
+        setOpenColorSelection={setOpenColorSelection}
+        linkBoxColor={proTheme.linkBoxColor}
+        handleSetLinkBoxColor={handleSetLinkBoxColor}
+        handleSaveLinkBoxColor={handleSaveLinkBoxColor}
+      />
       {showNotif && <SimpleBottomNotification message={showNotif} />}
     </div>
   );

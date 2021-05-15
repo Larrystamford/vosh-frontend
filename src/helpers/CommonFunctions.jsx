@@ -126,7 +126,7 @@ export const downloadAndSaveTikToksWithRetry = async (nthTry) => {
         "We are unable to download your content now. We are working on it and will contact you via email when solved."
       );
 
-      return Promise.reject(e);
+      return "failed";
     }
     console.log("download restart", nthTry, "time");
     await waitFor(10000);

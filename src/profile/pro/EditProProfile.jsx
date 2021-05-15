@@ -332,8 +332,8 @@ export const EditProProfile = ({ match, location }) => {
                           style={{
                             height: 23,
                             margin: 10,
-                            filter: "invert(100%)",
-                            WebkitFilter: "invert(100%)",
+                            filter: "invert(0%)",
+                            WebkitFilter: "invert(0%)",
                           }}
                           onClick={() => {
                             if (socialType == "Email") {
@@ -356,8 +356,8 @@ export const EditProProfile = ({ match, location }) => {
                           style={{
                             height: 23,
                             margin: 10,
-                            filter: "invert(100%)",
-                            WebkitFilter: "invert(100%)",
+                            filter: "invert(0%)",
+                            WebkitFilter: "invert(0%)",
                           }}
                           onClick={() => {
                             if (socialType == "Email") {
@@ -390,6 +390,9 @@ export const EditProProfile = ({ match, location }) => {
                         <div
                           className="pro_profile_top_link_div"
                           onClick={() => window.open(proLink, "_blank")}
+                          style={{
+                            backgroundColor: proTheme.linkBoxColor,
+                          }}
                         >
                           <p>{proLinkName}</p>
                         </div>
@@ -399,6 +402,9 @@ export const EditProProfile = ({ match, location }) => {
                         className="pro_profile_top_link_div"
                         onClick={() => {
                           history.push("/ProEdit");
+                        }}
+                        style={{
+                          backgroundColor: proTheme.linkBoxColor,
                         }}
                       >
                         <p>Set Up Your Links!</p>

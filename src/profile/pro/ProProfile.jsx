@@ -465,25 +465,17 @@ export const ProProfile = ({ match, location }) => {
                       backgroundImage: `url(${proTheme.background2})`,
                     }}
                   >
-                    {proLinks.length > 0 ? (
-                      proLinks.map(({ proLinkName, proLink }) => (
-                        <div
-                          className="pro_profile_top_link_div"
-                          onClick={() => window.open(proLink, "_blank")}
-                        >
-                          <p>{proLinkName}</p>
-                        </div>
-                      ))
-                    ) : (
-                      <div
-                        className="pro_profile_top_link_div"
-                        onClick={() => {
-                          history.push("/ProEdit");
-                        }}
-                      >
-                        <p>Set Up Your Links!</p>
-                      </div>
-                    )}
+                    {proLinks.map(({proLinkName, proLink}) => (
+                    <div
+                      className="pro_profile_top_link_div"
+                      onClick={() => window.open(proLink, "_blank")}
+                      style={{
+                        backgroundColor: proTheme.linkBoxColor,
+                      }}
+                    >
+                      <p>{proLinkName}</p>
+                    </div>
+                    ))}
                   </div>
                 </div>
               </div>

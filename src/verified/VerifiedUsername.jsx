@@ -75,7 +75,7 @@ export const VerifiedUsername = () => {
   ];
 
   const [values, setValues] = useState({
-    username: "",
+    username: localStorage.getItem("USER_NAME"),
   });
 
   const [usernameMessage, setUsernameMessage] = useState("");
