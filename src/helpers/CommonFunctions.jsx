@@ -114,7 +114,7 @@ export const downloadAndSaveTikToksWithRetry = async (nthTry) => {
     if (res == "failed") {
       throw new Error("downloadAndSaveFuncError");
     }
-    return res;
+    return "success";
   } catch (e) {
     if (nthTry === 1) {
       axios.post("/v1/email/severeError", {
@@ -140,7 +140,7 @@ export const downloadAndSaveTikToks = async () => {
     console.log("getting tiktoks info");
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID"),
-      3,
+      1,
       10000
     );
 
@@ -148,7 +148,7 @@ export const downloadAndSaveTikToks = async () => {
 
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/download/" + localStorage.getItem("USER_ID"),
-      3,
+      1,
       10000
     );
 
@@ -156,7 +156,7 @@ export const downloadAndSaveTikToks = async () => {
 
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID"),
-      3,
+      1,
       10000
     );
 

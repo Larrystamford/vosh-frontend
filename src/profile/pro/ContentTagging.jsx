@@ -1,5 +1,4 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ProEdit.css";
 import { useGlobalState } from "../../GlobalStates";
 import { useHistory } from "react-router";
@@ -18,19 +17,8 @@ import { ContentCategory } from "./ContentCategory";
 
 import { useSwipeable } from "react-swipeable";
 import { makeStyles } from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
-import Paper from "@material-ui/core/Paper";
 import Collapse from "@material-ui/core/Collapse";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import TextField from "@material-ui/core/TextField";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
-import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
-import LinkOutlinedIcon from "@material-ui/icons/LinkOutlined";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import CategoryOutlinedIcon from "@material-ui/icons/CategoryOutlined";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import Button from "@material-ui/core/Button";
@@ -39,6 +27,7 @@ import AddIcon from "@material-ui/icons/Add";
 import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
 import VolumeUpOutlinedIcon from "@material-ui/icons/VolumeUpOutlined";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
@@ -221,7 +210,7 @@ export const ContentTagging = () => {
     let isMounted = true; // note this flag denote mount status
 
     setImporting(true);
-    await downloadAndSaveTikToksWithRetry(3);
+    const result = await downloadAndSaveTikToksWithRetry(3);
     setImporting(false);
 
     const userId = localStorage.getItem("USER_ID");
@@ -239,7 +228,10 @@ export const ContentTagging = () => {
       });
     }
 
-    console.log("import done");
+    if (result == "success") {
+      alert("Import done");
+    }
+
     return () => {
       isMounted = false;
     };
@@ -555,21 +547,6 @@ export const ContentTagging = () => {
     }
   };
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const handleScroll = () => {
-    const position = window.getElementsByClassName("gallery_slider_body_wrapper").pageYOffset;
-    setScrollPosition(position);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  console.log(scrollPosition);
-
   return (
     <div className="SlidingEdit_Body">
       <div className="SlidingEdit_Header">
@@ -684,6 +661,21 @@ export const ContentTagging = () => {
             <div className="SlidingEdit_TypeLeft">
               <p style={{ fontSize: 15, fontWeight: "bold" }}>Gallery</p>
             </div>
+            {!checked && (
+              <div
+                style={{
+                  marginTop: 15,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 10,
+                }}
+              >
+                <ExpandMoreIcon style={{ fontSize: 24 }} />
+                <p style={{ fontSize: 9 }}>Drag Down</p>
+              </div>
+            )}
             <div className="SlidingEdit_TypeAndIcon">
               {importing ? (
                 <Button

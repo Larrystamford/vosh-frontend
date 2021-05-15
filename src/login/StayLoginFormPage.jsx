@@ -102,6 +102,7 @@ const StayLoginFormPage = (props) => {
             history.push({
               pathname: "/proProfile",
             });
+            setNextClicked(false);
           })
           .catch((err) => {
             alert("Try again");
@@ -154,12 +155,14 @@ const StayLoginFormPage = (props) => {
             email: values.email,
             password: values.password,
           });
+          setNextClicked(false);
         } else {
           try {
             await props.signIn({
               email: values.email,
               password: values.password,
             });
+            setNextClicked(false);
           } catch {
             alert("Try again");
             setNextClicked(false);
