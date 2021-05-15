@@ -8,7 +8,6 @@ import { ImageLoad } from "../../components/ImageLoad";
 
 import { Snackbar } from "@material-ui/core";
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
-import { CaptionEdit } from "../CaptionEdit";
 import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
 import { ProfileFeed } from "../../feed/ProfileFeed";
@@ -39,11 +38,11 @@ export const EditProProfile = ({ match, location }) => {
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [proVideos, setProVideos] = useState([]);
-  const [profileBio, setProfileBio] = useState("");
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
   const [proCategories, setProCategories] = useState([]);
   const [proTheme, setProTheme] = useState({});
+  const [profileBio, setProfileBio] = useState("");
 
   const [showVideos, setShowVideos] = useState([]);
 
@@ -90,34 +89,6 @@ export const EditProProfile = ({ match, location }) => {
     });
     return result.data.url;
   };
-
-  // caption change
-  const [openCaption, setOpenCaption] = useState(false);
-  const handleCaptionOpen = () => {
-    setOpenCaption(true);
-    window.history.pushState(
-      {
-        caption: "caption",
-      },
-      "",
-      ""
-    );
-  };
-  const handleCaptionClose = () => {
-    setOpenCaption(false);
-    window.history.back();
-  };
-  useDidMountEffect(() => {
-    const handleCaptionPop = () => {
-      setOpenCaption(false);
-    };
-
-    if (openCaption) {
-      window.addEventListener("popstate", handleCaptionPop);
-    } else {
-      window.removeEventListener("popstate", handleCaptionPop);
-    }
-  }, [openCaption]);
 
   // load data
   const [isLoading, setIsLoading] = useState(true);
@@ -358,7 +329,12 @@ export const EditProProfile = ({ match, location }) => {
                       .map(({ socialType, socialLink }) => (
                         <img
                           src={convertSocialTypeToImage(socialType)}
-                          style={{ height: 23, margin: 10 }}
+                          style={{
+                            height: 23,
+                            margin: 10,
+                            filter: "invert(100%)",
+                            WebkitFilter: "invert(100%)",
+                          }}
                           onClick={() => {
                             if (socialType == "Email") {
                               window.open(
@@ -377,7 +353,12 @@ export const EditProProfile = ({ match, location }) => {
                       .map(({ socialType, socialLink }) => (
                         <img
                           src={convertSocialTypeToImage(socialType)}
-                          style={{ height: 23, margin: 10 }}
+                          style={{
+                            height: 23,
+                            margin: 10,
+                            filter: "invert(100%)",
+                            WebkitFilter: "invert(100%)",
+                          }}
                           onClick={() => {
                             if (socialType == "Email") {
                               window.open(
@@ -394,24 +375,9 @@ export const EditProProfile = ({ match, location }) => {
                     <div
                       className="pro_profile_top_profileBio"
                       style={{ position: "relative", width: "90%" }}
-                      onClick={handleCaptionOpen}
                     >
                       <span>{profileBio}</span>
-
-                      <div className="edit_pro_profile_edit_image_circle_caption">
-                        <CreateIcon
-                          className="edit_pro_profile_edit_image_caption"
-                          style={{ fontSize: 12 }}
-                        />
-                      </div>
                     </div>
-                    <CaptionEdit
-                      openCaption={openCaption}
-                      setOpenCaption={setOpenCaption}
-                      handleCaptionOpen={handleCaptionOpen}
-                      handleCaptionClose={handleCaptionClose}
-                      setProfileBio={setProfileBio}
-                    />
                   </div>
                   <div
                     className="pro_profile_top_linker"

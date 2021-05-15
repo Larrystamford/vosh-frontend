@@ -15,8 +15,6 @@ import axios from "../axios";
 import { useDoubleTap } from "use-double-tap";
 import { Exception } from "../components/tracking/Tracker";
 
-import { InstantGoBrowser } from "../components/pwa/InstantGoBrowser";
-
 function ProfileVideo({
   loggedInUserId,
   sellerId,
@@ -134,7 +132,6 @@ function ProfileVideo({
                       console.log("retry success");
                     })
                     .catch(function (error) {
-                      setOpenGoBrowser(true);
                       Exception(error + "retried failed at line 118");
                     });
                 }
@@ -198,7 +195,6 @@ function ProfileVideo({
                       console.log("retry success");
                     })
                     .catch(function (error) {
-                      setOpenGoBrowser(true);
                       Exception(error + "retried failed at line 166");
                     });
                 }
@@ -211,8 +207,6 @@ function ProfileVideo({
       }
     }
   };
-
-  const [openGoBrowser, setOpenGoBrowser] = useState(false);
 
   const [fixHeight, setFixHeight] = useState(700);
   const [fixWidth, setFixWidth] = useState(350);
@@ -230,10 +224,6 @@ function ProfileVideo({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (index != 0 && index % 13 == 0) {
-            setOpenGoBrowser(true);
-          }
-
           setCurrentIndex(index);
           // add video to watched if its playing
           if (index != 0) {
@@ -349,7 +339,6 @@ function ProfileVideo({
                             setPlaying(false);
                             setPlayingForButton(false);
                             setLoading(false);
-                            setOpenGoBrowser(true);
                             Exception(error + "play failed again at line 287");
                           });
                       }
@@ -566,12 +555,6 @@ function ProfileVideo({
           }}
         ></div>
       ) : null}
-
-      <InstantGoBrowser
-        openGoBrowser={openGoBrowser}
-        setOpenGoBrowser={setOpenGoBrowser}
-        videoId={id}
-      />
     </div>
   );
 }

@@ -11,10 +11,6 @@ import { SlidingCategories } from "./SlidingCategories";
 
 import { SimpleBottomNotification } from "../../components/SimpleBottomNotification";
 
-import TextField from "@material-ui/core/TextField";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import LinkOutlinedIcon from "@material-ui/icons/LinkOutlined";
@@ -23,6 +19,7 @@ import CategoryOutlinedIcon from "@material-ui/icons/CategoryOutlined";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
@@ -34,6 +31,7 @@ export const ProEdit = () => {
   const [socialItems, setSocialItems] = useState({ items: [] });
   const [proLinks, setProLinks] = useState({ items: [] });
   const [proCategories, setProCategories] = useGlobalState("proCategories");
+  const [profileBio, setProfileBio] = useState("");
 
   const [showNotif, setShowNotif] = useState("");
 
@@ -45,6 +43,9 @@ export const ProEdit = () => {
         setSocialItems({ items: data.socialAccounts });
         setProLinks({ items: data.proLinks });
         setProCategories({ items: data.proCategories });
+        if (data.profileBio) {
+          setProfileBio(data.profileBio);
+        }
 
         if (response.status == 200) {
           setSafeToEdit(true);
@@ -232,6 +233,24 @@ export const ProEdit = () => {
           </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p>Username</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            history.push({
+              pathname: "/profileBio",
+            });
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <CreateOutlinedIcon style={{ fontSize: 20 }} />
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Profile Bio</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />

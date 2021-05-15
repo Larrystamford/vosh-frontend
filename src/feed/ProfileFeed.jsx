@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProfileVideo from "./ProfileVideo";
+import Video from "./Video";
 import "./Feed.css";
 import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
 
@@ -61,7 +61,7 @@ export const ProfileFeed = (props) => {
             },
             index
           ) => (
-            <ProfileVideo
+            <Video
               loggedInUserId={loggedInUserId}
               sellerId={user}
               id={_id}

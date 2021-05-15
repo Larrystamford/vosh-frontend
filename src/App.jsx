@@ -23,6 +23,7 @@ import Login from "./login/Login";
 import { Logout } from "./login/Logout";
 import { ProProfile } from "./profile/pro/ProProfile";
 import { SetTheme } from "./profile/pro/SetTheme";
+import { NonSlidingBio } from "./profile/pro/NonSlidingBio";
 import StayLoginFormPage from "./login/StayLoginFormPage";
 import { EditProProfile } from "./profile/pro/EditProProfile";
 import { ContentTagging } from "./profile/pro/ContentTagging";
@@ -99,7 +100,6 @@ function App() {
     return <ComputerLanding />;
   }
 
-
   return (
     <Provider
       store={createStore(
@@ -165,6 +165,7 @@ function App() {
           <Route path="/ProProfile" component={EditProProfile} />
           <Route path="/ProEdit" component={ProEdit} />
           <Route path="/ContentTagging" component={ContentTagging} />
+          <Route path="/profileBio" component={NonSlidingBio} />
           <Route path="/theme" component={SetTheme} />
           <Route path="/login" component={StayLoginFormPage} />
           <Route path="/logout" exact component={Logout} />

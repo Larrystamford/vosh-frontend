@@ -354,6 +354,20 @@
   object-fit: cover;
 }
 
+.bio_chars_and_save {
+  height: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bio_chars_and_save > p {
+  font-size: 14px;
+  color: grey;
+}
+
 /* bigger than iphone 5 */
 @media only screen and (min-height: 580px) {
   .gallery_slider_body {
