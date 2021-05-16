@@ -140,7 +140,7 @@ export const downloadAndSaveTikToks = async () => {
     console.log("getting tiktoks info");
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/getInfo/" + localStorage.getItem("USER_ID"),
-      1,
+      3,
       10000
     );
 
@@ -149,7 +149,7 @@ export const downloadAndSaveTikToks = async () => {
     try {
       res = await retryGetPromiseWithDelay(
         "v1/tiktok/download/" + localStorage.getItem("USER_ID"),
-        1,
+        2,
         10000
       );
     } catch {
@@ -160,7 +160,7 @@ export const downloadAndSaveTikToks = async () => {
 
     res = await retryGetPromiseWithDelay(
       "v1/tiktok/saveTikToks/" + localStorage.getItem("USER_ID"),
-      1,
+      3,
       10000
     );
 
@@ -181,7 +181,7 @@ function waitFor(millSeconds) {
 
 async function retryGetPromiseWithDelay(promiseLink, nthTry, delayTime) {
   try {
-    await waitFor(5000);
+    await waitFor(10000);
     console.log("promise with delay", promiseLink);
     const res = await axios.get(promiseLink);
     return res;
@@ -198,7 +198,7 @@ async function retryGetPromiseWithDelay(promiseLink, nthTry, delayTime) {
 
 async function retryPostPromiseWithDelay(promiseLink, body, nthTry, delayTime) {
   try {
-    await waitFor(5000);
+    await waitFor(10000);
     console.log("promise with delay", promiseLink);
     const res = await axios.post(promiseLink, body);
     return res;
