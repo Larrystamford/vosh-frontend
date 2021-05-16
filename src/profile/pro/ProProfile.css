@@ -329,7 +329,7 @@
 }
 
 .pro_profile_top_selector {
-  height: 20%;
+  height: 3rem;
   width: 100%;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
@@ -339,6 +339,8 @@
   align-items: center;
   justify-content: flex-start;
   overflow-x: scroll;
+
+  z-index: 3000;
 }
 
 .pro_profile_top_linker {
@@ -428,7 +430,6 @@
 
 .pro_profile_bottom {
   width: 100%;
-  min-height: 50%;
 
   background-repeat: repeat;
   background-position: center;

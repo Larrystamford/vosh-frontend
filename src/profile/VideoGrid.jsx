@@ -18,13 +18,11 @@ export const VideoGrid = ({
   handleChangeView,
   scrolledBottomCount,
   selectedCategoryName,
-  background1
+  background1,
 }) => {
   useEffect(() => {
     setShowVideos(videos.slice(0, 6));
   }, [selectedCategoryName]);
-
-  console.log(scrolledBottomCount);
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowVideos((prevState) => [
@@ -72,7 +70,7 @@ export const VideoGrid = ({
               className="profile_bottom_imageOrVideoIcon"
               style={{
                 opacity: 0.9,
-                zIndex: 10000,
+                zIndex: 2500,
               }}
             />
             <DisplayPreviewFile

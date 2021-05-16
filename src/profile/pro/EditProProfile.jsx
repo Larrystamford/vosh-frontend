@@ -126,6 +126,12 @@ export const EditProProfile = ({ match, location }) => {
 
         setIsLoading(false);
       });
+
+      const selectorHeight = document
+        .getElementById("pro_profile_top_selector_1")
+        .height();
+
+      console.log(selectorHeight);
     } else {
       setIsLoggedIn(false);
     }
@@ -415,6 +421,7 @@ export const EditProProfile = ({ match, location }) => {
               </div>
 
               <div
+                id="pro_profile_top_selector_1"
                 className="pro_profile_top_selector"
                 style={{
                   backgroundImage: `url(${proTheme.background1})`,
