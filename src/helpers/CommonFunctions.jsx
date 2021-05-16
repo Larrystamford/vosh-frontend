@@ -146,11 +146,15 @@ export const downloadAndSaveTikToks = async () => {
 
     console.log("downloading tiktoks");
 
-    res = await retryGetPromiseWithDelay(
-      "v1/tiktok/download/" + localStorage.getItem("USER_ID"),
-      1,
-      10000
-    );
+    try {
+      res = await retryGetPromiseWithDelay(
+        "v1/tiktok/download/" + localStorage.getItem("USER_ID"),
+        1,
+        10000
+      );
+    } catch {
+      console.log("download failed but try to save");
+    }
 
     console.log("saving tiktoks");
 

@@ -24,8 +24,7 @@ export const ConfirmImport = ({
       <DialogTitle id="alert-dialog-title">{"Confirm Import"}</DialogTitle>
       <DialogContent>
         <span>
-          Import your videos from your TikTok account. (First time imports might
-          take a few minutes)
+          Import your videos from your TikTok account. (Latest 50 Videos)
         </span>
       </DialogContent>
       <DialogActions>
