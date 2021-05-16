@@ -211,7 +211,7 @@ export const ContentTagging = () => {
 
     setImporting(true);
 
-    const result = await downloadAndSaveTikToksWithRetry(3);
+    const result = await downloadAndSaveTikToksWithRetry(1);
 
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
