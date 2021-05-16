@@ -296,7 +296,7 @@ export const EditProProfile = ({ match, location }) => {
                       ) : null}
                     </div>
                     <div className="pro_profile_top_name">
-                      <p>@{username}</p>
+                      <p>{username}</p>
                     </div>
                   </div>
                   <div className="pro_profile_top_follow">
@@ -464,12 +464,7 @@ export const EditProProfile = ({ match, location }) => {
             </div>
           )}
 
-          <div
-            className="pro_profile_bottom"
-            style={{
-              backgroundImage: `url(${proTheme.background1})`,
-            }}
-          >
+          <div className="pro_profile_bottom">
             {isLoading ? (
               <div></div>
             ) : (
@@ -486,6 +481,7 @@ export const EditProProfile = ({ match, location }) => {
                 handleChangeView={handleChangeView}
                 scrolledBottomCount={scrolledBottomCount}
                 selectedCategoryName={selectedCategoryName}
+                background1={proTheme.background1}
               />
             )}
           </div>

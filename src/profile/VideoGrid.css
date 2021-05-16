@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  padding-bottom: 3rem;
 }
 
 .profile_bottom_grid_history {

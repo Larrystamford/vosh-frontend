@@ -248,8 +248,8 @@
   justify-content: center;
 }
 .pro_profile_top_name > p {
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 900;
   margin-left: 7px;
   overflow-wrap: break-word;
 }
@@ -428,7 +428,6 @@
 
 .pro_profile_bottom {
   width: 100%;
-  padding-bottom: 3rem;
   min-height: 50%;
 
   background-repeat: repeat;
@@ -482,7 +481,7 @@
   }
 
   .pro_profile_top_name > p {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .pro_profile_top_following_button {

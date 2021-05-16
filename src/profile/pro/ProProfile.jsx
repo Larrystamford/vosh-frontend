@@ -8,7 +8,6 @@ import { ImageLoad } from "../../components/ImageLoad";
 
 import { Snackbar } from "@material-ui/core";
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
-import { CaptionEdit } from "../CaptionEdit";
 import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
 import { ProfileFeed } from "../../feed/ProfileFeed";
@@ -70,63 +69,6 @@ export const ProProfile = ({ match, location }) => {
   const handleLoginClose = () => {
     setLoginCheck(false);
   };
-
-  // change profile picture
-  const hiddenFileInput = useRef(null);
-  const handleUploadClick = (event) => {
-    hiddenFileInput.current.click();
-  };
-  const handleFileUpload = async (file) => {
-    const mediaType = file.type.split("/")[0];
-    if (mediaType != "image") {
-      alert("Please upload images only");
-    } else {
-      const imageUrl = await getFileUrl(file);
-      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-        picture: imageUrl,
-      });
-      setImage(imageUrl);
-    }
-  };
-  const getFileUrl = async (file) => {
-    let formData = new FormData();
-    formData.append("media", file);
-
-    const result = await axios.post("/v1/upload/aws", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return result.data.url;
-  };
-
-  // caption change
-  const [openCaption, setOpenCaption] = useState(false);
-  const handleCaptionOpen = () => {
-    setOpenCaption(true);
-    window.history.pushState(
-      {
-        caption: "caption",
-      },
-      "",
-      ""
-    );
-  };
-  const handleCaptionClose = () => {
-    setOpenCaption(false);
-    window.history.back();
-  };
-  useDidMountEffect(() => {
-    const handleCaptionPop = () => {
-      setOpenCaption(false);
-    };
-
-    if (openCaption) {
-      window.addEventListener("popstate", handleCaptionPop);
-    } else {
-      window.removeEventListener("popstate", handleCaptionPop);
-    }
-  }, [openCaption]);
 
   // load data
   const [isLoading, setIsLoading] = useState(true);
@@ -341,34 +283,16 @@ export const ProProfile = ({ match, location }) => {
                   <div className="pro_profile_top_image_name">
                     <div className="pro_profile_top_image">
                       {image ? (
-                        <div
-                          style={{ position: "relative" }}
-                          onClick={handleUploadClick}
-                        >
+                        <div style={{ position: "relative" }}>
                           <ImageLoad
                             src={image}
                             className="pro_profile_top_image_circular"
-                          />
-
-                          <div className="edit_pro_profile_edit_image_circle">
-                            <CreateIcon
-                              className="edit_pro_profile_edit_image"
-                              style={{ fontSize: 14 }}
-                            />
-                          </div>
-                          <input
-                            ref={hiddenFileInput}
-                            type="file"
-                            name="file"
-                            onChange={(e) => {
-                              handleFileUpload(e.target.files[0]);
-                            }}
                           />
                         </div>
                       ) : null}
                     </div>
                     <div className="pro_profile_top_name">
-                      <p>@{username}</p>
+                      <p>{username}</p>
                     </div>
                   </div>
                   <div className="pro_profile_top_follow">
@@ -440,24 +364,9 @@ export const ProProfile = ({ match, location }) => {
                     <div
                       className="pro_profile_top_profileBio"
                       style={{ position: "relative", width: "90%" }}
-                      onClick={handleCaptionOpen}
                     >
                       <span>{profileBio}</span>
-
-                      <div className="edit_pro_profile_edit_image_circle_caption">
-                        <CreateIcon
-                          className="edit_pro_profile_edit_image_caption"
-                          style={{ fontSize: 12 }}
-                        />
-                      </div>
                     </div>
-                    <CaptionEdit
-                      openCaption={openCaption}
-                      setOpenCaption={setOpenCaption}
-                      handleCaptionOpen={handleCaptionOpen}
-                      handleCaptionClose={handleCaptionClose}
-                      setProfileBio={setProfileBio}
-                    />
                   </div>
                   <div
                     className="pro_profile_top_linker"
@@ -465,16 +374,16 @@ export const ProProfile = ({ match, location }) => {
                       backgroundImage: `url(${proTheme.background2})`,
                     }}
                   >
-                    {proLinks.map(({proLinkName, proLink}) => (
-                    <div
-                      className="pro_profile_top_link_div"
-                      onClick={() => window.open(proLink, "_blank")}
-                      style={{
-                        backgroundColor: proTheme.linkBoxColor,
-                      }}
-                    >
-                      <p>{proLinkName}</p>
-                    </div>
+                    {proLinks.map(({ proLinkName, proLink }) => (
+                      <div
+                        className="pro_profile_top_link_div"
+                        onClick={() => window.open(proLink, "_blank")}
+                        style={{
+                          backgroundColor: proTheme.linkBoxColor,
+                        }}
+                      >
+                        <p>{proLinkName}</p>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -542,6 +451,7 @@ export const ProProfile = ({ match, location }) => {
                 handleChangeView={handleChangeView}
                 scrolledBottomCount={scrolledBottomCount}
                 selectedCategoryName={selectedCategoryName}
+                background1={proTheme.background1}
               />
             )}
           </div>
