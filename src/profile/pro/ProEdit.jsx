@@ -20,6 +20,7 @@ import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
@@ -275,7 +276,7 @@ export const ProEdit = () => {
             <LinkOutlinedIcon style={{ fontSize: 20 }} />
           </div>
           <div className="SlidingEdit_TypeAndIcon">
-            <p>Links</p>
+            <p>General Links</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />
@@ -319,6 +320,25 @@ export const ProEdit = () => {
           </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p>Content Tagging</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() =>
+            history.push({
+              pathname: "/changePassword",
+            })
+          }
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <LockOutlinedIcon style={{ fontSize: 20 }} />
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Change Password</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />

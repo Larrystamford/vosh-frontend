@@ -385,7 +385,9 @@ export const EditProProfile = ({ match, location }) => {
                       backgroundColor: proTheme.linkBoxColor,
                     }}
                   >
-                    <p>Set Up Your Links!</p>
+                    <p style={{ color: proTheme.linkWordsColor }}>
+                      Set Up Your Links!
+                    </p>
                   </div>
                 )}
               </div>

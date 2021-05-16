@@ -25,6 +25,7 @@ import { ProProfile } from "./profile/pro/ProProfile";
 import { SetTheme } from "./profile/pro/SetTheme";
 import { NonSlidingBio } from "./profile/pro/NonSlidingBio";
 import StayLoginFormPage from "./login/StayLoginFormPage";
+import { ChangePassword } from "./login/ChangePassword";
 import { EditProProfile } from "./profile/pro/EditProProfile";
 import { ContentTagging } from "./profile/pro/ContentTagging";
 import { ProEdit } from "./profile/pro/ProEdit";
@@ -163,6 +164,7 @@ function App() {
           <Route path="/profileBio" component={NonSlidingBio} />
           <Route path="/theme" component={SetTheme} />
           <Route path="/login" component={StayLoginFormPage} />
+          <Route path="/changePassword" component={ChangePassword} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/404" exact component={PageNoExist} />
           <Route path="/" exact />

@@ -195,6 +195,7 @@ const StayLoginFormPage = (props) => {
           >
             Vosh
           </p>
+
           <img
             src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
             alt="loco logo"
