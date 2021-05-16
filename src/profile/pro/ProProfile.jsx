@@ -25,6 +25,8 @@ import { PageView } from "../../components/tracking/Tracker";
 import Lottie from "react-lottie";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 export const ProProfile = ({ match, location }) => {
   const history = useHistory();
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
@@ -60,16 +62,6 @@ export const ProProfile = ({ match, location }) => {
   const handleCategorySelection = (name) => {
     setScrolledBottomCount(0);
     setSelectedCategoryName(name);
-  };
-
-  // login in functions
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [loginCheck, setLoginCheck] = useState(true);
-  const handleLoginOpen = () => {
-    setLoginCheck(true);
-  };
-  const handleLoginClose = () => {
-    setLoginCheck(false);
   };
 
   // load data
@@ -230,25 +222,35 @@ export const ProProfile = ({ match, location }) => {
         },
       ]);
       setIsFollowing(true);
+      setLikeButtonToggle(!likeButtonToggle);
+    } else {
+      setLoginCheck(true);
     }
-    setLikeButtonToggle(!likeButtonToggle);
   };
 
   const handleUnfollow = (i) => {
     if (localStorage.getItem("USER_ID")) {
       setFollowers(followers.slice(0, followers.length - 1));
       setIsFollowing(false);
+      setLikeButtonToggle(!likeButtonToggle);
+    } else {
+      setLoginCheck(true);
     }
-    setLikeButtonToggle(!likeButtonToggle);
   };
 
   const topRef = useRef();
   const isVisible = useOnScreen(topRef);
-  if (!isVisible) {
-    console.log("bye");
-  } else {
-    console.log("hello");
-  }
+
+  const [shareStatus, setShareStatus] = useState(false);
+  const handleShareClicked = () => {
+    setShareStatus(true);
+    setTimeout(() => setShareStatus(false), 1300);
+  };
+
+  const [loginCheck, setLoginCheck] = useState(false);
+  const handleLoginClose = () => {
+    setLoginCheck(false);
+  };
 
   return (
     <div
@@ -327,9 +329,23 @@ export const ProProfile = ({ match, location }) => {
               </div>
 
               <div className="pro_profile_top_follow">
-                <div className="pro_profile_top_following_button">
-                  <p style={{ color: "white" }}>Share</p>
-                </div>
+                <CopyToClipboard text={"https://vosh.club/" + username}>
+                  {isFollowing ? (
+                    <div
+                      className="pro_profile_top_following_button"
+                      onClick={handleShareClicked}
+                    >
+                      <p style={{ color: "white" }}>Share</p>
+                    </div>
+                  ) : (
+                    <div
+                      className="pro_profile_top_follow_button"
+                      onClick={handleShareClicked}
+                    >
+                      <p style={{ color: "white" }}>Share</p>
+                    </div>
+                  )}
+                </CopyToClipboard>
               </div>
             </div>
             <div className="pro_profile_top_right">
@@ -549,6 +565,14 @@ export const ProProfile = ({ match, location }) => {
           proTheme={proTheme}
         />
       )}
+
+      <Snackbar
+        open={shareStatus}
+        message="Profile copied!"
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
+
+      <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
     </div>
   );
 };

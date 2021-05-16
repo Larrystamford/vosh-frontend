@@ -51,7 +51,6 @@ export const EditProProfile = ({ match, location }) => {
 
   const [scrollView, setScrollView] = useState(false);
   const [viewIndex, setViewIndex] = useState(0);
-  const [isFollowing, setIsFollowing] = useState(false);
   const [likeButtonToggle, setLikeButtonToggle] = useState(false);
 
   // login in functions
@@ -135,52 +134,6 @@ export const EditProProfile = ({ match, location }) => {
 
     PageView();
   }, []);
-
-  // save data
-  useDidMountEffect(() => {
-    // update other user followers
-    if (isFollowing == true) {
-      axios
-        .put("/v1/users/pushFollowers/" + userId, {
-          id: localStorage.getItem("USER_ID"),
-          userName: localStorage.getItem("USER_NAME"),
-          picture: localStorage.getItem("PICTURE"),
-        })
-        .then((response) => {
-          console.log(response);
-        });
-      // update personal followings
-      axios
-        .put("/v1/users/pushFollowings/" + localStorage.getItem("USER_ID"), {
-          id: userId,
-          userName: username,
-          picture: image,
-        })
-        .then((response) => {
-          console.log(response);
-        });
-    } else if (isFollowing == false) {
-      axios
-        .put("/v1/users/pullFollowers/" + userId, {
-          id: localStorage.getItem("USER_ID"),
-          userName: localStorage.getItem("USER_NAME"),
-          picture: localStorage.getItem("PICTURE"),
-        })
-        .then((response) => {
-          console.log(response);
-        });
-      // update personal followings
-      axios
-        .put("/v1/users/pullFollowings/" + localStorage.getItem("USER_ID"), {
-          id: userId,
-          userName: username,
-          picture: image,
-        })
-        .then((response) => {
-          console.log(response);
-        });
-    }
-  }, [likeButtonToggle]);
 
   const handleChangeView = (i) => {
     if (scrollView) {

@@ -58,6 +58,7 @@ export const StaySlidingSetUp = (props) => {
       style={props.open ? {} : { display: "none" }}
     >
       <Dialog
+        style={{ zIndex: 20000 }}
         open={props.open}
         onClose={props.handleClose}
         TransitionComponent={Transition}

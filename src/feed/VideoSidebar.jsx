@@ -138,7 +138,7 @@ function VideoSidebar({
     if (process.env.NODE_ENV === "development") {
       setVideoLink("http://localhost:3000/video/" + id);
     } else {
-      setVideoLink("https://shoplocoloco.com/video/" + id);
+      setVideoLink("https://vosh.club/video/" + id);
     }
   }, []);
 
