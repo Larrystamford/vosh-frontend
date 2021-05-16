@@ -21,6 +21,7 @@ import { PageView } from "../../components/tracking/Tracker";
 
 import Lottie from "react-lottie";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 export const EditProProfile = ({ match, location }) => {
   const history = useHistory();
@@ -126,12 +127,6 @@ export const EditProProfile = ({ match, location }) => {
 
         setIsLoading(false);
       });
-
-      const selectorHeight = document
-        .getElementById("pro_profile_top_selector_1")
-        .height();
-
-      console.log(selectorHeight);
     } else {
       setIsLoggedIn(false);
     }
@@ -228,6 +223,7 @@ export const EditProProfile = ({ match, location }) => {
     setScrolledBottomCount(0);
     setSelectedCategoryName(name);
   };
+
 
   return (
     <>
@@ -421,11 +417,11 @@ export const EditProProfile = ({ match, location }) => {
               </div>
 
               <div
-                id="pro_profile_top_selector_1"
                 className="pro_profile_top_selector"
                 style={{
                   backgroundImage: `url(${proTheme.background1})`,
                 }}
+     
               >
                 <div
                   className="pro_profile_icon_and_name"
