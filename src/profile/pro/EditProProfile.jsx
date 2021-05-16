@@ -3,6 +3,7 @@ import "./ProProfile.css";
 import { Link } from "react-router-dom";
 import { VideoGrid } from "../VideoGrid";
 import { useGlobalState } from "../../GlobalStates";
+import useOnScreen from "../../customHooks/useOnScreen";
 
 import { ImageLoad } from "../../components/ImageLoad";
 
@@ -224,6 +225,13 @@ export const EditProProfile = ({ match, location }) => {
     setSelectedCategoryName(name);
   };
 
+  const topRef = useRef();
+  const isVisible = useOnScreen(topRef);
+  if (!isVisible) {
+    console.log("bye");
+  } else {
+    console.log("hello");
+  }
 
   return (
     <>
@@ -240,33 +248,36 @@ export const EditProProfile = ({ match, location }) => {
           handleChangeView={handleChangeView}
         />
       ) : (
-        <div className="ProProfile" ref={scrollRef}>
+        <div
+          className="ProProfile"
+          ref={scrollRef}
+          style={{
+            backgroundImage: `url(${proTheme.background1})`,
+          }}
+        >
           {isLoading ? (
             <div className="pro_profile_top">
-              <div className="pro_profile_loading">
-                <Lottie
-                  options={{
-                    loop: true,
-                    autoPlay: true,
-                    animationData: legoData.default,
-                    rendererSettings: {
-                      preserveAspectRatio: "xMidYMid slice",
-                    },
-                  }}
-                  height={220}
-                  width={220}
-                />
-                <p className="pro_profile_loading_word">Vosh</p>
+              <div ref={topRef} className="pro_profile_top_with_left_right">
+                <div className="pro_profile_loading">
+                  <Lottie
+                    options={{
+                      loop: true,
+                      autoPlay: true,
+                      animationData: legoData.default,
+                      rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice",
+                      },
+                    }}
+                    height={220}
+                    width={220}
+                  />
+                  <p className="pro_profile_loading_word">Vosh</p>
+                </div>
               </div>
             </div>
           ) : (
             <div className="pro_profile_top">
-              <div
-                className="pro_profile_top_with_left_right"
-                style={{
-                  backgroundImage: `url(${proTheme.background1})`,
-                }}
-              >
+              <div className="pro_profile_top_with_left_right">
                 <div className="pro_profile_top_left">
                   <div className="pro_profile_top_image_name">
                     <div className="pro_profile_top_image">
@@ -418,10 +429,16 @@ export const EditProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_top_selector"
-                style={{
-                  backgroundImage: `url(${proTheme.background1})`,
-                }}
-     
+                style={
+                  isVisible
+                    ? {
+                        backgroundImage: `url(${proTheme.background2})`,
+                      }
+                    : {
+                        backgroundImage: `url(${proTheme.background2})`,
+                        position: "fixed",
+                      }
+                }
               >
                 <div
                   className="pro_profile_icon_and_name"
@@ -484,7 +501,6 @@ export const EditProProfile = ({ match, location }) => {
                 handleChangeView={handleChangeView}
                 scrolledBottomCount={scrolledBottomCount}
                 selectedCategoryName={selectedCategoryName}
-                background1={proTheme.background1}
               />
             )}
           </div>

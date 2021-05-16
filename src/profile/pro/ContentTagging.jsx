@@ -500,8 +500,12 @@ export const ContentTagging = () => {
     } else {
       const proCategories = [];
       for (const [key, value] of Object.entries(categorySelection)) {
-        proCategories.push(key);
+        if (value) {
+          proCategories.push(key);
+        }
       }
+
+      console.log(proCategories);
 
       try {
         const res = await axios.put("/v1/video/update/" + displayVideoId, {

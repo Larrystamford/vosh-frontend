@@ -129,7 +129,7 @@ export const LinkEditCategory = ({
       inputValues.proCategoryName != "" &&
       inputValues.proCategoryImage != ""
     ) {
-      if (inputValues.proCategoryName.length > 8) {
+      if (inputValues.proCategoryName.length > 10) {
         alert("Sorry, maximum 8 Characters!");
       } else {
         if (editingIndex > -1) {
@@ -187,7 +187,7 @@ export const LinkEditCategory = ({
         </TextField>
         <TextField
           size={size.height < 580 ? "small" : null}
-          label={`Category Name (${inputValues.proCategoryName.length}/8)`}
+          label={`Category Name (${inputValues.proCategoryName.length}/10)`}
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
           variant="outlined"

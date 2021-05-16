@@ -3,6 +3,7 @@ import "./ProProfile.css";
 import { Link } from "react-router-dom";
 import { VideoGrid } from "../VideoGrid";
 import { useGlobalState } from "../../GlobalStates";
+import useOnScreen from "../../customHooks/useOnScreen";
 
 import { ImageLoad } from "../../components/ImageLoad";
 
@@ -52,7 +53,7 @@ export const ProProfile = ({ match, location }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [likeButtonToggle, setLikeButtonToggle] = useState(false);
 
-  const [voshBanner, setVoshBanner] = useState(true);
+  const [voshBanner, setVoshBanner] = useState(false);
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const handleCategorySelection = (name) => {
@@ -124,6 +125,9 @@ export const ProProfile = ({ match, location }) => {
 
         setIsLoading(false);
         PageView();
+        setTimeout(() => {
+          setVoshBanner(true);
+        }, 60000);
       } else {
         history.push("/404");
       }
@@ -237,6 +241,14 @@ export const ProProfile = ({ match, location }) => {
     setLikeButtonToggle(!likeButtonToggle);
   };
 
+  const topRef = useRef();
+  const isVisible = useOnScreen(topRef);
+  if (!isVisible) {
+    console.log("bye");
+  } else {
+    console.log("hello");
+  }
+
   return (
     <>
       {scrollView ? (
@@ -252,23 +264,31 @@ export const ProProfile = ({ match, location }) => {
           handleChangeView={handleChangeView}
         />
       ) : (
-        <div className="ProProfile" ref={scrollRef}>
+        <div
+          className="ProProfile"
+          ref={scrollRef}
+          style={{
+            backgroundImage: `url(${proTheme.background1})`,
+          }}
+        >
           {isLoading ? (
             <div className="pro_profile_top">
-              <div className="pro_profile_loading">
-                <Lottie
-                  options={{
-                    loop: true,
-                    autoPlay: true,
-                    animationData: legoData.default,
-                    rendererSettings: {
-                      preserveAspectRatio: "xMidYMid slice",
-                    },
-                  }}
-                  height={220}
-                  width={220}
-                />
-                <p className="pro_profile_loading_word">Vosh</p>
+              <div ref={topRef} className="pro_profile_top_with_left_right">
+                <div className="pro_profile_loading">
+                  <Lottie
+                    options={{
+                      loop: true,
+                      autoPlay: true,
+                      animationData: legoData.default,
+                      rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice",
+                      },
+                    }}
+                    height={220}
+                    width={220}
+                  />
+                  <p className="pro_profile_loading_word">Vosh</p>
+                </div>
               </div>
             </div>
           ) : (
@@ -389,7 +409,19 @@ export const ProProfile = ({ match, location }) => {
                 </div>
               </div>
 
-              <div className="pro_profile_top_selector">
+              <div
+                className="pro_profile_top_selector"
+                style={
+                  isVisible
+                    ? {
+                        backgroundImage: `url(${proTheme.background2})`,
+                      }
+                    : {
+                        backgroundImage: `url(${proTheme.background2})`,
+                        position: "fixed",
+                      }
+                }
+              >
                 <div
                   className="pro_profile_icon_and_name"
                   onClick={() => {
@@ -451,7 +483,6 @@ export const ProProfile = ({ match, location }) => {
                 handleChangeView={handleChangeView}
                 scrolledBottomCount={scrolledBottomCount}
                 selectedCategoryName={selectedCategoryName}
-                background1={proTheme.background1}
               />
             )}
           </div>
@@ -466,6 +497,7 @@ export const ProProfile = ({ match, location }) => {
           )}
 
           <Snackbar
+            style={{ zIndex: 4000 }}
             open={voshBanner}
             message="Create Your Vosh Website Now"
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
