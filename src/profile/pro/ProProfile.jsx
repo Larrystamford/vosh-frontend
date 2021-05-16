@@ -6,6 +6,7 @@ import { useGlobalState } from "../../GlobalStates";
 import useOnScreen from "../../customHooks/useOnScreen";
 
 import { ImageLoad } from "../../components/ImageLoad";
+import { ScrollVideo } from "./ScrollVideo";
 
 import { Snackbar } from "@material-ui/core";
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
@@ -250,265 +251,253 @@ export const ProProfile = ({ match, location }) => {
   }
 
   return (
-    <>
-      {scrollView ? (
-        <ProfileFeed
-          videos={proVideos.filter((video) => {
-            if (selectedCategoryName == "all") {
-              return video;
-            } else {
-              return video.proCategories.includes(selectedCategoryName);
-            }
-          })}
-          viewIndex={viewIndex}
-          handleChangeView={handleChangeView}
-        />
-      ) : (
-        <div
-          className="ProProfile"
-          ref={scrollRef}
-          style={{
-            backgroundImage: `url(${proTheme.background1})`,
-          }}
-        >
-          {isLoading ? (
-            <div className="pro_profile_top">
-              <div ref={topRef} className="pro_profile_top_with_left_right">
-                <div className="pro_profile_loading">
-                  <Lottie
-                    options={{
-                      loop: true,
-                      autoPlay: true,
-                      animationData: legoData.default,
-                      rendererSettings: {
-                        preserveAspectRatio: "xMidYMid slice",
-                      },
-                    }}
-                    height={220}
-                    width={220}
-                  />
-                  <p className="pro_profile_loading_word">Vosh</p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="pro_profile_top">
-              <div
-                className="pro_profile_top_with_left_right"
-                style={{
-                  backgroundImage: `url(${proTheme.background1})`,
+    <div
+      className="ProProfile"
+      ref={scrollRef}
+      style={{
+        backgroundImage: `url(${proTheme.background1})`,
+      }}
+    >
+      {isLoading ? (
+        <div className="pro_profile_top">
+          <div ref={topRef} className="pro_profile_top_with_left_right">
+            <div className="pro_profile_loading">
+              <Lottie
+                options={{
+                  loop: true,
+                  autoPlay: true,
+                  animationData: legoData.default,
+                  rendererSettings: {
+                    preserveAspectRatio: "xMidYMid slice",
+                  },
                 }}
-              >
-                <div className="pro_profile_top_left">
-                  <div className="pro_profile_top_image_name">
-                    <div className="pro_profile_top_image">
-                      {image ? (
-                        <div style={{ position: "relative" }}>
-                          <ImageLoad
-                            src={image}
-                            className="pro_profile_top_image_circular"
-                          />
-                        </div>
-                      ) : null}
+                height={220}
+                width={220}
+              />
+              <p className="pro_profile_loading_word">Vosh</p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="pro_profile_top">
+          <div
+            className="pro_profile_top_with_left_right"
+            style={{
+              backgroundImage: `url(${proTheme.background1})`,
+            }}
+          >
+            <div className="pro_profile_top_left">
+              <div className="pro_profile_top_image_name">
+                <div className="pro_profile_top_image">
+                  {image ? (
+                    <div style={{ position: "relative" }}>
+                      <ImageLoad
+                        src={image}
+                        className="pro_profile_top_image_circular"
+                      />
                     </div>
-                    <div className="pro_profile_top_name">
-                      <p>{username}</p>
-                    </div>
-                  </div>
-                  <div className="pro_profile_top_follow">
-                    <div className="edit_pro_profile_followers_flex_box">
-                      <p style={{ fontSize: "16px", fontWeight: "700" }}>
-                        {followers.length}
-                      </p>
-                      <p>Followers</p>
-                    </div>
-                  </div>
-                  <div className="pro_profile_top_follow">
-                    {isFollowing ? (
-                      <div
-                        className="pro_profile_top_following_button"
-                        onClick={handleUnfollow}
-                      >
-                        <p style={{ color: "white" }}>Following</p>
-                      </div>
-                    ) : (
-                      <div
-                        className="pro_profile_top_follow_button"
-                        onClick={handleFollow}
-                      >
-                        <p style={{ color: "white" }}>Follow</p>
-                      </div>
-                    )}
-                  </div>
+                  ) : null}
                 </div>
-                <div className="pro_profile_top_right">
-                  <div className="pro_profile_top_social_medias">
-                    {socialAccounts
-                      .slice(0, 5)
-                      .map(({ socialType, socialLink }) => (
-                        <img
-                          src={convertSocialTypeToImage(socialType)}
-                          style={{ height: 23, margin: 10 }}
-                          onClick={() => {
-                            if (socialType == "Email") {
-                              window.open(
-                                `mailto:${socialLink}?subject=From Vosh`
-                              );
-                            } else {
-                              window.open(socialLink, "_blank");
-                            }
-                          }}
-                        />
-                      ))}
-                  </div>
-                  <div className="pro_profile_top_social_medias">
-                    {socialAccounts
-                      .slice(5, 10)
-                      .map(({ socialType, socialLink }) => (
-                        <img
-                          src={convertSocialTypeToImage(socialType)}
-                          style={{ height: 23, margin: 10 }}
-                          onClick={() => {
-                            if (socialType == "Email") {
-                              window.open(
-                                `mailto:${socialLink}?subject=From Vosh`
-                              );
-                            } else {
-                              window.open(socialLink, "_blank");
-                            }
-                          }}
-                        />
-                      ))}
-                  </div>
-                  <div className="pro_profile_top_description">
-                    <div
-                      className="pro_profile_top_profileBio"
-                      style={{ position: "relative", width: "90%" }}
-                    >
-                      <span>{profileBio}</span>
-                    </div>
-                  </div>
-                  <div
-                    className="pro_profile_top_linker"
-                    style={{
-                      backgroundImage: `url(${proTheme.background2})`,
-                    }}
-                  >
-                    {proLinks.map(({ proLinkName, proLink }) => (
-                      <div
-                        className="pro_profile_top_link_div"
-                        onClick={() => window.open(proLink, "_blank")}
-                        style={{
-                          backgroundColor: proTheme.linkBoxColor,
-                        }}
-                      >
-                        <p>{proLinkName}</p>
-                      </div>
-                    ))}
-                  </div>
+                <div className="pro_profile_top_name">
+                  <p>{username}</p>
                 </div>
               </div>
-
-              <div
-                className="pro_profile_top_selector"
-                style={
-                  isVisible
-                    ? {
-                        backgroundImage: `url(${proTheme.background2})`,
-                      }
-                    : {
-                        backgroundImage: `url(${proTheme.background2})`,
-                        position: "fixed",
-                      }
-                }
-              >
-                <div
-                  className="pro_profile_icon_and_name"
-                  onClick={() => {
-                    handleCategorySelection("all");
-                  }}
-                >
-                  <img
-                    src="https://dciv99su0d7r5.cloudfront.net/all.png"
-                    style={{ height: 20 }}
-                  />
-                  <p style={{ color: "black" }}>all</p>
-
-                  <div
-                    className="pro_profile_icon_and_name_underline"
-                    style={
-                      selectedCategoryName == "all" ? null : { display: "none" }
-                    }
-                  ></div>
+              <div className="pro_profile_top_follow">
+                <div className="edit_pro_profile_followers_flex_box">
+                  <p style={{ fontSize: "16px", fontWeight: "700" }}>
+                    {followers.length}
+                  </p>
+                  <p>Followers</p>
                 </div>
-                {proCategories.map(
-                  ({ id, proCategoryName, proCategoryImage }) => (
-                    <div
-                      className="pro_profile_icon_and_name"
-                      onClick={() => {
-                        handleCategorySelection(proCategoryName);
-                      }}
-                    >
-                      <img src={proCategoryImage} style={{ height: 20 }} />
-                      <p style={{ color: "black" }}>{proCategoryName}</p>
-                      <div
-                        className="pro_profile_icon_and_name_underline"
-                        style={
-                          selectedCategoryName == proCategoryName
-                            ? null
-                            : { display: "none" }
-                        }
-                      ></div>
-                    </div>
-                  )
+              </div>
+              <div className="pro_profile_top_follow">
+                {isFollowing ? (
+                  <div
+                    className="pro_profile_top_following_button"
+                    onClick={handleUnfollow}
+                  >
+                    <p style={{ color: "white" }}>Following</p>
+                  </div>
+                ) : (
+                  <div
+                    className="pro_profile_top_follow_button"
+                    onClick={handleFollow}
+                  >
+                    <p style={{ color: "white" }}>Follow</p>
+                  </div>
                 )}
               </div>
             </div>
-          )}
-
-          <div className="pro_profile_bottom">
-            {isLoading ? (
-              <div></div>
-            ) : (
-              <VideoGrid
-                videos={proVideos.filter((video) => {
-                  if (selectedCategoryName == "all") {
-                    return video;
-                  } else {
-                    return video.proCategories.includes(selectedCategoryName);
-                  }
-                })}
-                showVideos={showVideos}
-                setShowVideos={setShowVideos}
-                handleChangeView={handleChangeView}
-                scrolledBottomCount={scrolledBottomCount}
-                selectedCategoryName={selectedCategoryName}
-              />
-            )}
+            <div className="pro_profile_top_right">
+              <div className="pro_profile_top_social_medias">
+                {socialAccounts
+                  .slice(0, 5)
+                  .map(({ socialType, socialLink }) => (
+                    <img
+                      src={convertSocialTypeToImage(socialType)}
+                      style={{ height: 23, margin: 10 }}
+                      onClick={() => {
+                        if (socialType == "Email") {
+                          window.open(`mailto:${socialLink}?subject=From Vosh`);
+                        } else {
+                          window.open(socialLink, "_blank");
+                        }
+                      }}
+                    />
+                  ))}
+              </div>
+              <div className="pro_profile_top_social_medias">
+                {socialAccounts
+                  .slice(5, 10)
+                  .map(({ socialType, socialLink }) => (
+                    <img
+                      src={convertSocialTypeToImage(socialType)}
+                      style={{ height: 23, margin: 10 }}
+                      onClick={() => {
+                        if (socialType == "Email") {
+                          window.open(`mailto:${socialLink}?subject=From Vosh`);
+                        } else {
+                          window.open(socialLink, "_blank");
+                        }
+                      }}
+                    />
+                  ))}
+              </div>
+              <div className="pro_profile_top_description">
+                <div
+                  className="pro_profile_top_profileBio"
+                  style={{ position: "relative", width: "90%" }}
+                >
+                  <span>{profileBio}</span>
+                </div>
+              </div>
+              <div
+                className="pro_profile_top_linker"
+                style={{
+                  backgroundImage: `url(${proTheme.background2})`,
+                }}
+              >
+                {proLinks.map(({ proLinkName, proLink }) => (
+                  <div
+                    className="pro_profile_top_link_div"
+                    onClick={() => window.open(proLink, "_blank")}
+                    style={{
+                      backgroundColor: proTheme.linkBoxColor,
+                    }}
+                  >
+                    <p>{proLinkName}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {voshBanner && (
-            <div
-              className="pro_profile_bottom_snackbar_temp"
-              onClick={() => {
-                history.push("/getVerified");
-              }}
-            ></div>
-          )}
-
-          <Snackbar
-            style={{ zIndex: 4000 }}
-            open={voshBanner}
-            message="Create Your Vosh Website Now"
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            action={
-              <React.Fragment>
-                <ClearOutlinedIcon onClick={() => setVoshBanner(false)} />
-              </React.Fragment>
+          <div
+            className="pro_profile_top_selector"
+            style={
+              isVisible
+                ? {
+                    backgroundImage: `url(${proTheme.background2})`,
+                  }
+                : {
+                    backgroundImage: `url(${proTheme.background2})`,
+                    position: "fixed",
+                  }
             }
-          />
+          >
+            <div
+              className="pro_profile_icon_and_name"
+              onClick={() => {
+                handleCategorySelection("all");
+              }}
+            >
+              <img
+                src="https://dciv99su0d7r5.cloudfront.net/all.png"
+                style={{ height: 20 }}
+              />
+              <p style={{ color: "black" }}>all</p>
+
+              <div
+                className="pro_profile_icon_and_name_underline"
+                style={
+                  selectedCategoryName == "all" ? null : { display: "none" }
+                }
+              ></div>
+            </div>
+            {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
+              <div
+                className="pro_profile_icon_and_name"
+                onClick={() => {
+                  handleCategorySelection(proCategoryName);
+                }}
+              >
+                <img src={proCategoryImage} style={{ height: 20 }} />
+                <p style={{ color: "black" }}>{proCategoryName}</p>
+                <div
+                  className="pro_profile_icon_and_name_underline"
+                  style={
+                    selectedCategoryName == proCategoryName
+                      ? null
+                      : { display: "none" }
+                  }
+                ></div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
-    </>
+
+      <div className="pro_profile_bottom">
+        {isLoading ? (
+          <div></div>
+        ) : (
+          <VideoGrid
+            videos={proVideos.filter((video) => {
+              if (selectedCategoryName == "all") {
+                return video;
+              } else {
+                return video.proCategories.includes(selectedCategoryName);
+              }
+            })}
+            showVideos={showVideos}
+            setShowVideos={setShowVideos}
+            handleChangeView={handleChangeView}
+            scrolledBottomCount={scrolledBottomCount}
+            selectedCategoryName={selectedCategoryName}
+          />
+        )}
+      </div>
+
+      {voshBanner && (
+        <div
+          className="pro_profile_bottom_snackbar_temp"
+          onClick={() => {
+            history.push("/getVerified");
+          }}
+        ></div>
+      )}
+
+      <Snackbar
+        style={{ zIndex: 4000 }}
+        open={voshBanner}
+        message="Create Your Vosh Website Now"
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        action={
+          <React.Fragment>
+            <ClearOutlinedIcon onClick={() => setVoshBanner(false)} />
+          </React.Fragment>
+        }
+      />
+
+      {scrollView && (
+        <ScrollVideo
+          openScrollVideo={scrollView}
+          proVideos={proVideos}
+          viewIndex={viewIndex}
+          handleChangeView={handleChangeView}
+          selectedCategoryName={selectedCategoryName}
+        />
+      )}
+    </div>
   );
 };
