@@ -653,7 +653,7 @@ export const ContentTagging = () => {
                   variant="contained"
                   size="small"
                   className={classes.button}
-                  color="primary"
+                  color="secondary"
                   onClick={handleSubmit}
                 >
                   Publish

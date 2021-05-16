@@ -29,7 +29,6 @@ export const DisplayPreviewFile = ({
             style={{
               opacity: showImage ? 1 : 0,
               transition: "all 1.3s",
-              border: "1px solid white",
               borderRadius: 10,
             }}
             className="profile_bottom_grid_video"

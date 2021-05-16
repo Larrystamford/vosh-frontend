@@ -65,6 +65,7 @@ export const ColorSelection = ({
   linkBoxColor,
   handleSetLinkBoxColor,
   handleSaveLinkBoxColor,
+  limitedColors,
 }) => {
   const size = useWindowSize();
   const classes = useStyles();
@@ -83,26 +84,47 @@ export const ColorSelection = ({
           value={linkBoxColor}
           onChange={handleSetLinkBoxColor}
         >
-          {colorChoices.map((color) => (
-            <MenuItem key={color} value={color}>
-              <div
-                style={{
-                  height: 20,
-                  width: 20,
-                  backgroundColor: color,
-                  borderRadius: 5,
-                }}
-              ></div>
-              <p
-                style={{
-                  fontSize: 14,
-                  paddingLeft: 10,
-                }}
-              >
-                {color}
-              </p>
-            </MenuItem>
-          ))}
+          {limitedColors
+            ? limitedColors.map((color) => (
+                <MenuItem key={color} value={color}>
+                  <div
+                    style={{
+                      height: 20,
+                      width: 20,
+                      backgroundColor: color,
+                      borderRadius: 5,
+                    }}
+                  ></div>
+                  <p
+                    style={{
+                      fontSize: 14,
+                      paddingLeft: 10,
+                    }}
+                  >
+                    {color}
+                  </p>
+                </MenuItem>
+              ))
+            : colorChoices.map((color) => (
+                <MenuItem key={color} value={color}>
+                  <div
+                    style={{
+                      height: 20,
+                      width: 20,
+                      backgroundColor: color,
+                      borderRadius: 5,
+                    }}
+                  ></div>
+                  <p
+                    style={{
+                      fontSize: 14,
+                      paddingLeft: 10,
+                    }}
+                  >
+                    {color}
+                  </p>
+                </MenuItem>
+              ))}
         </TextField>
       </DialogContent>
     </Dialog>

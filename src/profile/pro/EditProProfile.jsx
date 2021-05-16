@@ -295,7 +295,12 @@ export const EditProProfile = ({ match, location }) => {
                     </div>
                   ) : null}
                 </div>
-                <div className="pro_profile_top_name">
+                <div
+                  className="pro_profile_top_name"
+                  style={{
+                    color: proTheme.primaryFontColor,
+                  }}
+                >
                   <p>{username}</p>
                 </div>
               </div>
@@ -329,12 +334,21 @@ export const EditProProfile = ({ match, location }) => {
                   .map(({ socialType, socialLink }) => (
                     <img
                       src={convertSocialTypeToImage(socialType)}
-                      style={{
-                        height: 23,
-                        margin: 10,
-                        filter: "invert(0%)",
-                        WebkitFilter: "invert(0%)",
-                      }}
+                      style={
+                        proTheme.socialIconsColor == "white"
+                          ? {
+                              height: 23,
+                              margin: 10,
+                              filter: "invert(100%)",
+                              WebkitFilter: "invert(100%)",
+                            }
+                          : {
+                              height: 23,
+                              margin: 10,
+                              filter: "invert(0%)",
+                              WebkitFilter: "invert(0%)",
+                            }
+                      }
                       onClick={() => {
                         if (socialType == "Email") {
                           window.open(`mailto:${socialLink}?subject=From Vosh`);
@@ -351,12 +365,21 @@ export const EditProProfile = ({ match, location }) => {
                   .map(({ socialType, socialLink }) => (
                     <img
                       src={convertSocialTypeToImage(socialType)}
-                      style={{
-                        height: 23,
-                        margin: 10,
-                        filter: "invert(0%)",
-                        WebkitFilter: "invert(0%)",
-                      }}
+                      style={
+                        proTheme.socialIconsColor == "white"
+                          ? {
+                              height: 23,
+                              margin: 10,
+                              filter: "invert(100%)",
+                              WebkitFilter: "invert(100%)",
+                            }
+                          : {
+                              height: 23,
+                              margin: 10,
+                              filter: "invert(0%)",
+                              WebkitFilter: "invert(0%)",
+                            }
+                      }
                       onClick={() => {
                         if (socialType == "Email") {
                           window.open(`mailto:${socialLink}?subject=From Vosh`);
@@ -370,7 +393,11 @@ export const EditProProfile = ({ match, location }) => {
               <div className="pro_profile_top_description">
                 <div
                   className="pro_profile_top_profileBio"
-                  style={{ position: "relative", width: "90%" }}
+                  style={{
+                    position: "relative",
+                    width: "90%",
+                    color: proTheme.primaryFontColor,
+                  }}
                 >
                   <span>{profileBio}</span>
                 </div>
@@ -390,7 +417,9 @@ export const EditProProfile = ({ match, location }) => {
                         backgroundColor: proTheme.linkBoxColor,
                       }}
                     >
-                      <p>{proLinkName}</p>
+                      <p style={{ color: proTheme.linkWordsColor }}>
+                        {proLinkName}
+                      </p>
                     </div>
                   ))
                 ) : (
@@ -433,7 +462,13 @@ export const EditProProfile = ({ match, location }) => {
                 src="https://dciv99su0d7r5.cloudfront.net/all.png"
                 style={{ height: 20 }}
               />
-              <p style={{ color: "black" }}>all</p>
+              <p
+                style={{
+                  color: proTheme.categoryWordsColor,
+                }}
+              >
+                all
+              </p>
 
               <div
                 className="pro_profile_icon_and_name_underline"
@@ -450,7 +485,13 @@ export const EditProProfile = ({ match, location }) => {
                 }}
               >
                 <img src={proCategoryImage} style={{ height: 20 }} />
-                <p style={{ color: "black" }}>{proCategoryName}</p>
+                <p
+                  style={{
+                    color: proTheme.categoryWordsColor,
+                  }}
+                >
+                  {proCategoryName}
+                </p>
                 <div
                   className="pro_profile_icon_and_name_underline"
                   style={

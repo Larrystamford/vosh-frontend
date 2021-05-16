@@ -37,8 +37,6 @@ export const SetTheme = () => {
   });
   const [showNotif, setShowNotif] = useState("");
 
-  const [openColorSelection, setOpenColorSelection] = useState(false);
-
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -81,18 +79,78 @@ export const SetTheme = () => {
     }
   };
 
+  const [openPrimaryColorSelect, setOpenPrimaryColorSelect] = useState(false);
+  const handleSetPrimaryColor = (event) => {
+    setProTheme((prevState) => ({
+      ...prevState,
+      primaryFontColor: event.target.value,
+    }));
+  };
+  const handleSavePrimaryColor = async () => {
+    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      proTheme: proTheme,
+    });
+    setOpenPrimaryColorSelect(false);
+  };
+
+  const [openSocialColorSelect, setOpenSocialColorSelect] = useState(false);
+  const handleSetSocialColor = (event) => {
+    setProTheme((prevState) => ({
+      ...prevState,
+      socialIconsColor: event.target.value,
+    }));
+  };
+  const handleSaveSocialColor = async () => {
+    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      proTheme: proTheme,
+    });
+    setOpenSocialColorSelect(false);
+  };
+
+  const [openLinkBoxColorSelection, setLinkBoxOpenColorSelection] = useState(
+    false
+  );
   const handleSetLinkBoxColor = (event) => {
     setProTheme((prevState) => ({
       ...prevState,
       linkBoxColor: event.target.value,
     }));
   };
-
   const handleSaveLinkBoxColor = async () => {
     await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
       proTheme: proTheme,
     });
-    setOpenColorSelection(false);
+    setLinkBoxOpenColorSelection(false);
+  };
+
+  const [openLinkWordsColorSelect, setOpenLinkWordsColorSelect] = useState(
+    false
+  );
+  const handleSetLinkWordsColor = (event) => {
+    setProTheme((prevState) => ({
+      ...prevState,
+      linkWordsColor: event.target.value,
+    }));
+  };
+  const handleSaveLinkWordsColor = async () => {
+    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      proTheme: proTheme,
+    });
+    setOpenLinkWordsColorSelect(false);
+  };
+
+  const [openCatColorSelect, setOpenCatColorSelect] = useState(false);
+  const handleSetCatColor = (event) => {
+    setProTheme((prevState) => ({
+      ...prevState,
+      categoryWordsColor: event.target.value,
+    }));
+  };
+  const handleSaveCatColor = async () => {
+    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      proTheme: proTheme,
+    });
+    setOpenCatColorSelect(false);
   };
 
   const getFileUrl = async (file) => {
@@ -198,7 +256,57 @@ export const SetTheme = () => {
         <div
           className="SlidingEdit_Pannel"
           onClick={() => {
-            setOpenColorSelection(true);
+            setOpenPrimaryColorSelect(true);
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <div
+              style={{
+                height: 20,
+                width: 20,
+                backgroundColor: proTheme.primaryFontColor,
+                borderRadius: 5,
+                border: "1px solid grey",
+              }}
+            ></div>
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Primary Font Color</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            setOpenSocialColorSelect(true);
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <div
+              style={{
+                height: 20,
+                width: 20,
+                backgroundColor: proTheme.socialIconsColor,
+                borderRadius: 5,
+                border: "1px solid grey",
+              }}
+            ></div>
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Social Icons Color</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            setLinkBoxOpenColorSelection(true);
           }}
         >
           <div className="SlidingEdit_TypeLeft">
@@ -208,6 +316,7 @@ export const SetTheme = () => {
                 width: 20,
                 backgroundColor: proTheme.linkBoxColor,
                 borderRadius: 5,
+                border: "1px solid grey",
               }}
             ></div>
           </div>
@@ -218,15 +327,99 @@ export const SetTheme = () => {
             />
           </div>
         </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            setOpenLinkWordsColorSelect(true);
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <div
+              style={{
+                height: 20,
+                width: 20,
+                backgroundColor: proTheme.linkWordsColor,
+                borderRadius: 5,
+                border: "1px solid grey",
+              }}
+            ></div>
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Link Words Color</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            setOpenCatColorSelect(true);
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <div
+              style={{
+                height: 20,
+                width: 20,
+                backgroundColor: proTheme.categoryWordsColor,
+                borderRadius: 5,
+                border: "1px solid grey",
+              }}
+            ></div>
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Category Words Color</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
       </div>
 
       <ColorSelection
-        openColorSelection={openColorSelection}
-        setOpenColorSelection={setOpenColorSelection}
+        openColorSelection={openPrimaryColorSelect}
+        setOpenColorSelection={setOpenPrimaryColorSelect}
+        linkBoxColor={proTheme.primaryFontColor}
+        handleSetLinkBoxColor={handleSetPrimaryColor}
+        handleSaveLinkBoxColor={handleSavePrimaryColor}
+      />
+
+      <ColorSelection
+        openColorSelection={openSocialColorSelect}
+        setOpenColorSelection={setOpenSocialColorSelect}
+        linkBoxColor={proTheme.socialIconsColor}
+        handleSetLinkBoxColor={handleSetSocialColor}
+        handleSaveLinkBoxColor={handleSaveSocialColor}
+        limitedColors={["black", "white"]}
+      />
+
+      <ColorSelection
+        openColorSelection={openLinkBoxColorSelection}
+        setOpenColorSelection={setLinkBoxOpenColorSelection}
         linkBoxColor={proTheme.linkBoxColor}
         handleSetLinkBoxColor={handleSetLinkBoxColor}
         handleSaveLinkBoxColor={handleSaveLinkBoxColor}
       />
+
+      <ColorSelection
+        openColorSelection={openLinkWordsColorSelect}
+        setOpenColorSelection={setOpenLinkWordsColorSelect}
+        linkBoxColor={proTheme.linkWordsColor}
+        handleSetLinkBoxColor={handleSetLinkWordsColor}
+        handleSaveLinkBoxColor={handleSaveLinkWordsColor}
+      />
+
+      <ColorSelection
+        openColorSelection={openCatColorSelect}
+        setOpenColorSelection={setOpenCatColorSelect}
+        linkBoxColor={proTheme.categoryWordsColor}
+        handleSetLinkBoxColor={handleSetCatColor}
+        handleSaveLinkBoxColor={handleSaveCatColor}
+      />
+
       {showNotif && <SimpleBottomNotification message={showNotif} />}
     </div>
   );
