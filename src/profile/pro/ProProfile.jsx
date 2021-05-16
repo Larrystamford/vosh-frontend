@@ -496,6 +496,7 @@ export const ProProfile = ({ match, location }) => {
           viewIndex={viewIndex}
           handleChangeView={handleChangeView}
           selectedCategoryName={selectedCategoryName}
+          proTheme={proTheme}
         />
       )}
     </div>

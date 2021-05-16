@@ -512,7 +512,7 @@ export const ContentTagging = () => {
           categories: selectedCategories,
           subCategories: selectedSubCategories,
           proCategories: proCategories,
-          affiliateGroupName: "Item Links",
+          affiliateGroupName: "Products",
           affiliateProducts: itemLinks.items,
         });
 

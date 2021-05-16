@@ -59,6 +59,7 @@ function Video({
   proCategories,
   affiliateGroupName,
   affiliateProducts,
+  proTheme,
 }) {
   const [playing, setPlaying] = useState(false);
   const [playingForButton, setPlayingForButton] = useState(true);
@@ -469,6 +470,11 @@ function Video({
           buyOpen={buyOpen}
           setBuyOpen={setBuyOpen}
           originalCreator={originalCreator}
+          proCategories={proCategories}
+          affiliateGroupName={affiliateGroupName}
+          affiliateProducts={affiliateProducts}
+          onVideoClick={onVideoClick}
+          proTheme={proTheme}
         />
       )}
 
@@ -499,9 +505,6 @@ function Video({
           openAmazon={openAmazon}
           setOpenAmazon={setOpenAmazon}
           proShareCount={proShareCount}
-          proCategories={proCategories}
-          affiliateGroupName={affiliateGroupName}
-          affiliateProducts={affiliateProducts}
         />
       )}
 

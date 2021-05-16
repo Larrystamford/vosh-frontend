@@ -36,6 +36,7 @@ export const ScrollVideo = ({
   viewIndex,
   handleChangeView,
   selectedCategoryName,
+  proTheme,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -61,6 +62,7 @@ export const ScrollVideo = ({
         })}
         viewIndex={viewIndex}
         handleChangeView={handleChangeView}
+        proTheme={proTheme}
       />
     </Dialog>
   );

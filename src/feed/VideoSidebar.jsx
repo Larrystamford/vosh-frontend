@@ -13,13 +13,14 @@ import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import axios from "../axios";
 import { Event } from "../components/tracking/Tracker";
 import ReactPixel from "react-facebook-pixel";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 function VideoSidebar({
   id,
@@ -48,16 +49,12 @@ function VideoSidebar({
   openAmazon,
   setOpenAmazon,
   proShareCount,
-  proCategories,
-  affiliateGroupName,
-  affiliateProducts,
 }) {
   const [liked, setLiked] = useState(profileFeedType == "likedVideos");
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
   );
-  const [openAffiliate, setOpenAffiliate] = useState(false);
 
   const handleCommentPop = useCallback(() => {
     // setGlobalModalOpened(false);
@@ -67,21 +64,15 @@ function VideoSidebar({
     // setGlobalModalOpened(false);
     setOpenAmazon(false);
   }, []);
-  const handleAffiliatePop = useCallback(() => {
-    // setGlobalModalOpened(false);
-    setOpenAffiliate(false);
-  }, []);
 
   useEffect(() => {
     window.addEventListener("popstate", handleCommentPop);
     window.addEventListener("popstate", handleAmazonPop);
-    window.addEventListener("popstate", handleAffiliatePop);
 
     // cleanup this component
     return () => {
       window.removeEventListener("popstate", handleCommentPop);
       window.removeEventListener("popstate", handleAmazonPop);
-      window.removeEventListener("popstate", handleAffiliatePop);
     };
   }, []);
 
@@ -124,22 +115,6 @@ function VideoSidebar({
     );
   };
   const handleAmazonClose = () => {
-    window.history.back();
-  };
-
-  // affiliate
-  const handleAffiliateOpen = () => {
-    setOpenAffiliate(true);
-    setGlobalModalOpened(true);
-    window.history.pushState(
-      {
-        affiliate: "affiliate",
-      },
-      "",
-      ""
-    );
-  };
-  const handleAffiliateClose = () => {
     window.history.back();
   };
 
@@ -278,16 +253,6 @@ function VideoSidebar({
         </div>
       ) : null}
 
-      {affiliateGroupName && (
-        <div className="videoSidebar__button">
-          <LoyaltyIcon
-            fontSize="default"
-            style={{ color: "white" }}
-            onClick={handleAffiliateOpen}
-          />
-        </div>
-      )}
-
       <div className="videoSidebar__button">
         <CopyToClipboard text={videoLink}>
           <ShareIcon
@@ -320,7 +285,6 @@ function VideoSidebar({
         setPromptType={setPromptType}
         profileFeedType={profileFeedType}
         openCommentsFromInbox={openCommentsFromInbox}
-        affiliateGroupName={affiliateGroupName}
       />
 
       {openAmazon && (
@@ -354,41 +318,6 @@ function VideoSidebar({
                     onClick={() => setOpenAmazon(true)}
                   />
                   <p>{amazon.amazon_name}</p>
-                </div>
-              </ListItem>
-            ))}
-          </List>
-        </Dialog>
-      )}
-
-      {openAffiliate && (
-        <Dialog
-          onClose={handleAffiliateClose}
-          aria-labelledby="simple-dialog-title"
-          open={openAffiliate}
-        >
-          <DialogTitle id="simple-dialog-title">
-            {affiliateGroupName}
-          </DialogTitle>
-          <List style={{ overflowY: "scroll", maxHeight: "14rem" }}>
-            {affiliateProducts.map((products) => (
-              <ListItem
-                onClick={() => {
-                  onVideoClick();
-                  handleLikeButtonClicked("like");
-                  window.open(products.itemLink, "_blank");
-                  return false;
-                }}
-                key={products.itemLinkName}
-                style={{ minWidth: "19rem" }}
-              >
-                <div className="sidebar_amazonlogolink">
-                  <img
-                    style={{ height: 22, paddingRight: 30 }}
-                    src="https://dciv99su0d7r5.cloudfront.net/link+(1).png"
-                  />
-
-                  <p>{products.itemLinkName}</p>
                 </div>
               </ListItem>
             ))}

@@ -5,14 +5,18 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import Ticker from "react-ticker";
 
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+
 import { Buy } from "./Buy";
 import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
-import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import VideocamIcon from "@material-ui/icons/Videocam";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
 import { Event } from "../components/tracking/Tracker";
-import { useDidMountEffect } from "../customHooks/useDidMountEffect";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
 
 function VideoFooter({
   id,
@@ -31,6 +35,11 @@ function VideoFooter({
   openSlider,
   setOpenSlider,
   originalCreator,
+  proCategories,
+  affiliateGroupName,
+  affiliateProducts,
+  onVideoClick,
+  proTheme,
 }) {
   const [sliderGlobal, setSliderGlobal] = useState(false);
 
@@ -103,11 +112,76 @@ function VideoFooter({
     }
   };
 
+  const [openAffiliate, setOpenAffiliate] = useState(false);
+
+  // affiliate
+  const handleAffiliateOpen = () => {
+    setOpenAffiliate(true);
+    setGlobalModalOpened(true);
+    window.history.pushState(
+      {
+        affiliate: "affiliate",
+      },
+      "",
+      ""
+    );
+  };
+
+  const handleAffiliateClose = () => {
+    window.history.back();
+  };
+  const handleAffiliatePop = useCallback(() => {
+    setOpenAffiliate(false);
+  }, []);
+  useEffect(() => {
+    window.addEventListener("popstate", handleAffiliatePop);
+
+    // cleanup this component
+    return () => {
+      window.removeEventListener("popstate", handleAffiliatePop);
+    };
+  }, []);
+
+  // {affiliateGroupName && (
+  //   <div className="videoSidebar__button">
+  //     <LoyaltyIcon
+  //       fontSize="default"
+  //       style={{ color: "white" }}
+  //       onClick={handleAffiliateOpen}
+  //     />
+  //   </div>
+  // )}
+
   return (
     <div className="videoFooter">
-      <h4 className="videoFooter_username" onClick={handleUsernameClicked}>
-        @{userName}
-      </h4>
+      <div
+        className="videoFooter__button"
+        style={bigButton ? { minWidth: "70px" } : null}
+        onClick={handleAffiliateOpen}
+      >
+        <div className="videoFooter_icon_and_name">
+          <LocalMallIcon
+            style={{
+              opacity: 1,
+              fontSize: 17,
+              color: "orange",
+            }}
+          />
+
+          {/* <ShoppingCartOutlinedIcon color="primary" fontSize="default" /> */}
+        </div>
+
+        {bigButton ? (
+          <p
+            className="videoFooter__button_temp_words"
+            style={{ opacity: 0.9 }}
+          >
+            LINKS
+          </p>
+        ) : null}
+      </div>
+
+      <h5 className="videoFooter_username">@{userName}</h5>
 
       <div className="videoFooter_multiline">
         <p>{caption}</p>
@@ -116,7 +190,7 @@ function VideoFooter({
         <VideocamIcon fontSize="small" style={{ paddingRight: 5 }} />
         <Ticker mode="smooth" speed={2}>
           {({ index }) => (
-            <>
+            <div>
               {originalCreator ? (
                 <span style={{ whiteSpace: "nowrap", paddingRight: 30 }}>
                   original creator - @ {originalCreator}
@@ -126,10 +200,50 @@ function VideoFooter({
                   original creator - @ Unknown
                 </span>
               )}
-            </>
+            </div>
           )}
         </Ticker>
       </div>
+
+      {openAffiliate && (
+        <Dialog
+          onClose={handleAffiliateClose}
+          aria-labelledby="simple-dialog-title"
+          open={openAffiliate}
+          style={{
+            zIndex: 10001,
+          }}
+        >
+          <div style={{ backgroundImage: `url(${proTheme.background2})` }}>
+            <DialogTitle
+              id="simple-dialog-title"
+              style={{ color: proTheme.linkBoxColor }}
+            >
+              {affiliateGroupName}
+            </DialogTitle>
+            <List style={{ overflowY: "scroll", maxHeight: "14rem" }}>
+              {affiliateProducts.map((products) => (
+                <ListItem
+                  onClick={() => {
+                    onVideoClick();
+                    window.open(products.itemLink, "_blank");
+                    return false;
+                  }}
+                  key={products.itemLinkName}
+                  style={{ minWidth: "19rem" }}
+                >
+                  <div
+                    className="sidebar_amazonlogolink"
+                    style={{ backgroundColor: proTheme.linkBoxColor }}
+                  >
+                    <p>{products.itemLinkName}</p>
+                  </div>
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        </Dialog>
+      )}
 
       <StaySlidingSetUp open={checked} handleClose={handleSetUpClose} />
     </div>
@@ -137,7 +251,6 @@ function VideoFooter({
 }
 
 export default VideoFooter;
-
 
 // these are for showing the shopping cart button
 // {amazonOrInternal == "both" || amazonOrInternal == "internal" ? (
@@ -163,7 +276,6 @@ export default VideoFooter;
 // ) : (
 //   <div className="videoFooter__button_fake"></div>
 // )}
-
 
 // {(amazonOrInternal == "both" || amazonOrInternal == "internal") && (
 //   <Buy

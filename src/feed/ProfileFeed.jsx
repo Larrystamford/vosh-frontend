@@ -103,6 +103,7 @@ export const ProfileFeed = (props) => {
               proCategories={proCategories}
               affiliateGroupName={affiliateGroupName}
               affiliateProducts={affiliateProducts}
+              proTheme={props.proTheme}
             />
           )
         )}
