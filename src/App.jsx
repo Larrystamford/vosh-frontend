@@ -117,9 +117,7 @@ function App() {
         <Switch>
           <Route path="/valentines" exact component={HappySecondAnniversary} />
         </Switch>
-
         <Route path="/" component={ServiceWorkerWrapper} />
-
         <Route
           path={[
             "/",
@@ -132,7 +130,6 @@ function App() {
           exact
           component={BottomNavigationBar}
         />
-
         <Route
           path={[
             "/",
@@ -147,8 +144,6 @@ function App() {
           exact
           component={Feed}
         />
-
-        <Route path="/" component={InstallPWA} />
 
         <Switch>
           <Route path="/discover" component={Discover} />
@@ -181,3 +176,5 @@ function App() {
 export default App;
 
 // <Route path="/" component={OfflineDetection} />
+
+// <Route path="/" component={InstallPWA} />

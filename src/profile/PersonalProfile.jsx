@@ -634,11 +634,6 @@ export const PersonalProfile = (props) => {
             setPromptType={setPromptType}
           />
         )}
-
-      <InstantGoSecondBrowser
-        openGoBrowser={openGoBrowser}
-        setOpenGoBrowser={setOpenGoBrowser}
-      />
     </div>
   );
 };
@@ -658,3 +653,8 @@ export const PersonalProfile = (props) => {
 // />
 // <p style={boughtItemsView ? {} : { color: "grey" }}>purchased</p>
 // </div>
+
+// <InstantGoSecondBrowser
+// openGoBrowser={openGoBrowser}
+// setOpenGoBrowser={setOpenGoBrowser}
+// />

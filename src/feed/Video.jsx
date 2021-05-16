@@ -566,14 +566,14 @@ function Video({
           }}
         ></div>
       ) : null}
-
-      <InstantGoBrowser
-        openGoBrowser={openGoBrowser}
-        setOpenGoBrowser={setOpenGoBrowser}
-        videoId={id}
-      />
     </div>
   );
 }
 
 export default Video;
+
+// <InstantGoBrowser
+// openGoBrowser={openGoBrowser}
+// setOpenGoBrowser={setOpenGoBrowser}
+// videoId={id}
+// />

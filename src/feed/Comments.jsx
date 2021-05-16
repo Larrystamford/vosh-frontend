@@ -298,7 +298,7 @@ export const Comments = (props) => {
                   )
                 )}
               </div>
-              {userInfo == false ? (
+              {!localStorage.getItem("USER_ID") ? (
                 <div>
                   <p
                     style={{
