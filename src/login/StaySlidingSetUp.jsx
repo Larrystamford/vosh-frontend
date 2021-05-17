@@ -15,26 +15,8 @@ import StayLoginForm from "./StayLoginForm";
 
 import { Exception } from "../components/tracking/Tracker";
 
-const useStyles = makeStyles((theme) => ({
-  dialog: {
-    position: "absolute",
-    margin: 0,
-    width: "104vw",
-    minHeight: "100vh",
-    zIndex: 5000,
-    backgroundColor: "white",
-  },
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "40ch",
-    },
-  },
-}));
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="right" ref={ref} {...props} />;
@@ -42,7 +24,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const StaySlidingSetUp = (props) => {
   const history = useHistory();
-  const classes = useStyles();
   const [manualLoginRefresh, setManualLoginRefresh] = useState(false);
 
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
@@ -51,6 +32,9 @@ export const StaySlidingSetUp = (props) => {
   const onLoginSuccess = () => {
     props.handleClose();
   };
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <div
@@ -65,9 +49,7 @@ export const StaySlidingSetUp = (props) => {
         keepMounted
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
-        classes={{
-          paper: classes.dialog,
-        }}
+        fullScreen={fullScreen}
       >
         <StayLoginForm
           onLoginSuccess={onLoginSuccess}

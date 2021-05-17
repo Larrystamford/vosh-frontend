@@ -104,13 +104,7 @@ export const Landing = ({
           }
         >
           <div className="landing_WelcomeMessageWrapper">
-            
-            <p className="landing_WelcomeWord">vosh</p>
-            <img
-              src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
-              alt="loco logo"
-              style={{ height: 30 }}
-            />
+            <p className="landing_WelcomeWord">Vosh</p>
           </div>
 
           {showStartButton ? (
@@ -118,7 +112,7 @@ export const Landing = ({
               className="landing_WelcomeText animate__animated animate__zoomIn"
               style={{ position: "absolute", bottom: "9rem" }}
             >
-              Tap to Start
+              .Club
             </p>
           ) : (
             // <Button className="landing_loading_icons">Start</Button>

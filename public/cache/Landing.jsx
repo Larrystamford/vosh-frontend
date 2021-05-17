@@ -110,7 +110,9 @@ export const Landing = ({
               style={{ height: 60 }}
             />
             <p className="landing_WelcomeWord">VOSH</p>
-            <p className="landing_WelcomeText">Genuine Shopping Recommendations</p>
+            <p className="landing_WelcomeText">
+              Genuine Shopping Recommendations
+            </p>
           </div>
 
           {showStartButton ? (
@@ -118,7 +120,7 @@ export const Landing = ({
               className="landing_WelcomeText animate__animated animate__zoomIn"
               style={{ position: "absolute", bottom: "10rem" }}
             >
-              Tap to Start
+              Club
             </p>
           ) : (
             // <Button className="landing_loading_icons">Start</Button>
