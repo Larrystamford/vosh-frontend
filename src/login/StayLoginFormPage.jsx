@@ -112,6 +112,10 @@ const StayLoginFormPage = (props) => {
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
       alert(props.errorMessage);
       setNextClicked(false);
+    } else {
+      history.push({
+        pathname: "/profile",
+      });
     }
   }, [props.errorMessage]);
 
