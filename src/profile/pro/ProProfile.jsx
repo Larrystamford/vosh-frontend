@@ -115,6 +115,12 @@ export const ProProfile = ({ match, location }) => {
           });
 
         setIsLoading(false);
+
+        axios.post("/v1/metrics/incrementMetrics", {
+          id: userId,
+          unqiueIdentifier: "total page visits",
+        });
+
         PageView();
         setTimeout(() => {
           setVoshBanner(true);
@@ -241,6 +247,10 @@ export const ProProfile = ({ match, location }) => {
 
   const [shareStatus, setShareStatus] = useState(false);
   const handleShareClicked = () => {
+    axios.post("/v1/metrics/incrementMetrics", {
+      id: userId,
+      unqiueIdentifier: "total profile shares",
+    });
     setShareStatus(true);
     setTimeout(() => setShareStatus(false), 1300);
   };
@@ -353,7 +363,7 @@ export const ProProfile = ({ match, location }) => {
               <div className="pro_profile_top_social_medias">
                 {socialAccounts
                   .slice(0, 5)
-                  .map(({ socialType, socialLink }) => (
+                  .map(({ id, socialType, socialLink }) => (
                     <img
                       src={convertSocialTypeToImage(socialType)}
                       style={
@@ -373,8 +383,16 @@ export const ProProfile = ({ match, location }) => {
                       }
                       onClick={() => {
                         if (socialType == "Email") {
+                          axios.post("/v1/metrics/incrementMetrics", {
+                            id: userId,
+                            unqiueIdentifier: id,
+                          });
                           window.open(`mailto:${socialLink}?subject=From Vosh`);
                         } else {
+                          axios.post("/v1/metrics/incrementMetrics", {
+                            id: userId,
+                            unqiueIdentifier: id,
+                          });
                           window.open(socialLink, "_blank");
                         }
                       }}
