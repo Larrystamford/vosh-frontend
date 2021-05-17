@@ -293,12 +293,7 @@ export const ProProfile = ({ match, location }) => {
           className="pro_profile_top"
           style={socialAccounts.length > 5 ? { minHeight: "26rem" } : null}
         >
-          <div
-            className="pro_profile_top_with_left_right"
-            style={{
-              backgroundImage: `url(${proTheme.background1})`,
-            }}
-          >
+          <div className="pro_profile_top_with_left_right">
             <div className="pro_profile_top_left">
               <div className="pro_profile_top_image_name">
                 <div className="pro_profile_top_image">
