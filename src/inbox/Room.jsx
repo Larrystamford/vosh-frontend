@@ -79,7 +79,7 @@ export const Room = ({ match }) => {
         <p className="room_message">
           <span className="room_name">Admin</span>
           For any enquiries / help, feel free to drop us a message on instagram
-          @shoplocoloco_sg !<span className="room_timestamp">now</span>
+          @vosh.club !<span className="room_timestamp">now</span>
           {/* <span className="room_timestamp">{new Date().toUTCString()}</span> */}
         </p>
         {/* <p className="room_message room_receiver">

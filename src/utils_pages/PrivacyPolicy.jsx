@@ -10,16 +10,16 @@ export const PrivacyPolicy = () => {
         <meta property="fb:pages	" content="105750814813467" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Shopify" />
-        <meta property="og:title" content="Shoplocoloco Privacy Policy" />
+        <meta property="og:title" content="Vosh Privacy Policy" />
         <meta
           property="og:image"
           content="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
         />
         <meta
           property="og:description"
-          content="Shoplocoloco Privacy Policy This Privacy Policy describes how your
+          content="Vosh Privacy Policy This Privacy Policy describes how your
         personal information is collected, used, and shared when you visit or make
-        a purchase from www.shoplocoloco.com (the “Site”). PERSONAL INFORMATION WE
+        a purchase from www.vosh.club (the “Site”). PERSONAL INFORMATION WE
         COLLECT When you visit the Site, we automatically collect certain
         information about your device, including information about your web
         browser, IP address, time zone, and some of the cookies that are installed
@@ -97,15 +97,15 @@ export const PrivacyPolicy = () => {
         example, changes to our practices or for other operational, legal or
         regulatory reasons. CONTACT US For more information about our privacy
         practices, if you have questions, or if you would like to make a
-        complaint, please contact us by e-mail at locoloco.customer@gmail.com or
+        complaint, please contact us by e-mail at vosh.club@gmail.com or
         by mail using the details provided below: University of California,
         Berkeley, CA, United States"
         />
       </MetaTags>
       <p>
-        Shoplocoloco Privacy Policy This Privacy Policy describes how your
+        Vosh Privacy Policy This Privacy Policy describes how your
         personal information is collected, used, and shared when you visit or
-        make a purchase from www.shoplocoloco.com (the “Site”). PERSONAL
+        make a purchase from www.vosh.club (the “Site”). PERSONAL
         INFORMATION WE COLLECT When you visit the Site, we automatically collect
         certain information about your device, including information about your
         web browser, IP address, time zone, and some of the cookies that are
@@ -186,7 +186,7 @@ export const PrivacyPolicy = () => {
         or for other operational, legal or regulatory reasons. CONTACT US For
         more information about our privacy practices, if you have questions, or
         if you would like to make a complaint, please contact us by e-mail at
-        locoloco.customer@gmail.com or by mail using the details provided below:
+        vosh.club@gmail.com or by mail using the details provided below:
         University of California, Berkeley, CA, United States"
       </p>
     </div>

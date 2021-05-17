@@ -60,19 +60,13 @@ function VideoSidebar({
     // setGlobalModalOpened(false);
     setCommentsOpen(false);
   }, []);
-  const handleAmazonPop = useCallback(() => {
-    // setGlobalModalOpened(false);
-    setOpenAmazon(false);
-  }, []);
 
   useEffect(() => {
     window.addEventListener("popstate", handleCommentPop);
-    window.addEventListener("popstate", handleAmazonPop);
 
     // cleanup this component
     return () => {
       window.removeEventListener("popstate", handleCommentPop);
-      window.removeEventListener("popstate", handleAmazonPop);
     };
   }, []);
 
@@ -100,22 +94,6 @@ function VideoSidebar({
     } else {
       setCommentsOpen(false);
     }
-  };
-
-  // amazon
-  const handleAmazonOpen = () => {
-    setOpenAmazon(true);
-    setGlobalModalOpened(true);
-    window.history.pushState(
-      {
-        amazon: "amazon",
-      },
-      "",
-      ""
-    );
-  };
-  const handleAmazonClose = () => {
-    window.history.back();
   };
 
   useEffect(() => {
@@ -217,41 +195,7 @@ function VideoSidebar({
 
       <div className="videoSidebar__button">
         <MessageIcon fontSize="default" onClick={handleCommentsOpen} />
-        <p>{reviewCounts}</p>
       </div>
-
-      {(amazonOrInternal == "small_shop" ||
-        amazonOrInternal == "small_shop_and_amazon") && (
-        <div className="videoSidebar__button">
-          <LoyaltyIcon
-            fontSize="default"
-            style={{ color: "white" }}
-            onClick={() => {
-              onVideoClick();
-              handleLikeButtonClicked("like");
-              window.open(smallShopLink, "_blank");
-              Event(
-                "ecommerce",
-                "Clicked small shop link" + smallShopLink,
-                "Small shop button"
-              );
-              return false;
-            }}
-          />
-        </div>
-      )}
-
-      {amazonOrInternal == "both" ||
-      amazonOrInternal == "amazon" ||
-      amazonOrInternal == "small_shop_and_amazon" ? (
-        <div className="videoSidebar__button">
-          <FaAmazon
-            size={27}
-            style={{ color: "white" }}
-            onClick={handleAmazonOpen}
-          />
-        </div>
-      ) : null}
 
       <div className="videoSidebar__button">
         <CopyToClipboard text={videoLink}>
@@ -286,44 +230,6 @@ function VideoSidebar({
         profileFeedType={profileFeedType}
         openCommentsFromInbox={openCommentsFromInbox}
       />
-
-      {openAmazon && (
-        <Dialog
-          onClose={handleAmazonClose}
-          aria-labelledby="simple-dialog-title"
-          open={openAmazon}
-        >
-          <DialogTitle id="simple-dialog-title">Amazon Links</DialogTitle>
-          <List style={{ overflowY: "scroll", maxHeight: "14rem" }}>
-            {amazons.map((amazon) => (
-              <ListItem
-                onClick={() => {
-                  onVideoClick();
-                  handleLikeButtonClicked("like");
-                  window.open(amazon.amazon_link, "_blank");
-                  Event(
-                    "ecommerce",
-                    "Clicked amazon link for videoId: " + id,
-                    "Amazon button"
-                  );
-                  return false;
-                }}
-                key={amazon.amazon_name}
-                style={{ minWidth: "19rem" }}
-              >
-                <div className="sidebar_amazonlogolink">
-                  <FaAmazon
-                    size={22}
-                    style={{ color: "#FF9A00" }}
-                    onClick={() => setOpenAmazon(true)}
-                  />
-                  <p>{amazon.amazon_name}</p>
-                </div>
-              </ListItem>
-            ))}
-          </List>
-        </Dialog>
-      )}
     </div>
   );
 }

@@ -65,7 +65,7 @@ export const InstantBrowserMsg = ({
 
             <div className="PWA_Not_Safari_Buttons">
               <CopyToClipboard
-                text={"https://shoplocoloco.com/video/" + videoId}
+                text={"https://vosh.club/video/" + videoId}
               >
                 <div className="PWA_close_button">
                   <Button

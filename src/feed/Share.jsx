@@ -43,7 +43,7 @@ export const Share = (props) => {
     if (process.env.NODE_ENV === "development") {
       setVideoLink("http://localhost:3000/video/" + props.id);
     } else {
-      setVideoLink("https://shoplocoloco.com/video/" + props.id);
+      setVideoLink("https://vosh.club/video/" + props.id);
     }
   }, []);
 

@@ -48,7 +48,6 @@ import { ServiceWorkerWrapper } from "./ServiceWorkerWrapper";
 import { OfflineDetection } from "./utils/OfflineDetection";
 
 import { ComputerLanding } from "./utils_pages/ComputerLanding";
-import { HappySecondAnniversary } from "./utils_pages/anniversary/HappySecondAnniversary";
 
 import ReactGA from "react-ga";
 import { Exception } from "./components/tracking/Tracker";
@@ -115,9 +114,6 @@ function App() {
       )}
     >
       <Router>
-        <Switch>
-          <Route path="/valentines" exact component={HappySecondAnniversary} />
-        </Switch>
         <Route path="/" component={ServiceWorkerWrapper} />
         <Route
           path={[
@@ -147,15 +143,7 @@ function App() {
         />
 
         <Switch>
-          <Route path="/discover" component={Discover} />
-          <Route path="/upload" component={Upload} />
-          <Route path="/profile" exact component={PersonalProfile} />
-          <Route path="/profile/:id" component={Profile} />
           <Route path="/video/:id" component={VideoIndividual} />
-          <Route path="/inbox" component={Inbox} />
-          <Route path="/room/:id" component={Room} />
-          <Route path="/review" component={Review} />
-          <Route path="/about-us" component={AboutUs} />
           <Route path="/getVerified" component={Verified} />
           <Route path="/changeUsername" component={VerifiedUsername} />
           <Route path="/ProProfile" component={EditProProfile} />
@@ -165,6 +153,14 @@ function App() {
           <Route path="/theme" component={SetTheme} />
           <Route path="/login" component={StayLoginFormPage} />
           <Route path="/changePassword" component={ChangePassword} />
+          <Route path="/discover" component={Discover} />
+          <Route path="/upload" component={Upload} />
+          <Route path="/profile" exact component={PersonalProfile} />
+          <Route path="/profile/:id" component={Profile} />
+          <Route path="/inbox" component={Inbox} />
+          <Route path="/room/:id" component={Room} />
+          <Route path="/review" component={Review} />
+          <Route path="/about-us" component={AboutUs} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/404" exact component={PageNoExist} />
           <Route path="/" exact />

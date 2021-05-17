@@ -271,14 +271,11 @@ export const Feed = (props) => {
           <div className="feed_noVideoMessage">
             {selectCategory == "Feed" ? (
               <p>
-                Wow! You are a fast one! Shoplocoloco uploads new content daily,
-                we hope to see you again!
+                Wow! You are a fast one! Come back tomorrow for more awesome
+                shopping recommendations.
               </p>
             ) : (
-              <p>
-                This category seems a little empty for now... Worry not as
-                Shoplocoloco uploads new content daily!
-              </p>
+              <p>This category seems a little empty for now...</p>
             )}
           </div>
         ) : (
@@ -348,6 +345,7 @@ export const Feed = (props) => {
                 amazonOrInternal={amazonOrInternal}
                 productImages={productImages}
                 originalCreator={originalCreator}
+                proTheme={{}}
               />
             )
           )

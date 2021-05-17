@@ -11,7 +11,7 @@ import { RoomPreview } from "./RoomPreview";
 export const Lobby = () => {
   const [rooms, setRooms] = useState([
     {
-      message: "For any enquiries / help, feel free to drop us a message on instagram @shoplocoloco_sg !",
+      message: "For any enquiries / help, feel free to drop us a message on instagram @vosh.club !",
       sender: "Admin",
       receiver: "You",
       timestamp: "now",

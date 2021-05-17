@@ -462,6 +462,7 @@ function Video({
           bigButton={bigButton}
           categories={categories}
           sellerId={sellerId}
+          amazons={amazons}
           amazonOrInternal={amazonOrInternal}
           selectCategory={selectCategory}
           productImages={productImages}
@@ -475,6 +476,7 @@ function Video({
           affiliateProducts={affiliateProducts}
           onVideoClick={onVideoClick}
           proTheme={proTheme}
+          smallShopLink={smallShopLink}
         />
       )}
 

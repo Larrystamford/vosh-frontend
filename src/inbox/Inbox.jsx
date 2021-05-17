@@ -287,7 +287,7 @@ export const Inbox = () => {
           {typeOfNotifications(
             "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             "broadcast",
-            "shoplocoloco",
+            "Vosh",
             "Welcome to Loco Loco! Get a tailor-made shopping experience by signing in now!",
             "",
             "/profile",

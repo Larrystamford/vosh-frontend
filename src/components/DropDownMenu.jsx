@@ -69,7 +69,7 @@ export const DropDownMenu = ({
             image:
               "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             tag: "shipping-update",
-            url: "https://www.shoplocoloco.com/inbox",
+            url: "https://www.vosh.club/inbox",
           });
           // in app notification
           axios.post("/v1/notifications/createInboxNotification/" + buyerId, {
@@ -87,7 +87,7 @@ export const DropDownMenu = ({
             image:
               "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             tag: "shipping-delivered",
-            url: "https://www.shoplocoloco.com/inbox",
+            url: "https://www.vosh.club/inbox",
           });
           // in app notification
           axios.post("/v1/notifications/createInboxNotification/" + buyerId, {
@@ -105,7 +105,7 @@ export const DropDownMenu = ({
             image:
               "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
             tag: "shipping-refunded",
-            url: "https://www.shoplocoloco.com/inbox",
+            url: "https://www.vosh.club/inbox",
           });
 
           // in app notification

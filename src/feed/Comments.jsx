@@ -119,7 +119,7 @@ export const Comments = (props) => {
         text: "Open to view",
         image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "new-reply",
-        url: "https://www.shoplocoloco.com/inbox",
+        url: "https://www.vosh.club/inbox",
       });
 
       setComments((prevState) => [
@@ -151,7 +151,7 @@ export const Comments = (props) => {
         text: "Open to view",
         image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "new-reply",
-        url: "https://www.shoplocoloco.com/inbox",
+        url: "https://www.vosh.club/inbox",
       });
 
       setComments((prevState) => [
@@ -182,7 +182,7 @@ export const Comments = (props) => {
         text: "Open to view",
         image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "new-comment",
-        url: "https://www.shoplocoloco.com/inbox",
+        url: "https://www.vosh.club/inbox",
       });
 
       setComments((prevState) => [
@@ -243,6 +243,7 @@ export const Comments = (props) => {
         classes={{
           paper: classes.dialog,
         }}
+        style={{ zIndex: 20000 }}
       >
         <div className="comments_overall">
           <div

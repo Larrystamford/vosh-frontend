@@ -76,7 +76,7 @@ export const SellRow = ({
         text: "Open to view",
         image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
         tag: "shipping-refunded",
-        url: "https://www.shoplocoloco.com/inbox",
+        url: "https://www.vosh.club/inbox",
       });
 
       // in app notification

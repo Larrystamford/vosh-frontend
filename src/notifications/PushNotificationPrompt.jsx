@@ -24,14 +24,14 @@ export const PushNotificationPrompt = ({
   const isConsentGranted = userConsent === "granted";
 
   const PromptText = () => {
-    let text = "Shoplocoloco would like to send you notifications";
+    let text = "Vosh would like to send you notifications";
 
     if (promptType == "comments") {
       text =
         "By allowing notifications, we can let you know when other users reply to your comments.";
     } else if (promptType == "like") {
       text =
-        "Enjoying LocoLoco? Be the first to know when new videos like this are uploaded!";
+        "Enjoying Vosh? Be the first to know when new videos like this are uploaded!";
     } else if (promptType == "purchased") {
       text = "Get real-time delivery information by allowing notifications.";
     }

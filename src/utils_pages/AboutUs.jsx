@@ -41,42 +41,19 @@ export const AboutUs = (props) => {
             />
           </div>
           <div className="aboutUs_top_name">
-            <p style={{ fontWeight: 600 }}>@Shoplocoloco</p>
+            <p style={{ fontWeight: 600 }}>@Vosh.Club</p>
           </div>
         </div>
         <div className="aboutUs_bottomDesc">
           <p>
-            Shoplocoloco is a video-first e-commerce platform that aims to make
+            Vosh.Club is a video-first e-commerce platform that aims to make
             shopping more entertaining, social, and fun.
           </p>
           <p>
-            When it comes to fulfilling your orders, we know that quality, price
-            and delivery speed matters. Hence, we work with various e-commerce
-            players to provide you with the best possible experience.
-          </p>
-          <p>
             Come with us on our journey as we continue to bring you more new and
-            exciting products! Follow us now on facebook, instagram & tiktok
-            <span style={{ fontWeight: "600" }}> @shoplocoloco</span> !
+            exciting products! Follow us now on instagram & tiktok
+            <span style={{ fontWeight: "600" }}> @vosh.club</span> !
           </p>
-
-          <img
-            alt="google play button"
-            src="./google-play-badge.png"
-            style={{ height: 60, width: 170, paddingTop: 30 }}
-            onClick={() => {
-              window.open(
-                "https://play.google.com/store/apps/details?id=com.shoplocoloco.www.twa",
-                "_blank"
-              );
-              Event(
-                "google-play",
-                "google play app store clicked",
-                "google play app button"
-              );
-              return false;
-            }}
-          />
         </div>
       </div>
     </div>

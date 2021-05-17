@@ -199,7 +199,7 @@ export const SlidingLinks = ({ openLinks, proLinks, setProLinks }) => {
               transform: "translate(-50%, -50%)",
             }}
           >
-            Links
+            General Links
           </span>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>

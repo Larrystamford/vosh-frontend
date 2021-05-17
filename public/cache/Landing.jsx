@@ -105,12 +105,12 @@ export const Landing = ({
         >
           <div className="landing_WelcomeMessageWrapper">
             <img
-              src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
+              src="https://dciv99su0d7r5.cloudfront.net/VOSH+Small+Symbol+White.png"
               alt="loco logo"
               style={{ height: 60 }}
             />
-            <p className="landing_WelcomeWord">SHOPLOCOLOCO</p>
-            <p className="landing_WelcomeText">shopping meets entertainment</p>
+            <p className="landing_WelcomeWord">VOSH</p>
+            <p className="landing_WelcomeText">Genuine Shopping Recommendations</p>
           </div>
 
           {showStartButton ? (

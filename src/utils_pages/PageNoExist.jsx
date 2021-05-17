@@ -10,7 +10,7 @@ export const PageNoExist = (props) => {
       id="landing_body"
       className="landing_body"
       onClick={() => {
-        window.location.assign("https://www.shoplocoloco.com/");
+        window.location.assign("https://www.vosh.club/");
       }}
     >
       <div className="landing_WelcomeMessageWrapper">

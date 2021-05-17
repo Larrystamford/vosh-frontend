@@ -27,6 +27,7 @@ function VideoFooter({
   bigButton,
   categories,
   sellerId,
+  amazons,
   amazonOrInternal,
   selectCategory,
   productImages,
@@ -40,7 +41,11 @@ function VideoFooter({
   affiliateProducts,
   onVideoClick,
   proTheme,
+  smallShopLink,
 }) {
+  console.log(affiliateGroupName);
+  console.log("ELLOOOOO");
+  console.log(proTheme);
   const [sliderGlobal, setSliderGlobal] = useState(false);
 
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
@@ -142,16 +147,6 @@ function VideoFooter({
     };
   }, []);
 
-  // {affiliateGroupName && (
-  //   <div className="videoSidebar__button">
-  //     <LoyaltyIcon
-  //       fontSize="default"
-  //       style={{ color: "white" }}
-  //       onClick={handleAffiliateOpen}
-  //     />
-  //   </div>
-  // )}
-
   return (
     <div className="videoFooter">
       <div
@@ -167,8 +162,6 @@ function VideoFooter({
               color: "orange",
             }}
           />
-
-          {/* <ShoppingCartOutlinedIcon color="primary" fontSize="default" /> */}
         </div>
 
         {bigButton ? (
@@ -215,22 +208,38 @@ function VideoFooter({
           }}
         >
           <div
-            style={{
-              backgroundImage: `url(${proTheme.background2})`,
-              minWidth: "16rem",
-              height: "60%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
+            style={
+              affiliateGroupName
+                ? {
+                    backgroundImage: `url(${proTheme.background2})`,
+                    minWidth: "16rem",
+                    height: "60%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }
+                : {
+                    backgroundColor: "white",
+                    minWidth: "16rem",
+                    height: "60%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                  }
+            }
           >
-            <h2
+            <h3
               id="simple-dialog-title"
-              style={{ color: proTheme.linkBoxColor, margin: "1.3rem" }}
+              style={
+                affiliateGroupName
+                  ? { color: proTheme.linkBoxColor, margin: "1.3rem" }
+                  : { color: "teal", margin: "1.3rem" }
+              }
             >
-              {affiliateGroupName}
-            </h2>
+              {affiliateGroupName ? affiliateGroupName : "Products"}
+            </h3>
             <div
               style={{
                 width: "90%",
@@ -242,20 +251,50 @@ function VideoFooter({
                 paddingBottom: "1rem",
               }}
             >
-              {affiliateProducts.map((products) => (
+              {affiliateGroupName
+                ? affiliateProducts.map((products) => (
+                    <div
+                      className="sidebar_amazonlogolink"
+                      style={{ backgroundColor: proTheme.linkBoxColor }}
+                      onClick={() => {
+                        onVideoClick();
+                        window.open(products.itemLink, "_blank");
+                        return false;
+                      }}
+                      key={products.itemLinkName}
+                    >
+                      <p>{products.itemLinkName}</p>
+                    </div>
+                  ))
+                : amazons.map((amazon) => (
+                    <div
+                      className="sidebar_amazonlogolink"
+                      style={{ backgroundColor: "teal" }}
+                      onClick={() => {
+                        onVideoClick();
+                        window.open(amazon.amazon_link, "_blank");
+                        return false;
+                      }}
+                      key={amazon.amazon_name}
+                    >
+                      <p>{amazon.amazon_name}</p>
+                    </div>
+                  ))}
+
+              {smallShopLink && (
                 <div
                   className="sidebar_amazonlogolink"
-                  style={{ backgroundColor: proTheme.linkBoxColor }}
+                  style={{ backgroundColor: "teal" }}
                   onClick={() => {
                     onVideoClick();
-                    window.open(products.itemLink, "_blank");
+                    window.open(smallShopLink, "_blank");
                     return false;
                   }}
-                  key={products.itemLinkName}
+                  key={smallShopLink}
                 >
-                  <p>{products.itemLinkName}</p>
+                  <p>{smallShopLink}</p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </Dialog>

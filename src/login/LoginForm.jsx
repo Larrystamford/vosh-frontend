@@ -58,7 +58,7 @@ const LoginForm = (props) => {
   } else {
     googleClient =
       "318894449479-83da2ctgvdlqim67222hbrasmon78qte.apps.googleusercontent.com";
-    redirect_uri = "https://www.shoplocoloco.com/profile/";
+    redirect_uri = "https://www.vosh.club/profile/";
   }
 
   const [webView, setWebView] = useState(false);
@@ -145,7 +145,7 @@ const LoginForm = (props) => {
             ) : (
               <p className="Form_WelcomeText">Get Back In</p>
             )}
-            <p className="Form_WelcomeWord">SHOPLOCOLOCO</p>
+            <p className="Form_WelcomeWord">Vosh</p>
             <p className="Form_WelcomeText">Shopping meets Entertainment</p>
             <img
               src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
