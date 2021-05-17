@@ -135,18 +135,32 @@ const StayLoginForm = (props) => {
   // MANUAL SIGN UP
   if (manualForm) {
     return (
-      <div className="formMainLocal">
+      <div
+        className="formMainLocal"
+        style={
+          signUp ? { backgroundColor: "white" } : { backgroundColor: "black" }
+        }
+      >
         <div className="Form_ManualWelcomeMessageWrapper">
-          <p className="Form_WelcomeWord">Vosh</p>
+          <p
+            className="Form_WelcomeWord"
+            style={signUp ? { color: "black" } : { color: "white" }}
+          >
+            Vosh
+          </p>
           <img
             src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
             alt="loco logo"
             style={{ height: 20 }}
           />
           {signUp ? (
-            <p className="Form_WelcomeText">Sign Up</p>
+            <p className="Form_WelcomeText" style={{ color: "black" }}>
+              Sign Up
+            </p>
           ) : (
-            <p className="Form_WelcomeText">Sign In</p>
+            <p className="Form_WelcomeText" style={{ color: "white" }}>
+              Sign In
+            </p>
           )}
         </div>
 
@@ -202,7 +216,7 @@ const StayLoginForm = (props) => {
               label="Sign In with e-mail"
               id="outlined-start-adornment"
               className={clsx(classes.margin, classes.textField)}
-              variant="outlined"
+              variant="filled"
               value={values.email}
               onChange={handleChange("email")}
               onKeyDown={handleKeyDown}
@@ -212,7 +226,7 @@ const StayLoginForm = (props) => {
             />
             <FormControl
               className={clsx(classes.margin, classes.textField)}
-              variant="outlined"
+              variant="filled"
               style={{ backgroundColor: "white" }}
             >
               <InputLabel htmlFor="outlined-adornment-password">
@@ -246,7 +260,7 @@ const StayLoginForm = (props) => {
         {signUp && !focused && (
           <p
             style={{
-              fontSize: "10px",
+              fontSize: "12px",
               position: "absolute",
               bottom: "30px",
               left: "30px",
@@ -260,7 +274,7 @@ const StayLoginForm = (props) => {
         {!signUp && !focused && (
           <p
             style={{
-              fontSize: "10px",
+              fontSize: "12px",
               position: "absolute",
               bottom: "30px",
               left: "30px",

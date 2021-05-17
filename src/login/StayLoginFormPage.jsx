@@ -108,14 +108,14 @@ const StayLoginFormPage = (props) => {
             alert("Try again");
             setNextClicked(false);
           });
+      } else {
+        history.push({
+          pathname: "/profile",
+        });
       }
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
       alert(props.errorMessage);
       setNextClicked(false);
-    } else {
-      history.push({
-        pathname: "/profile",
-      });
     }
   }, [props.errorMessage]);
 
@@ -188,35 +188,30 @@ const StayLoginFormPage = (props) => {
   // MANUAL SIGN UP
   if (manualForm) {
     return (
-      <div className="formMainLocal" style={focused ? { zIndex: -1 } : null}>
-        <div
-          className="Form_ManualWelcomeMessageWrapper"
-          style={focused ? { zIndex: -1 } : null}
-        >
+      <div
+        className="formMainLocal"
+        style={
+          signUp ? { backgroundColor: "white" } : { backgroundColor: "black" }
+        }
+      >
+        <div className="Form_ManualWelcomeMessageWrapper">
           <p
             className="Form_WelcomeWord"
-            style={focused ? { zIndex: -1 } : null}
+            style={signUp ? { color: "black" } : { color: "white" }}
           >
             Vosh
           </p>
-
           <img
             src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
             alt="loco logo"
             style={{ height: 20 }}
           />
           {signUp ? (
-            <p
-              className="Form_WelcomeText"
-              style={focused ? { zIndex: -1 } : null}
-            >
+            <p className="Form_WelcomeText" style={{ color: "black" }}>
               Sign Up
             </p>
           ) : (
-            <p
-              className="Form_WelcomeText"
-              style={focused ? { zIndex: -1 } : null}
-            >
+            <p className="Form_WelcomeText" style={{ color: "white" }}>
               Sign In
             </p>
           )}
@@ -274,7 +269,7 @@ const StayLoginFormPage = (props) => {
               label="Sign In with e-mail"
               id="outlined-start-adornment"
               className={clsx(classes.margin, classes.textField)}
-              variant="outlined"
+              variant="filled"
               value={values.email}
               onChange={handleChange("email")}
               onKeyDown={handleKeyDown}
@@ -284,7 +279,7 @@ const StayLoginFormPage = (props) => {
             />
             <FormControl
               className={clsx(classes.margin, classes.textField)}
-              variant="outlined"
+              variant="filled"
               style={{ backgroundColor: "white" }}
             >
               <InputLabel htmlFor="outlined-adornment-password">
