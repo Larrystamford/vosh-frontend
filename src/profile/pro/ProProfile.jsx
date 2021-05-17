@@ -124,7 +124,7 @@ export const ProProfile = ({ match, location }) => {
         PageView();
         setTimeout(() => {
           setVoshBanner(true);
-        }, 60000);
+        }, 1000);
       } else {
         history.push("/404");
       }
@@ -558,6 +558,7 @@ export const ProProfile = ({ match, location }) => {
 
       {voshBanner && (
         <div
+          style={{ zIndex: 4001 }}
           className="pro_profile_bottom_snackbar_temp"
           onClick={() => {
             history.push("/getVerified");
