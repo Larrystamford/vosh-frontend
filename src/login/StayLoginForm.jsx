@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import * as actions from "../components/actions";
 
+import { SimpleMiddleNotification } from "../components/SimpleMiddleNotification";
+
 import clsx from "clsx";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -72,17 +74,23 @@ const StayLoginForm = (props) => {
     setWebView(isWebview);
   }, []);
 
+  const [showError, setShowError] = useState(false);
+
   useEffect(() => {
     if (props.errorMessage == "nil") {
       props.onLoginSuccess();
       setNextClicked(false);
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
-      alert(props.errorMessage);
+      setShowError(true);
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000);
       setNextClicked(false);
     }
   }, [props.errorMessage]);
 
   const classes = useStyles();
+
   const [signUp, setSignUp] = useState(true);
   const [values, setValues] = useState({
     email: "",
@@ -174,7 +182,6 @@ const StayLoginForm = (props) => {
             </p>
           )}
         </div>
-
         {signUp ? (
           <div className="loginButtonWrapperLocal">
             <TextField
@@ -325,6 +332,10 @@ const StayLoginForm = (props) => {
             Next
           </p>
         )}
+        {showError && (
+          <SimpleMiddleNotification message={props.errorMessage} width={250} />
+        )}
+        ;
       </div>
     );
   } else if (isWebview) {

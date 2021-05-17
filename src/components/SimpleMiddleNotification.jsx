@@ -1,6 +1,11 @@
 import React from "react";
 
-export const SimpleMiddleNotification = ({ message }) => {
+export const SimpleMiddleNotification = ({ message, width }) => {
+  let curWidth = 65;
+  if (width) {
+    curWidth = width;
+  }
+
   return (
     <div
       style={{
@@ -12,7 +17,7 @@ export const SimpleMiddleNotification = ({ message }) => {
         backgroundColor: "grey",
         color: "white",
         borderRadius: "6px",
-        width: 65,
+        width: curWidth,
         fontSize: 14,
         fontFamily: "calibri",
         display: "flex",
