@@ -201,11 +201,6 @@ const StayLoginFormPage = (props) => {
           >
             Vosh
           </p>
-          <img
-            src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+Orange.png"
-            alt="loco logo"
-            style={{ height: 20 }}
-          />
           {signUp ? (
             <p className="Form_WelcomeText" style={{ color: "black" }}>
               Create an Account
