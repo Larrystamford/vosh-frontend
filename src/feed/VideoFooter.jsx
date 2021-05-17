@@ -18,6 +18,8 @@ import ListItem from "@material-ui/core/ListItem";
 import { Event } from "../components/tracking/Tracker";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 
+import axios from "../axios";
+
 function VideoFooter({
   id,
   userName,
@@ -42,10 +44,8 @@ function VideoFooter({
   onVideoClick,
   proTheme,
   smallShopLink,
+  userId,
 }) {
-  console.log(affiliateGroupName);
-  console.log("ELLOOOOO");
-  console.log(proTheme);
   const [sliderGlobal, setSliderGlobal] = useState(false);
 
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
@@ -259,6 +259,11 @@ function VideoFooter({
                       onClick={() => {
                         onVideoClick();
                         window.open(products.itemLink, "_blank");
+                        axios.post("/v1/metrics/incrementMetrics", {
+                          id: userId,
+                          unqiueIdentifier: products.id,
+                        });
+
                         return false;
                       }}
                       key={products.itemLinkName}

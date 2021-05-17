@@ -104,6 +104,7 @@ export const ProfileFeed = (props) => {
               affiliateGroupName={affiliateGroupName}
               affiliateProducts={affiliateProducts}
               proTheme={props.proTheme}
+              userId={props.userId}
             />
           )
         )}

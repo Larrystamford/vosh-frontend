@@ -112,9 +112,9 @@ export const ProProfile = ({ match, location }) => {
             if (data._id == localStorage.getItem("USER_ID")) {
               history.push("/ProProfile");
             }
-          });
 
-        setIsLoading(false);
+            setIsLoading(false);
+          });
 
         axios.post("/v1/metrics/incrementMetrics", {
           id: userId,
@@ -402,7 +402,7 @@ export const ProProfile = ({ match, location }) => {
               <div className="pro_profile_top_social_medias">
                 {socialAccounts
                   .slice(5, 10)
-                  .map(({ socialType, socialLink }) => (
+                  .map(({ id, socialType, socialLink }) => (
                     <img
                       src={convertSocialTypeToImage(socialType)}
                       style={
@@ -422,8 +422,16 @@ export const ProProfile = ({ match, location }) => {
                       }
                       onClick={() => {
                         if (socialType == "Email") {
+                          axios.post("/v1/metrics/incrementMetrics", {
+                            id: userId,
+                            unqiueIdentifier: id,
+                          });
                           window.open(`mailto:${socialLink}?subject=From Vosh`);
                         } else {
+                          axios.post("/v1/metrics/incrementMetrics", {
+                            id: userId,
+                            unqiueIdentifier: id,
+                          });
                           window.open(socialLink, "_blank");
                         }
                       }}
@@ -448,10 +456,16 @@ export const ProProfile = ({ match, location }) => {
                   backgroundImage: `url(${proTheme.background2})`,
                 }}
               >
-                {proLinks.map(({ proLinkName, proLink }) => (
+                {proLinks.map(({ id, proLinkName, proLink }) => (
                   <div
                     className="pro_profile_top_link_div"
-                    onClick={() => window.open(proLink, "_blank")}
+                    onClick={() => {
+                      axios.post("/v1/metrics/incrementMetrics", {
+                        id: userId,
+                        unqiueIdentifier: id,
+                      });
+                      window.open(proLink, "_blank");
+                    }}
                     style={{
                       backgroundColor: proTheme.linkBoxColor,
                     }}
@@ -576,6 +590,7 @@ export const ProProfile = ({ match, location }) => {
           handleChangeView={handleChangeView}
           selectedCategoryId={selectedCategoryId}
           proTheme={proTheme}
+          userId={userId}
         />
       )}
 

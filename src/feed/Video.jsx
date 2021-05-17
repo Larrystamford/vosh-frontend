@@ -61,6 +61,7 @@ function Video({
   affiliateGroupName,
   affiliateProducts,
   proTheme,
+  userId,
 }) {
   const [playing, setPlaying] = useState(false);
   const [playingForButton, setPlayingForButton] = useState(true);
@@ -136,7 +137,6 @@ function Video({
                       console.log("retry success");
                     })
                     .catch(function (error) {
-                      setOpenGoBrowser(true);
                       Exception(error + "retried failed at line 118");
                     });
                 }
@@ -200,7 +200,6 @@ function Video({
                       console.log("retry success");
                     })
                     .catch(function (error) {
-                      setOpenGoBrowser(true);
                       Exception(error + "retried failed at line 166");
                     });
                 }
@@ -213,8 +212,6 @@ function Video({
       }
     }
   };
-
-  const [openGoBrowser, setOpenGoBrowser] = useState(false);
 
   const [fixHeight, setFixHeight] = useState(700);
   const [fixWidth, setFixWidth] = useState(350);
@@ -232,10 +229,6 @@ function Video({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (index != 0 && index % 13 == 0) {
-            setOpenGoBrowser(true);
-          }
-
           setCurrentIndex(index);
           // add video to watched if its playing
           if (index != 0) {
@@ -271,6 +264,13 @@ function Video({
             !videoRef.current.paused &&
             !videoRef.current.ended &&
             videoRef.current.readyState > 2;
+
+          if (userId) {
+            axios.post("/v1/metrics/incrementMetrics", {
+              id: userId,
+              unqiueIdentifier: id,
+            });
+          }
 
           // if index 0, pause it and set playing to false
           if (index == 0 && !isPlaying) {
@@ -351,7 +351,6 @@ function Video({
                             setPlaying(false);
                             setPlayingForButton(false);
                             setLoading(false);
-                            setOpenGoBrowser(true);
                             Exception(error + "play failed again at line 287");
                           });
                       }
@@ -478,6 +477,7 @@ function Video({
           onVideoClick={onVideoClick}
           proTheme={proTheme}
           smallShopLink={smallShopLink}
+          userId={userId}
         />
       )}
 
