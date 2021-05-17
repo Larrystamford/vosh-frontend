@@ -208,7 +208,7 @@ const StayLoginFormPage = (props) => {
           />
           {signUp ? (
             <p className="Form_WelcomeText" style={{ color: "black" }}>
-              Sign Up
+              Create an Account
             </p>
           ) : (
             <p className="Form_WelcomeText" style={{ color: "white" }}>
@@ -313,7 +313,7 @@ const StayLoginFormPage = (props) => {
         {signUp && !focused && (
           <p
             style={{
-              fontSize: "10px",
+              fontSize: "13px",
               position: "absolute",
               bottom: "30px",
               left: "30px",
@@ -327,11 +327,11 @@ const StayLoginFormPage = (props) => {
         {!signUp && !focused && (
           <p
             style={{
-              fontSize: "10px",
+              fontSize: "13px",
               position: "absolute",
               bottom: "30px",
               left: "30px",
-              color: "#3e4fae",
+              color: "white",
             }}
             onClick={() => setSignUp(!signUp)}
           >
@@ -341,22 +341,21 @@ const StayLoginFormPage = (props) => {
         {focused ? null : (
           <p
             style={
-              nextClicked
+              signUp
                 ? {
                     fontSize: "16px",
                     position: "absolute",
                     bottom: "30px",
                     right: "30px",
-                    color: "#3e4fcc",
+                    color: "#3e4fae",
                     fontWeight: "bold",
-                    opacity: 0.3,
                   }
                 : {
                     fontSize: "16px",
                     position: "absolute",
                     bottom: "30px",
                     right: "30px",
-                    color: "#3e4fae",
+                    color: "white",
                     fontWeight: "bold",
                   }
             }

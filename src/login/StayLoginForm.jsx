@@ -51,6 +51,8 @@ const StayLoginForm = (props) => {
     await props.oauthGoogle(res.tokenId);
   };
 
+  const [nextClicked, setNextClicked] = useState(false);
+
   let googleClient, redirect_uri;
   if (process.env.NODE_ENV === "development") {
     googleClient = process.env.REACT_APP_GOOGLE_AUTH_ID;
@@ -73,8 +75,10 @@ const StayLoginForm = (props) => {
   useEffect(() => {
     if (props.errorMessage == "nil") {
       props.onLoginSuccess();
+      setNextClicked(false);
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
       alert(props.errorMessage);
+      setNextClicked(false);
     }
   }, [props.errorMessage]);
 
@@ -104,21 +108,28 @@ const StayLoginForm = (props) => {
   };
 
   const onSubmitSignUp = async () => {
-    if (!validateEmail(values.email)) {
-      alert("Please enter a valid email address");
-    } else if (values.email == "" || values.password == "") {
-      alert("Empty fields are not allowed");
-    } else {
-      if (signUp) {
-        await props.signUp({
-          email: values.email,
-          password: values.password,
-        });
+    if (!nextClicked) {
+      setNextClicked(true);
+      if (!validateEmail(values.email)) {
+        alert("Please enter a valid email address");
+        setNextClicked(false);
+      } else if (values.email == "" || values.password == "") {
+        alert("Empty fields are not allowed");
+        setNextClicked(false);
       } else {
-        await props.signIn({
-          email: values.email,
-          password: values.password,
-        });
+        if (signUp) {
+          await props.signUp({
+            email: values.email,
+            password: values.password,
+          });
+          setNextClicked(false);
+        } else {
+          await props.signIn({
+            email: values.email,
+            password: values.password,
+          });
+          setNextClicked(false);
+        }
       }
     }
   };
@@ -155,7 +166,7 @@ const StayLoginForm = (props) => {
           />
           {signUp ? (
             <p className="Form_WelcomeText" style={{ color: "black" }}>
-              Sign Up
+              Create an Account
             </p>
           ) : (
             <p className="Form_WelcomeText" style={{ color: "white" }}>
@@ -260,7 +271,7 @@ const StayLoginForm = (props) => {
         {signUp && !focused && (
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               position: "absolute",
               bottom: "30px",
               left: "30px",
@@ -274,11 +285,11 @@ const StayLoginForm = (props) => {
         {!signUp && !focused && (
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               position: "absolute",
               bottom: "30px",
               left: "30px",
-              color: "#3e4fae",
+              color: "white",
             }}
             onClick={() => setSignUp(!signUp)}
           >
@@ -287,14 +298,25 @@ const StayLoginForm = (props) => {
         )}
         {focused ? null : (
           <p
-            style={{
-              fontSize: "16px",
-              position: "absolute",
-              bottom: "30px",
-              right: "30px",
-              color: "#3e4fae",
-              fontWeight: "bold",
-            }}
+            style={
+              signUp
+                ? {
+                    fontSize: "16px",
+                    position: "absolute",
+                    bottom: "30px",
+                    right: "30px",
+                    color: "#3e4fae",
+                    fontWeight: "bold",
+                  }
+                : {
+                    fontSize: "16px",
+                    position: "absolute",
+                    bottom: "30px",
+                    right: "30px",
+                    color: "white",
+                    fontWeight: "bold",
+                  }
+            }
             onClick={() => {
               props.setManualLoginRefresh(true);
               onSubmitSignUp();

@@ -47,13 +47,13 @@
 .Form_WelcomeWord {
   font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
-  font-size: 40px;
+  font-size: 44px;
   color: var(--vosh-color-1);
 }
 .Form_WelcomeText {
   font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--vosh-color-1);
 }
 
@@ -87,10 +87,10 @@
 /* iphone5 */
 @media only screen and (max-height: 580px) {
   .Form_WelcomeWord {
-    font-size: 30px;
+    font-size: 34px;
   }
   .Form_WelcomeText {
-    font-size: 16px;
+    font-size: 18px;
   }
   .Form_ManualWelcomeMessageWrapper > img {
     display: none;
