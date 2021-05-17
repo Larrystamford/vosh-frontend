@@ -32,6 +32,7 @@ import {
 
 import link from "../icons/link.svg";
 import { useEffect } from "react";
+import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   dialog: {
@@ -231,6 +232,14 @@ export const Comments = (props) => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+      handleSendMessage(e);
+      return false;
+    }
+  };
+
   return (
     <div id="comment_body">
       <Dialog
@@ -321,6 +330,7 @@ export const Comments = (props) => {
                     <input
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
+                      onKeyPress={handleKeyPress}
                       placeholder={placeholder}
                       type="text"
                       ref={inputEl}

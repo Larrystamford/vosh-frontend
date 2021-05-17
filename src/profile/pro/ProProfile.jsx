@@ -279,7 +279,10 @@ export const ProProfile = ({ match, location }) => {
           </div>
         </div>
       ) : (
-        <div className="pro_profile_top">
+        <div
+          className="pro_profile_top"
+          style={socialAccounts.length > 5 ? { minHeight: "26rem" } : null}
+        >
           <div
             className="pro_profile_top_with_left_right"
             style={{

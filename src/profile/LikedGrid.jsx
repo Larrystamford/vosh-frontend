@@ -54,10 +54,7 @@ export const LikedGrid = ({
   if (likedVideos.length == 0) {
     return (
       <div className="Purchases_NoInfo">
-        <p>
-          Your liked videos show up here. It's basically our version of a no
-          commitment shopping cart, so like away!
-        </p>
+        <p>Like away!</p>
       </div>
     );
   }

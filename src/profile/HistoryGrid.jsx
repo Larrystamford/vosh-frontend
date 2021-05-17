@@ -75,8 +75,7 @@ export const HistoryGrid = ({
     return (
       <div className="Purchases_NoInfo">
         <p>
-          To keep things fresh, we won't show you the same video twice. But
-          worry not, your watch history shows up here!
+          Stuff you watched!
         </p>
 
         {isFetching ? (

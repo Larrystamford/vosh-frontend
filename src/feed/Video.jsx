@@ -9,7 +9,8 @@ import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
 import { SwipeUp } from "../components/SwipeUp";
-import { LinearProgress, Snackbar } from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
+import ColoredLinearProgress from "../utils/ColoredLinearProgress";
 
 import axios from "../axios";
 import { useDoubleTap } from "use-double-tap";
@@ -535,8 +536,7 @@ function Video({
       ) : null}
 
       {loading && mediaType == "video" ? (
-        <LinearProgress
-          color="secondary"
+        <ColoredLinearProgress
           style={
             size.height / size.width > 2
               ? {

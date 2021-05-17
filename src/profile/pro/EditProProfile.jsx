@@ -216,7 +216,10 @@ export const EditProProfile = ({ match, location }) => {
           </div>
         </div>
       ) : (
-        <div className="pro_profile_top">
+        <div
+          className="pro_profile_top"
+          style={socialAccounts.length > 5 ? { minHeight: "26rem" } : null}
+        >
           <div className="pro_profile_top_with_left_right">
             <div className="pro_profile_top_left">
               <div className="pro_profile_top_image_name">
@@ -427,9 +430,7 @@ export const EditProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_icon_and_name_underline"
-                style={
-                  selectedCategoryId == "all" ? null : { display: "none" }
-                }
+                style={selectedCategoryId == "all" ? null : { display: "none" }}
               ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
@@ -449,11 +450,7 @@ export const EditProProfile = ({ match, location }) => {
                 </p>
                 <div
                   className="pro_profile_icon_and_name_underline"
-                  style={
-                    selectedCategoryId == id
-                      ? null
-                      : { display: "none" }
-                  }
+                  style={selectedCategoryId == id ? null : { display: "none" }}
                 ></div>
               </div>
             ))}

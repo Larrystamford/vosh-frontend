@@ -228,10 +228,13 @@ export const ChangePassword = (props) => {
         <p
           className="verified_next"
           style={{
-            position: "absolute",
-            left: "20px",
-            color: "#3e4fae",
+            left: "30px",
             opacity: 0.7,
+            fontSize: "16px",
+            position: "absolute",
+            bottom: "30px",
+            color: "#3e4fae",
+            fontWeight: "bold",
           }}
           onClick={() => history.goBack()}
         >

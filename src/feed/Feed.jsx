@@ -3,7 +3,7 @@ import Video from "./Video";
 import "./Feed.css";
 import axios from "../axios";
 import { useWindowSize } from "../customHooks/useWindowSize";
-import { LinearProgress } from "@material-ui/core";
+import ColoredLinearProgress from "../utils/ColoredLinearProgress";
 
 import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
 
@@ -248,8 +248,7 @@ export const Feed = (props) => {
           />
         ) : null}
         {isLoadingVideos ? (
-          <LinearProgress
-            color="secondary"
+          <ColoredLinearProgress
             className="Feed_linear_progress"
             style={
               size.height / size.width > 2

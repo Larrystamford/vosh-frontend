@@ -23,7 +23,6 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import axios from "../../axios";
-import { Exception } from "../../components/tracking/Tracker";
 
 export const ProEdit = () => {
   const history = useHistory();
@@ -383,6 +382,7 @@ export const ProEdit = () => {
         proCategories={proCategories}
         setProCategories={setProCategories}
       />
+
 
       {showNotif && <SimpleBottomNotification message={showNotif} />}
     </div>
