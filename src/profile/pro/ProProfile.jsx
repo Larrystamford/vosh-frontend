@@ -124,7 +124,7 @@ export const ProProfile = ({ match, location }) => {
         PageView();
         setTimeout(() => {
           setVoshBanner(true);
-        }, 1000);
+        }, 60000);
       } else {
         history.push("/404");
       }
