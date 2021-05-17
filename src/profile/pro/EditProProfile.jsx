@@ -78,6 +78,7 @@ export const EditProProfile = ({ match, location }) => {
         picture: imageUrl,
       });
       setImage(imageUrl);
+      localStorage.setItem("PICTURE", imageUrl);
     }
   };
   const getFileUrl = async (file) => {

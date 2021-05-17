@@ -478,6 +478,7 @@ function Video({
           proTheme={proTheme}
           smallShopLink={smallShopLink}
           userId={userId}
+          location={location}
         />
       )}
 

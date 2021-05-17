@@ -174,6 +174,13 @@ export const VideoIndividual = ({ match, location }) => {
             buyOpen={buyOpen}
             setBuyOpen={setBuyOpen}
             originalCreator={data.originalCreator}
+            proCategories={data.proCategories}
+            affiliateGroupName={data.affiliateGroupName}
+            affiliateProducts={data.affiliateProducts}
+            onVideoClick={onVideoClick}
+            proTheme={data.user.proTheme}
+            smallShopLink={data.smallShopLink}
+            userId={data.user._id}
           />
           <VideoSidebar
             likes={data.likes}

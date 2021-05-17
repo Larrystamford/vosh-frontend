@@ -45,6 +45,7 @@ function VideoFooter({
   proTheme,
   smallShopLink,
   userId,
+  location,
 }) {
   const [sliderGlobal, setSliderGlobal] = useState(false);
 
@@ -174,7 +175,21 @@ function VideoFooter({
         ) : null}
       </div>
 
-      <h5 className="videoFooter_username">@{userName}</h5>
+      <h5
+        className="videoFooter_username"
+        onClick={() => {
+          if (!(location == "main feed")) {
+            history.push({
+              pathname: `/${userName}`,
+              state: {
+                showBoughtItems: true,
+              },
+            });
+          }
+        }}
+      >
+        @{userName}
+      </h5>
 
       <div className="videoFooter_multiline">
         <p>{caption}</p>
@@ -268,7 +283,9 @@ function VideoFooter({
                       }}
                       key={products.itemLinkName}
                     >
-                      <p>{products.itemLinkName}</p>
+                      <p style={{ color: proTheme.linkWordsColor }}>
+                        {products.itemLinkName}
+                      </p>
                     </div>
                   ))
                 : amazons.map((amazon) => (

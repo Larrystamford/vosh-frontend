@@ -424,6 +424,7 @@ export const PersonalProfile = (props) => {
         picture: imageUrl,
       });
       setImage(imageUrl);
+      localStorage.setItem("PICTURE", imageUrl);
     }
   };
 

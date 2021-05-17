@@ -81,13 +81,15 @@ const StayLoginForm = (props) => {
       props.onLoginSuccess();
       setNextClicked(false);
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
-      setShowError(true);
+      setTimeout(() => {
+        setShowError(true);
+      }, 500);
       setTimeout(() => {
         setShowError(false);
-      }, 3000);
+      }, 3500);
       setNextClicked(false);
     }
-  }, [props.errorMessage]);
+  }, [props.errorMessage, nextClicked]);
 
   const classes = useStyles();
 
