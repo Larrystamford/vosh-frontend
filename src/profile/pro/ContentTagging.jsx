@@ -30,6 +30,8 @@ import VolumeUpOutlinedIcon from "@material-ui/icons/VolumeUpOutlined";
 import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+import useOnScreen from "../../customHooks/useOnScreen";
+
 import axios from "../../axios";
 import { Exception } from "../../components/tracking/Tracker";
 import { set } from "react-ga";
@@ -130,26 +132,6 @@ export const ContentTagging = () => {
     setChangesMade(true);
     setCategorySelection(values);
   };
-
-  const handlers = useSwipeable({
-    onSwiped: (event) => {
-      if (event.dir == "Up") {
-        setChecked(false);
-      } else if (event.dir == "Down") {
-        setChecked(true);
-      }
-    },
-    ...{ delta: 15, trackMouse: true, trackTouch: true },
-  });
-
-  const handlersUp = useSwipeable({
-    onSwiped: (event) => {
-      if (event.dir == "Up") {
-        setChecked(false);
-      }
-    },
-    ...{ delta: 15, trackMouse: true, trackTouch: true },
-  });
 
   const [previousLinks, setPreviousLinks] = useState([]);
   const [previousCats, setPreviousCats] = useState([]);
@@ -560,6 +542,20 @@ export const ContentTagging = () => {
     }
   };
 
+  const topRef = useRef();
+  const isVisible = useOnScreen(topRef);
+
+  const handlers = useSwipeable({
+    onSwiped: (event) => {
+      if (event.dir == "Up") {
+        setChecked(false);
+      } else if (event.dir == "Down" && isVisible) {
+        setChecked(true);
+      }
+    },
+    ...{ delta: 15, trackMouse: true, trackTouch: true },
+  });
+
   return (
     <div className="SlidingEdit_Body">
       <div className="SlidingEdit_Header">
@@ -673,8 +669,8 @@ export const ContentTagging = () => {
             </div>
           </div>
         </Collapse>
-        <Collapse in={checked} collapsedHeight={"95vh"}>
-          <div {...handlers} className="gallery_slider_header">
+        <Collapse {...handlers} in={checked} collapsedHeight={"95vh"}>
+          <div className="gallery_slider_header">
             <div className="SlidingEdit_TypeLeft">
               <p style={{ fontSize: 15, fontWeight: "bold" }}>Gallery</p>
             </div>
@@ -723,16 +719,38 @@ export const ContentTagging = () => {
               )}
             </div>
           </div>
-          <div {...handlersUp} className="gallery_slider_body_wrapper">
+          <div {...handlers} className="gallery_slider_body_wrapper">
             <div className="gallery_slider_body">
-              {videos.map((eachVideo, i) => (
+              {videos.length > 0 ? (
                 <div
+                  ref={topRef}
                   className="gallery_image_box"
-                  onClick={() => handleSelectVideoWithChanges(i)}
-                  style={i == videoI ? { border: "3px solid #f5f5f5" } : null}
+                  onClick={() => handleSelectVideoWithChanges(0)}
+                  style={0 == videoI ? { border: "3px solid #f5f5f5" } : null}
                 >
                   {displayPreviewFile(
-                    i,
+                    0,
+                    videos[0].mediaType,
+                    videos[0].url,
+                    videos[0].coverImageUrl,
+                    videos[0].proCategories,
+                    heartSticker
+                  )}
+                </div>
+              ) : (
+                <div ref={topRef} className="gallery_image_box"></div>
+              )}
+
+              {videos.slice(1).map((eachVideo, i) => (
+                <div
+                  className="gallery_image_box"
+                  onClick={() => handleSelectVideoWithChanges(i + 1)}
+                  style={
+                    i + 1 == videoI ? { border: "3px solid #f5f5f5" } : null
+                  }
+                >
+                  {displayPreviewFile(
+                    i + 1,
                     eachVideo.mediaType,
                     eachVideo.url,
                     eachVideo.coverImageUrl,
