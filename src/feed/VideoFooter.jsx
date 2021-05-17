@@ -214,33 +214,49 @@ function VideoFooter({
             zIndex: 10001,
           }}
         >
-          <div style={{ backgroundImage: `url(${proTheme.background2})` }}>
-            <DialogTitle
+          <div
+            style={{
+              backgroundImage: `url(${proTheme.background2})`,
+              minWidth: "16rem",
+              height: "60%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <h2
               id="simple-dialog-title"
-              style={{ color: proTheme.linkBoxColor }}
+              style={{ color: proTheme.linkBoxColor, margin: "1.3rem" }}
             >
               {affiliateGroupName}
-            </DialogTitle>
-            <List style={{ overflowY: "scroll", maxHeight: "14rem" }}>
+            </h2>
+            <div
+              style={{
+                width: "90%",
+                overflowY: "scroll",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingBottom: "1rem",
+              }}
+            >
               {affiliateProducts.map((products) => (
-                <ListItem
+                <div
+                  className="sidebar_amazonlogolink"
+                  style={{ backgroundColor: proTheme.linkBoxColor }}
                   onClick={() => {
                     onVideoClick();
                     window.open(products.itemLink, "_blank");
                     return false;
                   }}
                   key={products.itemLinkName}
-                  style={{ minWidth: "19rem" }}
                 >
-                  <div
-                    className="sidebar_amazonlogolink"
-                    style={{ backgroundColor: proTheme.linkBoxColor }}
-                  >
-                    <p>{products.itemLinkName}</p>
-                  </div>
-                </ListItem>
+                  <p>{products.itemLinkName}</p>
+                </div>
               ))}
-            </List>
+            </div>
           </div>
         </Dialog>
       )}

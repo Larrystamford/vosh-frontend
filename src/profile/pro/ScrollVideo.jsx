@@ -35,7 +35,7 @@ export const ScrollVideo = ({
   proVideos,
   viewIndex,
   handleChangeView,
-  selectedCategoryName,
+  selectedCategoryId,
   proTheme,
 }) => {
   const history = useHistory();
@@ -54,10 +54,10 @@ export const ScrollVideo = ({
     >
       <ProfileFeed
         videos={proVideos.filter((video) => {
-          if (selectedCategoryName == "all") {
+          if (selectedCategoryId == "all") {
             return video;
           } else {
-            return video.proCategories.includes(selectedCategoryName);
+            return video.proCategories.includes(selectedCategoryId);
           }
         })}
         viewIndex={viewIndex}

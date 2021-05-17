@@ -173,10 +173,10 @@ export const EditProProfile = ({ match, location }) => {
     history.goBack();
   };
 
-  const [selectedCategoryName, setSelectedCategoryName] = useState("all");
-  const handleCategorySelection = (name) => {
+  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
+  const handleCategorySelection = (id) => {
     setScrolledBottomCount(0);
-    setSelectedCategoryName(name);
+    setSelectedCategoryId(id);
   };
 
   const topRef = useRef();
@@ -428,7 +428,7 @@ export const EditProProfile = ({ match, location }) => {
               <div
                 className="pro_profile_icon_and_name_underline"
                 style={
-                  selectedCategoryName == "all" ? null : { display: "none" }
+                  selectedCategoryId == "all" ? null : { display: "none" }
                 }
               ></div>
             </div>
@@ -436,7 +436,7 @@ export const EditProProfile = ({ match, location }) => {
               <div
                 className="pro_profile_icon_and_name"
                 onClick={() => {
-                  handleCategorySelection(proCategoryName);
+                  handleCategorySelection(id);
                 }}
               >
                 <img src={proCategoryImage} style={{ height: 20 }} />
@@ -450,7 +450,7 @@ export const EditProProfile = ({ match, location }) => {
                 <div
                   className="pro_profile_icon_and_name_underline"
                   style={
-                    selectedCategoryName == proCategoryName
+                    selectedCategoryId == id
                       ? null
                       : { display: "none" }
                   }
@@ -467,17 +467,17 @@ export const EditProProfile = ({ match, location }) => {
         ) : (
           <VideoGrid
             videos={proVideos.filter((video) => {
-              if (selectedCategoryName == "all") {
+              if (selectedCategoryId == "all") {
                 return video;
               } else {
-                return video.proCategories.includes(selectedCategoryName);
+                return video.proCategories.includes(selectedCategoryId);
               }
             })}
             showVideos={showVideos}
             setShowVideos={setShowVideos}
             handleChangeView={handleChangeView}
             scrolledBottomCount={scrolledBottomCount}
-            selectedCategoryName={selectedCategoryName}
+            selectedCategoryId={selectedCategoryId}
           />
         )}
       </div>
@@ -492,7 +492,7 @@ export const EditProProfile = ({ match, location }) => {
           proVideos={proVideos}
           viewIndex={viewIndex}
           handleChangeView={handleChangeView}
-          selectedCategoryName={selectedCategoryName}
+          selectedCategoryId={selectedCategoryId}
           proTheme={proTheme}
         />
       )}

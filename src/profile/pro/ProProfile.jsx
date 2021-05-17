@@ -58,10 +58,10 @@ export const ProProfile = ({ match, location }) => {
 
   const [voshBanner, setVoshBanner] = useState(false);
 
-  const [selectedCategoryName, setSelectedCategoryName] = useState("");
-  const handleCategorySelection = (name) => {
+  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
+  const handleCategorySelection = (id) => {
     setScrolledBottomCount(0);
-    setSelectedCategoryName(name);
+    setSelectedCategoryId(id);
   };
 
   // load data
@@ -100,8 +100,6 @@ export const ProProfile = ({ match, location }) => {
               "--background1",
               data.proTheme.background1
             );
-
-            setSelectedCategoryName("all");
 
             // check if already following
             for (const follower of data.followers) {
@@ -479,16 +477,14 @@ export const ProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_icon_and_name_underline"
-                style={
-                  selectedCategoryName == "all" ? null : { display: "none" }
-                }
+                style={selectedCategoryId == "all" ? null : { display: "none" }}
               ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
               <div
                 className="pro_profile_icon_and_name"
                 onClick={() => {
-                  handleCategorySelection(proCategoryName);
+                  handleCategorySelection(id);
                 }}
               >
                 <img src={proCategoryImage} style={{ height: 20 }} />
@@ -501,11 +497,7 @@ export const ProProfile = ({ match, location }) => {
                 </p>
                 <div
                   className="pro_profile_icon_and_name_underline"
-                  style={
-                    selectedCategoryName == proCategoryName
-                      ? null
-                      : { display: "none" }
-                  }
+                  style={selectedCategoryId == id ? null : { display: "none" }}
                 ></div>
               </div>
             ))}
@@ -519,17 +511,17 @@ export const ProProfile = ({ match, location }) => {
         ) : (
           <VideoGrid
             videos={proVideos.filter((video) => {
-              if (selectedCategoryName == "all") {
+              if (selectedCategoryId == "all") {
                 return video;
               } else {
-                return video.proCategories.includes(selectedCategoryName);
+                return video.proCategories.includes(selectedCategoryId);
               }
             })}
             showVideos={showVideos}
             setShowVideos={setShowVideos}
             handleChangeView={handleChangeView}
             scrolledBottomCount={scrolledBottomCount}
-            selectedCategoryName={selectedCategoryName}
+            selectedCategoryId={selectedCategoryId}
           />
         )}
       </div>
@@ -561,7 +553,7 @@ export const ProProfile = ({ match, location }) => {
           proVideos={proVideos}
           viewIndex={viewIndex}
           handleChangeView={handleChangeView}
-          selectedCategoryName={selectedCategoryName}
+          selectedCategoryId={selectedCategoryId}
           proTheme={proTheme}
         />
       )}

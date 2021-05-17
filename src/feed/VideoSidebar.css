@@ -32,11 +32,13 @@
   align-items: center;
   justify-content: center;
 
-  width: inherit;
+  width: 90%;
 
   min-height: 2.4rem;
-  background-color: var(--vosh-color-7);
   margin-top: 5px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
 
   border-radius: 4px;
 
@@ -49,9 +51,9 @@
 .sidebar_amazonlogolink > p {
   text-transform: capitalize;
   font-weight: 500;
+  width: 90%;
   font-size: 15px;
   color: white;
-  width: 95%;
 }
 
 #simple-dialog-title > h2 {
