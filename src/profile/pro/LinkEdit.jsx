@@ -60,7 +60,8 @@ export const LinkEdit = ({
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           prevItems[editingIndex] = {
-            id: inputValues.proLink + new Date().getTime(),
+            _id: prevItems[editingIndex]._id,
+            id: prevItems[editingIndex].id,
             proLink: inputValues.proLink,
             proLinkName: inputValues.proLinkName,
           };

@@ -148,7 +148,6 @@
 }
 
 .pro_profile_top_with_left_right {
-  height: 82%;
   width: 100%;
 
   display: flex;
@@ -329,7 +328,7 @@
 }
 
 .pro_profile_top_selector {
-  height: 18%;
+  height: 3.7rem;
   width: 100%;
   /* border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray; */
@@ -349,8 +348,6 @@
   /* border: 2px solid lightgrey; */
   border-radius: 6px;
   margin: 1rem;
-
-  background-color: white;
 
   display: flex;
   flex-direction: column;
@@ -469,6 +466,10 @@
 
 /* iphone5 */
 @media only screen and (max-height: 580px) {
+  .pro_profile_top_selector {
+    height: 3.2rem;
+  }
+
   .pro_profile_top_profileBio {
     font-size: 13px;
   }

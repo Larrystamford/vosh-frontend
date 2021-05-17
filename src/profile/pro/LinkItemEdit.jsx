@@ -61,7 +61,8 @@ export const LinkItemEdit = ({
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           const linkEditObj = {
-            id: inputValues.itemLink + new Date().getTime(),
+            _id: prevItems[editingIndex]._id,
+            id: prevItems[editingIndex].id,
             itemLink: inputValues.itemLink,
             itemLinkName: inputValues.itemLinkName,
           };

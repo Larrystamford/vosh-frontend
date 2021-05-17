@@ -10,6 +10,7 @@ import { SlidingItemLinks } from "./SlidingItemLinks";
 import { SlidingHashtags } from "./SlidingHashtags";
 import { ConfirmImport } from "./ConfirmImport";
 import { ConfirmSelect } from "./ConfirmSelect";
+import { ConfirmBack } from "./ConfirmBack";
 
 import { SimpleMiddleNotification } from "../../components/SimpleMiddleNotification";
 import { downloadAndSaveTikToksWithRetry } from "../../helpers/CommonFunctions";
@@ -119,11 +120,13 @@ export const ContentTagging = () => {
   const [openContentCategory, setOpenContentCategory] = useState(false);
   const [openImport, setOpenImport] = useState(false);
   const [openSelect, setOpenSelect] = useState(-1);
+  const [openSelect2, setOpenSelect2] = useState(false);
 
   const [heartSticker, setHeartSticker] = useState([]);
 
   const [categorySelection, setCategorySelection] = useState({});
   const setCategorySelectionTrack = (values) => {
+    console.log(values);
     setChangesMade(true);
     setCategorySelection(values);
   };
@@ -181,6 +184,7 @@ export const ContentTagging = () => {
               catSelection[eachProCat] = true;
             }
             setCategorySelection(catSelection);
+            console.log(catSelection);
           }
 
           if (
@@ -247,7 +251,7 @@ export const ContentTagging = () => {
     }
   };
 
-  const [videoI, setVideoI] = useState(-1);
+  const [videoI, setVideoI] = useState(0);
   const handleSelectVideo = (i) => {
     setChecked(true);
 
@@ -498,20 +502,18 @@ export const ContentTagging = () => {
     } else if (itemLinks.items.length == 0) {
       alert("Add at least one product link");
     } else {
-      const proCategories = [];
+      const proCategoriesUpdate = [];
       for (const [key, value] of Object.entries(categorySelection)) {
         if (value) {
-          proCategories.push(key);
+          proCategoriesUpdate.push(key);
         }
       }
-
-      console.log(proCategories);
 
       try {
         const res = await axios.put("/v1/video/update/" + displayVideoId, {
           categories: selectedCategories,
           subCategories: selectedSubCategories,
-          proCategories: proCategories,
+          proCategories: proCategoriesUpdate,
           affiliateGroupName: "Products",
           affiliateProducts: itemLinks.items,
         });
@@ -547,6 +549,11 @@ export const ContentTagging = () => {
         setChangesMade(false);
         setPreviousCats(selectedCategories);
         setPreviousSubCats(selectedSubCategories);
+
+        videos[videoI].proCategories = proCategoriesUpdate;
+        videos[videoI].categories = selectedCategories;
+        videos[videoI].subCategories = selectedSubCategories;
+        videos[videoI].affiliateProducts = itemLinks.items;
       } catch {
         alert("Try publishing again");
       }
@@ -558,7 +565,11 @@ export const ContentTagging = () => {
       <div className="SlidingEdit_Header">
         <ArrowBackIosOutlinedIcon
           onClick={() => {
-            history.goBack();
+            if (changesMade) {
+              setOpenSelect2(true);
+            } else {
+              history.goBack();
+            }
           }}
           style={{ paddingLeft: 10 }}
         />
@@ -783,6 +794,12 @@ export const ContentTagging = () => {
         openSelect={openSelect}
         setOpenSelect={setOpenSelect}
         handleSelectVideo={handleSelectVideo}
+        setChangesMade={setChangesMade}
+      />
+
+      <ConfirmBack
+        openSelect2={openSelect2}
+        setOpenSelect2={setOpenSelect2}
         setChangesMade={setChangesMade}
       />
 

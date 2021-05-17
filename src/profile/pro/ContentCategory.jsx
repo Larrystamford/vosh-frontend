@@ -47,6 +47,7 @@ export const ContentCategory = ({
   const classes = useStyles();
 
   const handleChange = (event) => {
+    console.log(categorySelection);
     setCategorySelection({
       ...categorySelection,
       [event.target.name]: event.target.checked,
@@ -90,9 +91,9 @@ export const ContentCategory = ({
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={categorySelection[proCategoryName]}
+                          checked={categorySelection[id]}
                           onChange={handleChange}
-                          name={proCategoryName}
+                          name={id}
                         />
                       }
                       label={proCategoryName}

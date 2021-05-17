@@ -117,7 +117,8 @@ export const LinkEditSocial = ({
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           prevItems[editingIndex] = {
-            id: socialLink + new Date().getTime(),
+            _id: prevItems[editingIndex]._id,
+            id: prevItems[editingIndex].id,
             socialLink: socialLink,
             userIdentifier: inputValues.userIdentifier,
             socialType: inputValues.socialType,

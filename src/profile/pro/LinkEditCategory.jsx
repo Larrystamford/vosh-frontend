@@ -130,12 +130,13 @@ export const LinkEditCategory = ({
       inputValues.proCategoryImage != ""
     ) {
       if (inputValues.proCategoryName.length > 10) {
-        alert("Sorry, maximum 8 Characters!");
+        alert("Sorry, maximum 10 Characters!");
       } else {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
           prevItems[editingIndex] = {
-            id: inputValues.proCategoryName + new Date().getTime(),
+            _id: prevItems[editingIndex]._id,
+            id: prevItems[editingIndex].id,
             proCategoryName: inputValues.proCategoryName,
             proCategoryImage: inputValues.proCategoryImage,
           };

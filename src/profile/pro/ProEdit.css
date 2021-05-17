@@ -296,7 +296,6 @@
 }
 
 .Link_Previous_Content_Box {
-  height: 2rem;
   border-radius: 9px;
 
   background-color: rgb(192, 192, 161);
@@ -305,6 +304,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  text-align: center;
+
+  min-height: 2.2rem;
+  width: 97%;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  text-align: center;
 }
 
 .product_linking_group_name {
