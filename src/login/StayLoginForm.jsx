@@ -335,7 +335,6 @@ const StayLoginForm = (props) => {
         {showError && (
           <SimpleMiddleNotification message={props.errorMessage} width={250} />
         )}
-        ;
       </div>
     );
   } else if (isWebview) {
