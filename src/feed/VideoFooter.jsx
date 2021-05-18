@@ -270,7 +270,7 @@ function VideoFooter({
                 ? affiliateProducts.map((products) => (
                     <div
                       className="sidebar_amazonlogolink"
-                      style={{ backgroundColor: proTheme.linkBoxColor }}
+                      style={proTheme.linkBoxColor ? { backgroundColor: proTheme.linkBoxColor } : { backgroundColor: "teal" }}
                       onClick={() => {
                         onVideoClick();
                         window.open(products.itemLink, "_blank");
