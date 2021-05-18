@@ -76,6 +76,10 @@ export const Verified = () => {
     "changeUsername",
     "ProProfile",
     "ProEdit",
+    "profileBio",
+    "theme",
+    "changePassword",
+    "404",
   ];
 
   const [values, setValues] = useState({
