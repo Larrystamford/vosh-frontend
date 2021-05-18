@@ -24,7 +24,6 @@ export const ProfileFeed = (props) => {
   const [notifPrompt, setNotifPrompt] = useState(false);
   const [promptType, setPromptType] = useState("");
 
-  console.log(videos);
 
   return (
     <div className="feed" style={{ zIndex: "1005" }}>

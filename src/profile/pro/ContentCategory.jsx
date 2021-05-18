@@ -47,7 +47,6 @@ export const ContentCategory = ({
   const classes = useStyles();
 
   const handleChange = (event) => {
-    console.log(categorySelection);
     setCategorySelection({
       ...categorySelection,
       [event.target.name]: event.target.checked,

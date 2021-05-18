@@ -128,7 +128,6 @@ export const ContentTagging = () => {
 
   const [categorySelection, setCategorySelection] = useState({});
   const setCategorySelectionTrack = (values) => {
-    console.log(values);
     setChangesMade(true);
     setCategorySelection(values);
   };
@@ -166,7 +165,6 @@ export const ContentTagging = () => {
               catSelection[eachProCat] = true;
             }
             setCategorySelection(catSelection);
-            console.log(catSelection);
           }
 
           if (

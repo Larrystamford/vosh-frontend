@@ -182,11 +182,6 @@ export const EditProProfile = ({ match, location }) => {
 
   const topRef = useRef();
   const isVisible = useOnScreen(topRef);
-  if (!isVisible) {
-    console.log("bye");
-  } else {
-    console.log("hello");
-  }
 
   return (
     <div
