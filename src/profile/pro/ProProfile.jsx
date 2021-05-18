@@ -74,6 +74,12 @@ export const ProProfile = ({ match, location }) => {
           .get("/v1/users/getByUserNamePro/" + windowLocationName)
           .then((response) => {
             let data = response.data[0];
+
+            // redirect to profile if user clicks on own userName
+            if (data._id == localStorage.getItem("USER_ID")) {
+              history.push("/ProProfile");
+            }
+
             setImage(data.picture);
             setFollowings(data.followings);
             setFollowers(data.followers);
@@ -102,16 +108,15 @@ export const ProProfile = ({ match, location }) => {
             );
 
             // check if already following
-            for (const follower of data.followers) {
-              if (follower.id == localStorage.getItem("USER_ID")) {
-                setIsFollowing(true);
-              }
-            }
-
-            // redirect to profile if user clicks on own userName
-            if (data._id == localStorage.getItem("USER_ID")) {
-              history.push("/ProProfile");
-            }
+            axios
+              .get(
+                `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
+                  data._id
+                }`
+              )
+              .then((res) => {
+                setIsFollowing(res.data.isFollowing);
+              });
 
             setIsLoading(false);
           });
@@ -130,52 +135,6 @@ export const ProProfile = ({ match, location }) => {
       }
     });
   }, []);
-
-  // handle follow
-  useDidMountEffect(() => {
-    // update other user followers
-    if (isFollowing == true) {
-      axios
-        .put("/v1/users/pushFollowers/" + userId, {
-          id: localStorage.getItem("USER_ID"),
-          userName: localStorage.getItem("USER_NAME"),
-          picture: localStorage.getItem("PICTURE"),
-        })
-        .then((response) => {
-          console.log(response);
-        });
-      // update personal followings
-      axios
-        .put("/v1/users/pushFollowings/" + localStorage.getItem("USER_ID"), {
-          id: userId,
-          userName: username,
-          picture: image,
-        })
-        .then((response) => {
-          console.log(response);
-        });
-    } else if (isFollowing == false) {
-      axios
-        .put("/v1/users/pullFollowers/" + userId, {
-          id: localStorage.getItem("USER_ID"),
-          userName: localStorage.getItem("USER_NAME"),
-          picture: localStorage.getItem("PICTURE"),
-        })
-        .then((response) => {
-          console.log(response);
-        });
-      // update personal followings
-      axios
-        .put("/v1/users/pullFollowings/" + localStorage.getItem("USER_ID"), {
-          id: userId,
-          userName: username,
-          picture: image,
-        })
-        .then((response) => {
-          console.log(response);
-        });
-    }
-  }, [likeButtonToggle]);
 
   const handleChangeView = (i) => {
     if (scrollView) {
@@ -217,16 +176,17 @@ export const ProProfile = ({ match, location }) => {
 
   const handleFollow = (i) => {
     if (localStorage.getItem("USER_ID")) {
-      setFollowers((prevState) => [
-        ...prevState,
-        {
-          id: localStorage.getItem("USER_ID"),
-          userName: localStorage.getItem("USER_NAME"),
-          picture: localStorage.getItem("PICTURE"),
-        },
-      ]);
       setIsFollowing(true);
       setLikeButtonToggle(!likeButtonToggle);
+
+      axios
+        .post("/v1/follow/followUser", {
+          followerId: localStorage.getItem("USER_ID"),
+          followingId: userId,
+        })
+        .then(() => {
+          console.log("followed");
+        });
     } else {
       setLoginCheck(true);
     }
@@ -234,9 +194,17 @@ export const ProProfile = ({ match, location }) => {
 
   const handleUnfollow = (i) => {
     if (localStorage.getItem("USER_ID")) {
-      setFollowers(followers.slice(0, followers.length - 1));
       setIsFollowing(false);
       setLikeButtonToggle(!likeButtonToggle);
+
+      axios
+        .post("/v1/follow/unfollowUser", {
+          followerId: localStorage.getItem("USER_ID"),
+          followingId: userId,
+        })
+        .then(() => {
+          console.log("unfollowed");
+        });
     } else {
       setLoginCheck(true);
     }

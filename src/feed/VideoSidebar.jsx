@@ -97,19 +97,14 @@ function VideoSidebar({
   };
 
   useEffect(() => {
-    if (
-      profileFeedType == "videoIndividual" ||
-      profileFeedType == "historyVideos"
-    ) {
-      if (
-        userInfo &&
-        userInfo.likedVideos &&
-        userInfo.likedVideos.includes(id)
-      ) {
-        setLiked(true);
-      }
-    }
-  }, [userInfo]);
+    axios
+      .get(
+        `/v1/likesForVideos/isLiked/${localStorage.getItem("USER_ID")}/${id}`
+      )
+      .then((res) => {
+        setLiked(res.data.isLiked);
+      });
+  }, []);
 
   const [videoLink, setVideoLink] = useState("");
   useEffect(() => {
@@ -122,10 +117,11 @@ function VideoSidebar({
 
   const handleLikeButtonClicked = (likeOrUnlike) => {
     if (likeOrUnlike == "like") {
-      axios.put(
-        "/v1/users/pushUserFavourites/" + localStorage.getItem("USER_ID"),
-        { videoId: id }
-      );
+      axios.post("/v1/likesForVideos/like", {
+        likerId: localStorage.getItem("USER_ID"),
+        videoId: id,
+      });
+
       setLiked(true);
 
       // for notification prompting
@@ -134,38 +130,51 @@ function VideoSidebar({
         setPromptType("like");
       }
 
+      // to be deprecated
+      axios.put(
+        "/v1/users/pushUserFavourites/" + localStorage.getItem("USER_ID"),
+        { videoId: id }
+      );
+
       // push video from history to saved
       if (profileFeedType == "historyVideos") {
         setLikedVideoIds((prevState) => [id, ...prevState]);
       }
     } else if (likeOrUnlike == "unlike") {
+      axios.post("/v1/likesForVideos/unlike", {
+        likerId: localStorage.getItem("USER_ID"),
+        videoId: id,
+      });
+
+      setLiked(false);
+
+      // to be deprecated
       axios.put(
         "/v1/users/pullUserFavourites/" + localStorage.getItem("USER_ID"),
         { videoId: id }
       );
-      setLiked(false);
     }
   };
 
   // for likeing when double tapped
-  useDidMountEffect(() => {
-    axios.put(
-      "/v1/users/pushUserFavourites/" + localStorage.getItem("USER_ID"),
-      { videoId: id }
-    );
-    setLiked(true);
+  // useDidMountEffect(() => {
+  //   axios.put(
+  //     "/v1/users/pushUserFavourites/" + localStorage.getItem("USER_ID"),
+  //     { videoId: id }
+  //   );
+  //   setLiked(true);
 
-    // for notification prompting
-    if (profileFeedType != "videoIndividual") {
-      setNotifPrompt(true);
-      setPromptType("like");
-    }
+  //   // for notification prompting
+  //   if (profileFeedType != "videoIndividual") {
+  //     setNotifPrompt(true);
+  //     setPromptType("like");
+  //   }
 
-    // push video from history to saved
-    if (profileFeedType == "historyVideos") {
-      setLikedVideoIds((prevState) => [id, ...prevState]);
-    }
-  }, [doubleTapped]);
+  //   // push video from history to saved
+  //   if (profileFeedType == "historyVideos") {
+  //     setLikedVideoIds((prevState) => [id, ...prevState]);
+  //   }
+  // }, [doubleTapped]);
 
   return (
     <div className="videoSidebar">
