@@ -51,7 +51,7 @@ const assets = [
   "https://dciv99su0d7r5.cloudfront.net/Avenir-Black.otf",
   "https://dciv99su0d7r5.cloudfront.net/Poppins-Regular.otf",
   "https://dciv99su0d7r5.cloudfront.net/computer_no_bg.png",
-  "https://dciv99su0d7r5.cloudfront.net/locoQR.png",
+  "https://dciv99su0d7r5.cloudfront.net/vosh_qr.png",
   "/favicon.ico",
   "/icon-192x192.png",
   "/icon-512x512.png",

@@ -67,7 +67,7 @@ const assets = [
   "https://dciv99su0d7r5.cloudfront.net/profile_pic_loco_7.png",
   "https://dciv99su0d7r5.cloudfront.net/profile_pic_loco_8.png",
   "https://dciv99su0d7r5.cloudfront.net/computer_no_bg.png",
-  "https://dciv99su0d7r5.cloudfront.net/locoQR.png",
+  "https://dciv99su0d7r5.cloudfront.net/vosh_qr.png",
 ];
 
 function addToCache(event) {

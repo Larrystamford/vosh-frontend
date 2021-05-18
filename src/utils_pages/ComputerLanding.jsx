@@ -19,7 +19,7 @@ export const ComputerLanding = ({ }) => {
 
             <div className="computer_QrWrapper">
             <img
-              src="https://dciv99su0d7r5.cloudfront.net/locoQR.png"
+              src="https://dciv99su0d7r5.cloudfront.net/vosh_qr.png"
               alt="qr_code"
               style={{ height: 150 }}
 
