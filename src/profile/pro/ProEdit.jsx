@@ -21,6 +21,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
+
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Snackbar } from "@material-ui/core";
 
 import axios from "../../axios";
 
@@ -198,6 +202,12 @@ export const ProEdit = () => {
     }
   }, [openCategories]);
 
+  const [shareStatus, setShareStatus] = useState(false);
+  const handleShareClicked = () => {
+    setShareStatus(true);
+    setTimeout(() => setShareStatus(false), 1300);
+  };
+
   return (
     <div className="SlidingEdit_Body">
       <div className="SlidingEdit_Header">
@@ -222,6 +232,21 @@ export const ProEdit = () => {
       </div>
 
       <div className="SlidingEdit_Pannels_Wrapper">
+        <CopyToClipboard
+          text={"vosh.club/" + localStorage.getItem("USER_NAME")}
+        >
+          <div className="SlidingEdit_Pannel" onClick={handleShareClicked}>
+            <div className="SlidingEdit_TypeLeft">
+              <ReplyOutlinedIcon style={{ fontSize: 20 }} />
+            </div>
+            <div className="SlidingEdit_TypeAndIcon">
+              <p>Get Sharable Link</p>
+              <ArrowForwardIosOutlinedIcon
+                style={{ fontSize: 12, marginLeft: "1rem" }}
+              />
+            </div>
+          </div>
+        </CopyToClipboard>
         <div
           className="SlidingEdit_Pannel"
           onClick={() => {
@@ -362,6 +387,7 @@ export const ProEdit = () => {
             />
           </div>
         </div>
+        <div className="SlidingEdit_Pannel" id="SlidingEdit_Pannel_empty"></div>
       </div>
 
       <SlidingSocials
@@ -382,6 +408,11 @@ export const ProEdit = () => {
         setProCategories={setProCategories}
       />
 
+      <Snackbar
+        open={shareStatus}
+        message="Sharable link copied!"
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
 
       {showNotif && <SimpleBottomNotification message={showNotif} />}
     </div>

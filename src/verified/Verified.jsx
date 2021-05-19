@@ -111,7 +111,7 @@ export const Verified = () => {
   const [focused3, setFocused3] = useState(false);
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setValues({ ...values, [prop]: event.target.value.toLowerCase() });
   };
 
   const checkUserName = async () => {
@@ -122,12 +122,12 @@ export const Verified = () => {
     }
 
     for (const restrictedName of restrictedNames) {
-      if (values.username == restrictedName) {
+      if (values.username == restrictedName.toLowerCase()) {
         return false;
       }
     }
 
-    if (values.username == localStorage.getItem("USER_NAME")) {
+    if (values.username == localStorage.getItem("USER_NAME").toLowerCase()) {
       return true;
     }
 

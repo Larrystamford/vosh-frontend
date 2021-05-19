@@ -14,11 +14,6 @@ export const PageNoExist = (props) => {
       }}
     >
       <div className="landing_WelcomeMessageWrapper">
-        <img
-          src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
-          alt="loco logo"
-          style={{ height: 60 }}
-        />
         <p className="landing_WelcomeWord">Nothing Here</p>
         <p className="landing_WelcomeText">
           Look's like this page does not exist

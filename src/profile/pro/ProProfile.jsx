@@ -12,9 +12,6 @@ import { Snackbar } from "@material-ui/core";
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
 import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
-import { ProfileFeed } from "../../feed/ProfileFeed";
-import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
-import CreateIcon from "@material-ui/icons/Create";
 import * as legoData from "../../components/lego-loader";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 
@@ -303,7 +300,7 @@ export const ProProfile = ({ match, location }) => {
               </div>
 
               <div className="pro_profile_top_follow">
-                <CopyToClipboard text={"https://vosh.club/" + username}>
+                <CopyToClipboard text={"vosh.club/" + username}>
                   {isFollowing ? (
                     <div
                       className="pro_profile_top_following_button"
@@ -564,7 +561,9 @@ export const ProProfile = ({ match, location }) => {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       />
 
-      <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
+      {loginCheck && (
+        <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
+      )}
     </div>
   );
 };

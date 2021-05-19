@@ -3,7 +3,6 @@ import "./Comments.css";
 import { useGlobalState } from "../GlobalStates";
 import { useWindowSize } from "../customHooks/useWindowSize";
 
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import { CommentRow } from "./CommentRow";
 import { ReviewRow } from "./ReviewRow";
 

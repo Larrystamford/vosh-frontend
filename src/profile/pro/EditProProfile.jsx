@@ -54,13 +54,14 @@ export const EditProProfile = ({ match, location }) => {
   const [likeButtonToggle, setLikeButtonToggle] = useState(false);
 
   // login in functions
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [loginCheck, setLoginCheck] = useState(true);
   const handleLoginOpen = () => {
     setLoginCheck(true);
   };
   const handleLoginClose = () => {
     setLoginCheck(false);
+    history.push("/profile");
   };
 
   // change profile picture
@@ -94,7 +95,6 @@ export const EditProProfile = ({ match, location }) => {
   };
 
   // load data
-  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -129,8 +129,6 @@ export const EditProProfile = ({ match, location }) => {
 
         setIsLoading(false);
       });
-    } else {
-      setIsLoggedIn(false);
     }
 
     PageView();
@@ -475,7 +473,7 @@ export const EditProProfile = ({ match, location }) => {
         )}
       </div>
 
-      {isLoggedIn ? null : (
+      {localStorage.getItem("USER_ID") ? null : (
         <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
       )}
 

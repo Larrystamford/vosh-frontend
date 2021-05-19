@@ -71,7 +71,7 @@ export const InstantGoBrowser = ({
               </div>
               <div className="PWA_Not_Safari_Buttons">
                 <CopyToClipboard
-                  text={"https://vosh.club/video/" + videoId}
+                  text={"vosh.club/video/" + videoId}
                 >
                   <div className="PWA_close_button">
                     <Button

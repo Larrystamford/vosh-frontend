@@ -67,7 +67,7 @@ export const InstantGoSecondBrowser = ({ openGoBrowser, setOpenGoBrowser }) => {
               </div>
 
               <div className="PWA_Not_Safari_Buttons">
-                <CopyToClipboard text={"www.vosh.club"}>
+                <CopyToClipboard text={"vosh.club"}>
                   <div className="PWA_close_button">
                     <Button
                       style={{
