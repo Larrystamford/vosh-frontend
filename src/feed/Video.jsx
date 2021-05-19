@@ -283,7 +283,6 @@ function Video({
                 playPromise
                   .then(function () {
                     videoRef.current.pause();
-                    setLoading(false);
                     setPlaying(false);
                     // setTimeout(() => setBigButton(false), 4000);
                   })
@@ -293,7 +292,6 @@ function Video({
                     );
                     setPlayingForButton(false);
                     setPlaying(false);
-                    setLoading(false);
 
                     // setTimeout(() => setBigButton(false), 4000);
 
@@ -393,7 +391,7 @@ function Video({
 
   useEffect(() => {
     if (videoRef.current) {
-      if (videoRef.current.readyState < 3) {
+      if (videoRef.current.readyState < 4) {
         setLoading(true);
       } else {
         setLoading(false);
