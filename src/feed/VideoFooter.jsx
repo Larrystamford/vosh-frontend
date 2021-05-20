@@ -153,11 +153,14 @@ function VideoFooter({
   }, []);
 
   const hasProductImages = (products) => {
-    for (const product of products) {
-      if (product.itemImage) {
-        return true;
+    if (products) {
+      for (const product of products) {
+        if (product.itemImage) {
+          return true;
+        }
       }
     }
+
     return false;
   };
 
