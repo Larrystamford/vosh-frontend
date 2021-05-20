@@ -22,6 +22,12 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+
+import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -36,9 +42,13 @@ function Draggable_Item({
   index,
   setOpenCancel,
   handleSelectDeleteItem,
+  inputValues,
   setInputValues,
   setOpenLinkEdit,
   setEditingIndex,
+  itemImage,
+  setItemImage,
+  setOpenEditImage,
 }) {
   return (
     <Draggable draggableId={item.id} index={index}>
@@ -52,7 +62,20 @@ function Draggable_Item({
           <div className="Draggable_Icon_Wrap">
             <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
-          <div className="SlidingEdit_TypeLeft"></div>
+          <div className="SlidingEdit_TypeLeft">
+            {item.itemImage ? (
+              <div className="pro_profile_icon_and_name">
+                <img
+                  className="SlidingEdit_TypeLeft_Image_Placeholder"
+                  src={item.itemImage}
+                />
+              </div>
+            ) : (
+              <div className="SlidingEdit_TypeLeft_Image_Placeholder">
+                <p style={{ fontSize: 7 }}>No Image</p>
+              </div>
+            )}
+          </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p className="Draggable_Link_Item_Content_2">{item.itemLinkName}</p>
 
@@ -60,9 +83,11 @@ function Draggable_Item({
               style={{ fontSize: 22, marginLeft: "0.5rem" }}
               onClick={() => {
                 setEditingIndex(index);
+                // temp inputs for editing
                 setInputValues({
                   itemLink: item.itemLink,
                   itemLinkName: item.itemLinkName,
+                  itemImage: item.itemImage,
                 });
                 setOpenLinkEdit(true);
               }}
@@ -85,9 +110,11 @@ const DraggableList = React.memo(function DraggableList({
   items,
   setOpenCancel,
   handleSelectDeleteItem,
+  inputValues,
   setInputValues,
   setOpenLinkEdit,
   setEditingIndex,
+  setOpenEditImage,
 }) {
   return items.map((item, index) => (
     <Draggable_Item
@@ -96,9 +123,11 @@ const DraggableList = React.memo(function DraggableList({
       key={item.id}
       setOpenCancel={setOpenCancel}
       handleSelectDeleteItem={handleSelectDeleteItem}
+      inputValues={inputValues}
       setInputValues={setInputValues}
       setOpenLinkEdit={setOpenLinkEdit}
       setEditingIndex={setEditingIndex}
+      setOpenEditImage={setOpenEditImage}
     />
   ));
 });
@@ -145,6 +174,8 @@ export const SlidingItemLinks = ({
     setOpenLinkEdit(false);
   };
 
+  const [openEditImage, setOpenEditImage] = useState(false);
+
   const [openLinkPrevious, setOpenLinkPrevious] = useState(false);
 
   const [affiliateGroupName, setAffiliateGroupName] = useState(
@@ -155,7 +186,9 @@ export const SlidingItemLinks = ({
   const [inputValues, setInputValues] = useState({
     itemLink: "",
     itemLinkName: "",
+    itemImage: "",
   });
+
   const [editingIndex, setEditingIndex] = useState(false);
 
   const [deleteIndex, setDeleteIndex] = useState("");
@@ -225,9 +258,11 @@ export const SlidingItemLinks = ({
                   items={itemLinks.items}
                   setOpenCancel={setOpenCancel}
                   handleSelectDeleteItem={handleSelectDeleteItem}
+                  inputValues={inputValues}
                   setInputValues={setInputValues}
                   setOpenLinkEdit={setOpenLinkEdit}
                   setEditingIndex={setEditingIndex}
+                  setOpenEditImage={setOpenEditImage}
                 />
                 {provided.placeholder}
               </div>
@@ -238,7 +273,7 @@ export const SlidingItemLinks = ({
           className="SlidingEdit_AddNewLink"
           onClick={() => {
             setEditingIndex(-1);
-            setInputValues({ itemLink: "", itemLinkName: "" });
+            setInputValues({ itemLink: "", itemLinkName: "", itemImage: "" });
             setOpenLinkEdit(true);
           }}
         >
@@ -293,3 +328,13 @@ export const SlidingItemLinks = ({
 // <div className="product_linking_group_name">
 // Product Links!
 // </div>
+
+// <ImageEdit
+//   inputValues={inputValues}
+//   setInputValues={setInputValues}
+//   openEditImage={openEditImage}
+//   setOpenEditImage={setOpenEditImage}
+//   editingIndex={editingIndex}
+//   linksState={itemLinks} // db items
+//   setLinksState={setItemLinks} // db items
+// />

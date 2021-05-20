@@ -309,6 +309,22 @@ export const ProEdit = () => {
         <div
           className="SlidingEdit_Pannel"
           onClick={() => {
+            history.push("/contentTagging");
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <LoyaltyOutlinedIcon style={{ fontSize: 20 }} />
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Content Tagging</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
             history.push("/theme");
           }}
         >
@@ -328,22 +344,6 @@ export const ProEdit = () => {
           </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p>Categories</p>
-            <ArrowForwardIosOutlinedIcon
-              style={{ fontSize: 12, marginLeft: "1rem" }}
-            />
-          </div>
-        </div>
-        <div
-          className="SlidingEdit_Pannel"
-          onClick={() => {
-            history.push("/contentTagging");
-          }}
-        >
-          <div className="SlidingEdit_TypeLeft">
-            <LoyaltyOutlinedIcon style={{ fontSize: 20 }} />
-          </div>
-          <div className="SlidingEdit_TypeAndIcon">
-            <p>Content Tagging</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />

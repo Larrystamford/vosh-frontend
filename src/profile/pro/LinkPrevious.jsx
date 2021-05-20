@@ -63,14 +63,15 @@ export const LinkPrevious = ({
   // setOpenLinkEdit(false);
   // };
 
-  const handleSelectedLink = (id, itemLink, itemLinkName) => {
+  const handleSelectedLink = (id, itemLink, itemLinkName, itemImage) => {
     setLinksState((prevState) => ({
       items: [
         ...prevState["items"],
         {
-          id: id + new Date().getTime(),
+          id: itemLink + new Date().getTime(),
           itemLink: itemLink,
           itemLinkName: itemLinkName,
+          itemImage: itemImage,
         },
       ],
     }));
@@ -81,13 +82,38 @@ export const LinkPrevious = ({
       <DialogContent>
         <DialogContentText>Select Previous Products</DialogContentText>
         {previousLinks
-          .filter((v, i, a) => a.findIndex((t) => t.itemLinkName === v.itemLinkName) === i)
-          .map(({ id, itemLink, itemLinkName }) => (
+          .filter(
+            (v, i, a) =>
+              a.findIndex((t) => t.itemLinkName === v.itemLinkName) === i
+          )
+          .map(({ id, itemLink, itemLinkName, itemImage }) => (
             <div
               className="Link_Previous_Content_Box"
-              onClick={() => handleSelectedLink(id, itemLink, itemLinkName)}
+              onClick={() =>
+                handleSelectedLink(id, itemLink, itemLinkName, itemImage)
+              }
             >
-              {itemLinkName}
+              {itemImage ? (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    width: "95%",
+                  }}
+                >
+                  <img
+                    className="SlidingEdit_TypeLeft_Image_Placeholder"
+                    src={itemImage}
+                    style={{ margin: "5px 20px 5px 10px" }}
+                  />
+
+                  <p style={{ minWidth: "70%" }}>{itemLinkName}</p>
+                </div>
+              ) : (
+                <p>{itemLinkName}</p>
+              )}
             </div>
           ))}
       </DialogContent>

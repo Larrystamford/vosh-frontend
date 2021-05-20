@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import OnImagesLoaded from "react-on-images-loaded";
 
-export const ImageLoad = ({ src, className, style, onClick }) => {
+export const ImageLoadWithFade = ({
+  src,
+  className,
+  style,
+  onClick,
+  fadeIn,
+  setFadeIn,
+}) => {
   const [showImage, setShowImage] = useState(false);
 
   return (
@@ -12,7 +19,7 @@ export const ImageLoad = ({ src, className, style, onClick }) => {
     >
       <img
         style={{
-          opacity: showImage ? 1 : 0,
+          opacity: showImage && fadeIn ? 1 : 0,
           transition: "all 1s",
           ...style,
         }}

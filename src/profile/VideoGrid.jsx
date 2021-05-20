@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 
 import "./VideoGrid.css";
@@ -7,6 +7,7 @@ import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 
 import { DisplayPreviewFile } from "./DisplayPreviewFile";
+import { ProductImagesCarousel } from "../components/ProductImagesCarousel";
 import { useHistory } from "react-router";
 
 import OnImagesLoaded from "react-on-images-loaded";
@@ -52,6 +53,15 @@ export const VideoGrid = ({
     );
   }
 
+  const hasProductImages = (products) => {
+    for (const product of products) {
+      if (product.itemImage) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="profile_bottom_container">
       <div className="profile_bottom_grid">
@@ -60,13 +70,21 @@ export const VideoGrid = ({
             className="profile_bottom_grid_video"
             style={{ position: "relative" }}
           >
-            <LocalMallIcon
-              className="profile_bottom_imageOrVideoIcon"
-              style={{
-                opacity: 0.9,
-                zIndex: 2000,
-              }}
-            />
+            {hasProductImages(eachVideo.affiliateProducts) ? (
+              <ProductImagesCarousel
+                affiliateProducts={eachVideo.affiliateProducts}
+                className="profile_bottom_productImages"
+              />
+            ) : (
+              <LocalMallIcon
+                className="profile_bottom_imageOrVideoIcon"
+                style={{
+                  opacity: 0.9,
+                  zIndex: 2000,
+                }}
+              />
+            )}
+
             <DisplayPreviewFile
               mediaType={eachVideo.mediaType}
               url={eachVideo.url}

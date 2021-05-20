@@ -92,9 +92,9 @@ const StayLoginFormPage = (props) => {
             processingTikToksStartTime: new Date().getTime(),
             proTheme: {
               background1:
-                "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+                "https://dciv99su0d7r5.cloudfront.net/PaddlePop.jpg",
               background2:
-                "https://dciv99su0d7r5.cloudfront.net/grey-marble_background.jpg",
+                "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
             },
           })
           .then((res) => {

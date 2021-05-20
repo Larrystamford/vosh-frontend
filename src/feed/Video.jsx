@@ -473,6 +473,7 @@ function Video({
           affiliateGroupName={affiliateGroupName}
           affiliateProducts={affiliateProducts}
           onVideoClick={onVideoClick}
+          onVideoTouch={onVideoTouch}
           proTheme={proTheme}
           smallShopLink={smallShopLink}
           userId={userId}

@@ -88,7 +88,7 @@
 }
 
 .Draggable_Link_Item_Content_2 {
-  max-width: 9rem;
+  max-width: 8rem;
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
@@ -378,6 +378,55 @@
 .bio_chars_and_save > p {
   font-size: 14px;
   color: grey;
+}
+
+.SlidingEdit_TypeLeft_Image_Placeholder {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 4px;
+
+  object-fit: cover;
+  border: 1px solid grey;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SlidingEdit_Big_Image_Wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 90%;
+}
+
+.SlidingEdit_Big_Image_Icons_Wrapper {
+  height: 5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-left: 1rem;
+}
+
+.SlidingEdit_Big_Image_Placeholder {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 6px;
+
+  object-fit: cover;
+  border: 1px solid grey;
+
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* bigger than iphone 5 */

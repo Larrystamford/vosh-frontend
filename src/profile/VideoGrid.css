@@ -43,6 +43,33 @@
   opacity: 100;
 }
 
+.profile_bottom_productImages {
+  opacity: 0.9;
+  z-index: 2000;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: white;
+  opacity: 100;
+
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 4px;
+
+  object-fit: cover;
+}
+
+.profile_bottom_productImages_video {
+  opacity: 1;
+  z-index: 2000;
+
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
 .Video_Grid_redirect_button {
   font-style: italic;
   font-weight: 600;

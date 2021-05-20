@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -9,6 +9,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 import { makeStyles } from "@material-ui/core/styles";
+
+import AddPhotoAlternateOutlinedIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+
+import axios from "../../axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +70,7 @@ export const LinkItemEdit = ({
             id: prevItems[editingIndex].id,
             itemLink: inputValues.itemLink,
             itemLinkName: inputValues.itemLinkName,
+            itemImage: inputValues.itemImage,
           };
           prevItems[editingIndex] = linkEditObj;
 
@@ -75,6 +81,7 @@ export const LinkItemEdit = ({
             id: inputValues.itemLink + new Date().getTime(),
             itemLink: inputValues.itemLink,
             itemLinkName: inputValues.itemLinkName,
+            itemImage: inputValues.itemImage,
           };
 
           setLinksState((prevState) => ({
@@ -91,12 +98,75 @@ export const LinkItemEdit = ({
     }
   };
 
+  // change profile picture
+  const hiddenFileInput = useRef(null);
+  const handleUploadClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+  const handleFileUpload = async (file) => {
+    const mediaType = file.type.split("/")[0];
+    if (mediaType != "image") {
+      alert("Please upload images only");
+    } else {
+      const imageUrl = await getFileUrl(file);
+      // await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      //   picture: imageUrl,
+      // });
+
+      setInputValues({ ...inputValues, itemImage: imageUrl });
+    }
+  };
+  const getFileUrl = async (file) => {
+    let formData = new FormData();
+    formData.append("media", file);
+
+    const result = await axios.post("/v1/upload/aws", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return result.data.url;
+  };
+
   return (
     <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
-          {editingIndex == -1 ? "Add New Product Link" : "Edit Product Link"}
+          {editingIndex == -1 ? "Add New Product" : "Edit Product"}
         </DialogContentText>
+        <div className="SlidingEdit_Big_Image_Wrapper">
+          {inputValues.itemImage ? (
+            <img
+              className="SlidingEdit_Big_Image_Placeholder"
+              src={inputValues.itemImage}
+            />
+          ) : (
+            <div className="SlidingEdit_Big_Image_Placeholder">
+              <p style={{ fontSize: 13, textAlign: "center" }}>
+                Optional Image
+              </p>
+            </div>
+          )}
+
+          <div className="SlidingEdit_Big_Image_Icons_Wrapper">
+            <AddPhotoAlternateOutlinedIcon onClick={handleUploadClick} />
+            <DeleteOutlineOutlinedIcon
+              style={{ marginTop: "15px" }}
+              onClick={() => {
+                setInputValues({ ...inputValues, itemImage: "" });
+              }}
+            />
+            <input
+              ref={hiddenFileInput}
+              type="file"
+              name="file"
+              onChange={(e) => {
+                handleFileUpload(e.target.files[0]);
+              }}
+            />
+          </div>
+        </div>
+
         <TextField
           size={size.height < 580 ? "small" : null}
           label="Product Name"
@@ -130,7 +200,7 @@ export const LinkItemEdit = ({
           Cancel
         </Button>
         <Button onClick={handleLinkEditSave} color="primary">
-          Save
+          Done
         </Button>
       </DialogActions>
     </Dialog>

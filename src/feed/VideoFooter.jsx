@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import Ticker from "react-ticker";
 
+import { ImageLoad } from "../components/ImageLoad";
+import { ProductImagesCarousel } from "../components/ProductImagesCarousel";
+
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 
@@ -42,6 +45,7 @@ function VideoFooter({
   affiliateGroupName,
   affiliateProducts,
   onVideoClick,
+  onVideoTouch,
   proTheme,
   smallShopLink,
   userId,
@@ -148,21 +152,41 @@ function VideoFooter({
     };
   }, []);
 
+  const hasProductImages = (products) => {
+    for (const product of products) {
+      if (product.itemImage) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
-    <div className="videoFooter">
+    <div
+      className="videoFooter"
+      onClick={onVideoClick}
+      onTouchStart={onVideoTouch}
+    >
       <div
         className="videoFooter__button"
         style={bigButton ? { minWidth: "70px" } : null}
         onClick={handleAffiliateOpen}
       >
         <div className="videoFooter_icon_and_name">
-          <LocalMallIcon
-            style={{
-              opacity: 1,
-              fontSize: 17,
-              color: "orange",
-            }}
-          />
+          {hasProductImages(affiliateProducts) ? (
+            <ProductImagesCarousel
+              affiliateProducts={affiliateProducts}
+              className="profile_bottom_productImages_video"
+            />
+          ) : (
+            <LocalMallIcon
+              style={{
+                opacity: 1,
+                fontSize: 17,
+                color: "orange",
+              }}
+            />
+          )}
         </div>
 
         {bigButton ? (
@@ -267,25 +291,54 @@ function VideoFooter({
               }}
             >
               {affiliateGroupName
-                ? affiliateProducts.map((products) => (
+                ? affiliateProducts.map((product) => (
                     <div
                       className="sidebar_amazonlogolink"
-                      style={proTheme.linkBoxColor ? { backgroundColor: proTheme.linkBoxColor } : { backgroundColor: "teal" }}
+                      style={
+                        proTheme.linkBoxColor
+                          ? { backgroundColor: proTheme.linkBoxColor }
+                          : { backgroundColor: "teal" }
+                      }
                       onClick={() => {
                         onVideoClick();
-                        window.open(products.itemLink, "_blank");
+                        window.open(product.itemLink, "_blank");
                         axios.post("/v1/metrics/incrementMetrics", {
                           id: userId,
-                          unqiueIdentifier: products.id,
+                          unqiueIdentifier: product.id,
                         });
 
                         return false;
                       }}
-                      key={products.itemLinkName}
+                      key={product.itemLinkName}
                     >
-                      <p style={{ color: proTheme.linkWordsColor }}>
-                        {products.itemLinkName}
-                      </p>
+                      {product.itemImage ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            width: "95%",
+                          }}
+                        >
+                          <ImageLoad
+                            src={product.itemImage}
+                            className="SlidingEdit_TypeLeft_Image_Placeholder"
+                            style={{ margin: "5px 20px 5px 10px" }}
+                          />
+
+                          <p
+                            style={{
+                              color: proTheme.linkWordsColor,
+                              minWidth: "70%",
+                            }}
+                          >
+                            {product.itemLinkName}
+                          </p>
+                        </div>
+                      ) : (
+                        <p>{product.itemLinkName}</p>
+                      )}
                     </div>
                   ))
                 : amazons.map((amazon) => (
