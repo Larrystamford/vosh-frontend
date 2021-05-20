@@ -89,6 +89,7 @@ export const VideoGrid = ({
               mediaType={eachVideo.mediaType}
               url={eachVideo.url}
               coverImageUrl={eachVideo.coverImageUrl}
+              tiktokCoverImageUrl={eachVideo.tiktokCoverImageUrl}
               onClick={() => handleChangeView(i)}
             />
           </div>

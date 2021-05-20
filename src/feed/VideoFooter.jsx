@@ -165,11 +165,7 @@ function VideoFooter({
   };
 
   return (
-    <div
-      className="videoFooter"
-      onClick={onVideoClick}
-      onTouchStart={onVideoTouch}
-    >
+    <div className="videoFooter">
       <div
         className="videoFooter__button"
         style={bigButton ? { minWidth: "70px" } : null}
@@ -218,10 +214,18 @@ function VideoFooter({
         @{userName}
       </h5>
 
-      <div className="videoFooter_multiline">
+      <div
+        className="videoFooter_multiline"
+        onClick={onVideoClick}
+        onTouchStart={onVideoTouch}
+      >
         <p>{caption}</p>
       </div>
-      <div className="videoFooter_creator">
+      <div
+        className="videoFooter_creator"
+        onClick={onVideoClick}
+        onTouchStart={onVideoTouch}
+      >
         <VideocamIcon fontSize="small" style={{ paddingRight: 5 }} />
         <Ticker mode="smooth" speed={2}>
           {({ index }) => (

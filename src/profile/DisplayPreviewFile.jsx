@@ -9,6 +9,7 @@ export const DisplayPreviewFile = ({
   mediaType,
   url,
   coverImageUrl,
+  tiktokCoverImageUrl,
   onClick,
 }) => {
   const [showImage, setShowImage] = useState(false);
@@ -32,7 +33,7 @@ export const DisplayPreviewFile = ({
               borderRadius: 10,
             }}
             className="profile_bottom_grid_video"
-            src={coverImageUrl}
+            src={tiktokCoverImageUrl ? tiktokCoverImageUrl : coverImageUrl}
           />
         </OnImagesLoaded>
       </div>

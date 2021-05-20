@@ -33,8 +33,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import useOnScreen from "../../customHooks/useOnScreen";
 
 import axios from "../../axios";
-import { Exception } from "../../components/tracking/Tracker";
-import { set } from "react-ga";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +64,7 @@ const displayPreviewFile = (
   mediaType,
   url,
   coverImageUrl,
+  tiktokCoverImageUrl,
   proCategories,
   heartSticker
 ) => {
@@ -83,7 +82,10 @@ const displayPreviewFile = (
         ) : (
           <VideoLibraryIcon className="profile_bottom_imageOrVideoIcon" />
         )}
-        <img className="content_tagging_video_box" src={coverImageUrl} />
+        <img
+          className="content_tagging_video_box"
+          src={tiktokCoverImageUrl ? tiktokCoverImageUrl : coverImageUrl}
+        />
       </div>
     );
   } else if (mediaType == "image") {
@@ -731,6 +733,7 @@ export const ContentTagging = () => {
                     videos[0].mediaType,
                     videos[0].url,
                     videos[0].coverImageUrl,
+                    videos[0].tiktokCoverImageUrl,
                     videos[0].proCategories,
                     heartSticker
                   )}
@@ -752,6 +755,7 @@ export const ContentTagging = () => {
                     eachVideo.mediaType,
                     eachVideo.url,
                     eachVideo.coverImageUrl,
+                    eachVideo.tiktokCoverImageUrl,
                     eachVideo.proCategories,
                     heartSticker
                   )}

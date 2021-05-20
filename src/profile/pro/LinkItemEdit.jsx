@@ -139,9 +139,13 @@ export const LinkItemEdit = ({
             <img
               className="SlidingEdit_Big_Image_Placeholder"
               src={inputValues.itemImage}
+              onClick={handleUploadClick}
             />
           ) : (
-            <div className="SlidingEdit_Big_Image_Placeholder">
+            <div
+              className="SlidingEdit_Big_Image_Placeholder"
+              onClick={handleUploadClick}
+            >
               <p style={{ fontSize: 13, textAlign: "center" }}>
                 Optional Image
               </p>

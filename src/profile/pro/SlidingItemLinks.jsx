@@ -62,7 +62,19 @@ function Draggable_Item({
           <div className="Draggable_Icon_Wrap">
             <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
-          <div className="SlidingEdit_TypeLeft">
+          <div
+            className="SlidingEdit_TypeLeft"
+            onClick={() => {
+              setEditingIndex(index);
+              // temp inputs for editing
+              setInputValues({
+                itemLink: item.itemLink,
+                itemLinkName: item.itemLinkName,
+                itemImage: item.itemImage,
+              });
+              setOpenLinkEdit(true);
+            }}
+          >
             {item.itemImage ? (
               <div className="pro_profile_icon_and_name">
                 <img

@@ -17,7 +17,7 @@ export const ProductImagesCarousel = ({ affiliateProducts, className }) => {
     setDisplayingImage(productImages[imageIndex]);
     setTimeout(() => {
       setFadeIn(false);
-    }, 6000);
+    }, 6400);
   }
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const ProductImagesCarousel = ({ affiliateProducts, className }) => {
     if (productImages.length > 1) {
       setTimeout(() => {
         setFadeIn(false);
-      }, 6000);
+      }, 6400);
 
       setInterval(() => changeImage(productImages), 7000);
     }
