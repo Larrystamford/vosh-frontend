@@ -81,32 +81,29 @@ export const LinkItemEdit = ({
         } else {
           setGettingProductImage(true);
           let webImageLink;
-          try {
-            webImageLink = await axios.post(
-              "/v1/upload/getImageURLByScrapping/",
-              {
-                webLink: inputValues.itemLink,
-              }
-            );
 
-            webImageLink = webImageLink.data.productLink;
-          } catch (e) {
-            webImageLink = "";
-          }
+          axios
+            .post("/v1/upload/getImageURLByScrapping/", {
+              webLink: inputValues.itemLink,
+            })
+            .then((res) => {
+              webImageLink = res.data.productLink;
 
-          const linkObj = {
-            id: inputValues.itemLink + new Date().getTime(),
-            itemLink: inputValues.itemLink,
-            itemLinkName: inputValues.itemLinkName,
-            itemImage: webImageLink,
-          };
+              const linkObj = {
+                id: inputValues.itemLink + new Date().getTime(),
+                itemLink: inputValues.itemLink,
+                itemLinkName: inputValues.itemLinkName,
+                itemImage: webImageLink,
+              };
 
-          setLinksState((prevState) => ({
-            items: [...prevState["items"], linkObj],
-          }));
-          setPreviousLinks((prevState) => [linkObj, ...prevState]);
-          setGettingProductImage(false);
+              setLinksState((prevState) => ({
+                items: [...prevState["items"], linkObj],
+              }));
+              setPreviousLinks((prevState) => [linkObj, ...prevState]);
+              setGettingProductImage(false);
+            });
         }
+
         setOpenLinkEdit(false);
       } else {
         alert("Please include HTTPS:// in your link");
@@ -225,7 +222,7 @@ export const LinkItemEdit = ({
           Cancel
         </Button>
         <Button onClick={handleLinkEditSave} color="primary">
-          {gettingProductImage ? <CircularProgress /> : "Done"}
+          Done
         </Button>
       </DialogActions>
     </Dialog>
