@@ -337,7 +337,7 @@ function VideoFooter({
                           <p
                             style={{
                               color: proTheme.linkWordsColor,
-                              minWidth: "70%",
+                              minWidth: "60%",
                             }}
                           >
                             {product.itemLinkName}

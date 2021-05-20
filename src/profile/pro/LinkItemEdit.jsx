@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import AddPhotoAlternateOutlinedIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "../../axios";
 
@@ -46,6 +47,7 @@ export const LinkItemEdit = ({
   setPreviousLinks,
 }) => {
   const [focused, setFocused] = useState(false);
+  const [gettingProductImage, setGettingProductImage] = useState(false);
 
   const size = useWindowSize();
   const classes = useStyles();
@@ -60,7 +62,7 @@ export const LinkItemEdit = ({
     }
   };
 
-  const handleLinkEditSave = () => {
+  const handleLinkEditSave = async () => {
     if (inputValues.itemLink != "" && inputValues.itemLinkName != "") {
       if (inputValues.itemLink.toLowerCase().includes("http")) {
         if (editingIndex > -1) {
@@ -77,17 +79,33 @@ export const LinkItemEdit = ({
           setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
           setLinksState({ items: prevItems });
         } else {
+          setGettingProductImage(true);
+          let webImageLink;
+          try {
+            webImageLink = await axios.post(
+              "/v1/upload/getImageURLByScrapping/",
+              {
+                webLink: inputValues.itemLink,
+              }
+            );
+
+            webImageLink = webImageLink.data.productLink;
+          } catch (e) {
+            webImageLink = "";
+          }
+
           const linkObj = {
             id: inputValues.itemLink + new Date().getTime(),
             itemLink: inputValues.itemLink,
             itemLinkName: inputValues.itemLinkName,
-            itemImage: inputValues.itemImage,
+            itemImage: webImageLink,
           };
 
           setLinksState((prevState) => ({
             items: [...prevState["items"], linkObj],
           }));
           setPreviousLinks((prevState) => [linkObj, ...prevState]);
+          setGettingProductImage(false);
         }
         setOpenLinkEdit(false);
       } else {
@@ -134,42 +152,45 @@ export const LinkItemEdit = ({
         <DialogContentText>
           {editingIndex == -1 ? "Add New Product" : "Edit Product"}
         </DialogContentText>
-        <div className="SlidingEdit_Big_Image_Wrapper">
-          {inputValues.itemImage ? (
-            <img
-              className="SlidingEdit_Big_Image_Placeholder"
-              src={inputValues.itemImage}
-              onClick={handleUploadClick}
-            />
-          ) : (
-            <div
-              className="SlidingEdit_Big_Image_Placeholder"
-              onClick={handleUploadClick}
-            >
-              <p style={{ fontSize: 13, textAlign: "center" }}>
-                Optional Image
-              </p>
-            </div>
-          )}
 
-          <div className="SlidingEdit_Big_Image_Icons_Wrapper">
-            <AddPhotoAlternateOutlinedIcon onClick={handleUploadClick} />
-            <DeleteOutlineOutlinedIcon
-              style={{ marginTop: "15px" }}
-              onClick={() => {
-                setInputValues({ ...inputValues, itemImage: "" });
-              }}
-            />
-            <input
-              ref={hiddenFileInput}
-              type="file"
-              name="file"
-              onChange={(e) => {
-                handleFileUpload(e.target.files[0]);
-              }}
-            />
+        {editingIndex > -1 && (
+          <div className="SlidingEdit_Big_Image_Wrapper">
+            {inputValues.itemImage ? (
+              <img
+                className="SlidingEdit_Big_Image_Placeholder"
+                src={inputValues.itemImage}
+                onClick={handleUploadClick}
+              />
+            ) : (
+              <div
+                className="SlidingEdit_Big_Image_Placeholder"
+                onClick={handleUploadClick}
+              >
+                <p style={{ fontSize: 13, textAlign: "center" }}>
+                  Optional Image
+                </p>
+              </div>
+            )}
+
+            <div className="SlidingEdit_Big_Image_Icons_Wrapper">
+              <AddPhotoAlternateOutlinedIcon onClick={handleUploadClick} />
+              <DeleteOutlineOutlinedIcon
+                style={{ marginTop: "15px" }}
+                onClick={() => {
+                  setInputValues({ ...inputValues, itemImage: "" });
+                }}
+              />
+              <input
+                ref={hiddenFileInput}
+                type="file"
+                name="file"
+                onChange={(e) => {
+                  handleFileUpload(e.target.files[0]);
+                }}
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <TextField
           size={size.height < 580 ? "small" : null}
@@ -204,7 +225,7 @@ export const LinkItemEdit = ({
           Cancel
         </Button>
         <Button onClick={handleLinkEditSave} color="primary">
-          Done
+          {gettingProductImage ? <CircularProgress /> : "Done"}
         </Button>
       </DialogActions>
     </Dialog>
