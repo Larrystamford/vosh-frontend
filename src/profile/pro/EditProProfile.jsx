@@ -204,7 +204,7 @@ export const EditProProfile = ({ match, location }) => {
       ) : (
         <div
           className="pro_profile_top"
-          style={socialAccounts.length > 5 ? { minHeight: "26rem" } : null}
+          style={socialAccounts.length > 5 ? { minHeight: "25rem" } : null}
         >
           <div className="pro_profile_top_with_left_right">
             <div className="pro_profile_top_left">
