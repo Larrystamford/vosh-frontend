@@ -167,64 +167,72 @@ function VideoFooter({
   return (
     <div className="videoFooter">
       <div
-        className="videoFooter__button"
-        style={bigButton ? { minWidth: "70px" } : null}
-        onClick={handleAffiliateOpen}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          width: "100%",
+        }}
       >
-        <div className="videoFooter_icon_and_name">
-          {hasProductImages(affiliateProducts) ? (
-            <ProductImagesCarousel
-              affiliateProducts={affiliateProducts}
-              className="profile_bottom_productImages_video"
-            />
-          ) : (
-            <LocalMallIcon
-              style={{
-                opacity: 1,
-                fontSize: 17,
-                color: "orange",
-              }}
-            />
-          )}
-        </div>
+        <div
+          className="videoFooter__button"
+          style={bigButton ? { minWidth: "70px" } : null}
+          onClick={handleAffiliateOpen}
+        >
+          <div className="videoFooter_icon_and_name">
+            {hasProductImages(affiliateProducts) ? (
+              <ProductImagesCarousel
+                affiliateProducts={affiliateProducts}
+                className="profile_bottom_productImages_video"
+              />
+            ) : (
+              <LocalMallIcon
+                style={{
+                  opacity: 1,
+                  fontSize: 17,
+                  color: "orange",
+                }}
+              />
+            )}
+          </div>
 
-        {bigButton ? (
-          <p
-            className="videoFooter__button_temp_words"
-            style={{ opacity: 0.9 }}
-          >
-            LINKS
-          </p>
-        ) : null}
+          {bigButton ? (
+            <p
+              className="videoFooter__button_temp_words"
+              style={{ opacity: 0.9 }}
+            >
+              LINKS
+            </p>
+          ) : null}
+        </div>
+        <div
+          id="videoFooter__button_empty_forClick"
+          style={{ width: "70%", height: "2rem" }}
+          onTouchStart={onVideoTouch}
+          onClick={onVideoClick}
+        ></div>
       </div>
 
       <h5
         className="videoFooter_username"
-        onClick={() => {
-          if (!(location == "main feed")) {
-            history.push({
-              pathname: `/${userName}`,
-              state: {
-                showBoughtItems: true,
-              },
-            });
-          }
-        }}
+        onTouchStart={onVideoTouch}
+        onClick={onVideoClick}
       >
         @{userName}
       </h5>
 
       <div
         className="videoFooter_multiline"
-        onClick={onVideoClick}
         onTouchStart={onVideoTouch}
+        onClick={onVideoClick}
       >
         <p>{caption}</p>
       </div>
       <div
         className="videoFooter_creator"
-        onClick={onVideoClick}
         onTouchStart={onVideoTouch}
+        onClick={onVideoClick}
       >
         <VideocamIcon fontSize="small" style={{ paddingRight: 5 }} />
         <Ticker mode="smooth" speed={2}>
@@ -431,3 +439,14 @@ export default VideoFooter;
 //     setOpenSlider={setOpenSlider}
 //   />
 // )}
+
+// onClick={() => {
+//   if (!(location == "main feed")) {
+//     history.push({
+//       pathname: `/${userName}`,
+//       state: {
+//         showBoughtItems: true,
+//       },
+//     });
+//   }
+// }}
