@@ -15,8 +15,8 @@
 
 .landing_body h4 {
   color: white;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
 }
 
 .landing_loading_icons {
@@ -36,7 +36,7 @@
   position: absolute;
 }
 .landing_WelcomeWord {
-  font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
   font-size: 50px;
   width: 100%;

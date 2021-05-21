@@ -37,9 +37,9 @@
   position: absolute;
 }
 .landing_WelcomeWord {
-  font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
+  font-family: Poppins Regular, "Century Gothic", CenturyGothic, AppleGothic,
     sans-serif;
-  font-size: 49px;
+  font-size: 55px;
   width: 100%;
   text-align: center;
   color: white;
