@@ -61,7 +61,7 @@ export const DropDownMenu = ({
         sellerDeliveryStatus: status,
       })
       .then((res) => {
-        if (status == "shipped") {
+        if (status === "shipped") {
           // push notifications to user
           axios.post("/v1/notifications/sendPushNotification/" + buyerId, {
             title: "Your order is on it's way!",
@@ -78,7 +78,7 @@ export const DropDownMenu = ({
             notificationType: "shippingUpdates",
             videoId: videoId,
           });
-        } else if (status == "delivered") {
+        } else if (status === "delivered") {
           // push notifications to user
           axios.post("/v1/notifications/sendPushNotification/" + buyerId, {
             title:
@@ -96,7 +96,7 @@ export const DropDownMenu = ({
             notificationType: "shippingUpdates",
             videoId: videoId,
           });
-        } else if (status == "refunded") {
+        } else if (status === "refunded") {
           // push notifications to user
           axios.post("/v1/notifications/sendPushNotification/" + buyerId, {
             title:

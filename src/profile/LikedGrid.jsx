@@ -28,7 +28,7 @@ export const LikedGrid = ({
     }
   }, [likedVideoIds]);
   const displayPreviewFile = (mediaType, url, coverImageUrl) => {
-    if (mediaType == "video") {
+    if (mediaType === "video") {
       return (
         <div
           className="profile_bottom_grid_video"
@@ -38,7 +38,7 @@ export const LikedGrid = ({
           <img className="profile_bottom_grid_video" src={coverImageUrl} />
         </div>
       );
-    } else if (mediaType == "image") {
+    } else if (mediaType === "image") {
       return (
         <div
           className="profile_bottom_grid_video"
@@ -51,7 +51,7 @@ export const LikedGrid = ({
     }
   };
 
-  if (likedVideos.length == 0) {
+  if (likedVideos.length === 0) {
     return (
       <div className="Purchases_NoInfo">
         <p>Like away!</p>

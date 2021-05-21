@@ -48,14 +48,14 @@ export const CommentRow = ({
   // }, [commentsLength]);
 
   const handleLikeButtonClicked = (likeOrUnlike) => {
-    if (likeOrUnlike == "like") {
+    if (likeOrUnlike === "like") {
       axios.put(
         "/v1/comment/pushUserCommentFavourites/" +
           localStorage.getItem("USER_ID"),
         { commentId: _id }
       );
       setLiked(true);
-    } else if (likeOrUnlike == "unlike") {
+    } else if (likeOrUnlike === "unlike") {
       axios.put(
         "/v1/comment/pullUserCommentFavourites/" +
           localStorage.getItem("USER_ID"),
@@ -66,14 +66,14 @@ export const CommentRow = ({
   };
 
   const handleSubLikeButtonClicked = (likeOrUnlike) => {
-    if (likeOrUnlike == "like") {
+    if (likeOrUnlike === "like") {
       axios.put(
         "/v1/comment/pushUserCommentFavourites/" +
           localStorage.getItem("USER_ID"),
         { commentId: _id }
       );
       setSubLiked(true);
-    } else if (likeOrUnlike == "unlike") {
+    } else if (likeOrUnlike === "unlike") {
       axios.put(
         "/v1/comment/pullUserCommentFavourites/" +
           localStorage.getItem("USER_ID"),

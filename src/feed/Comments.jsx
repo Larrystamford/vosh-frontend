@@ -232,7 +232,7 @@ export const Comments = (props) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSendMessage(e);
       return false;
@@ -271,7 +271,7 @@ export const Comments = (props) => {
             <p onClick={() => setReviewOrComment("comment")}>Comments</p>
           </div>
 
-          {reviewOrComment == "comment" && (
+          {reviewOrComment === "comment" && (
             <>
               <div className="comments_box">
                 {comments.map(
@@ -339,7 +339,7 @@ export const Comments = (props) => {
                         setKeyboard(true);
                       }}
                       onBlur={() => {
-                        if (input.length == 0) {
+                        if (input.length === 0) {
                           setCommentUserName("");
                           setCommentUserId("");
                           setCommentId("");

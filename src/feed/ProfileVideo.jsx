@@ -91,7 +91,7 @@ function ProfileVideo({
       !videoRef.current.paused &&
       playing &&
       !justUnpaused &&
-      mediaType == "video" &&
+      mediaType === "video" &&
       videoRef.current.readyState > 2
     ) {
       videoRef.current.pause();
@@ -148,8 +148,8 @@ function ProfileVideo({
       setJustUnpaused(true);
 
       // add index 0 video to watched
-      if (index == 0) {
-        if (loggedInUserId && location == "main feed") {
+      if (index === 0) {
+        if (loggedInUserId && location === "main feed") {
           axios.put("/v1/users/pushVideoSeen/" + loggedInUserId, {
             videoId: id,
             category: selectCategory,
@@ -215,7 +215,7 @@ function ProfileVideo({
     setFixHeight(size.height);
     setFixWidth(size.width);
 
-    if (index == 0) {
+    if (index === 0) {
       setPlayingForButton(false);
     }
   }, []);
@@ -228,7 +228,7 @@ function ProfileVideo({
           setCurrentIndex(index);
           // add video to watched if its playing
           if (index != 0) {
-            if (loggedInUserId && location == "main feed") {
+            if (loggedInUserId && location === "main feed") {
               axios.put("/v1/users/pushVideoSeen/" + loggedInUserId, {
                 videoId: id,
                 category: selectCategory,
@@ -398,10 +398,10 @@ function ProfileVideo({
 
   useDidMountEffect(() => {
     if (
-      openAmazon == false &&
-      commentsOpen == false &&
-      openSlider == false &&
-      buyOpen == false
+      openAmazon === false &&
+      commentsOpen === false &&
+      openSlider === false &&
+      buyOpen === false
     ) {
       setGlobalModalOpened(false);
     }
@@ -415,11 +415,11 @@ function ProfileVideo({
       ref={ref}
       {...bind}
     >
-      {mediaType == "video" ? (
+      {mediaType === "video" ? (
         <video
           id="demo"
           style={keyboard ? { height: fixHeight, width: fixWidth } : null}
-          muted={playing || index == currentIndex ? false : isMuted}
+          muted={playing || index === currentIndex ? false : isMuted}
           playsInline
           className="video__player"
           loop
@@ -501,7 +501,7 @@ function ProfileVideo({
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       />
 
-      {!playingForButton && mediaType == "video" && !loading ? (
+      {!playingForButton && mediaType === "video" && !loading ? (
         <PlayArrowIcon
           onClick={onVideoClick}
           onTouchStart={onVideoTouch}
@@ -519,7 +519,7 @@ function ProfileVideo({
         />
       ) : null}
 
-      {loading && mediaType == "video" ? (
+      {loading && mediaType === "video" ? (
         <ColoredLinearProgress
           style={
             size.height / size.width > 2
@@ -539,9 +539,9 @@ function ProfileVideo({
         />
       ) : null}
 
-      {hand && location == "main feed" ? <SwipeUp /> : null}
+      {hand && location === "main feed" ? <SwipeUp /> : null}
 
-      {index == videoLength - 1 ? (
+      {index === videoLength - 1 ? (
         <div
           style={{
             display: "flex",

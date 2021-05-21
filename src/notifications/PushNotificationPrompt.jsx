@@ -26,13 +26,13 @@ export const PushNotificationPrompt = ({
   const PromptText = () => {
     let text = "Vosh would like to send you notifications";
 
-    if (promptType == "comments") {
+    if (promptType === "comments") {
       text =
         "By allowing notifications, we can let you know when other users reply to your comments.";
-    } else if (promptType == "like") {
+    } else if (promptType === "like") {
       text =
         "Enjoying Vosh? Be the first to know when new videos like this are uploaded!";
-    } else if (promptType == "purchased") {
+    } else if (promptType === "purchased") {
       text = "Get real-time delivery information by allowing notifications.";
     }
     return (
@@ -45,7 +45,7 @@ export const PushNotificationPrompt = ({
   if (
     isConsentGranted ||
     !pushNotificationSupported ||
-    localStorage.getItem("PUSH_BLOCKED") == "true" ||
+    localStorage.getItem("PUSH_BLOCKED") === "true" ||
     !localStorage.getItem("USER_ID")
   ) {
     return <></>;

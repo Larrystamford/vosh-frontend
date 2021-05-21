@@ -34,21 +34,21 @@ export const HistoryGrid = ({
   };
 
   useEffect(() => {
-    if (seenVideos.length == 0) {
+    if (seenVideos.length === 0) {
       setIsFetching(true);
       getHistoryFeed();
     }
   }, []);
 
   useDidMountEffect(() => {
-    if (historyRef.current.end == false) {
+    if (historyRef.current.end === false) {
       setIsFetching(true);
       getHistoryFeed();
     }
   }, [scrolledBottomCount]);
 
   const displayPreviewFile = (mediaType, url, coverImageUrl) => {
-    if (mediaType == "video") {
+    if (mediaType === "video") {
       return (
         <div
           className="profile_bottom_grid_video"
@@ -58,7 +58,7 @@ export const HistoryGrid = ({
           <img className="profile_bottom_grid_video" src={coverImageUrl} />
         </div>
       );
-    } else if (mediaType == "image") {
+    } else if (mediaType === "image") {
       return (
         <div
           className="profile_bottom_grid_video"
@@ -71,7 +71,7 @@ export const HistoryGrid = ({
     }
   };
 
-  if (seenVideos.length == 0) {
+  if (seenVideos.length === 0) {
     return (
       <div className="Purchases_NoInfo">
         <p>

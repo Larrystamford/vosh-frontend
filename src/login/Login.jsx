@@ -102,7 +102,7 @@ const Login = (props) => {
   const onSubmitSignUp = async () => {
     if (!validateEmail(values.email)) {
       alert("Please enter a valid email address");
-    } else if (values.email == "" || values.password == "") {
+    } else if (values.email === "" || values.password === "") {
       alert("Empty fields are not allowed");
     } else {
       if (signUp) {
@@ -133,7 +133,7 @@ const Login = (props) => {
       fromPath = "";
     }
 
-    if (props.errorMessage == "nil") {
+    if (props.errorMessage === "nil") {
       if (fromPath) {
         history.push({
           pathname: fromPath,

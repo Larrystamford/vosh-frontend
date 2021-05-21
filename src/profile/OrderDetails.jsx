@@ -127,9 +127,9 @@ export const OrderDetails = ({
                   <TimelineSeparator>
                     <TimelineDot
                       style={
-                        buyerDeliveryStatus == "ordered" ||
-                        buyerDeliveryStatus == "shipped" ||
-                        buyerDeliveryStatus == "delivered"
+                        buyerDeliveryStatus === "ordered" ||
+                        buyerDeliveryStatus === "shipped" ||
+                        buyerDeliveryStatus === "delivered"
                           ? {
                               backgroundColor: "green",
                             }
@@ -163,8 +163,8 @@ export const OrderDetails = ({
                   <TimelineSeparator>
                     <TimelineDot
                       style={
-                        buyerDeliveryStatus == "shipped" ||
-                        buyerDeliveryStatus == "delivered"
+                        buyerDeliveryStatus === "shipped" ||
+                        buyerDeliveryStatus === "delivered"
                           ? {
                               backgroundColor: "green",
                             }
@@ -189,11 +189,11 @@ export const OrderDetails = ({
                       minWidth: 100,
                     }}
                   >
-                    {buyerDeliveryStatus == "shipped"
+                    {buyerDeliveryStatus === "shipped"
                       ? moment(shippedAt, "YYYY MM DD HH:mm:ss ZZ").format(
                           "DD MMM"
                         )
-                      : buyerDeliveryStatus == "delivered"
+                      : buyerDeliveryStatus === "delivered"
                       ? moment(createdAt, "YYYY MM DD HH:mm:ss ZZ").format(
                           "DD MMM"
                         )
@@ -204,7 +204,7 @@ export const OrderDetails = ({
                   <TimelineSeparator>
                     <TimelineDot
                       style={
-                        buyerDeliveryStatus == "delivered"
+                        buyerDeliveryStatus === "delivered"
                           ? {
                               backgroundColor: "green",
                             }
@@ -228,7 +228,7 @@ export const OrderDetails = ({
                       minWidth: 100,
                     }}
                   >
-                    {buyerDeliveryStatus == "delivered"
+                    {buyerDeliveryStatus === "delivered"
                       ? moment(deliveredAt, "YYYY MM DD HH:mm:ss ZZ").format(
                           "DD MMM"
                         )

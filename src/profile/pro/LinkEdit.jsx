@@ -91,7 +91,7 @@ export const LinkEdit = ({
     <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
-          {editingIndex == -1 ? "Add New Link" : "Edit Link"}
+          {editingIndex === -1 ? "Add New Link" : "Edit Link"}
         </DialogContentText>
         <TextField
           size={size.height < 580 ? "small" : null}

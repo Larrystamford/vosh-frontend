@@ -177,7 +177,7 @@ export const LinkItemEdit = ({
     <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
-          {editingIndex == -1 ? "Add New Product" : "Edit Product"}
+          {editingIndex === -1 ? "Add New Product" : "Edit Product"}
         </DialogContentText>
 
         {editingIndex > -1 && (

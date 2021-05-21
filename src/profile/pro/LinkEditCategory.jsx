@@ -164,7 +164,7 @@ export const LinkEditCategory = ({
     <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
-          {editingIndex == -1 ? "Add New Category" : "Edit Category"}
+          {editingIndex === -1 ? "Add New Category" : "Edit Category"}
         </DialogContentText>
         <TextField
           className={clsx(classes.margin, classes.textField)}

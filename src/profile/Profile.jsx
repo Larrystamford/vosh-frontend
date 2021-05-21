@@ -60,13 +60,13 @@ export const Profile = ({ match, location }) => {
 
         // check if already following
         for (const follower of data.followers) {
-          if (follower.id == localStorage.getItem("USER_ID")) {
+          if (follower.id === localStorage.getItem("USER_ID")) {
             setIsFollowing(true);
           }
         }
         // redirect t profile if user clicks on own userName
 
-        if (data._id == localStorage.getItem("USER_ID")) {
+        if (data._id === localStorage.getItem("USER_ID")) {
           history.push("/profile");
         }
 
@@ -81,7 +81,7 @@ export const Profile = ({ match, location }) => {
   // save data
   useDidMountEffect(() => {
     // update other user followers
-    if (isFollowing == true) {
+    if (isFollowing === true) {
       axios
         .put("/v1/users/pushFollowers/" + userId, {
           id: localStorage.getItem("USER_ID"),
@@ -101,7 +101,7 @@ export const Profile = ({ match, location }) => {
         .then((response) => {
           console.log(response);
         });
-    } else if (isFollowing == false) {
+    } else if (isFollowing === false) {
       axios
         .put("/v1/users/pullFollowers/" + userId, {
           id: localStorage.getItem("USER_ID"),
@@ -222,7 +222,7 @@ export const Profile = ({ match, location }) => {
               <div className="profile_top_statistics">
                 <div className="profile_top_statistics_details">
                   <p style={{ fontSize: "18px", fontWeight: "500" }}>
-                    {fakeFollowings == 0 ? (
+                    {fakeFollowings === 0 ? (
                       <AllInclusiveIcon />
                     ) : (
                       followings.length + fakeFollowings
@@ -232,7 +232,7 @@ export const Profile = ({ match, location }) => {
                 </div>
                 <div className="profile_top_statistics_details">
                   <p style={{ fontSize: "18px", fontWeight: "500" }}>
-                    {fakeFollowers == 0 ? (
+                    {fakeFollowers === 0 ? (
                       <AllInclusiveIcon />
                     ) : (
                       followers.length + fakeFollowers
@@ -242,7 +242,7 @@ export const Profile = ({ match, location }) => {
                 </div>
                 <div className="profile_top_statistics_details">
                   <p style={{ fontSize: "18px", fontWeight: "500" }}>
-                    {fakeLikes == 0 ? <AllInclusiveIcon /> : fakeLikes}
+                    {fakeLikes === 0 ? <AllInclusiveIcon /> : fakeLikes}
                   </p>
                   <p>Likes</p>
                 </div>

@@ -73,7 +73,7 @@ export const ProProfile = ({ match, location }) => {
             let data = response.data[0];
 
             // redirect to profile if user clicks on own userName
-            if (data._id == localStorage.getItem("USER_ID")) {
+            if (data._id === localStorage.getItem("USER_ID")) {
               history.push("/ProProfile");
             }
 
@@ -327,7 +327,7 @@ export const ProProfile = ({ match, location }) => {
                     <img
                       src={convertSocialTypeToImage(socialType)}
                       style={
-                        proTheme.socialIconsColor == "white"
+                        proTheme.socialIconsColor === "white"
                           ? {
                               height: 23,
                               margin: 10,
@@ -342,7 +342,7 @@ export const ProProfile = ({ match, location }) => {
                             }
                       }
                       onClick={() => {
-                        if (socialType == "Email") {
+                        if (socialType === "Email") {
                           axios.post("/v1/metrics/incrementMetrics", {
                             id: userId,
                             unqiueIdentifier: id,
@@ -366,7 +366,7 @@ export const ProProfile = ({ match, location }) => {
                     <img
                       src={convertSocialTypeToImage(socialType)}
                       style={
-                        proTheme.socialIconsColor == "white"
+                        proTheme.socialIconsColor === "white"
                           ? {
                               height: 23,
                               margin: 10,
@@ -381,7 +381,7 @@ export const ProProfile = ({ match, location }) => {
                             }
                       }
                       onClick={() => {
-                        if (socialType == "Email") {
+                        if (socialType === "Email") {
                           axios.post("/v1/metrics/incrementMetrics", {
                             id: userId,
                             unqiueIdentifier: id,
@@ -472,7 +472,7 @@ export const ProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_icon_and_name_underline"
-                style={selectedCategoryId == "all" ? null : { display: "none" }}
+                style={selectedCategoryId === "all" ? null : { display: "none" }}
               ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
@@ -506,7 +506,7 @@ export const ProProfile = ({ match, location }) => {
         ) : (
           <VideoGrid
             videos={proVideos.filter((video) => {
-              if (selectedCategoryId == "all") {
+              if (selectedCategoryId === "all") {
                 return video;
               } else {
                 return video.proCategories.includes(selectedCategoryId);

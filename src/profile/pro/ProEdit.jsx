@@ -51,7 +51,7 @@ export const ProEdit = () => {
           setProfileBio(data.profileBio);
         }
 
-        if (response.status == 200) {
+        if (response.status === 200) {
           setSafeToEdit(true);
         }
       });
@@ -81,7 +81,7 @@ export const ProEdit = () => {
         }
       );
 
-      if (res.status == 201) {
+      if (res.status === 201) {
         setShowNotif("Saved");
         setTimeout(() => {
           setShowNotif("");
@@ -129,7 +129,7 @@ export const ProEdit = () => {
         }
       );
 
-      if (res.status == 201) {
+      if (res.status === 201) {
         setShowNotif("Saved");
         setTimeout(() => {
           setShowNotif("");
@@ -177,7 +177,7 @@ export const ProEdit = () => {
         }
       );
 
-      if (res.status == 201) {
+      if (res.status === 201) {
         setShowNotif("Saved");
         setTimeout(() => {
           setShowNotif("");

@@ -141,7 +141,7 @@ export const VideoIndividual = ({ match, location }) => {
           style={keyboard ? { height: fixHeight, width: fixWidth } : null}
           {...bind}
         >
-          {data.mediaType == "video" ? (
+          {data.mediaType === "video" ? (
             <video
               style={keyboard ? { height: fixHeight, width: fixWidth } : null}
               playsInline
@@ -214,7 +214,7 @@ export const VideoIndividual = ({ match, location }) => {
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
           />
 
-          {!playing && data.mediaType == "video" && !firstFrameLoading ? (
+          {!playing && data.mediaType === "video" && !firstFrameLoading ? (
             <PlayArrowIcon
               onClick={onVideoClick}
               style={{

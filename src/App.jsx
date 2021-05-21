@@ -80,7 +80,7 @@ function App() {
         .get("/v1/users/getUserInfo/" + localStorage.getItem("USER_ID"))
         .then((res) => {
           // account does not exist
-          if (res.data.length == 0) {
+          if (res.data.length === 0) {
             localStorage.removeItem("JWT_TOKEN");
             localStorage.removeItem("PICTURE");
             localStorage.removeItem("USER_ID");

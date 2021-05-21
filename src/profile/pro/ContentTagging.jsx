@@ -68,7 +68,7 @@ const displayPreviewFile = (
   proCategories,
   heartSticker
 ) => {
-  if (mediaType == "video") {
+  if (mediaType === "video") {
     return (
       <div
         className="content_tagging_video_box"
@@ -88,7 +88,7 @@ const displayPreviewFile = (
         />
       </div>
     );
-  } else if (mediaType == "image") {
+  } else if (mediaType === "image") {
     return (
       <div
         className="profile_bottom_grid_video"
@@ -185,7 +185,7 @@ export const ContentTagging = () => {
           }
         }
 
-        if (response.status == 200) {
+        if (response.status === 200) {
           setSafeToEdit(true);
         }
       });
@@ -214,7 +214,7 @@ export const ContentTagging = () => {
       });
     }
 
-    if (result == "success") {
+    if (result === "success") {
       alert("Import done");
     }
 
@@ -290,7 +290,7 @@ export const ContentTagging = () => {
         }
       );
 
-      if (res.status == 201) {
+      if (res.status === 201) {
         setShowNotif("Saved");
         setTimeout(() => {
           setShowNotif("");
@@ -340,7 +340,7 @@ export const ContentTagging = () => {
     //     proCategories: proCategories.items,
     //   }
     // );
-    // if (res.status == 201) {
+    // if (res.status === 201) {
     //   setShowNotif("Saved");
     //   setTimeout(() => {
     //     setShowNotif("");
@@ -382,7 +382,7 @@ export const ContentTagging = () => {
     //     proCategories: proCategories.items,
     //   }
     // );
-    // if (res.status == 201) {
+    // if (res.status === 201) {
     //   setShowNotif("Saved");
     //   setTimeout(() => {
     //     setShowNotif("");
@@ -468,7 +468,7 @@ export const ContentTagging = () => {
   // reducing
   const reduceCategory = () => {
     for (const [key, value] of Object.entries(categorySelection)) {
-      if (value == true) {
+      if (value === true) {
         return true;
       }
     }
@@ -477,11 +477,11 @@ export const ContentTagging = () => {
 
   // submit
   const handleSubmit = async () => {
-    if (Object.keys(categorySelection).length == 0) {
+    if (Object.keys(categorySelection).length === 0) {
       alert("Assign your video to at least one category");
-    } else if (selectedCategories.length == 0) {
+    } else if (selectedCategories.length === 0) {
       alert("Choose at least one hashtag");
-    } else if (itemLinks.items.length == 0) {
+    } else if (itemLinks.items.length === 0) {
       alert("Add at least one product link");
     } else {
       const proCategoriesUpdate = [];
@@ -517,7 +517,7 @@ export const ContentTagging = () => {
           }
         );
 
-        if (res.status == 201 && res1.status == 201 && res2.status == 201) {
+        if (res.status === 201 && res1.status === 201 && res2.status === 201) {
           setShowNotif("Saved");
           setTimeout(() => {
             setShowNotif("");
@@ -547,9 +547,9 @@ export const ContentTagging = () => {
 
   const handlers = useSwipeable({
     onSwiped: (event) => {
-      if (event.dir == "Up") {
+      if (event.dir === "Up") {
         setChecked(false);
-      } else if (event.dir == "Down" && isVisible) {
+      } else if (event.dir === "Down" && isVisible) {
         setChecked(true);
       }
     },
@@ -726,7 +726,7 @@ export const ContentTagging = () => {
                   ref={topRef}
                   className="gallery_image_box"
                   onClick={() => handleSelectVideoWithChanges(0)}
-                  style={0 == videoI ? { border: "3px solid #f5f5f5" } : null}
+                  style={0 === videoI ? { border: "3px solid #f5f5f5" } : null}
                 >
                   {displayPreviewFile(
                     0,
@@ -747,7 +747,7 @@ export const ContentTagging = () => {
                   className="gallery_image_box"
                   onClick={() => handleSelectVideoWithChanges(i + 1)}
                   style={
-                    i + 1 == videoI ? { border: "3px solid #f5f5f5" } : null
+                    i + 1 === videoI ? { border: "3px solid #f5f5f5" } : null
                   }
                 >
                   {displayPreviewFile(

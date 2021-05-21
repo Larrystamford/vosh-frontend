@@ -77,7 +77,7 @@ const StayLoginForm = (props) => {
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    if (props.errorMessage == "nil") {
+    if (props.errorMessage === "nil") {
       props.onLoginSuccess();
       setNextClicked(false);
     } else if (props.errorMessage != "nil" && props.errorMessage != undefined) {
@@ -123,7 +123,7 @@ const StayLoginForm = (props) => {
       if (!validateEmail(values.email)) {
         alert("Please enter a valid email address");
         setNextClicked(false);
-      } else if (values.email == "" || values.password == "") {
+      } else if (values.email === "" || values.password === "") {
         alert("Empty fields are not allowed");
         setNextClicked(false);
       } else {

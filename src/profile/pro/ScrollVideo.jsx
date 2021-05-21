@@ -55,7 +55,7 @@ export const ScrollVideo = ({
     >
       <ProfileFeed
         videos={proVideos.filter((video) => {
-          if (selectedCategoryId == "all") {
+          if (selectedCategoryId === "all") {
             return video;
           } else {
             return video.proCategories.includes(selectedCategoryId);

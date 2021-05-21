@@ -19,7 +19,7 @@ export const HorizontalBar = ({ selectCategory, setSelectedCategory }) => {
               className="Horizontal_Scroll_Tag"
               onClick={() => setSelectedCategory(eachCategory.name)}
               style={
-                selectCategory == eachCategory.name
+                selectCategory === eachCategory.name
                   ? {
                       background: "white",
                     }
@@ -28,7 +28,7 @@ export const HorizontalBar = ({ selectCategory, setSelectedCategory }) => {
             >
               <p
                 style={
-                  selectCategory == eachCategory.name
+                  selectCategory === eachCategory.name
                     ? {
                         color: "#222222",
                         fontSize: "17px",

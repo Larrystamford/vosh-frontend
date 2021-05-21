@@ -116,12 +116,12 @@ export const VerifiedUsername = () => {
     }
 
     for (const restrictedName of restrictedNames) {
-      if (values.username == restrictedName.toLowerCase()) {
+      if (values.username === restrictedName.toLowerCase()) {
         return false;
       }
     }
 
-    if (values.username == localStorage.getItem("USER_NAME").toLowerCase()) {
+    if (values.username === localStorage.getItem("USER_NAME").toLowerCase()) {
       return true;
     }
 
@@ -139,7 +139,7 @@ export const VerifiedUsername = () => {
         }
       );
 
-      if (res.status == "201") {
+      if (res.status === "201") {
         localStorage.setItem("USER_NAME", res.data[0].userName);
         history.goBack();
       } else {

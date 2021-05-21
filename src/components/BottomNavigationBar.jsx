@@ -48,7 +48,7 @@ export const BottomNavigationBar = ({ match }) => {
 
   // const [value, setValue] = useState(0);
   const getIconColor = (url) => {
-    if (url === "/" || url.slice(0, 4) == "/vid") {
+    if (url === "/" || url.slice(0, 4) === "/vid") {
       return "white";
     } else {
       return "black";
@@ -56,7 +56,7 @@ export const BottomNavigationBar = ({ match }) => {
   };
 
   const getBackgroundColor = (url) => {
-    if (url === "/" || url.slice(0, 4) == "/vid") {
+    if (url === "/" || url.slice(0, 4) === "/vid") {
       return "transparent";
     } else {
       return "white";

@@ -95,7 +95,7 @@ function Video({
       !videoRef.current.paused &&
       playing &&
       !justUnpaused &&
-      mediaType == "video" &&
+      mediaType === "video" &&
       videoRef.current.readyState > 2
     ) {
       videoRef.current.pause();
@@ -152,8 +152,8 @@ function Video({
       setJustUnpaused(true);
 
       // add index 0 video to watched
-      if (index == 0) {
-        if (loggedInUserId && location == "main feed") {
+      if (index === 0) {
+        if (loggedInUserId && location === "main feed") {
           axios.put("/v1/users/pushVideoSeen/" + loggedInUserId, {
             videoId: id,
             category: selectCategory,
@@ -219,7 +219,7 @@ function Video({
     setFixHeight(size.height);
     setFixWidth(size.width);
 
-    if (index == 0) {
+    if (index === 0) {
       setPlayingForButton(false);
     }
   }, []);
@@ -232,7 +232,7 @@ function Video({
           setCurrentIndex(index);
           // add video to watched if its playing
           if (index != 0) {
-            if (loggedInUserId && location == "main feed") {
+            if (loggedInUserId && location === "main feed") {
               axios.put("/v1/users/pushVideoSeen/" + loggedInUserId, {
                 videoId: id,
                 category: selectCategory,
@@ -273,7 +273,7 @@ function Video({
           }
 
           // if index 0, pause it and set playing to false
-          if (index == 0 && !isPlaying) {
+          if (index === 0 && !isPlaying) {
             setIsMuted(true);
             setHand(true);
             setPlayingForButton(false);
@@ -407,10 +407,10 @@ function Video({
 
   useDidMountEffect(() => {
     if (
-      openAmazon == false &&
-      commentsOpen == false &&
-      openSlider == false &&
-      buyOpen == false
+      openAmazon === false &&
+      commentsOpen === false &&
+      openSlider === false &&
+      buyOpen === false
     ) {
       setGlobalModalOpened(false);
     }
@@ -424,11 +424,11 @@ function Video({
       ref={ref}
       {...bind}
     >
-      {mediaType == "video" ? (
+      {mediaType === "video" ? (
         <video
           id="demo"
           style={keyboard ? { height: fixHeight, width: fixWidth } : null}
-          muted={playing || index == currentIndex ? false : isMuted}
+          muted={playing || index === currentIndex ? false : isMuted}
           playsInline
           className="video__player"
           loop
@@ -517,7 +517,7 @@ function Video({
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       />
 
-      {!playingForButton && mediaType == "video" && !loading ? (
+      {!playingForButton && mediaType === "video" && !loading ? (
         <PlayArrowIcon
           onClick={onVideoClick}
           onTouchStart={onVideoTouch}
@@ -535,7 +535,7 @@ function Video({
         />
       ) : null}
 
-      {loading && mediaType == "video" ? (
+      {loading && mediaType === "video" ? (
         <ColoredLinearProgress
           style={
             size.height / size.width > 2
@@ -555,9 +555,9 @@ function Video({
         />
       ) : null}
 
-      {hand && location == "main feed" ? <SwipeUp /> : null}
+      {hand && location === "main feed" ? <SwipeUp /> : null}
 
-      {index == videoLength - 1 ? (
+      {index === videoLength - 1 ? (
         <div
           style={{
             display: "flex",

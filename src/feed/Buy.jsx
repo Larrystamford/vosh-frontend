@@ -177,7 +177,7 @@ export const Buy = (props) => {
   };
 
   const handleShowButton = () => {
-    if (userInfo == false) {
+    if (userInfo === false) {
       return (
         <div>
           <p
@@ -193,7 +193,7 @@ export const Buy = (props) => {
           </p>
         </div>
       );
-    } else if (userInfo.address == "" || userInfo.address == undefined) {
+    } else if (userInfo.address === "" || userInfo.address === undefined) {
       return (
         <div>
           <p
@@ -388,7 +388,7 @@ export const Buy = (props) => {
                   {getCombinedName(color, name, size)}
                 </p>
                 <p>
-                  {stocks == 0 ? (
+                  {stocks === 0 ? (
                     "out of stock"
                   ) : stocks < 99 ? (
                     <span

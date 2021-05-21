@@ -63,13 +63,13 @@ export const SetTheme = () => {
     } else {
       let imageUrl = await getFileUrl(file);
 
-      if (background == "background1") {
+      if (background === "background1") {
         setProTheme((prevState) => ({ ...prevState, background1: imageUrl }));
 
         await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
           proTheme: { ...proTheme, background1: imageUrl },
         });
-      } else if (background == "background2") {
+      } else if (background === "background2") {
         setProTheme((prevState) => ({ ...prevState, background2: imageUrl }));
 
         await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {

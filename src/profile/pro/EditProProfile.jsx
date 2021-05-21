@@ -285,7 +285,7 @@ export const EditProProfile = ({ match, location }) => {
                     <img
                       src={convertSocialTypeToImage(socialType)}
                       style={
-                        proTheme.socialIconsColor == "white"
+                        proTheme.socialIconsColor === "white"
                           ? {
                               height: 23,
                               margin: 10,
@@ -316,7 +316,7 @@ export const EditProProfile = ({ match, location }) => {
                     <img
                       src={convertSocialTypeToImage(socialType)}
                       style={
-                        proTheme.socialIconsColor == "white"
+                        proTheme.socialIconsColor === "white"
                           ? {
                               height: 23,
                               margin: 10,
@@ -331,7 +331,7 @@ export const EditProProfile = ({ match, location }) => {
                             }
                       }
                       onClick={() => {
-                        if (socialType == "Email") {
+                        if (socialType === "Email") {
                           window.open(`mailto:${socialLink}?subject=From Vosh`);
                         } else {
                           window.open(socialLink, "_blank");
@@ -424,7 +424,7 @@ export const EditProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_icon_and_name_underline"
-                style={selectedCategoryId == "all" ? null : { display: "none" }}
+                style={selectedCategoryId === "all" ? null : { display: "none" }}
               ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
@@ -458,7 +458,7 @@ export const EditProProfile = ({ match, location }) => {
         ) : (
           <VideoGrid
             videos={proVideos.filter((video) => {
-              if (selectedCategoryId == "all") {
+              if (selectedCategoryId === "all") {
                 return video;
               } else {
                 return video.proCategories.includes(selectedCategoryId);

@@ -73,15 +73,15 @@ export const SlidingSetUp = (props) => {
   }, [userInfo]);
 
   const onSubmitAddress = () => {
-    if (number === "" || number == undefined) {
+    if (number === "" || number === undefined) {
       alert("Phone number is required");
-    } else if (address === "" || address == undefined) {
+    } else if (address === "" || address === undefined) {
       alert("Address is required");
-    } else if (country === "" || country == undefined) {
+    } else if (country === "" || country === undefined) {
       alert("Country is required");
-    } else if (city === "" || city == undefined) {
+    } else if (city === "" || city === undefined) {
       alert("City is required");
-    } else if (postalCode === "" || postalCode == undefined) {
+    } else if (postalCode === "" || postalCode === undefined) {
       alert("Postal Code is required");
     } else {
       setUserInfo({
@@ -174,7 +174,7 @@ export const SlidingSetUp = (props) => {
           className="SlidingSetUpBody"
           style={props.open ? {} : { display: "none" }}
         >
-          {props.fromPath == "feed" ? (
+          {props.fromPath === "feed" ? (
             // feed login, transition appears
             <Dialog
               open={props.open}

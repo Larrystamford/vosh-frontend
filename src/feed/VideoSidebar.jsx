@@ -50,7 +50,7 @@ function VideoSidebar({
   setOpenAmazon,
   proShareCount,
 }) {
-  const [liked, setLiked] = useState(profileFeedType == "likedVideos");
+  const [liked, setLiked] = useState(profileFeedType === "likedVideos");
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
@@ -116,7 +116,7 @@ function VideoSidebar({
   }, []);
 
   const handleLikeButtonClicked = (likeOrUnlike) => {
-    if (likeOrUnlike == "like") {
+    if (likeOrUnlike === "like") {
       axios.post("/v1/likesForVideos/like", {
         likerId: localStorage.getItem("USER_ID"),
         videoId: id,
@@ -137,10 +137,10 @@ function VideoSidebar({
       );
 
       // push video from history to saved
-      if (profileFeedType == "historyVideos") {
+      if (profileFeedType === "historyVideos") {
         setLikedVideoIds((prevState) => [id, ...prevState]);
       }
-    } else if (likeOrUnlike == "unlike") {
+    } else if (likeOrUnlike === "unlike") {
       axios.post("/v1/likesForVideos/unlike", {
         likerId: localStorage.getItem("USER_ID"),
         videoId: id,

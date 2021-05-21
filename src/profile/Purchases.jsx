@@ -4,7 +4,7 @@ import "./Purchases.css";
 import { PurchasesRow } from "./PurchasesRow";
 
 export const Purchases = ({ purchases }) => {
-  if (purchases.length == 0) {
+  if (purchases.length === 0) {
     return (
       <div className="Purchases_NoInfo">
         <p>

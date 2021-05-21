@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Landing.css";
 
 export const PageNoExist = (props) => {
-  if (props.location.pathname == "/") {
+  if (props.location.pathname === "/") {
     return <></>;
   }
   return (

@@ -117,17 +117,17 @@ export const Verified = () => {
   const checkUserName = async () => {
     let format = /[!@#$%^&*()+\=\[\]{};':"\\|,<>\/?]+/;
 
-    if (format.test(values.username) || values.username == "") {
+    if (format.test(values.username) || values.username === "") {
       return false;
     }
 
     for (const restrictedName of restrictedNames) {
-      if (values.username == restrictedName.toLowerCase()) {
+      if (values.username === restrictedName.toLowerCase()) {
         return false;
       }
     }
 
-    if (values.username == localStorage.getItem("USER_NAME").toLowerCase()) {
+    if (values.username === localStorage.getItem("USER_NAME").toLowerCase()) {
       return true;
     }
 

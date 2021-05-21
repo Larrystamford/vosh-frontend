@@ -46,7 +46,7 @@ export const Inbox = () => {
     redirectLink,
     videoId
   ) => {
-    if (notificationType == "comment_reply") {
+    if (notificationType === "comment_reply") {
       return (
         <>
           <div className="inbox_picture">
@@ -98,7 +98,7 @@ export const Inbox = () => {
           </div>
         </>
       );
-    } else if (notificationType == "comment") {
+    } else if (notificationType === "comment") {
       return (
         <>
           <div className="inbox_picture">
@@ -150,7 +150,7 @@ export const Inbox = () => {
           </div>
         </>
       );
-    } else if (notificationType == "broadcast") {
+    } else if (notificationType === "broadcast") {
       let redirectTo = `/profile/${userName}`;
       if (redirectLink) {
         redirectTo = redirectLink;
@@ -194,7 +194,7 @@ export const Inbox = () => {
           </Link>
         </>
       );
-    } else if (notificationType == "shippingUpdates") {
+    } else if (notificationType === "shippingUpdates") {
       return (
         <>
           <div
@@ -282,7 +282,7 @@ export const Inbox = () => {
           </div>
         )
       )}
-      {notifications.length == 0 && !loading && (
+      {notifications.length === 0 && !loading && (
         <div className="inbox_row">
           {typeOfNotifications(
             "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",

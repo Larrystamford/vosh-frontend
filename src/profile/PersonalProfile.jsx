@@ -170,7 +170,7 @@ export const PersonalProfile = (props) => {
           .get("/v1/users/getUserInfo/" + res.data.userId)
           .then((res) => {
             // account does not exist
-            if (res.data.length == 0) {
+            if (res.data.length === 0) {
               localStorage.removeItem("JWT_TOKEN");
               localStorage.removeItem("PICTURE");
               localStorage.removeItem("USER_ID");
@@ -218,7 +218,7 @@ export const PersonalProfile = (props) => {
       axios.get("/v1/users/get/" + userId).then((response) => {
         let data = response.data[0];
 
-        if (data.accountType == "pro") {
+        if (data.accountType === "pro") {
           history.push({
             pathname: "/ProProfile",
           });

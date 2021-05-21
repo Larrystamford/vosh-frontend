@@ -150,7 +150,7 @@ const StayLoginFormPage = (props) => {
       if (!validateEmail(values.email)) {
         alert("Please enter a valid email address");
         setNextClicked(false);
-      } else if (values.email == "" || values.password == "") {
+      } else if (values.email === "" || values.password === "") {
         alert("Empty fields are not allowed");
         setNextClicked(false);
       } else {

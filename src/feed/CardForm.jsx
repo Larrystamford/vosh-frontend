@@ -125,7 +125,7 @@ export const CardForm = (props) => {
 
     newBuySellItemId = backendPaymentIntent.data.newBuySellItemId;
 
-    if (backendPaymentIntent.data.status == "success") {
+    if (backendPaymentIntent.data.status === "success") {
       // if anything inside here causes a failure, we need to revert new item stock handling
 
       const clientSecret = backendPaymentIntent.data.clientSecret;
@@ -171,13 +171,13 @@ export const CardForm = (props) => {
             currency: "usd",
             value: props.totalPrice,
           });
-          if (pathName == "/profile" || pathName == "/profile/") {
+          if (pathName === "/profile" || pathName === "/profile/") {
             window.location.reload();
           }
         }
       }
     } else if (
-      backendPaymentIntent.data.status == "Error: insufficient stock"
+      backendPaymentIntent.data.status === "Error: insufficient stock"
     ) {
       props.handleErrorStatus("insufficient stock", 4000);
       setPayButtonClicked(false);
@@ -214,7 +214,7 @@ export const CardForm = (props) => {
 
         newBuySellItemId = backendPaymentIntent.data.newBuySellItemId;
 
-        if (backendPaymentIntent.data.status == "success") {
+        if (backendPaymentIntent.data.status === "success") {
           // if anything inside here causes a failure, we need to revert new item stock handling
 
           const clientSecret = backendPaymentIntent.data.clientSecret;
@@ -277,7 +277,7 @@ export const CardForm = (props) => {
                   currency: "usd",
                   value: props.totalPrice,
                 });
-                if (pathName == "/profile" || pathName == "/profile/") {
+                if (pathName === "/profile" || pathName === "/profile/") {
                   window.location.reload();
                 }
               }
@@ -300,13 +300,13 @@ export const CardForm = (props) => {
                 currency: "usd",
                 value: props.totalPrice,
               });
-              if (pathName == "/profile" || pathName == "/profile/") {
+              if (pathName === "/profile" || pathName === "/profile/") {
                 window.location.reload();
               }
             }
           }
         } else if (
-          backendPaymentIntent.data.status == "Error: insufficient stock"
+          backendPaymentIntent.data.status === "Error: insufficient stock"
         ) {
           props.handleErrorStatus("insufficient stock", 4000);
           setBetterPayButtonClicked(false);
@@ -427,7 +427,7 @@ export const CardForm = (props) => {
                 sellerId: props.sellerId,
               })
               .then((paymentRes) => {
-                if (paymentRes.data.status == "success") {
+                if (paymentRes.data.status === "success") {
                   props.setBuyOpen(false);
                   history.push({
                     pathname: "/profile",
@@ -444,11 +444,11 @@ export const CardForm = (props) => {
                     currency: "usd",
                     value: props.totalPrice,
                   });
-                  if (pathName == "/profile" || pathName == "/profile/") {
+                  if (pathName === "/profile" || pathName === "/profile/") {
                     window.location.reload();
                   }
                 } else if (
-                  paymentRes.data.status == "Error: insufficient stock"
+                  paymentRes.data.status === "Error: insufficient stock"
                 ) {
                   Exception("insufficient stock google pay");
                   props.handleErrorStatus("insufficient stock", 4000);

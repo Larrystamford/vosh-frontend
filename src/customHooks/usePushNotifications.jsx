@@ -66,7 +66,7 @@ export default function usePushNotifications() {
   const initiatePermissionFlow = () => {
     askUserPermission().then((consent) => {
       setUserConsent(consent);
-      if (consent == "granted") {
+      if (consent === "granted") {
         createNotificationSubscription()
           .then(function (subscription) {
             console.log("SUBSCRIBE Dets", subscription);
@@ -100,7 +100,7 @@ export default function usePushNotifications() {
             setError(err);
           });
       } else {
-        if (consent == "denied") {
+        if (consent === "denied") {
           localStorage.setItem("PUSH_BLOCKED", "true");
         }
         setError({

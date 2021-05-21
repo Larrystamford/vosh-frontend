@@ -182,7 +182,7 @@ export const PurchasesRow = ({
             />
           </div>
         </div>
-      ) : buyerDeliveryStatus == "shipped" ? (
+      ) : buyerDeliveryStatus === "shipped" ? (
         <div
           className="Purchases_more_details_and_review"
           style={{ borderTop: "0px", justifyContent: "center" }}

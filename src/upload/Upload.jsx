@@ -122,7 +122,7 @@ export const Upload = (props) => {
 
   // upload the file and get the url
   useDidMountEffect(() => {
-    if (file && file.type.split("/")[0] == "video") {
+    if (file && file.type.split("/")[0] === "video") {
       (async () => {
         validateFile(file);
         const [videoUrl, imageUrl] = await getFileUrl(file);
@@ -173,7 +173,7 @@ export const Upload = (props) => {
   let mediaType;
   const displayPreviewFile = (file) => {
     mediaType = file.type.split("/")[0];
-    if (mediaType == "video") {
+    if (mediaType === "video") {
       return (
         <video
           id="video-preview"
@@ -184,7 +184,7 @@ export const Upload = (props) => {
           <source src={URL.createObjectURL(file)} />
         </video>
       );
-    } else if (mediaType == "image") {
+    } else if (mediaType === "image") {
       alert("You are only allowed to upload videos. Please refresh.");
       return (
         <img
@@ -254,7 +254,7 @@ export const Upload = (props) => {
     }
   };
   const handleItemsChange = (value, index, field) => {
-    if (field == "image") {
+    if (field === "image") {
       setTotalImageLinks([...totalImageLinks, value]);
     }
 
@@ -273,13 +273,13 @@ export const Upload = (props) => {
     let haveAllRequiredFields = true;
     let firstItemImage = "";
 
-    if (amazonOrInternal == "both" || amazonOrInternal == "internal") {
+    if (amazonOrInternal === "both" || amazonOrInternal === "internal") {
       for (const i in items) {
         const eachItem = items[i];
         if (
           eachItem.name === "" ||
-          eachItem.price == "" ||
-          eachItem.stocks == ""
+          eachItem.price === "" ||
+          eachItem.stocks === ""
         ) {
           haveAllRequiredFields = false;
           alert("Name, price, and stock available are required information");
@@ -296,7 +296,7 @@ export const Upload = (props) => {
       alert("Please enter the video creator's username");
     }
 
-    if (amazonOrInternal == "both" || amazonOrInternal == "internal") {
+    if (amazonOrInternal === "both" || amazonOrInternal === "internal") {
       if (haveAllRequiredFields && !firstItemImage) {
         haveAllRequiredFields = false;
         alert("Please add at least one image to showcase your items");
@@ -307,9 +307,9 @@ export const Upload = (props) => {
 
     if (
       haveAllRequiredFields &&
-      (amazonOrInternal == "both" ||
-        amazonOrInternal == "amazon" ||
-        amazonOrInternal == "internal")
+      (amazonOrInternal === "both" ||
+        amazonOrInternal === "amazon" ||
+        amazonOrInternal === "internal")
     ) {
       for (const eachAmazon of amazons) {
         if (
@@ -328,7 +328,7 @@ export const Upload = (props) => {
 
     if (
       haveAllRequiredFields &&
-      (amazonOrInternal == "both" || amazonOrInternal == "internal")
+      (amazonOrInternal === "both" || amazonOrInternal === "internal")
     ) {
       for (const eachAliexpress of aliexpress) {
         if (eachAliexpress.aliexpress_link.indexOf("aliexpress.com") < 0) {
@@ -341,7 +341,7 @@ export const Upload = (props) => {
       }
     }
 
-    if (haveAllRequiredFields && amazonOrInternal == "small_shop") {
+    if (haveAllRequiredFields && amazonOrInternal === "small_shop") {
       if (smallShopLink.indexOf("https://") < 0) {
         haveAllRequiredFields = false;
         alert("Please add in the https:// for the small shop link");
@@ -441,10 +441,10 @@ export const Upload = (props) => {
     setSelectedGender(id);
   };
   const genderIndexToString = (id) => {
-    if (id == 0) {
+    if (id === 0) {
       return "men";
     }
-    if (id == 1) {
+    if (id === 1) {
       return "women";
     }
     return "neutral";
@@ -511,10 +511,10 @@ export const Upload = (props) => {
           <option value="internal">Internal Only</option>
         </select>
       </div>
-      {(amazonOrInternal == "both" ||
-        amazonOrInternal == "amazon" ||
-        amazonOrInternal == "small_shop_and_amazon" ||
-        amazonOrInternal == "internal") &&
+      {(amazonOrInternal === "both" ||
+        amazonOrInternal === "amazon" ||
+        amazonOrInternal === "small_shop_and_amazon" ||
+        amazonOrInternal === "internal") &&
         amazons.map((eachAmazon, index) => (
           <>
             <div className="upload_input_container">
@@ -544,7 +544,7 @@ export const Upload = (props) => {
           </>
         ))}
 
-      {(amazonOrInternal == "both" || amazonOrInternal == "internal") &&
+      {(amazonOrInternal === "both" || amazonOrInternal === "internal") &&
         aliexpress.map((eachAliexpress, index) => (
           <div className="upload_input_container">
             <p>aliexpress LINK: </p>
@@ -560,8 +560,8 @@ export const Upload = (props) => {
             <ClearOutlinedIcon onClick={() => handleDeleteAliexpress(index)} />
           </div>
         ))}
-      {(amazonOrInternal == "small_shop" ||
-        amazonOrInternal == "small_shop_and_amazon") && (
+      {(amazonOrInternal === "small_shop" ||
+        amazonOrInternal === "small_shop_and_amazon") && (
         <div className="upload_input_container">
           <p>small shop link: </p>
           <input
@@ -574,7 +574,7 @@ export const Upload = (props) => {
       )}
       
       {/* Item Information */}
-      {(amazonOrInternal == "both" || amazonOrInternal == "internal") &&
+      {(amazonOrInternal === "both" || amazonOrInternal === "internal") &&
         items.map((eachItem, index) => (
           <ItemInformation
             key={index}
@@ -590,7 +590,7 @@ export const Upload = (props) => {
           />
         ))}
 
-      {(amazonOrInternal == "both" || amazonOrInternal == "internal") && (
+      {(amazonOrInternal === "both" || amazonOrInternal === "internal") && (
         <div className="upload_addAnotherItem">
           <p style={{ justifyContent: "flex-end" }} onClick={addNewItem}>
             add new item
@@ -602,7 +602,7 @@ export const Upload = (props) => {
         </div>
       )}
 
-      {(amazonOrInternal == "both" || amazonOrInternal == "internal") && (
+      {(amazonOrInternal === "both" || amazonOrInternal === "internal") && (
         <div className="upload_CategoriesFormBody">
           {/* More Photos */}
           <p style={{ fontWeight: "bold", paddingBottom: "15px" }}>
@@ -679,7 +679,7 @@ export const Upload = (props) => {
             <div
               className="upload_mainCategoriesTag"
               style={
-                i == selectedGender
+                i === selectedGender
                   ? { backgroundColor: "orange", color: "white" }
                   : null
               }

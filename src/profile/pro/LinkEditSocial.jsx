@@ -112,7 +112,7 @@ export const LinkEditSocial = ({
       );
       if (
         socialLink.toLowerCase().includes("http") ||
-        inputValues.socialType == "Email"
+        inputValues.socialType === "Email"
       ) {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
@@ -150,7 +150,7 @@ export const LinkEditSocial = ({
     <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
-          {editingIndex == -1 ? "Add New Social Link" : "Edit Social Link"}
+          {editingIndex === -1 ? "Add New Social Link" : "Edit Social Link"}
         </DialogContentText>
         <TextField
           className={clsx(classes.margin, classes.textField)}
@@ -191,7 +191,7 @@ export const LinkEditSocial = ({
             onBlur={() => setFocused(false)}
             style={{ backgroundColor: "white", marginTop: "1rem" }}
             InputProps={
-              convertSocialTypeToHelper(inputValues.socialType) ==
+              convertSocialTypeToHelper(inputValues.socialType) ===
                 "Your Username" && {
                 startAdornment: (
                   <InputAdornment position="start">@</InputAdornment>

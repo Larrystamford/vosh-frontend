@@ -38,7 +38,7 @@ export const VideoGrid = ({
   }, [scrolledBottomCount]);
 
   const history = useHistory();
-  if (videos.length == 0) {
+  if (videos.length === 0) {
     return (
       <div className="Purchases_NoInfo">
         <div
@@ -53,15 +53,6 @@ export const VideoGrid = ({
     );
   }
 
-  const hasProductImages = (products) => {
-    for (const product of products) {
-      if (product.itemImage) {
-        return true;
-      }
-    }
-    return false;
-  };
-
   return (
     <div className="profile_bottom_container">
       <div className="profile_bottom_grid">
@@ -70,20 +61,13 @@ export const VideoGrid = ({
             className="profile_bottom_grid_video"
             style={{ position: "relative" }}
           >
-            {hasProductImages(eachVideo.affiliateProducts) ? (
-              <ProductImagesCarousel
-                affiliateProducts={eachVideo.affiliateProducts}
-                className="profile_bottom_productImages"
-              />
-            ) : (
-              <LocalMallIcon
-                className="profile_bottom_imageOrVideoIcon"
-                style={{
-                  opacity: 0.9,
-                  zIndex: 2000,
-                }}
-              />
-            )}
+            <LocalMallIcon
+              className="profile_bottom_imageOrVideoIcon"
+              style={{
+                opacity: 0.9,
+                zIndex: 2000,
+              }}
+            />
 
             <DisplayPreviewFile
               mediaType={eachVideo.mediaType}

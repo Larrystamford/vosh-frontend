@@ -19,91 +19,91 @@ export const getCombinedName = (color, name, size) => {
 };
 
 export const convertSocialTypeToImage = (socialType) => {
-  if (socialType == "TikTok") {
+  if (socialType === "TikTok") {
     return "https://dciv99su0d7r5.cloudfront.net/tik-tok.png";
-  } else if (socialType == "Instagram") {
+  } else if (socialType === "Instagram") {
     return "https://dciv99su0d7r5.cloudfront.net/instagram.png";
-  } else if (socialType == "Youtube") {
+  } else if (socialType === "Youtube") {
     return "https://dciv99su0d7r5.cloudfront.net/youtube.png";
-  } else if (socialType == "Twitch") {
+  } else if (socialType === "Twitch") {
     return "https://dciv99su0d7r5.cloudfront.net/twitch.png";
-  } else if (socialType == "Pinterest") {
+  } else if (socialType === "Pinterest") {
     return "https://dciv99su0d7r5.cloudfront.net/pinterest.png";
-  } else if (socialType == "Facebook") {
+  } else if (socialType === "Facebook") {
     return "https://dciv99su0d7r5.cloudfront.net/facebook.png";
-  } else if (socialType == "Twitter") {
+  } else if (socialType === "Twitter") {
     return "https://dciv99su0d7r5.cloudfront.net/twitter.png";
-  } else if (socialType == "Discord") {
+  } else if (socialType === "Discord") {
     return "https://dciv99su0d7r5.cloudfront.net/discord.png";
-  } else if (socialType == "Spotify") {
+  } else if (socialType === "Spotify") {
     return "https://dciv99su0d7r5.cloudfront.net/spotify.png";
-  } else if (socialType == "Telegram") {
+  } else if (socialType === "Telegram") {
     return "https://dciv99su0d7r5.cloudfront.net/telegram.png";
-  } else if (socialType == "Whatsapp") {
+  } else if (socialType === "Whatsapp") {
     return "https://dciv99su0d7r5.cloudfront.net/whatsapp.png";
-  } else if (socialType == "Snapchat") {
+  } else if (socialType === "Snapchat") {
     return "https://dciv99su0d7r5.cloudfront.net/snapchat.png";
-  } else if (socialType == "Email") {
+  } else if (socialType === "Email") {
     return "https://dciv99su0d7r5.cloudfront.net/envelope.png";
   }
 };
 
 export const convertSocialTypeToHelper = (socialType) => {
-  if (socialType == "TikTok") {
+  if (socialType === "TikTok") {
     return "Your Username";
-  } else if (socialType == "Instagram") {
+  } else if (socialType === "Instagram") {
     return "Your Username";
-  } else if (socialType == "Youtube") {
+  } else if (socialType === "Youtube") {
     return "Youtube Sharable Link";
-  } else if (socialType == "Twitch") {
+  } else if (socialType === "Twitch") {
     return "Your Username";
-  } else if (socialType == "Pinterest") {
+  } else if (socialType === "Pinterest") {
     return "Your Username";
-  } else if (socialType == "Facebook") {
+  } else if (socialType === "Facebook") {
     return "Facebook Shareable Link";
-  } else if (socialType == "Twitter") {
+  } else if (socialType === "Twitter") {
     return "Your Username";
-  } else if (socialType == "Discord") {
+  } else if (socialType === "Discord") {
     return "Discord Sharable Link";
-  } else if (socialType == "Spotify") {
+  } else if (socialType === "Spotify") {
     return "Spotify Sharable Link";
-  } else if (socialType == "Telegram") {
+  } else if (socialType === "Telegram") {
     return "Telegram Sharable Link";
-  } else if (socialType == "Whatsapp") {
+  } else if (socialType === "Whatsapp") {
     return "Whatsapp Sharable Link";
-  } else if (socialType == "Snapchat") {
+  } else if (socialType === "Snapchat") {
     return "Your Username";
-  } else if (socialType == "Email") {
+  } else if (socialType === "Email") {
     return "user@mail.com";
   }
 };
 
 export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
-  if (socialType == "TikTok") {
+  if (socialType === "TikTok") {
     return "https://www.tiktok.com/@" + userIdentifier;
-  } else if (socialType == "Instagram") {
+  } else if (socialType === "Instagram") {
     return "https://www.instagram.com/" + userIdentifier;
-  } else if (socialType == "Youtube") {
+  } else if (socialType === "Youtube") {
     return userIdentifier;
-  } else if (socialType == "Twitch") {
+  } else if (socialType === "Twitch") {
     return "https://www.twitch.tv/" + userIdentifier;
-  } else if (socialType == "Pinterest") {
+  } else if (socialType === "Pinterest") {
     return "https://www.pinterest.com/" + userIdentifier;
-  } else if (socialType == "Facebook") {
+  } else if (socialType === "Facebook") {
     return userIdentifier;
-  } else if (socialType == "Twitter") {
+  } else if (socialType === "Twitter") {
     return "https://twitter.com/" + userIdentifier;
-  } else if (socialType == "Discord") {
+  } else if (socialType === "Discord") {
     return userIdentifier;
-  } else if (socialType == "Spotify") {
+  } else if (socialType === "Spotify") {
     return userIdentifier;
-  } else if (socialType == "Telegram") {
+  } else if (socialType === "Telegram") {
     return userIdentifier;
-  } else if (socialType == "Whatsapp") {
+  } else if (socialType === "Whatsapp") {
     return userIdentifier;
-  } else if (socialType == "Snapchat") {
+  } else if (socialType === "Snapchat") {
     return "https://www.snapchat.com/add/" + userIdentifier;
-  } else if (socialType == "Email") {
+  } else if (socialType === "Email") {
     return userIdentifier;
   }
 };
@@ -111,7 +111,7 @@ export const convertUsernameToSocialLink = (socialType, userIdentifier) => {
 export const downloadAndSaveTikToksWithRetry = async (nthTry) => {
   try {
     const res = await downloadAndSaveTikToks();
-    if (res == "failed") {
+    if (res === "failed") {
       throw new Error("downloadAndSaveFuncError");
     }
     return "success";

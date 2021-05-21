@@ -60,7 +60,7 @@ export const ContentCategory = ({
         <div>
           <FormControl component="fieldset" className={classes.formControl}>
             <FormGroup>
-              {proCategories.items.length == 0 && (
+              {proCategories.items.length === 0 && (
                 <div
                   style={{
                     display: "flex",

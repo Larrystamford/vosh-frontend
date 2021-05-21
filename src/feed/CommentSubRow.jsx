@@ -19,14 +19,14 @@ export const CommentSubRow = ({
   const [subLiked, setSubLiked] = useState(false);
   useEffect(() => {
     // deal with some bug when new comment added, liked is set to true
-    if (props.likes.length == 0) {
+    if (props.likes.length === 0) {
       setSubLiked(0);
       return;
     }
     const userId = localStorage.getItem("USER_ID");
 
     for (const likeId of props.likes) {
-      if (likeId == userId) {
+      if (likeId === userId) {
         setSubLiked(true);
         break;
       }
@@ -38,14 +38,14 @@ export const CommentSubRow = ({
   // }, [commentsLength]);
 
   const handleSubLikeButtonClicked = (likeOrUnlike) => {
-    if (likeOrUnlike == "like") {
+    if (likeOrUnlike === "like") {
       axios.put(
         "/v1/comment/pushUserSubCommentFavourites/" +
           localStorage.getItem("USER_ID"),
         { commentId: props._id }
       );
       setSubLiked(true);
-    } else if (likeOrUnlike == "unlike") {
+    } else if (likeOrUnlike === "unlike") {
       axios.put(
         "/v1/comment/pullUserSubCommentFavourites/" +
           localStorage.getItem("USER_ID"),

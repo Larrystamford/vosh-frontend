@@ -14,7 +14,7 @@ export const DisplayPreviewFile = ({
 }) => {
   const [showImage, setShowImage] = useState(false);
 
-  if (mediaType == "video") {
+  if (mediaType === "video") {
     return (
       <div
         className="profile_bottom_grid_video"
@@ -38,7 +38,7 @@ export const DisplayPreviewFile = ({
         </OnImagesLoaded>
       </div>
     );
-  } else if (mediaType == "image") {
+  } else if (mediaType === "image") {
     return (
       <div
         className="profile_bottom_grid_video"

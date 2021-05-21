@@ -207,7 +207,7 @@ export const Feed = (props) => {
     watchRef.current.watchedFeedId = null;
     ModalView(selectCategory);
 
-    if (selectCategory == "Feed") {
+    if (selectCategory === "Feed") {
       await getUnseenVideos(true);
     } else {
       await getUnseenVideosCategories(true);
@@ -223,7 +223,7 @@ export const Feed = (props) => {
   // if current videos count is 2 or less, get next feed
   useDidMountEffect(async () => {
     if (currentIndex != -2 && currentIndex != 0) {
-      if (selectCategory == "Feed") {
+      if (selectCategory === "Feed") {
         if (watchRef.current.currentVideosCount - currentIndex <= 1) {
           await getUnseenVideos();
         }
@@ -266,9 +266,9 @@ export const Feed = (props) => {
                   }
             }
           />
-        ) : videos.length == 0 ? (
+        ) : videos.length === 0 ? (
           <div className="feed_noVideoMessage">
-            {selectCategory == "Feed" ? (
+            {selectCategory === "Feed" ? (
               <p>
                 Wow! You are a fast one! Come back tomorrow for more awesome
                 shopping recommendations.
