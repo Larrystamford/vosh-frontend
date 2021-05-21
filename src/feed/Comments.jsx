@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./Comments.css";
 import { useGlobalState } from "../GlobalStates";
-import { useWindowSize } from "../customHooks/useWindowSize";
 
 import { CommentRow } from "./CommentRow";
 import { ReviewRow } from "./ReviewRow";
@@ -12,13 +11,8 @@ import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import axios from "../axios";
 
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import { makeStyles } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
@@ -29,9 +23,7 @@ import {
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
 
-import link from "../icons/link.svg";
 import { useEffect } from "react";
-import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   dialog: {

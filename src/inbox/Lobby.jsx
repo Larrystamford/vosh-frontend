@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Lobby.css";
 
 import { Link } from "react-router-dom";
-import Pusher from "pusher-js";
-import axios from "../axios";
 
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import { RoomPreview } from "./RoomPreview";

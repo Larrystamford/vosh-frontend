@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Comments.css";
 
-import { useDidMountEffect } from "../customHooks/useDidMountEffect";
-
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import axios from "../axios";
-import { Link } from "react-router-dom";
 
 export const CommentSubRow = ({
   props,
@@ -32,10 +29,6 @@ export const CommentSubRow = ({
       }
     }
   }, [repliesLength]);
-
-  // useDidMountEffect(() => {
-  //   setLiked(false);
-  // }, [commentsLength]);
 
   const handleSubLikeButtonClicked = (likeOrUnlike) => {
     if (likeOrUnlike === "like") {

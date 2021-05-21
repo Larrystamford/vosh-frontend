@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
 } from "react-router-dom";
 import "./App.css";
 
@@ -15,9 +14,6 @@ import reduxThunk from "redux-thunk";
 import reducers from "./reducers/index";
 import axios from "./axios";
 import { useGlobalState } from "./GlobalStates";
-
-import PrivateRoute from "./PrivateRoute";
-import ConditionalRoute from "./ConditionalRoute";
 
 import Login from "./login/Login";
 import { Logout } from "./login/Logout";

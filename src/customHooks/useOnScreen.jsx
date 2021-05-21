@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDidMountEffect } from "./useDidMountEffect";
 
 export default function useOnScreen(ref, changingState) {
   const [isIntersecting, setIntersecting] = useState(false);

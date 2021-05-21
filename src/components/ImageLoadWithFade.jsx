@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import OnImagesLoaded from "react-on-images-loaded";
 
 export const ImageLoadWithFade = ({
@@ -7,7 +7,6 @@ export const ImageLoadWithFade = ({
   style,
   onClick,
   fadeIn,
-  setFadeIn,
 }) => {
   const [showImage, setShowImage] = useState(false);
 

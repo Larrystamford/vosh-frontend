@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./ProProfile.css";
-import { Link } from "react-router-dom";
 import { VideoGrid } from "../VideoGrid";
 import { useGlobalState } from "../../GlobalStates";
 import useOnScreen from "../../customHooks/useOnScreen";
@@ -9,12 +8,9 @@ import { ScrollVideo } from "./ScrollVideo";
 
 import { ImageLoad } from "../../components/ImageLoad";
 
-import { Snackbar } from "@material-ui/core";
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
 import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
-import { ProfileFeed } from "../../feed/ProfileFeed";
-import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 import CreateIcon from "@material-ui/icons/Create";
 import * as legoData from "../../components/lego-loader";
 
@@ -38,8 +34,6 @@ export const EditProProfile = ({ match, location }) => {
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [image, setImage] = useState("");
-  const [followers, setFollowers] = useState([]);
-  const [followings, setFollowings] = useState([]);
   const [proVideos, setProVideos] = useState([]);
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
@@ -101,8 +95,6 @@ export const EditProProfile = ({ match, location }) => {
       axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
         setImage(data.picture);
-        setFollowings(data.followings);
-        setFollowers(data.followers);
         setProTheme(data.proTheme);
 
         const sortedProVideos = data.proVideos.sort((a, b) => {

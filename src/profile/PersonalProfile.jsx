@@ -21,13 +21,11 @@ import { ProfileFeed } from "../feed/ProfileFeed";
 
 import { InstantPWA } from "../components/pwa/InstantPWA";
 import { InstantPurchaseSuccess } from "../components/pwa/InstantPurchaseSuccess";
-import { InstantGoSecondBrowser } from "../components/pwa/InstantGoSecondBrowser";
 
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 
 import ArrowDropDownOutlinedIcon from "@material-ui/icons/ArrowDropDownOutlined";
 import WallpaperOutlinedIcon from "@material-ui/icons/WallpaperOutlined";
-import ArchiveOutlinedIcon from "@material-ui/icons/ArchiveOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import HistoryIcon from "@material-ui/icons/History";
 import CreateIcon from "@material-ui/icons/Create";

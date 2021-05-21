@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Offline, Detector } from "react-detect-offline";
+import { Offline } from "react-detect-offline";
 import {useDidMountEffect} from "../customHooks/useDidMountEffect"
 import { Snackbar } from "@material-ui/core";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";

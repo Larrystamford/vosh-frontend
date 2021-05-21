@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import ScrollMenu from "react-horizontal-scrolling-menu";
+import React from "react";
 import "./HorizontalScrollBar.css";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import { MAIN_CATEGORIES_LIST_BAR } from "../helpers/CategoriesConstants";
-import { each } from "lodash";
 
 // list of items
 const list = MAIN_CATEGORIES_LIST_BAR;
@@ -53,13 +50,3 @@ export const HorizontalBar = ({ selectCategory, setSelectedCategory }) => {
     </div>
   );
 };
-
-{
-  /* 
-<ScrollMenu
-          data={menu}
-          selected={selectCategory}
-          onSelect={(key) => setSelectedCategory(key)}
-          innerWrapperClass="Horizontal_Scroll_Inner_Wrapper_Class"
-        /> */
-}

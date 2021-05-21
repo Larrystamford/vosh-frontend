@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ProEdit.css";
-import { useGlobalState } from "../../GlobalStates";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useHistory } from "react-router";
@@ -11,9 +10,7 @@ import { ConfirmDelete } from "./ConfirmDelete";
 
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import { Divider, makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
+import { makeStyles } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
@@ -23,13 +20,6 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-
-import Button from "@material-ui/core/Button";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);

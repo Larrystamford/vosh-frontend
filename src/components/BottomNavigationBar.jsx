@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./BottomNavigationBar.css";
 
 import { Link } from "react-router-dom";
@@ -14,10 +14,10 @@ import { withStyles } from "@material-ui/core/styles";
 
 // import BottomNavigation from "@material-ui/core/BottomNavigation";
 // import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+// import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 // import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
+// import MailOutlineIcon from "@material-ui/icons/MailOutline";
 // import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const StyledBadge = withStyles((theme) => ({

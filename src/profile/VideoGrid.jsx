@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 
 import "./VideoGrid.css";
-import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
-import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 
 import { DisplayPreviewFile } from "./DisplayPreviewFile";
-import { ProductImagesCarousel } from "../components/ProductImagesCarousel";
 import { useHistory } from "react-router";
-
-import OnImagesLoaded from "react-on-images-loaded";
 
 export const VideoGrid = ({
   videos,

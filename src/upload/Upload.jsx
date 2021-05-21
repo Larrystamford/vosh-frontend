@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Upload.css";
 import { ItemInformation } from "./ItemInformation";
 import * as constants from "../helpers/CategoriesConstants";
-import { getCombinedName } from "../helpers/CommonFunctions";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import axios from "../axios";
 import AddIcon from "@material-ui/icons/Add";
@@ -10,9 +9,7 @@ import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 
 import { useHistory } from "react-router";
 
-import AddBoxIcon from "@material-ui/icons/AddBox";
 import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
-import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import Button from "@material-ui/core/Button";
 
 import { StaySlidingSetUp } from "../login/StaySlidingSetUp";

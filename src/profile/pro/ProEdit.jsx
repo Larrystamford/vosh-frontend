@@ -1,4 +1,3 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import React, { useState, useEffect } from "react";
 import "./ProEdit.css";
 import { useGlobalState } from "../../GlobalStates";

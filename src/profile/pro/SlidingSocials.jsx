@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ProEdit.css";
-import { useGlobalState } from "../../GlobalStates";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useHistory } from "react-router";
@@ -11,9 +10,7 @@ import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
 
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import { Divider, makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
+import { makeStyles } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";

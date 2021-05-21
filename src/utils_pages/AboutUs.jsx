@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./AboutUs.css";
 import { useHistory } from "react-router";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
-import { Event } from "../components/tracking/Tracker";
 
 export const AboutUs = (props) => {
   // file in props.location.state.file

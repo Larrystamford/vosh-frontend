@@ -39,9 +39,6 @@ export const Feed = (props) => {
   const [showStartButton, setShowStartButton] = useState(false);
   const [welcomeScreen, setWelcomeScreen] = useState(false);
   const [checked, setChecked] = useState(false);
-  const handleSetUpClose = () => {
-    setChecked(false);
-  };
 
   const [loggedInUserId, setLoggedInUserId] = useGlobalState("loggedInUserId");
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./VideoGrid.css";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";

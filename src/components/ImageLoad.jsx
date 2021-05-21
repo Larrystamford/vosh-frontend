@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import OnImagesLoaded from "react-on-images-loaded";
 
 export const ImageLoad = ({ src, className, style, onClick }) => {

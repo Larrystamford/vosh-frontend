@@ -6,12 +6,10 @@ import { useGlobalState } from "../GlobalStates";
 
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import { useWindowSize } from "../customHooks/useWindowSize";
-import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import { Snackbar } from "@material-ui/core";
 
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
-import axios from "../axios";
 import { useFetch } from "../customHooks/useFetch";
 
 import { PageView, Exception } from "../components/tracking/Tracker";

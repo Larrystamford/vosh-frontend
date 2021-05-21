@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./VideoGrid.css";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
-import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 
 import OnImagesLoaded from "react-on-images-loaded";
 

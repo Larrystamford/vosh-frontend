@@ -1,9 +1,6 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import React, { useState, useEffect, useRef } from "react";
 import "./ProEdit.css";
-import { useGlobalState } from "../../GlobalStates";
 import { useHistory } from "react-router";
-import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 
 import { ImageLoad } from "../../components/ImageLoad";
 
@@ -13,14 +10,9 @@ import { SimpleBottomNotification } from "../../components/SimpleBottomNotificat
 
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
-
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
-import CategoryOutlinedIcon from "@material-ui/icons/CategoryOutlined";
-
-import CreateIcon from "@material-ui/icons/Create";
 
 import axios from "../../axios";
-import { Exception } from "../../components/tracking/Tracker";
 
 export const SetTheme = () => {
   const history = useHistory();

@@ -3,7 +3,6 @@ import "./Inbox.css";
 import { useGlobalState } from "../GlobalStates";
 import { useHistory } from "react-router";
 
-import { Lobby } from "./Lobby";
 import axios from "../axios";
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Room.css";
 
-import axios from "../axios";
 import { Link } from "react-router-dom";
 
 import SendIcon from "@material-ui/icons/Send";

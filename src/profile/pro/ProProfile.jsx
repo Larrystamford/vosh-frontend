@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./ProProfile.css";
-import { Link } from "react-router-dom";
 import { VideoGrid } from "../VideoGrid";
 import { useGlobalState } from "../../GlobalStates";
 import useOnScreen from "../../customHooks/useOnScreen";
@@ -37,8 +36,6 @@ export const ProProfile = ({ match, location }) => {
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [image, setImage] = useState("");
-  const [followers, setFollowers] = useState([]);
-  const [followings, setFollowings] = useState([]);
   const [proVideos, setProVideos] = useState([]);
   const [profileBio, setProfileBio] = useState("");
   const [socialAccounts, setSocialAccounts] = useState([]);
@@ -78,8 +75,6 @@ export const ProProfile = ({ match, location }) => {
             }
 
             setImage(data.picture);
-            setFollowings(data.followings);
-            setFollowers(data.followers);
             setProTheme(data.proTheme);
 
             const sortedProVideos = data.proVideos.sort((a, b) => {

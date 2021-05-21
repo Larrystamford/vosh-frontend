@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./SetUp.css";
 import { useGlobalState } from "../GlobalStates";
-import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
 import { useHistory } from "react-router";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import { makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
-
-import axios from "../axios";
 
 import StayLoginForm from "./StayLoginForm";
-
-import { Exception } from "../components/tracking/Tracker";
 
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";

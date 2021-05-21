@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
 import { MAIN_CATEGORIES_LIST_BAR } from "../helpers/CategoriesConstants";
 import "./Comments.css";

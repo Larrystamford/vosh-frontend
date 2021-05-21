@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./Purchases.css";
-import axios from "../axios";
 import { useHistory } from "react-router";
 
 import { OrderDetails } from "./OrderDetails";
 import { ConfirmItemDelivery } from "./ConfirmItemDelivery";
 
-import Button from "@material-ui/core/Button";
 import LocalShippingOutlinedIcon from "@material-ui/icons/LocalShippingOutlined";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CameraAltOutlinedIcon from "@material-ui/icons/CameraAltOutlined";

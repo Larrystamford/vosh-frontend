@@ -21,9 +21,6 @@ import { makeStyles } from "@material-ui/core";
 import { CardForm } from "./CardForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-
-import axios from "../axios";
-
 import { AddItem } from "../components/tracking/Tracker";
 
 let stripeClient;

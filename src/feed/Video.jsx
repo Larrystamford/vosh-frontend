@@ -7,7 +7,6 @@ import { useGlobalState } from "../GlobalStates";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
 import { SwipeUp } from "../components/SwipeUp";
 import { Snackbar } from "@material-ui/core";
 import ColoredLinearProgress from "../utils/ColoredLinearProgress";

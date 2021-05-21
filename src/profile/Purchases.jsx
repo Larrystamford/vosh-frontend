@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Purchases.css";
 
 import { PurchasesRow } from "./PurchasesRow";

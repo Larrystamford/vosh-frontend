@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./OrderDetails.css";
-import { useGlobalState } from "../GlobalStates";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import { CustomerSupportAlert } from "./CustomerSupportAlert";
 
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import { makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 
 import Timeline from "@material-ui/lab/Timeline";
 import TimelineItem from "@material-ui/lab/TimelineItem";
@@ -15,12 +13,8 @@ import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
 import TimelineConnector from "@material-ui/lab/TimelineConnector";
 import TimelineContent from "@material-ui/lab/TimelineContent";
 import TimelineDot from "@material-ui/lab/TimelineDot";
-import TimelineOppositeContent from "@material-ui/lab/TimelineOppositeContent";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
-
-import axios from "../axios";
 
 const useStyles = makeStyles((theme) => ({
   dialog: {

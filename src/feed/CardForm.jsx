@@ -8,17 +8,7 @@ import {
 
 import GooglePayButton from "@google-pay/button-react";
 import { InstantBrowserMsg } from "../components/pwa/InstantBrowserMsg";
-
-import { useDidMountEffect } from "../customHooks/useDidMountEffect";
-
-import Button from "@material-ui/core/Button";
-
-import Tooltip from "@material-ui/core/Tooltip";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-
 import { useHistory } from "react-router";
-
 import { Purchase, Exception, Event } from "../components/tracking/Tracker";
 import ReactPixel from "react-facebook-pixel";
 

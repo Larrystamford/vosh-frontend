@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Landing.css";
-
-import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const Landing = ({

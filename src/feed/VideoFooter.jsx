@@ -1,22 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./VideoFooter.css";
 import { useGlobalState } from "../GlobalStates";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import Ticker from "react-ticker";
 
 import { ImageLoad } from "../components/ImageLoad";
 import { ProductImagesCarousel } from "../components/ProductImagesCarousel";
 
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 
-import { Buy } from "./Buy";
 import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 
 import VideocamIcon from "@material-ui/icons/Videocam";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 
 import { Event } from "../components/tracking/Tracker";
 import LocalMallIcon from "@material-ui/icons/LocalMall";

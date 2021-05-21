@@ -8,19 +8,11 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import MessageIcon from "@material-ui/icons/Message";
 import ShareIcon from "@material-ui/icons/Share";
-import { FaAmazon } from "react-icons/fa";
-import LoyaltyIcon from "@material-ui/icons/Loyalty";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import axios from "../axios";
 import { Event } from "../components/tracking/Tracker";
 import ReactPixel from "react-facebook-pixel";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
 function VideoSidebar({
   id,

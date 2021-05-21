@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Upload.css";
-import * as constants from "../helpers/CategoriesConstants";
 import { getCombinedName } from "../helpers/CommonFunctions";
 
-import Button from "@material-ui/core/Button";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import ClearOutlinedIcon from "@material-ui/icons/ClearOutlined";
 

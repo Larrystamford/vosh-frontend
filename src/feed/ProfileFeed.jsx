@@ -5,7 +5,6 @@ import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt"
 
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
-import { Landing } from "../utils_pages/Landing";
 import { useWindowSize } from "../customHooks/useWindowSize";
 
 export const ProfileFeed = (props) => {

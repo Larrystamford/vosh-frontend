@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import usePushNotifications from "../customHooks/usePushNotifications";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,7 +7,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import axios from "../axios";
 // pushType: "comments", "apurchased", "like"
 export const PushNotificationPrompt = ({
   notifPrompt,

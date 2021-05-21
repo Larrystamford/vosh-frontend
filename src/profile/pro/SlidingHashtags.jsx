@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./ProEdit.css";
-import { useGlobalState } from "../../GlobalStates";
 import * as constants from "../../helpers/CategoriesConstants";
 
 import { useHistory } from "react-router";
 
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import { Divider, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
