@@ -3,17 +3,17 @@
   "name": "Vosh.Club",
   "icons": [
     {
-      "src": "icon.ico",
+      "src": "favicon-96x96.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "icon-192x192.png",
+      "src": "favicon-32x32.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "favicon-96x96.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -29,7 +29,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#6620f5",
+  "background_color": "#000000",
   "categories": ["shopping", "fun", "videos", "shop", "entertainment", "buy"],
   "scope": "/"
 }

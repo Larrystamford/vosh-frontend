@@ -5,15 +5,15 @@ function receivePushNotification(event) {
   const options = {
     data: url,
     body: text,
-    icon: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
+    icon: "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
     vibrate: [200, 100, 200],
     tag: tag,
-    badge: "https://dciv99su0d7r5.cloudfront.net/favicon.ico",
+    badge: "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
     actions: [
       {
         action: "Detail",
         title: "View",
-        icon: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
+        icon: "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
       },
     ],
   };
@@ -52,9 +52,7 @@ const assets = [
   "https://dciv99su0d7r5.cloudfront.net/Poppins-Regular.otf",
   "https://dciv99su0d7r5.cloudfront.net/computer_no_bg.png",
   "https://dciv99su0d7r5.cloudfront.net/vosh_qr.png",
-  "/favicon.ico",
-  "/icon-192x192.png",
-  "/icon-512x512.png",
+  "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
   "/ShopLocoLoco Logo_Symbol Orange No BG.png",
   "/ShopLocoLoco Logo_Symbol White No BG.png",
   "/utils_pages/Landing.jsx",

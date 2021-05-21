@@ -13,7 +13,7 @@ export const PrivacyPolicy = () => {
         <meta property="og:title" content="Vosh Privacy Policy" />
         <meta
           property="og:image"
-          content="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
+          content="/favicon-96x96.png"
         />
         <meta
           property="og:description"

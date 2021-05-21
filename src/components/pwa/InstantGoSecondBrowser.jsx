@@ -42,7 +42,7 @@ export const InstantGoSecondBrowser = ({ openGoBrowser, setOpenGoBrowser }) => {
             >
               <img
                 width="70px"
-                src="https://dciv99su0d7r5.cloudfront.net/icon-192x192.png"
+                src="https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png"
                 alt="Icon"
               />
               <div className="PWA_words_group">

@@ -154,9 +154,6 @@
   align-items: flex-start;
 
   padding-top: 1rem;
-
-  background-repeat: repeat;
-  background-position: center;
 }
 
 .pro_profile_top_social_medias {
@@ -205,6 +202,9 @@
   align-items: center;
   justify-content: flex-start;
   overflow-y: scroll;
+
+  background-repeat: repeat;
+  background-position: center;
 
   z-index: 4000;
 }

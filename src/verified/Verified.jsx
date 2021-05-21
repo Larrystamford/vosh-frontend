@@ -177,9 +177,8 @@ export const Verified = () => {
             processingTikToksStartTime: new Date().getTime(),
             proTheme: {
               background1:
-                "https://dciv99su0d7r5.cloudfront.net/PaddlePop.jpg",
-              background2:
-                "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
+                "https://dciv99su0d7r5.cloudfront.net/vosh-template-bg12.jpg",
+              background2: "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
             },
           }
         );

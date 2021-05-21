@@ -74,7 +74,7 @@ export const SellRow = ({
         title:
           "There has been a slight delay in shipping! We are working hard on it!",
         text: "Open to view",
-        image: "https://dciv99su0d7r5.cloudfront.net/icon-192x192.png",
+        image: "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
         tag: "shipping-refunded",
         url: "https://www.vosh.club/inbox",
       });
