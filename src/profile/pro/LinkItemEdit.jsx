@@ -12,7 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import AddPhotoAlternateOutlinedIcon from "@material-ui/icons/AddPhotoAlternateOutlined";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "../../axios";
 
@@ -45,9 +44,10 @@ export const LinkItemEdit = ({
   setInputValues,
   editingIndex,
   setPreviousLinks,
+  gettingProductImage,
+  setGettingProductImage,
 }) => {
   const [focused, setFocused] = useState(false);
-  const [gettingProductImage, setGettingProductImage] = useState(false);
 
   const size = useWindowSize();
   const classes = useStyles();
@@ -60,6 +60,38 @@ export const LinkItemEdit = ({
     if (event.key === "Enter") {
       // onSubmitSignUp();
     }
+  };
+
+  const updateItemWithProductImage = async (
+    new_id,
+    new_itemLink,
+    new_itemLinkName,
+    new_itemIndex
+  ) => {
+    setGettingProductImage(true);
+
+    let webImageLink;
+    axios
+      .post("/v1/upload/getImageURLByScrapping/", {
+        webLink: inputValues.itemLink,
+      })
+      .then((res) => {
+        webImageLink = res.data.productLink;
+        let prevItems = linksState["items"];
+
+        const newLinkObj = {
+          id: new_id,
+          itemLink: new_itemLink,
+          itemLinkName: new_itemLinkName,
+          itemImage: webImageLink,
+        };
+
+        prevItems[new_itemIndex] = newLinkObj;
+
+        setLinksState({ items: prevItems });
+        setPreviousLinks((prevState) => [newLinkObj, ...prevState]);
+        setGettingProductImage(false);
+      });
   };
 
   const handleLinkEditSave = async () => {
@@ -79,29 +111,27 @@ export const LinkItemEdit = ({
           setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
           setLinksState({ items: prevItems });
         } else {
-          setGettingProductImage(true);
-          let webImageLink;
+          let new_id = inputValues.itemLink + new Date().getTime();
+          let new_itemLink = inputValues.itemLink;
+          let new_itemLinkName = inputValues.itemLinkName;
+          let new_itemIndex = linksState.items.length;
 
-          axios
-            .post("/v1/upload/getImageURLByScrapping/", {
-              webLink: inputValues.itemLink,
-            })
-            .then((res) => {
-              webImageLink = res.data.productLink;
+          const linkObj = {
+            id: new_id,
+            itemLink: new_itemLink,
+            itemLinkName: new_itemLinkName,
+          };
 
-              const linkObj = {
-                id: inputValues.itemLink + new Date().getTime(),
-                itemLink: inputValues.itemLink,
-                itemLinkName: inputValues.itemLinkName,
-                itemImage: webImageLink,
-              };
+          setLinksState((prevState) => ({
+            items: [...prevState["items"], linkObj],
+          }));
 
-              setLinksState((prevState) => ({
-                items: [...prevState["items"], linkObj],
-              }));
-              setPreviousLinks((prevState) => [linkObj, ...prevState]);
-              setGettingProductImage(false);
-            });
+          updateItemWithProductImage(
+            new_id,
+            new_itemLink,
+            new_itemLinkName,
+            new_itemIndex
+          );
         }
 
         setOpenLinkEdit(false);

@@ -22,6 +22,8 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 import Button from "@material-ui/core/Button";
@@ -49,6 +51,7 @@ function Draggable_Item({
   itemImage,
   setItemImage,
   setOpenEditImage,
+  gettingProductImage,
 }) {
   return (
     <Draggable draggableId={item.id} index={index}>
@@ -81,6 +84,10 @@ function Draggable_Item({
                   className="SlidingEdit_TypeLeft_Image_Placeholder"
                   src={item.itemImage}
                 />
+              </div>
+            ) : gettingProductImage ? (
+              <div className="SlidingEdit_TypeLeft_Image_Placeholder">
+                <CircularProgress size={18} />
               </div>
             ) : (
               <div className="SlidingEdit_TypeLeft_Image_Placeholder">
@@ -127,6 +134,7 @@ const DraggableList = React.memo(function DraggableList({
   setOpenLinkEdit,
   setEditingIndex,
   setOpenEditImage,
+  gettingProductImage,
 }) {
   return items.map((item, index) => (
     <Draggable_Item
@@ -140,6 +148,7 @@ const DraggableList = React.memo(function DraggableList({
       setOpenLinkEdit={setOpenLinkEdit}
       setEditingIndex={setEditingIndex}
       setOpenEditImage={setOpenEditImage}
+      gettingProductImage={gettingProductImage}
     />
   ));
 });
@@ -187,6 +196,8 @@ export const SlidingItemLinks = ({
   };
 
   const [openEditImage, setOpenEditImage] = useState(false);
+
+  const [gettingProductImage, setGettingProductImage] = useState(false);
 
   const [openLinkPrevious, setOpenLinkPrevious] = useState(false);
 
@@ -275,6 +286,7 @@ export const SlidingItemLinks = ({
                   setOpenLinkEdit={setOpenLinkEdit}
                   setEditingIndex={setEditingIndex}
                   setOpenEditImage={setOpenEditImage}
+                  gettingProductImage={gettingProductImage}
                 />
                 {provided.placeholder}
               </div>
@@ -325,6 +337,8 @@ export const SlidingItemLinks = ({
         setLinksState={setItemLinks}
         editingIndex={editingIndex}
         setPreviousLinks={setPreviousLinks}
+        gettingProductImage={gettingProductImage}
+        setGettingProductImage={setGettingProductImage}
       />
       <LinkPrevious
         openLinkPrevious={openLinkPrevious}
