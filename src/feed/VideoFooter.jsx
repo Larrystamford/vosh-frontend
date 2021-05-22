@@ -351,7 +351,8 @@ function VideoFooter({
                       )}
                     </div>
                   ))
-                : amazons.map((amazon) => (
+                : amazons.length > 0
+                ? amazons.map((amazon) => (
                     <div
                       className="sidebar_amazonlogolink"
                       style={{ backgroundColor: "teal" }}
@@ -364,22 +365,21 @@ function VideoFooter({
                     >
                       <p>{amazon.amazon_name}</p>
                     </div>
-                  ))}
-
-              {smallShopLink && (
-                <div
-                  className="sidebar_amazonlogolink"
-                  style={{ backgroundColor: "teal" }}
-                  onClick={() => {
-                    onVideoClick();
-                    window.open(smallShopLink, "_blank");
-                    return false;
-                  }}
-                  key={smallShopLink}
-                >
-                  <p>{smallShopLink}</p>
-                </div>
-              )}
+                  ))
+                : smallShopLink && (
+                    <div
+                      className="sidebar_amazonlogolink"
+                      style={{ backgroundColor: "teal" }}
+                      onClick={() => {
+                        onVideoClick();
+                        window.open(smallShopLink, "_blank");
+                        return false;
+                      }}
+                      key={smallShopLink}
+                    >
+                      <p>{smallShopLink}</p>
+                    </div>
+                  )}
             </div>
           </div>
         </Dialog>
