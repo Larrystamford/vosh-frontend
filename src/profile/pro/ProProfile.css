@@ -136,7 +136,7 @@
 
 .pro_profile_top {
   height: 50%;
-  min-height: 24rem;
+  min-height: 23rem;
   width: 100%;
 
   display: flex;
@@ -333,6 +333,9 @@
   align-items: center;
   justify-content: flex-start;
   overflow-x: scroll;
+
+  background-repeat: repeat;
+  background-position: center;
 
   z-index: 2800;
 }
