@@ -260,7 +260,9 @@ export const Comments = (props) => {
             }
           ></div>
           <div className="comments_title">
-            <p onClick={() => setReviewOrComment("comment")}>Comments</p>
+            <p onClick={() => setReviewOrComment("comment")}>
+              Community Reviews
+            </p>
           </div>
 
           {reviewOrComment === "comment" && (

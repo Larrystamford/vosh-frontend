@@ -258,7 +258,7 @@ export const ProProfile = ({ match, location }) => {
             socialAccounts.length > 5
               ? size.height <= 580
                 ? { minHeight: "23rem" }
-                : { minHeight: "25rem" }
+                : { minHeight: "26rem" }
               : null
           }
         >
@@ -462,10 +462,7 @@ export const ProProfile = ({ match, location }) => {
                 handleCategorySelection("all");
               }}
             >
-              <img
-                src="https://dciv99su0d7r5.cloudfront.net/all.png"
-                style={{ height: 20 }}
-              />
+              <span style={{ margin: 3, fontSize: 16 }}>🌎</span>
               <p
                 style={{
                   color: proTheme.categoryWordsColor,
@@ -488,13 +485,19 @@ export const ProProfile = ({ match, location }) => {
                   handleCategorySelection(id);
                 }}
               >
-                <img src={proCategoryImage} style={{ height: 20 }} />
+                {proCategoryImage.includes(".png") ? (
+                  <img src={proCategoryImage} style={{ height: 20 }} />
+                ) : (
+                  <span style={{ margin: 3, fontSize: 16 }}>
+                    {proCategoryImage}
+                  </span>
+                )}
                 <p
                   style={{
                     color: proTheme.categoryWordsColor,
                   }}
                 >
-                  {proCategoryName}
+                  {proCategoryName.toLowerCase()}
                 </p>
                 <div
                   className="pro_profile_icon_and_name_underline"

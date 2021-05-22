@@ -5,11 +5,14 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import MenuItem from "@material-ui/core/MenuItem";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 import { makeStyles } from "@material-ui/core/styles";
+
+import Picker from "emoji-picker-react";
 
 const categoryIcons = [
   {
@@ -109,7 +112,18 @@ export const LinkEditCategory = ({
   setlinksState,
   editingIndex,
 }) => {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [focused, setFocused] = useState(false);
+
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+    setInputValues({ ...inputValues, proCategoryImage: emojiObject.emoji });
+  };
+
+  console.log(inputValues);
 
   const size = useWindowSize();
   const classes = useStyles();
@@ -161,31 +175,20 @@ export const LinkEditCategory = ({
   };
 
   return (
-    <Dialog open={openLinkEdit}>
+    <Dialog open={openLinkEdit} fullScreen={fullScreen}>
       <DialogContent>
         <DialogContentText>
           {editingIndex === -1 ? "Add New Category" : "Edit Category"}
         </DialogContentText>
-        <TextField
-          className={clsx(classes.margin, classes.textField)}
-          size={size.height < 580 ? "small" : null}
-          id="outlined-start-adornment"
-          select
-          label="Select Logo"
-          variant="outlined"
-          onChange={handleChange("proCategoryImage")}
-          onKeyDown={handleKeyDown}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          style={{ backgroundColor: "white", marginTop: "1rem" }}
-          value={inputValues.proCategoryImage}
-        >
-          {categoryIcons.map((option) => (
-            <MenuItem key={option.link} value={option.link}>
-              <img style={{ height: 20, paddingRight: 30 }} src={option.link} />
-            </MenuItem>
-          ))}
-        </TextField>
+        <div>
+          {chosenEmoji ? (
+            <span>Selected Category Logo: {chosenEmoji.emoji}</span>
+          ) : (
+            <span>Select a Emoji Logo:</span>
+          )}
+          <Picker onEmojiClick={onEmojiClick} />
+        </div>
+
         <TextField
           size={size.height < 580 ? "small" : null}
           label={`Category Name (${inputValues.proCategoryName.length}/10)`}

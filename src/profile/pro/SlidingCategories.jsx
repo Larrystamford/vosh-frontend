@@ -49,10 +49,16 @@ function Draggable_Item({
             <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
           <div className="SlidingEdit_TypeLeft">
-            <img
-              src={item.proCategoryImage}
-              style={{ height: 18, margin: 3 }}
-            />
+            {item.proCategoryImage.includes(".png") ? (
+              <img
+                src={item.proCategoryImage}
+                style={{ height: 18, margin: 3 }}
+              />
+            ) : (
+              <span style={{ margin: 3, fontSize: 16 }}>
+                {item.proCategoryImage}
+              </span>
+            )}
           </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p className="Draggable_Link_Item_Content_2">

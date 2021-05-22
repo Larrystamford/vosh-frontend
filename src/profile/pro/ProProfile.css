@@ -412,6 +412,7 @@
   min-width: 4.2rem;
   min-height: 2.5rem;
   position: relative;
+  padding-bottom: 5px;
 }
 
 .pro_profile_icon_and_name_underline {
