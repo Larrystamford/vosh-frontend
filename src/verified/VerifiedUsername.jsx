@@ -125,7 +125,7 @@ export const VerifiedUsername = () => {
         }
       );
 
-      if (res.status === "201") {
+      if (res.status === 201) {
         localStorage.setItem("USER_NAME", res.data[0].userName);
         history.goBack();
       } else {

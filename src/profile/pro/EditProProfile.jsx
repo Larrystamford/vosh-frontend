@@ -20,9 +20,12 @@ import { PageView } from "../../components/tracking/Tracker";
 
 import Lottie from "react-lottie";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import { useWindowSize } from "../../customHooks/useWindowSize";
 
 export const EditProProfile = ({ match, location }) => {
   const history = useHistory();
+  const size = useWindowSize();
+
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
   );
@@ -204,7 +207,13 @@ export const EditProProfile = ({ match, location }) => {
       ) : (
         <div
           className="pro_profile_top"
-          style={socialAccounts.length > 5 ? { minHeight: "25rem" } : null}
+          style={
+            socialAccounts.length > 5
+              ? size.height <= 580
+                ? { minHeight: "23rem" }
+                : { minHeight: "25rem" }
+              : null
+          }
         >
           <div className="pro_profile_top_with_left_right">
             <div className="pro_profile_top_left">
@@ -416,7 +425,9 @@ export const EditProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_icon_and_name_underline"
-                style={selectedCategoryId === "all" ? null : { display: "none" }}
+                style={
+                  selectedCategoryId === "all" ? null : { display: "none" }
+                }
               ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (

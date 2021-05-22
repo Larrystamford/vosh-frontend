@@ -22,9 +22,12 @@ import Lottie from "react-lottie";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useWindowSize } from "../../customHooks/useWindowSize";
 
 export const ProProfile = ({ match, location }) => {
   const history = useHistory();
+  const size = useWindowSize();
+
   const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
     "globalModalOpened"
   );
@@ -251,7 +254,13 @@ export const ProProfile = ({ match, location }) => {
       ) : (
         <div
           className="pro_profile_top"
-          style={socialAccounts.length > 5 ? { minHeight: "26rem" } : null}
+          style={
+            socialAccounts.length > 5
+              ? size.height <= 580
+                ? { minHeight: "23rem" }
+                : { minHeight: "25rem" }
+              : null
+          }
         >
           <div className="pro_profile_top_with_left_right">
             <div className="pro_profile_top_left">
@@ -467,7 +476,9 @@ export const ProProfile = ({ match, location }) => {
 
               <div
                 className="pro_profile_icon_and_name_underline"
-                style={selectedCategoryId === "all" ? null : { display: "none" }}
+                style={
+                  selectedCategoryId === "all" ? null : { display: "none" }
+                }
               ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
