@@ -92,10 +92,15 @@ export const ContentCategory = ({
                       }
                       label={proCategoryName}
                     />
-                    <img
-                      src={proCategoryImage}
-                      style={{ height: 18, width: 18 }}
-                    />
+
+                    {proCategoryImage.includes(".png") ? (
+                      <img
+                        src={proCategoryImage}
+                        style={{ height: 18, width: 18 }}
+                      />
+                    ) : (
+                      <span style={{ fontSize: 16 }}>{proCategoryImage}</span>
+                    )}
                   </div>
                 )
               )}
