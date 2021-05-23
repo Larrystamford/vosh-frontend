@@ -9,7 +9,10 @@ import { ScrollVideo } from "./ScrollVideo";
 import { ImageLoad } from "../../components/ImageLoad";
 
 import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
-import { convertSocialTypeToImage } from "../../helpers/CommonFunctions";
+import {
+  convertSocialTypeToImage,
+  titleCase,
+} from "../../helpers/CommonFunctions";
 
 import CreateIcon from "@material-ui/icons/Create";
 import * as legoData from "../../components/lego-loader";
@@ -22,13 +25,14 @@ import Lottie from "react-lottie";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+
 export const EditProProfile = ({ match, location }) => {
   const history = useHistory();
   const size = useWindowSize();
 
-  const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
-    "globalModalOpened"
-  );
+  const [globalModalOpened, setGlobalModalOpened] =
+    useGlobalState("globalModalOpened");
   const [scrolledBottomCount, setScrolledBottomCount] = useState(0);
   const scrollRef = useBottomScrollListener(() => {
     setScrolledBottomCount(scrolledBottomCount + 1);
@@ -167,10 +171,12 @@ export const EditProProfile = ({ match, location }) => {
     history.goBack();
   };
 
+  const [selectedCategoryName, setSelectedCategoryName] = useState("all");
   const [selectedCategoryId, setSelectedCategoryId] = useState("all");
-  const handleCategorySelection = (id) => {
+  const handleCategorySelection = (id, name) => {
     setScrolledBottomCount(0);
     setSelectedCategoryId(id);
+    setSelectedCategoryName(name);
   };
 
   const topRef = useRef();
@@ -205,142 +211,183 @@ export const EditProProfile = ({ match, location }) => {
           </div>
         </div>
       ) : (
-        <div
-          className="pro_profile_top"
-          style={
-            socialAccounts.length > 5
-              ? size.height <= 580
-                ? { minHeight: "23rem" }
-                : { minHeight: "26rem" }
-              : null
-          }
-        >
+        <div className="pro_profile_top">
           <div className="pro_profile_top_with_left_right">
-            <div className="pro_profile_top_left">
-              <div className="pro_profile_top_image_name">
-                <div className="pro_profile_top_image">
-                  {image ? (
-                    <div
-                      style={{ position: "relative" }}
-                      onClick={handleUploadClick}
-                    >
-                      <ImageLoad
-                        src={image}
-                        className="pro_profile_top_image_circular"
-                      />
+            <div className="pro_profile_top_right">
+              <div className="pro_profile_top_photo_and_social">
+                <div className="pro_profile_top_image_name">
+                  <div className="pro_profile_top_image">
+                    {image ? (
+                      <div
+                        style={{ position: "relative" }}
+                        onClick={handleUploadClick}
+                      >
+                        <ImageLoad
+                          src={image}
+                          className="pro_profile_top_image_circular"
+                        />
 
-                      <div className="edit_pro_profile_edit_image_circle">
-                        <CreateIcon
-                          className="edit_pro_profile_edit_image"
-                          style={{ fontSize: 14 }}
+                        <div className="edit_pro_profile_edit_image_circle">
+                          <CreateIcon
+                            className="edit_pro_profile_edit_image"
+                            style={{ fontSize: 14 }}
+                          />
+                        </div>
+                        <input
+                          ref={hiddenFileInput}
+                          type="file"
+                          name="file"
+                          onChange={(e) => {
+                            handleFileUpload(e.target.files[0]);
+                          }}
                         />
                       </div>
-                      <input
-                        ref={hiddenFileInput}
-                        type="file"
-                        name="file"
-                        onChange={(e) => {
-                          handleFileUpload(e.target.files[0]);
+                    ) : null}
+                  </div>
+                  <div className="pro_profile_top_follow">
+                    <div
+                      className="edit_pro_profile_top_edit_button"
+                      onClick={() => {
+                        history.push("/ProEdit");
+                      }}
+                    >
+                      <SettingsOutlinedIcon
+                        style={{
+                          fontSize: 18,
+                          color: proTheme.socialIconsColor,
                         }}
                       />
+                      <p style={{ color: proTheme.socialIconsColor }}>Edit</p>
                     </div>
-                  ) : null}
+                  </div>
                 </div>
-                <div
-                  className="pro_profile_top_name"
-                  style={{
-                    color: proTheme.primaryFontColor,
-                  }}
-                >
-                  <p>{username}</p>
-                </div>
-              </div>
-              <div className="pro_profile_top_follow">
-                <div
-                  className="edit_pro_profile_top_edit_button"
-                  onClick={() => {
-                    alert(
-                      "Upcoming Feature: Easily track your clicks and more"
-                    );
-                  }}
-                >
-                  <p>Stats</p>
-                </div>
-              </div>
-              <div className="pro_profile_top_follow">
-                <div
-                  className="edit_pro_profile_top_edit_button"
-                  onClick={() => {
-                    history.push("/ProEdit");
-                  }}
-                >
-                  <p>Edit</p>
-                </div>
-              </div>
-            </div>
-            <div className="pro_profile_top_right">
-              <div className="pro_profile_top_social_medias">
-                {socialAccounts
-                  .slice(0, 5)
-                  .map(({ socialType, socialLink }) => (
-                    <img
-                      src={convertSocialTypeToImage(socialType)}
-                      style={
-                        proTheme.socialIconsColor === "white"
-                          ? {
-                              height: 23,
-                              margin: 10,
-                              filter: "invert(100%)",
-                              WebkitFilter: "invert(100%)",
-                            }
-                          : {
-                              height: 23,
-                              margin: 10,
-                              filter: "invert(0%)",
-                              WebkitFilter: "invert(0%)",
-                            }
-                      }
-                      onClick={() => {
-                        if (socialType == "Email") {
-                          window.open(`mailto:${socialLink}?subject=From Vosh`);
-                        } else {
-                          window.open(socialLink, "_blank");
-                        }
+
+                <div className="pro_profile_top_name_social_cta">
+                  <div className="pro_profile_top_social_medias">
+                    <div
+                      className="pro_profile_top_name"
+                      style={{
+                        color: proTheme.primaryFontColor,
                       }}
-                    />
-                  ))}
-              </div>
-              <div className="pro_profile_top_social_medias">
-                {socialAccounts
-                  .slice(5, 10)
-                  .map(({ socialType, socialLink }) => (
-                    <img
-                      src={convertSocialTypeToImage(socialType)}
-                      style={
-                        proTheme.socialIconsColor === "white"
-                          ? {
-                              height: 23,
-                              margin: 10,
-                              filter: "invert(100%)",
-                              WebkitFilter: "invert(100%)",
+                    >
+                      <p
+                        className="pro_profile_top_name"
+                        style={{
+                          color: proTheme.primaryFontColor,
+                        }}
+                      >
+                        @{username}
+                      </p>
+                    </div>
+                  </div>
+
+                  {socialAccounts.length < 6 ? (
+                    <div className="pro_profile_top_social_medias">
+                      {socialAccounts
+                        .slice(0, 5)
+                        .map(({ socialType, socialLink }) => (
+                          <img
+                            src={convertSocialTypeToImage(socialType)}
+                            style={
+                              proTheme.socialIconsColor === "white"
+                                ? {
+                                    height: 19,
+                                    margin: 10,
+                                    filter: "invert(100%)",
+                                    WebkitFilter: "invert(100%)",
+                                  }
+                                : {
+                                    height: 19,
+                                    margin: 10,
+                                    filter: "invert(0%)",
+                                    WebkitFilter: "invert(0%)",
+                                  }
                             }
-                          : {
-                              height: 23,
-                              margin: 10,
-                              filter: "invert(0%)",
-                              WebkitFilter: "invert(0%)",
-                            }
-                      }
-                      onClick={() => {
-                        if (socialType === "Email") {
-                          window.open(`mailto:${socialLink}?subject=From Vosh`);
-                        } else {
-                          window.open(socialLink, "_blank");
-                        }
-                      }}
-                    />
-                  ))}
+                            onClick={() => {
+                              if (socialType == "Email") {
+                                window.open(
+                                  `mailto:${socialLink}?subject=From Vosh`
+                                );
+                              } else {
+                                window.open(socialLink, "_blank");
+                              }
+                            }}
+                          />
+                        ))}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="pro_profile_top_social_medias">
+                        {socialAccounts
+                          .slice(0, 5)
+                          .map(({ socialType, socialLink }) => (
+                            <img
+                              src={convertSocialTypeToImage(socialType)}
+                              style={
+                                proTheme.socialIconsColor === "white"
+                                  ? {
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(100%)",
+                                      WebkitFilter: "invert(100%)",
+                                    }
+                                  : {
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(0%)",
+                                      WebkitFilter: "invert(0%)",
+                                    }
+                              }
+                              onClick={() => {
+                                if (socialType == "Email") {
+                                  window.open(
+                                    `mailto:${socialLink}?subject=From Vosh`
+                                  );
+                                } else {
+                                  window.open(socialLink, "_blank");
+                                }
+                              }}
+                            />
+                          ))}
+                      </div>
+                      <div className="pro_profile_top_social_medias">
+                        {socialAccounts
+                          .slice(5, 10)
+                          .map(({ socialType, socialLink }) => (
+                            <img
+                              src={convertSocialTypeToImage(socialType)}
+                              style={
+                                proTheme.socialIconsColor === "white"
+                                  ? {
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(100%)",
+                                      WebkitFilter: "invert(100%)",
+                                    }
+                                  : {
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(0%)",
+                                      WebkitFilter: "invert(0%)",
+                                    }
+                              }
+                              onClick={() => {
+                                if (socialType == "Email") {
+                                  window.open(
+                                    `mailto:${socialLink}?subject=From Vosh`
+                                  );
+                                } else {
+                                  window.open(socialLink, "_blank");
+                                }
+                              }}
+                            />
+                          ))}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
+
               <div className="pro_profile_top_description">
                 <div
                   className="pro_profile_top_profileBio"
@@ -353,6 +400,7 @@ export const EditProProfile = ({ match, location }) => {
                   <span>{profileBio}</span>
                 </div>
               </div>
+
               <div
                 className="pro_profile_top_linker"
                 style={{
@@ -389,8 +437,34 @@ export const EditProProfile = ({ match, location }) => {
                   </div>
                 )}
               </div>
+              <div
+                className="pro_profile_shop_div"
+                style={{
+                  color: proTheme.primaryFontColor,
+                }}
+              >
+                <p>
+                  Shop{" "}
+                  <span
+                    style={{ fontStyle: "italic", textDecoration: "underline" }}
+                  >
+                    {titleCase(selectedCategoryName)}
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
+
+          <div
+            className="pro_profile_top_selector"
+            style={
+              isVisible
+                ? {
+                    display: "none",
+                  }
+                : {}
+            }
+          ></div>
 
           <div
             className="pro_profile_top_selector"
@@ -408,10 +482,18 @@ export const EditProProfile = ({ match, location }) => {
             <div
               className="pro_profile_icon_and_name"
               onClick={() => {
-                handleCategorySelection("all");
+                handleCategorySelection("all", "all");
               }}
             >
-              <span style={{ margin: 3, fontSize: 16 }}>🌎</span>
+              <span
+                style={
+                  selectedCategoryId == "all"
+                    ? { margin: 3, fontSize: 20, fontWeight: "bold" }
+                    : { margin: 3, fontSize: 16 }
+                }
+              >
+                🌎
+              </span>
               <p
                 style={{
                   color: proTheme.categoryWordsColor,
@@ -419,24 +501,24 @@ export const EditProProfile = ({ match, location }) => {
               >
                 all
               </p>
-              <div
-                className="pro_profile_icon_and_name_underline"
-                style={
-                  selectedCategoryId === "all" ? null : { display: "none" }
-                }
-              ></div>
             </div>
             {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
               <div
                 className="pro_profile_icon_and_name"
                 onClick={() => {
-                  handleCategorySelection(id);
+                  handleCategorySelection(id, proCategoryName);
                 }}
               >
                 {proCategoryImage.includes(".png") ? (
                   <img src={proCategoryImage} style={{ height: 20 }} />
                 ) : (
-                  <span style={{ margin: 3, fontSize: 16 }}>
+                  <span
+                    style={
+                      selectedCategoryId == id
+                        ? { margin: 3, fontSize: 20, fontWeight: "bold" }
+                        : { margin: 3, fontSize: 16 }
+                    }
+                  >
                     {proCategoryImage}
                   </span>
                 )}
@@ -446,12 +528,8 @@ export const EditProProfile = ({ match, location }) => {
                     color: proTheme.categoryWordsColor,
                   }}
                 >
-                  {proCategoryName.toLowerCase()}
+                  {proCategoryName}
                 </p>
-                <div
-                  className="pro_profile_icon_and_name_underline"
-                  style={selectedCategoryId == id ? null : { display: "none" }}
-                ></div>
               </div>
             ))}
           </div>

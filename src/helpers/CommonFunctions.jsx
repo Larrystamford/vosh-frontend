@@ -18,6 +18,15 @@ export const getCombinedName = (color, name, size) => {
   return newColor + newName + newSize;
 };
 
+export const titleCase = (str) => {
+  var splitStr = str.toLowerCase().split(" ");
+  for (var i = 0; i < splitStr.length; i++) {
+    splitStr[i] =
+      splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  return splitStr.join(" ");
+};
+
 export const convertSocialTypeToImage = (socialType) => {
   if (socialType === "TikTok") {
     return "https://dciv99su0d7r5.cloudfront.net/tik-tok.png";

@@ -129,7 +129,10 @@ export const LinkEditCategory = ({
   const classes = useStyles();
 
   const handleChange = (prop) => (event) => {
-    setInputValues({ ...inputValues, [prop]: event.target.value });
+    setInputValues({
+      ...inputValues,
+      [prop]: event.target.value.toLowerCase(),
+    });
   };
 
   const handleKeyDown = (event) => {
@@ -180,14 +183,16 @@ export const LinkEditCategory = ({
         <DialogContentText>
           {editingIndex === -1 ? "Add New Category" : "Edit Category"}
         </DialogContentText>
-        <div>
-          {chosenEmoji ? (
-            <span>Selected Category Logo: {chosenEmoji.emoji}</span>
-          ) : (
-            <span>Select a Emoji Logo:</span>
-          )}
-          <Picker onEmojiClick={onEmojiClick} />
-        </div>
+        {!focused && (
+          <div>
+            {chosenEmoji ? (
+              <span>Selected Category Logo: {chosenEmoji.emoji}</span>
+            ) : (
+              <span>Select an Emoji Logo:</span>
+            )}
+            <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} />
+          </div>
+        )}
 
         <TextField
           size={size.height < 580 ? "small" : null}
