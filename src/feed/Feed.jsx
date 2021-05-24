@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Video from "./Video";
+import VideoRefactored from "./VideoRefactored";
 import "./Feed.css";
 import axios from "../axios";
 import { useWindowSize } from "../customHooks/useWindowSize";
@@ -250,17 +250,17 @@ export const Feed = (props) => {
             style={
               size.height / size.width > 2
                 ? {
-                    position: "absolute",
-                    bottom: "3.4rem",
-                    opacity: 0.8,
-                    width: "100%",
-                  }
+                  position: "absolute",
+                  bottom: "3.4rem",
+                  opacity: 0.8,
+                  width: "100%",
+                }
                 : {
-                    position: "absolute",
-                    bottom: "2.4rem",
-                    opacity: 0.8,
-                    width: "100%",
-                  }
+                  position: "absolute",
+                  bottom: "2.4rem",
+                  opacity: 0.8,
+                  width: "100%",
+                }
             }
           />
         ) : videos.length === 0 ? (
@@ -305,7 +305,7 @@ export const Feed = (props) => {
               },
               index
             ) => (
-              <Video
+              <VideoRefactored
                 loggedInUserId={loggedInUserId}
                 sellerId={user}
                 id={_id}
