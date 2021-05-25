@@ -24,7 +24,6 @@ function VideoFooter({
   caption,
   items,
   averagePrice,
-  bigButton,
   categories,
   sellerId,
   amazons,
@@ -48,9 +47,8 @@ function VideoFooter({
 }) {
   const [sliderGlobal, setSliderGlobal] = useState(false);
 
-  const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
-    "globalModalOpened"
-  );
+  const [globalModalOpened, setGlobalModalOpened] =
+    useGlobalState("globalModalOpened");
   const history = useHistory();
 
   const handleBuyPop = useCallback(() => {
@@ -172,7 +170,7 @@ function VideoFooter({
       >
         <div
           className="videoFooter__button"
-          style={bigButton ? { minWidth: "70px" } : null}
+          style={{ minWidth: "70px" }}
           onClick={handleAffiliateOpen}
         >
           <div className="videoFooter_icon_and_name">
@@ -192,14 +190,12 @@ function VideoFooter({
             )}
           </div>
 
-          {bigButton ? (
-            <p
-              className="videoFooter__button_temp_words"
-              style={{ opacity: 0.9 }}
-            >
-              LINKS
-            </p>
-          ) : null}
+          <p
+            className="videoFooter__button_temp_words"
+            style={{ opacity: 0.9 }}
+          >
+            LINKS
+          </p>
         </div>
         <div
           id="videoFooter__button_empty_forClick"

@@ -11,7 +11,7 @@
 
   min-height: 100px;
   max-height: 200px;
-  z-index: 500;
+  z-index: 500 !important;
 }
 
 .videoFooter > p {

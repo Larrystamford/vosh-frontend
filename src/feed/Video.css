@@ -8,6 +8,13 @@
   scroll-snap-stop: always;
 }
 
+.imgPlaceHolder {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 .video_placeholder {
   position: relative;
   background-color: black;

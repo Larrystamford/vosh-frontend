@@ -8,6 +8,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import MessageIcon from "@material-ui/icons/Message";
 import ShareIcon from "@material-ui/icons/Share";
+import CheckOutlinedIcon from "@material-ui/icons/CheckOutlined";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import axios from "../axios";
@@ -20,7 +21,6 @@ function VideoSidebar({
   likesCount,
   shares,
   comments,
-  handleShareClicked,
   coverImageUrl,
   openCommentsFromInbox,
   sellerId,
@@ -36,66 +36,57 @@ function VideoSidebar({
   onVideoClick,
   setLikedVideoIds,
   doubleTapped,
-  commentsOpen,
-  setCommentsOpen,
   openAmazon,
   setOpenAmazon,
   proShareCount,
 }) {
   const [liked, setLiked] = useState(profileFeedType === "likedVideos");
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
-  const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
-    "globalModalOpened"
-  );
+  const [globalModalOpened, setGlobalModalOpened] =
+    useGlobalState("globalModalOpened");
 
-  const handleCommentPop = useCallback(() => {
-    // setGlobalModalOpened(false);
-    setCommentsOpen(false);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("popstate", handleCommentPop);
-
-    // cleanup this component
-    return () => {
-      window.removeEventListener("popstate", handleCommentPop);
-    };
-  }, []);
-
-  // commenting
+  const [commentsOpen, setCommentsOpen] = useState(false);
   const handleCommentsOpen = () => {
     setCommentsOpen(true);
     setGlobalModalOpened(true);
     window.history.pushState(
       {
-        comment: "comment",
+        comments: "comments",
       },
       "",
       ""
     );
-
-    Event(
-      "video",
-      "Clicked the comments button for videoId: " + id,
-      "Comments Button"
-    );
   };
-  const handleCommentsClose = (clickedProfileIcon) => {
-    if (clickedProfileIcon != "clicked") {
-      window.history.back();
-    } else {
-      setCommentsOpen(false);
-    }
+  const handleCommentsClose = () => {
+    window.history.back();
+  };
+  const handleCommentsPop = useCallback(() => {
+    setCommentsOpen(false);
+  }, []);
+  useEffect(() => {
+    window.addEventListener("popstate", handleCommentsPop);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("popstate", handleCommentsPop);
+    };
+  }, []);
+
+  const [shareStatus, setShareStatus] = useState(false);
+  const handleShareClicked = () => {
+    setShareStatus(true);
+    setTimeout(() => setShareStatus(false), 3000);
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `/v1/likesForVideos/isLiked/${localStorage.getItem("USER_ID")}/${id}`
-      )
-      .then((res) => {
-        setLiked(res.data.isLiked);
-      });
+    if (localStorage.getItem("USER_ID")) {
+      axios
+        .get(
+          `/v1/likesForVideos/isLiked/${localStorage.getItem("USER_ID")}/${id}`
+        )
+        .then((res) => {
+          setLiked(res.data.isLiked);
+        });
+    }
   }, []);
 
   const [videoLink, setVideoLink] = useState("");
@@ -148,26 +139,6 @@ function VideoSidebar({
     }
   };
 
-  // for likeing when double tapped
-  // useDidMountEffect(() => {
-  //   axios.put(
-  //     "/v1/users/pushUserFavourites/" + localStorage.getItem("USER_ID"),
-  //     { videoId: id }
-  //   );
-  //   setLiked(true);
-
-  //   // for notification prompting
-  //   if (profileFeedType != "videoIndividual") {
-  //     setNotifPrompt(true);
-  //     setPromptType("like");
-  //   }
-
-  //   // push video from history to saved
-  //   if (profileFeedType == "historyVideos") {
-  //     setLikedVideoIds((prevState) => [id, ...prevState]);
-  //   }
-  // }, [doubleTapped]);
-
   return (
     <div className="videoSidebar">
       <div className="videoSidebar__button">
@@ -200,19 +171,33 @@ function VideoSidebar({
 
       <div className="videoSidebar__button">
         <CopyToClipboard text={videoLink}>
-          <ShareIcon
-            fontSize="default"
-            onClick={() => {
-              handleShareClicked();
-              Event(
-                "video",
-                "Clicked the share button for videoId: " + id,
-                "Share Button"
-              );
+          {shareStatus ? (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CheckOutlinedIcon fontSize="default" />
+              <p style={{ fontSize: 10 }}>Copied</p>
+            </div>
+          ) : (
+            <ShareIcon
+              fontSize="default"
+              onClick={() => {
+                handleShareClicked();
+                Event(
+                  "video",
+                  "Clicked the share button for videoId: " + id,
+                  "Share Button"
+                );
 
-              ReactPixel.track("AddToWishlist", { content_name: id });
-            }}
-          />
+                ReactPixel.track("AddToWishlist", { content_name: id });
+              }}
+            />
+          )}
         </CopyToClipboard>
       </div>
 

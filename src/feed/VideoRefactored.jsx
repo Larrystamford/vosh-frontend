@@ -15,6 +15,10 @@ import axios from "../axios";
 import { useDoubleTap } from "use-double-tap";
 import { Exception } from "../components/tracking/Tracker";
 
+import { SwiperSlide } from 'swiper/react';
+
+import ReactPlayer from 'react-player'
+
 function VideoRefactored({
     loggedInUserId,
     sellerId,
@@ -59,6 +63,8 @@ function VideoRefactored({
     affiliateProducts,
     proTheme,
     userId,
+    fixHeight,
+    fixWidth,
 }) {
     //   const [playing, setPlaying] = useState(false);
     //   const [playingForButton, setPlayingForButton] = useState(true);
@@ -75,30 +81,29 @@ function VideoRefactored({
     const videoRef = useRef(null);
 
     //   const [justUnpaused, setJustUnpaused] = useState(false);
-    //   const onVideoClick = () => {
-    //     if (
-    //       !videoRef.current.paused &&
-    //       playing &&
-    //       !justUnpaused &&
-    //       mediaType === "video" &&
-    //       videoRef.current.readyState > 2
-    //     ) {
-    //       videoRef.current.pause();
-    //       setPlaying(false);
-    //       setPlayingForButton(false);
-    //       if (isMuted) {
-    //         setIsMuted(false);
-    //       }
-    //     }
-    //     setJustUnpaused(false);
-    //   };
+    const onVideoClick = () => {
+        var isPlaying =
+            videoRef.current.currentTime > 0 &&
+            !videoRef.current.paused &&
+            !videoRef.current.ended &&
+            videoRef.current.readyState > 2;
+
+        if (
+            isPlaying &&
+            mediaType === "video" && videoRef.current != null
+        ) {
+            videoRef.current.pause();
+        } else if (!isPlaying && videoRef.current != null) {
+            videoRef.current.play();
+        }
+    };
 
     //   const onVideoTouch = () => {
-    //     var isPlaying =
-    //       videoRef.current.currentTime > 0.2 &&
-    //       !videoRef.current.paused &&
-    //       !videoRef.current.ended &&
-    //       videoRef.current.readyState > 2;
+    // var isPlaying =
+    //   videoRef.current.currentTime > 0.2 &&
+    //   !videoRef.current.paused &&
+    //   !videoRef.current.ended &&
+    //   videoRef.current.readyState > 2;
 
     //     if (!playing) {
     //       if (!isPlaying) {
@@ -198,13 +203,7 @@ function VideoRefactored({
     //     }
     //   };
 
-    const [fixHeight, setFixHeight] = useState(700);
-    const [fixWidth, setFixWidth] = useState(350);
-    useEffect(() => {
-        setFixHeight(size.height);
-        setFixWidth(size.width);
 
-    }, []);
 
     const ref = useRef(null);
     useEffect(() => {
@@ -283,37 +282,15 @@ function VideoRefactored({
     }, [openAmazon, commentsOpen, openSlider, buyOpen]);
 
     return (
-        <div
+        <SwiperSlide
             key={id}
             className="video"
             style={keyboard ? { height: fixHeight, width: fixWidth } : null}
             ref={ref}
         >
-            {mediaType === "video" ? (
-                <video
-                    id="demo"
-                    style={keyboard ? { height: fixHeight, width: fixWidth } : null}
-                    muted={false}
-                    playsInline
-                    className="video__player"
-                    loop
-                    ref={videoRef}
-                    src={index - currentIndex < 9 || currentIndex - index < 3 ? url : ""}
-                    onLoadedData={() => setLoading(false)}
-                    // onClick={onVideoClick}
-                    // onTouchStart={onVideoTouch}
-                    poster={
-                        index - currentIndex < 9 || currentIndex - index < 3
-                            ? coverImageUrl
-                            : ""
-                    }
-                ></video>
-            ) : (
-                <img
-                    className="video__player"
-                    src={index - currentIndex < 9 || currentIndex - index < 3 ? url : ""}
-                />
-            )}
+            <img className="imgPlaceHolder" src={coverImageUrl} style={keyboard ? { height: fixHeight, width: fixWidth } : null}
+            />
+
 
             {Math.abs(currentIndex - index) < 3 && (
                 <VideoFooter
@@ -435,7 +412,7 @@ function VideoRefactored({
                     }}
                 ></div>
             ) : null}
-        </div>
+        </SwiperSlide>
     );
 }
 
@@ -446,3 +423,24 @@ export default VideoRefactored;
 // setOpenGoBrowser={setOpenGoBrowser}
 // videoId={id}
 // />
+
+
+
+{/* <video
+id="demo"
+style={keyboard ? { height: fixHeight, width: fixWidth } : null}
+muted={false}
+playsInline
+className="video__player"
+loop
+ref={videoRef}
+src={index - currentIndex < 9 || currentIndex - index < 3 ? url : ""}
+onLoadedData={() => setLoading(false)}
+onClick={onVideoClick}
+// onTouchStart={onVideoTouch}
+poster={
+    index - currentIndex < 9 || currentIndex - index < 3
+        ? coverImageUrl
+        : ""
+}
+></video> */}

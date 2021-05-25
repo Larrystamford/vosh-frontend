@@ -1,0 +1,29 @@
+.swiper-container {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  overflow: hidden;
+}
+
+.swiper-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-slide {
+}
+
+.imgPlacement {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+}
+
+#div_video_player {
+  position: absolute;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  background-color: blue;
+  top: 0px;
+}
