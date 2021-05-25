@@ -34,6 +34,8 @@ textarea {
   --vosh-color-6: #949ba5;
   --vosh-color-7: #ac8d83;
   --vosh-color-8: #c9b89c;
+
+  --img-placeholder-opacity: 1;
 }
 
 p,

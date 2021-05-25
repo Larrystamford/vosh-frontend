@@ -17,6 +17,8 @@
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
+
+  opacity: var(--img-placeholder-opacity);
 }
 
 #div_video_player {
@@ -24,6 +26,5 @@
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
-  background-color: blue;
   top: 0px;
 }

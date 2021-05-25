@@ -10,13 +10,13 @@ import { useWindowSize } from "../customHooks/useWindowSize";
 import ColoredLinearProgress from "../utils/ColoredLinearProgress";
 
 import { PushNotificationPrompt } from "../notifications/PushNotificationPrompt";
-
 import { CategoriesSelection } from "./CategoriesSelection";
 import { Landing } from "../utils_pages/Landing";
 import { BottomNavigationBar } from "../components/BottomNavigationBar";
 import { useGlobalState } from "../GlobalStates";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 import { PageView, ModalView } from "../components/tracking/Tracker";
 
@@ -249,6 +249,8 @@ export const FeedTest = (props) => {
 
   //// VIDEO RELATED STUFF
   const [videoUrl, setVideoUrl] = useState("");
+  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [buffering, setBuffering] = useState(false);
 
   // all the extra modal opens
   const [openSlider, setOpenSlider] = useState(false);
@@ -266,6 +268,9 @@ export const FeedTest = (props) => {
   function _callback_onAutoplayBlocked() {
     // do something, for example "show big play button"
     console.log("auto play blocked");
+
+    setShowPlayButton(true);
+    setBuffering(false);
   }
 
   function isSafari() {
@@ -296,8 +301,7 @@ export const FeedTest = (props) => {
           // throw error; // happened something else
         }
       }).then(function () {
-        console.log("_checkAutoPlay: then");
-        // Auto-play started
+        console.log("_checkAutoPlay started");
       });
     } else {
       console.error(
@@ -308,9 +312,51 @@ export const FeedTest = (props) => {
   }
 
   let video_player = document.getElementById("video_player");
+  if (video_player) {
+    video_player.oncanplay = function () {
+      document.documentElement.style.setProperty(
+        "--img-placeholder-opacity",
+        0
+      );
+    };
+
+    video_player.onwaiting = function () {
+      // need this else when it loops it will trigger buffering
+      if (video_player.readyState === 0 || video_player.currentTime > 0.1) {
+        setBuffering(true);
+      }
+    };
+    video_player.onplaying = function () {
+      setShowPlayButton(false);
+      setBuffering(false);
+    };
+  }
   useDidMountEffect(() => {
-    _checkAutoPlay(video_player.play());
+    if (video_player) {
+      _checkAutoPlay(video_player.play());
+    }
+    document.documentElement.style.setProperty("--img-placeholder-opacity", 1);
   }, [videoUrl]);
+
+  const onImageClick = () => {
+    let video_player = document.getElementById("video_player");
+
+    if (video_player) {
+      var isPlaying =
+        video_player.currentTime > 0 &&
+        !video_player.paused &&
+        !video_player.ended &&
+        video_player.readyState > 2;
+
+      if (isPlaying) {
+        video_player.pause();
+        setShowPlayButton(true);
+      } else if (!isPlaying) {
+        video_player.play();
+        setShowPlayButton(false);
+      }
+    }
+  };
 
   const renderItem = useCallback(
     (
@@ -347,7 +393,7 @@ export const FeedTest = (props) => {
           <img
             className="imgPlacement"
             src={coverImageUrl}
-            style={{ opacity: 0 }}
+            onClick={onImageClick}
           />
 
           <VideoSidebar
@@ -410,45 +456,28 @@ export const FeedTest = (props) => {
 
   return (
     <div className={displayFeed ? "feed" : "feed_hide"}>
-      <div id="div_video_player" className="div_video_player">
-        <video
-          id="video_player"
-          muted={false}
-          playsInline
-          className="video__player"
-          loop
-          src={videoUrl}
-        ></video>
-      </div>
       <Swiper
         direction="vertical"
         slidesPerView={1}
-        onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={(swiper) => setVideoUrl(videos[swiper.activeIndex].url)}
         initialSlide={0}
         grabCursor={true}
         preventInteractionOnTransition={true}
+        resistanceRatio={0.2}
+        onTouchMove={() => {
+          document.documentElement.style.setProperty(
+            "--img-placeholder-opacity",
+            1
+          );
+        }}
+        onTransitionEnd={() => {
+          document.documentElement.style.setProperty(
+            "--img-placeholder-opacity",
+            0
+          );
+        }}
       >
-        {isLoadingVideos ? (
-          <ColoredLinearProgress
-            className="Feed_linear_progress"
-            style={
-              size.height / size.width > 2
-                ? {
-                    position: "absolute",
-                    bottom: "3.4rem",
-                    opacity: 0.8,
-                    width: "100%",
-                  }
-                : {
-                    position: "absolute",
-                    bottom: "2.4rem",
-                    opacity: 0.8,
-                    width: "100%",
-                  }
-            }
-          />
-        ) : videos.length === 0 ? (
+        {videos.length === 0 ? (
           <div className="feed_noVideoMessage">
             {selectCategory === "Feed" ? (
               <p>
@@ -463,6 +492,52 @@ export const FeedTest = (props) => {
           videos.map(renderItem)
         )}
       </Swiper>
+
+      <div id="div_video_player" className="div_video_player">
+        <video
+          id="video_player"
+          muted={false}
+          playsInline
+          className="video__player"
+          loop
+          src={videoUrl}
+        ></video>
+      </div>
+      {showPlayButton && (
+        <PlayArrowIcon
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            margin: 0,
+            transform: "translate(-50%, -50%)",
+            height: "5rem",
+            width: "5.5rem",
+            opacity: 0.65,
+            color: "white",
+          }}
+        />
+      )}
+      {(isLoadingVideos || buffering) && (
+        <ColoredLinearProgress
+          className="Feed_linear_progress"
+          style={
+            size.height / size.width > 2
+              ? {
+                  position: "absolute",
+                  bottom: "3.4rem",
+                  opacity: 0.8,
+                  width: "100%",
+                }
+              : {
+                  position: "absolute",
+                  bottom: "2.4rem",
+                  opacity: 0.8,
+                  width: "100%",
+                }
+          }
+        />
+      )}
     </div>
   );
 };
