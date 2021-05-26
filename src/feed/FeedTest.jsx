@@ -249,6 +249,7 @@ export const FeedTest = (props) => {
 
   //// VIDEO RELATED STUFF
   const [videoUrl, setVideoUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [buffering, setBuffering] = useState(false);
 
@@ -459,7 +460,10 @@ export const FeedTest = (props) => {
       <Swiper
         direction="vertical"
         slidesPerView={1}
-        onSlideChange={(swiper) => setVideoUrl(videos[swiper.activeIndex].url)}
+        onSlideChange={(swiper) => {
+          setImageUrl(videos[swiper.activeIndex].coverImageUrl);
+          setVideoUrl(videos[swiper.activeIndex].url);
+        }}
         initialSlide={0}
         grabCursor={true}
         preventInteractionOnTransition={true}
@@ -501,6 +505,7 @@ export const FeedTest = (props) => {
           className="video__player"
           loop
           src={videoUrl}
+          poster={imageUrl}
         ></video>
       </div>
       {showPlayButton && (
