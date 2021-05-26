@@ -141,6 +141,7 @@ export const FeedTest = (props) => {
     );
     if (combineFeedVideos.length > 0) {
       setVideoUrl(combineFeedVideos[0].url);
+      setImageUrl(combineFeedVideos[0].coverImageUrl);
     }
     setTimeout(() => setIsLoadingVideos(false), 1300);
   }
@@ -185,6 +186,7 @@ export const FeedTest = (props) => {
     );
     if (combineCatVideos.length > 0) {
       setVideoUrl(combineCatVideos[0].url);
+      setImageUrl(combineCatVideos[0].coverImageUrl);
     }
     setTimeout(() => setIsLoadingVideos(false), 1300);
   }
@@ -335,6 +337,7 @@ export const FeedTest = (props) => {
       setBuffering(false);
     };
   }
+
   useDidMountEffect(() => {
     if (video_player) {
       _checkAutoPlay(video_player.play());
@@ -394,7 +397,11 @@ export const FeedTest = (props) => {
     ) => {
       return (
         <SwiperSlide key={index}>
-          <img className="imgPlacement" src={imageUrl} onClick={onImageClick} />
+          <img
+            className="imgPlacement"
+            src={coverImageUrl}
+            onClick={onImageClick}
+          />
 
           <VideoSidebar
             likes={likes}
@@ -402,7 +409,7 @@ export const FeedTest = (props) => {
             comments={comments}
             shares={shares}
             id={_id}
-            coverImageUrl={imageUrl}
+            coverImageUrl={coverImageUrl}
             sellerId={user}
             totalReviewRating={totalReviewRating}
             reviewCounts={reviewCounts}
@@ -466,8 +473,10 @@ export const FeedTest = (props) => {
         }}
         initialSlide={0}
         grabCursor={true}
-        preventInteractionOnTransition={true}
-        resistanceRatio={0.2}
+        freeModeMinimumVelocity={0.01}
+        // resistanceRatio={0.2}
+        longSwipes={true}
+        longSwipesRatio={0.4}
         onTouchMove={() => {
           document.documentElement.style.setProperty(
             "--img-placeholder-opacity",
