@@ -396,7 +396,7 @@ export const FeedTest = (props) => {
         <SwiperSlide key={index}>
           <img
             className="imgPlacement"
-            src={coverImageUrl}
+            src={imageUrl}
             onClick={onImageClick}
           />
 
@@ -406,7 +406,7 @@ export const FeedTest = (props) => {
             comments={comments}
             shares={shares}
             id={_id}
-            coverImageUrl={coverImageUrl}
+            coverImageUrl={imageUrl}
             sellerId={user}
             totalReviewRating={totalReviewRating}
             reviewCounts={reviewCounts}
