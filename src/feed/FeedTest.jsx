@@ -394,11 +394,7 @@ export const FeedTest = (props) => {
     ) => {
       return (
         <SwiperSlide key={index}>
-          <img
-            className="imgPlacement"
-            src={imageUrl}
-            onClick={onImageClick}
-          />
+          <img className="imgPlacement" src={imageUrl} onClick={onImageClick} />
 
           <VideoSidebar
             likes={likes}
@@ -524,7 +520,7 @@ export const FeedTest = (props) => {
             width: "5.5rem",
             opacity: 0.65,
             color: "white",
-            zIndex: 100000,
+            zIndex: 100,
           }}
         />
       )}
