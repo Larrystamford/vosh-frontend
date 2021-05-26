@@ -67,7 +67,7 @@ export const BottomNavigationBar = ({ match }) => {
     if (size.height / size.width > 2) {
       return "3.5rem";
     } else {
-      return "2.5rem";
+      return "2.7rem";
     }
   };
 
@@ -78,9 +78,8 @@ export const BottomNavigationBar = ({ match }) => {
     }
   };
 
-  const [newNotifcationsNum, setNewNotificationsNum] = useGlobalState(
-    "newNotifcationsNum"
-  );
+  const [newNotifcationsNum, setNewNotificationsNum] =
+    useGlobalState("newNotifcationsNum");
   useEffect(() => {
     async function getLastNotificationsNum() {
       // number of new notifications
@@ -175,7 +174,7 @@ export const BottomNavigationBar = ({ match }) => {
       <Link
         className="noSelect"
         to="/inbox"
-        style={{ textDecoration: "none", marginBottom: "2px" }}
+        style={{ textDecoration: "none", marginBottom: "8px" }}
       >
         <StyledBadge badgeContent={newNotifcationsNum} color="secondary">
           <HiOutlineMail size={22} style={{ color: getIconColor(url) }} />

@@ -104,6 +104,7 @@ export const FeedTest = (props) => {
 
   // get unseen videos function
   async function getUnseenVideos(forcedState) {
+    console.log("more videos");
     let watchingFeedId;
     if (forcedState) {
       watchingFeedId = null;
@@ -299,7 +300,7 @@ export const FeedTest = (props) => {
           _callback_onAutoplayBlocked();
         } else {
           console.error("_checkAutoPlay: happened something else ", error);
-          // throw error; // happened something else
+          _callback_onAutoplayBlocked();
         }
       }).then(function () {
         console.log("_checkAutoPlay started");
@@ -309,6 +310,7 @@ export const FeedTest = (props) => {
         "_checkAutoplay: promise could not work in your browser ",
         p
       );
+      _callback_onAutoplayBlocked();
     }
   }
 
@@ -463,6 +465,7 @@ export const FeedTest = (props) => {
         onSlideChange={(swiper) => {
           setImageUrl(videos[swiper.activeIndex].coverImageUrl);
           setVideoUrl(videos[swiper.activeIndex].url);
+          setCurrentIndex(swiper.activeIndex);
         }}
         initialSlide={0}
         grabCursor={true}
@@ -536,7 +539,7 @@ export const FeedTest = (props) => {
                 }
               : {
                   position: "absolute",
-                  bottom: "2.4rem",
+                  bottom: "2.6rem",
                   opacity: 0.8,
                   width: "100%",
                 }

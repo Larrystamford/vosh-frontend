@@ -388,7 +388,7 @@ function VideoRefactored({
                             }
                             : {
                                 position: "absolute",
-                                bottom: "2.4rem",
+                                bottom: "2.6rem",
                                 opacity: 0.8,
                                 width: "100%",
                             }
