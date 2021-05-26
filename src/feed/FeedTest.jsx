@@ -324,6 +324,7 @@ export const FeedTest = (props) => {
     };
 
     video_player.onwaiting = function () {
+      console.log("waiting");
       // need this else when it loops it will trigger buffering
       if (video_player.readyState === 0 || video_player.currentTime > 0.1) {
         setBuffering(true);
@@ -523,6 +524,7 @@ export const FeedTest = (props) => {
             width: "5.5rem",
             opacity: 0.65,
             color: "white",
+            zIndex: 100000,
           }}
         />
       )}
