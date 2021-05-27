@@ -140,8 +140,10 @@ export const FeedTest = (props) => {
       800
     );
     if (combineFeedVideos.length > 0 && currentIndex <= -1) {
-      setVideoUrl(combineFeedVideos[0].url);
-      setImageUrl(combineFeedVideos[0].coverImageUrl);
+      setImageAndVideoUrl([
+        combineFeedVideos[0].coverImageUrl,
+        combineFeedVideos[0].url,
+      ]);
     }
     setTimeout(() => setIsLoadingVideos(false), 1300);
   }
@@ -185,8 +187,10 @@ export const FeedTest = (props) => {
       800
     );
     if (combineCatVideos.length > 0 && currentIndex <= -1) {
-      setVideoUrl(combineCatVideos[0].url);
-      setImageUrl(combineCatVideos[0].coverImageUrl);
+      setImageAndVideoUrl([
+        combineCatVideos[0].coverImageUrl,
+        combineCatVideos[0].url,
+      ]);
     }
     setTimeout(() => setIsLoadingVideos(false), 1300);
   }
@@ -251,8 +255,8 @@ export const FeedTest = (props) => {
   }, [currentIndex]);
 
   //// VIDEO RELATED STUFF
-  const [videoUrl, setVideoUrl] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageAndVideoUrl, setImageAndVideoUrl] = useState([]);
+
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [buffering, setBuffering] = useState(false);
 
@@ -345,7 +349,7 @@ export const FeedTest = (props) => {
     if (video_player) {
       _checkAutoPlay(video_player.play());
     }
-  }, [videoUrl]);
+  }, [imageAndVideoUrl]);
 
   const onImageClick = () => {
     let video_player = document.getElementById("video_player");
@@ -477,8 +481,10 @@ export const FeedTest = (props) => {
           if (watchRef.current.currentVideosCount - currentIndex != 1) {
             // so that scroll has no lag
             setTimeout(() => {
-              setImageUrl(videos[swiper.activeIndex].coverImageUrl);
-              setVideoUrl(videos[swiper.activeIndex].url);
+              setImageAndVideoUrl([
+                videos[swiper.activeIndex].coverImageUrl,
+                videos[swiper.activeIndex].url,
+              ]);
               setCurrentIndex(swiper.activeIndex);
             }, 200);
           }
@@ -525,12 +531,8 @@ export const FeedTest = (props) => {
           playsInline
           className="video__player"
           loop
-          src={videoUrl}
-          poster={
-            imageUrl
-              ? imageUrl
-              : "https://dciv99su0d7r5.cloudfront.net/33333-background.png"
-          }
+          src={imageAndVideoUrl[1]}
+          poster={imageAndVideoUrl[0]}
         ></video>
       </div>
       {showPlayButton && (
