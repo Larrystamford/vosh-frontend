@@ -139,7 +139,7 @@ export const FeedTest = (props) => {
       () => setVideos((prevState) => [...prevState, ...combineFeedVideos]),
       800
     );
-    if (combineFeedVideos.length > 0) {
+    if (combineFeedVideos.length > 0 && currentIndex <= -1) {
       setVideoUrl(combineFeedVideos[0].url);
       setImageUrl(combineFeedVideos[0].coverImageUrl);
     }
@@ -184,7 +184,7 @@ export const FeedTest = (props) => {
       () => setVideos((prevState) => [...prevState, ...combineCatVideos]),
       800
     );
-    if (combineCatVideos.length > 0) {
+    if (combineCatVideos.length > 0 && currentIndex <= -1) {
       setVideoUrl(combineCatVideos[0].url);
       setImageUrl(combineCatVideos[0].coverImageUrl);
     }
@@ -277,11 +277,11 @@ export const FeedTest = (props) => {
     setBuffering(false);
   }
 
-  function isSafari() {
-    var chr = window.navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
-    var sfri = window.navigator.userAgent.toLowerCase().indexOf("safari") > -1;
-    return !chr && sfri;
-  }
+  // function isSafari() {
+  //   var chr = window.navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
+  //   var sfri = window.navigator.userAgent.toLowerCase().indexOf("safari") > -1;
+  //   return !chr && sfri;
+  // }
 
   function _checkAutoPlay(p) {
     var s = window["Promise"] ? window["Promise"].toString() : "";
@@ -292,21 +292,22 @@ export const FeedTest = (props) => {
     ) {
       p.catch(function (error) {
         console.error("_checkAutoPlay, error:", error);
-        if (error.name == "NotAllowedError") {
-          // For Chrome/Firefox
-          console.error("_checkAutoPlay: error.name:", "NotAllowedError");
-          _callback_onAutoplayBlocked();
-        } else if (error.name == "AbortError" && isSafari()) {
-          // Only for Safari
-          console.error("_checkAutoPlay: AbortError (Safari)");
-          _callback_onAutoplayBlocked();
-        } else {
-          console.error("_checkAutoPlay: happened something else ", error);
-          _callback_onAutoplayBlocked();
-        }
-      }).then(function () {
-        console.log("_checkAutoPlay started");
+        _callback_onAutoplayBlocked();
       });
+      //   console.error("_checkAutoPlay, error:", error);
+      //   if (error.name == "NotAllowedError") {
+      //     // For Chrome/Firefox
+      //     console.error("_checkAutoPlay: error.name:", "NotAllowedError");
+      //     _callback_onAutoplayBlocked();
+      //   } else if (error.name == "AbortError" && isSafari()) {
+      //     // Only for Safari
+      //     console.error("_checkAutoPlay: AbortError (Safari)");
+      //     _callback_onAutoplayBlocked();
+      //   } else {
+      //     console.error("_checkAutoPlay: happened something else ", error);
+      //     _callback_onAutoplayBlocked();
+      //   }
+      // });
     } else {
       console.error(
         "_checkAutoplay: promise could not work in your browser ",
@@ -397,68 +398,72 @@ export const FeedTest = (props) => {
     ) => {
       return (
         <SwiperSlide key={index}>
-          <img
-            className="imgPlacement"
-            src={coverImageUrl}
-            onClick={onImageClick}
-          />
+          {Math.abs(currentIndex - index) < 3 && (
+            <>
+              <img
+                className="imgPlacement"
+                src={coverImageUrl}
+                onClick={onImageClick}
+              />
 
-          <VideoSidebar
-            likes={likes}
-            likesCount={likesCount}
-            comments={comments}
-            shares={shares}
-            id={_id}
-            coverImageUrl={coverImageUrl}
-            sellerId={user}
-            totalReviewRating={totalReviewRating}
-            reviewCounts={reviewCounts}
-            reviews={reviews}
-            setNotifPrompt={setNotifPrompt}
-            setPromptType={setPromptType}
-            amazons={amazons}
-            smallShopLink={smallShopLink}
-            amazonOrInternal={amazonOrInternal}
-            onVideoClick={() => {
-              console.log("video click");
-            }}
-            onVideoTouch={() => {
-              console.log("video touch");
-            }}
-          />
+              <VideoSidebar
+                likes={likes}
+                likesCount={likesCount}
+                comments={comments}
+                shares={shares}
+                id={_id}
+                coverImageUrl={coverImageUrl}
+                sellerId={user}
+                totalReviewRating={totalReviewRating}
+                reviewCounts={reviewCounts}
+                reviews={reviews}
+                setNotifPrompt={setNotifPrompt}
+                setPromptType={setPromptType}
+                amazons={amazons}
+                amazonOrInternal={amazonOrInternal}
+                onVideoClick={() => {
+                  console.log("video click");
+                }}
+                onVideoTouch={() => {
+                  console.log("video touch");
+                }}
+              />
 
-          <VideoFooter
-            id={_id}
-            userName={userName}
-            caption={caption}
-            items={items}
-            averagePrice={averagePrice}
-            categories={categories}
-            sellerId={user}
-            amazons={amazons}
-            amazonOrInternal={amazonOrInternal}
-            selectCategory={selectCategory}
-            productImages={productImages}
-            openSlider={openSlider}
-            setOpenSlider={setOpenSlider}
-            buyOpen={buyOpen}
-            setBuyOpen={setBuyOpen}
-            originalCreator={originalCreator}
-            onVideoClick={() => {
-              console.log("video click");
-            }}
-            onVideoTouch={() => {
-              console.log("video touch");
-            }}
-            proTheme={{}}
-            smallShopLink={smallShopLink}
-            userId={localStorage.getItem("USER_ID")}
-            location="main feed"
-          />
+              <VideoFooter
+                id={_id}
+                userName={userName}
+                caption={caption}
+                items={items}
+                averagePrice={averagePrice}
+                categories={categories}
+                sellerId={user}
+                amazons={amazons}
+                amazonOrInternal={amazonOrInternal}
+                selectCategory={selectCategory}
+                productImages={productImages}
+                openSlider={openSlider}
+                setOpenSlider={setOpenSlider}
+                buyOpen={buyOpen}
+                setBuyOpen={setBuyOpen}
+                smallShopLink={smallShopLink}
+                originalCreator={originalCreator}
+                onVideoClick={() => {
+                  console.log("video click");
+                }}
+                onVideoTouch={() => {
+                  console.log("video touch");
+                }}
+                proTheme={{}}
+                smallShopLink={smallShopLink}
+                userId={localStorage.getItem("USER_ID")}
+                location="main feed"
+              />
+            </>
+          )}
         </SwiperSlide>
       );
     },
-    []
+    [currentIndex]
   );
 
   return (
@@ -467,9 +472,17 @@ export const FeedTest = (props) => {
         direction="vertical"
         slidesPerView={1}
         onSlideChange={(swiper) => {
-          setImageUrl(videos[swiper.activeIndex].coverImageUrl);
-          setVideoUrl(videos[swiper.activeIndex].url);
-          setCurrentIndex(swiper.activeIndex);
+          console.log(watchRef.current.currentVideosCount - currentIndex);
+          if (watchRef.current.currentVideosCount - currentIndex != 1) {
+            // so that scroll has no lag
+            setTimeout(() => {
+              setImageUrl(videos[swiper.activeIndex].coverImageUrl);
+              setVideoUrl(videos[swiper.activeIndex].url);
+              setCurrentIndex(swiper.activeIndex);
+            }, 200);
+          }
+
+          console.log(swiper);
         }}
         initialSlide={0}
         grabCursor={true}
@@ -531,6 +544,7 @@ export const FeedTest = (props) => {
             color: "white",
             zIndex: 100,
           }}
+          onClick={onImageClick}
         />
       )}
       {(isLoadingVideos || buffering) && (

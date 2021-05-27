@@ -1,9 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import { useWindowSize } from "./customHooks/useWindowSize";

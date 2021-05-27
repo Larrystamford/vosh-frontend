@@ -8,6 +8,7 @@
 .swiper-wrapper {
   height: 100%;
   width: 100%;
+  transition-delay: 0s;
 }
 
 .swiper-slide {
@@ -27,4 +28,11 @@
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   top: 0px;
+}
+
+.video__player {
+  object-fit: fill;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
 }
