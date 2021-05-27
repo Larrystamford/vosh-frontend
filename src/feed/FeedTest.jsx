@@ -532,7 +532,11 @@ export const FeedTest = (props) => {
           className="video__player"
           loop
           src={imageAndVideoUrl[1]}
-          poster={imageAndVideoUrl[0]}
+          poster={
+            imageAndVideoUrl[0]
+              ? imageAndVideoUrl[0]
+              : "https://dciv99su0d7r5.cloudfront.net/33333-background.png"
+          }
         ></video>
       </div>
       {showPlayButton && (
