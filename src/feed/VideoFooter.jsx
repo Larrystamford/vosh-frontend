@@ -347,7 +347,7 @@ function VideoFooter({
                       )}
                     </div>
                   ))
-                : amazons.length > 0
+                : amazons && amazons.length > 0 && amazons[0].amazon_name
                 ? amazons.map((amazon) => (
                     <div
                       className="sidebar_amazonlogolink"

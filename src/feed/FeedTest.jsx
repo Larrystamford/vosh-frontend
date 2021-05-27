@@ -320,6 +320,7 @@ export const FeedTest = (props) => {
   let video_player = document.getElementById("video_player");
   if (video_player) {
     video_player.oncanplay = function () {
+      console.log("can play");
       document.documentElement.style.setProperty(
         "--img-placeholder-opacity",
         0
@@ -328,6 +329,7 @@ export const FeedTest = (props) => {
 
     video_player.onwaiting = function () {
       console.log("waiting");
+
       // need this else when it loops it will trigger buffering
       if (video_player.readyState === 0 || video_player.currentTime > 0.1) {
         setBuffering(true);
@@ -343,7 +345,6 @@ export const FeedTest = (props) => {
     if (video_player) {
       _checkAutoPlay(video_player.play());
     }
-    document.documentElement.style.setProperty("--img-placeholder-opacity", 1);
   }, [videoUrl]);
 
   const onImageClick = () => {
@@ -481,8 +482,6 @@ export const FeedTest = (props) => {
               setCurrentIndex(swiper.activeIndex);
             }, 200);
           }
-
-          console.log(swiper);
         }}
         initialSlide={0}
         grabCursor={true}
@@ -527,7 +526,11 @@ export const FeedTest = (props) => {
           className="video__player"
           loop
           src={videoUrl}
-          poster={imageUrl}
+          poster={
+            imageUrl
+              ? imageUrl
+              : "https://dciv99su0d7r5.cloudfront.net/33333-background.png"
+          }
         ></video>
       </div>
       {showPlayButton && (
