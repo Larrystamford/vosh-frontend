@@ -1,6 +1,6 @@
 import React from "react";
 import "./ProEdit.css";
-import { ProfileFeed } from "../../feed/ProfileFeed";
+import { FeedProfileRefactored } from "../../feed/FeedProfileRefactored";
 
 import { useHistory } from "react-router";
 
@@ -52,7 +52,7 @@ export const ScrollVideo = ({
       aria-describedby="alert-dialog-slide-description"
       fullScreen={fullScreen}
     >
-      <ProfileFeed
+      <FeedProfileRefactored
         videos={proVideos.filter((video) => {
           if (selectedCategoryId === "all") {
             return video;

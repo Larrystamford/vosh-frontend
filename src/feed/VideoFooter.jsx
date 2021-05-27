@@ -39,7 +39,6 @@ function VideoFooter({
   affiliateGroupName,
   affiliateProducts,
   onVideoClick,
-  onVideoTouch,
   proTheme,
   smallShopLink,
   userId,
@@ -200,14 +199,12 @@ function VideoFooter({
         <div
           id="videoFooter__button_empty_forClick"
           style={{ width: "70%", height: "2rem" }}
-          onTouchStart={onVideoTouch}
           onClick={onVideoClick}
         ></div>
       </div>
 
       <h5
         className="videoFooter_username"
-        onTouchStart={onVideoTouch}
         onClick={onVideoClick}
       >
         @{userName}
@@ -215,14 +212,12 @@ function VideoFooter({
 
       <div
         className="videoFooter_multiline"
-        onTouchStart={onVideoTouch}
         onClick={onVideoClick}
       >
         <p>{caption}</p>
       </div>
       <div
         className="videoFooter_creator"
-        onTouchStart={onVideoTouch}
         onClick={onVideoClick}
       >
         <VideocamIcon fontSize="small" style={{ paddingRight: 5 }} />
