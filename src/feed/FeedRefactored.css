@@ -17,7 +17,7 @@
 .imgPlacement {
   object-fit: fill;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
+  /* height: calc(var(--vh, 1vh) * 100); */
   width: 100vw;
 
   opacity: var(--img-placeholder-opacity);

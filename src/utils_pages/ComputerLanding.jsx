@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 
+import axios from "../axios";
+
 export const ComputerLanding = ({ currentLocation }) => {
   const [value, setValue] = useState("");
 
@@ -13,7 +15,10 @@ export const ComputerLanding = ({ currentLocation }) => {
     setValue(event.target.value);
   };
 
-  const handleGetStartedClick = () => {
+  const handleGetStartedClick = async () => {
+    await axios.post("/v1/email/influencerGetStarted", {
+      userEmail: value,
+    });
     alert("An e-mail has been sent to " + value);
   };
   return (

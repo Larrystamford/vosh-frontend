@@ -109,7 +109,8 @@ export const ProProfile = ({ match, location }) => {
             // check if already following
             axios
               .get(
-                `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${data._id
+                `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
+                  data._id
                 }`
               )
               .then((res) => {
@@ -322,17 +323,17 @@ export const ProProfile = ({ match, location }) => {
                             style={
                               proTheme.socialIconsColor === "white"
                                 ? {
-                                  height: 19,
-                                  margin: 10,
-                                  filter: "invert(100%)",
-                                  WebkitFilter: "invert(100%)",
-                                }
+                                    height: 19,
+                                    margin: 10,
+                                    filter: "invert(100%)",
+                                    WebkitFilter: "invert(100%)",
+                                  }
                                 : {
-                                  height: 19,
-                                  margin: 10,
-                                  filter: "invert(0%)",
-                                  WebkitFilter: "invert(0%)",
-                                }
+                                    height: 19,
+                                    margin: 10,
+                                    filter: "invert(0%)",
+                                    WebkitFilter: "invert(0%)",
+                                  }
                             }
                             onClick={() => {
                               if (socialType == "Email") {
@@ -357,17 +358,17 @@ export const ProProfile = ({ match, location }) => {
                               style={
                                 proTheme.socialIconsColor === "white"
                                   ? {
-                                    height: 15,
-                                    margin: 6,
-                                    filter: "invert(100%)",
-                                    WebkitFilter: "invert(100%)",
-                                  }
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(100%)",
+                                      WebkitFilter: "invert(100%)",
+                                    }
                                   : {
-                                    height: 15,
-                                    margin: 6,
-                                    filter: "invert(0%)",
-                                    WebkitFilter: "invert(0%)",
-                                  }
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(0%)",
+                                      WebkitFilter: "invert(0%)",
+                                    }
                               }
                               onClick={() => {
                                 if (socialType == "Email") {
@@ -390,17 +391,17 @@ export const ProProfile = ({ match, location }) => {
                               style={
                                 proTheme.socialIconsColor === "white"
                                   ? {
-                                    height: 15,
-                                    margin: 6,
-                                    filter: "invert(100%)",
-                                    WebkitFilter: "invert(100%)",
-                                  }
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(100%)",
+                                      WebkitFilter: "invert(100%)",
+                                    }
                                   : {
-                                    height: 15,
-                                    margin: 6,
-                                    filter: "invert(0%)",
-                                    WebkitFilter: "invert(0%)",
-                                  }
+                                      height: 15,
+                                      margin: 6,
+                                      filter: "invert(0%)",
+                                      WebkitFilter: "invert(0%)",
+                                    }
                               }
                               onClick={() => {
                                 if (socialType == "Email") {
@@ -437,11 +438,11 @@ export const ProProfile = ({ match, location }) => {
                 style={
                   proLinks.length > 0
                     ? {
-                      backgroundImage: `url(${proTheme.background2})`,
-                    }
+                        backgroundImage: `url(${proTheme.background2})`,
+                      }
                     : {
-                      display: "none",
-                    }
+                        display: "none",
+                      }
                 }
               >
                 {proLinks.map(({ id, proLinkName, proLink }) => (
@@ -483,14 +484,13 @@ export const ProProfile = ({ match, location }) => {
             </div>
           </div>
 
-
           <div
             className="pro_profile_top_selector"
             style={
               isVisible
                 ? {
-                  display: "none",
-                }
+                    display: "none",
+                  }
                 : {}
             }
           ></div>
@@ -499,12 +499,12 @@ export const ProProfile = ({ match, location }) => {
             style={
               isVisible
                 ? {
-                  backgroundImage: `url(${proTheme.background2})`,
-                }
+                    backgroundImage: `url(${proTheme.background2})`,
+                  }
                 : {
-                  backgroundImage: `url(${proTheme.background2})`,
-                  position: "fixed",
-                }
+                    backgroundImage: `url(${proTheme.background2})`,
+                    position: "fixed",
+                  }
             }
           >
             <div
