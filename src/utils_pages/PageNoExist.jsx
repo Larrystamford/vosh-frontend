@@ -14,11 +14,12 @@ export const PageNoExist = (props) => {
       }}
     >
       <div className="landing_WelcomeMessageWrapper">
-        <p className="landing_WelcomeWord">Nothing Here</p>
-        <p className="landing_WelcomeText">
-          Look's like this page does not exist
+        <p className="landing_WelcomeWord" style={{ fontSize: 40 }}>
+          Opps, nothing here...
         </p>
-        <p className="landing_WelcomeText">Tap anywhere to go back home</p>
+        <p className="landing_WelcomeText" style={{ marginTop: 40 }}>
+          Tap anywhere to go back home
+        </p>
       </div>
     </div>
   );

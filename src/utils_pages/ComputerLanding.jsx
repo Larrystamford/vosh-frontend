@@ -1,47 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Landing.css";
 
-export const ComputerLanding = ({ }) => {
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 
+import Button from "@material-ui/core/Button";
+
+export const ComputerLanding = ({ currentLocation }) => {
+  const [value, setValue] = useState("");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const handleGetStartedClick = () => {
+    alert("An e-mail has been sent to " + value);
+  };
   return (
-        <div
-          className="computer_landing_body"
+    <div className="computer_landing_body">
+      <div className="computer_MessageBox">
+        <p className="computer_WordHeader">VOSH</p>
+        <p className="computer_WelcomeText">Join Vosh as an Influencer</p>
+        <p className="computer_NormalText">
+          On Vosh, we let fans and influencers support each other in sustainable
+          ways. Whether it is shopping their recommendations or purchasing a
+          shout out, every bit of ❤️ goes a long way.
+        </p>
+
+        <p className="computer_NormalText">
+          We want to give influencers the freedom to focus on doing what they
+          love, while we focus on ensuring that they can continue to do what
+          they love. If you’re ready to take make your content work for you,
+          reach out to us and get started with Vosh!
+        </p>
+
+        <TextField
+          style={{ marginTop: "2rem", width: "19rem" }}
+          id="get-started-email"
+          label="influencer@mail.com"
+          variant="outlined"
+          value={value}
+          onChange={handleChange}
+        />
+
+        <Button
+          style={{ marginTop: "1rem" }}
+          variant="contained"
+          color="secondary"
+          onClick={handleGetStartedClick}
         >
-          <div className="computer_MessageBox">
-      
-            <p className="computer_WordHeader">VOSH</p>
-            <p className="computer_WelcomeText">Watch genuine shopping recommendations from the internet!</p>
-            <p
-              className="computer_NormalText"
-            >
-            Say goodbye to general product advice and random online reviews. Comment on videos and start discussions with people that share similar interests!
-            </p>
+          <span style={{ fontFamily: "sans-serif" }}>Get Started</span>
+        </Button>
+      </div>
 
-            <div className="computer_QrWrapper">
-            <img
-              src="https://dciv99su0d7r5.cloudfront.net/vosh_qr.png"
-              alt="qr_code"
-              style={{ height: 150 }}
+      <div style={{ width: "5%" }}></div>
 
-            />
-            <p>Scan with mobile</p>
-          </div>
-          </div>
-
-          <div className="computer_MessageBox">
-          <img
-            src="https://dciv99su0d7r5.cloudfront.net/computer_no_bg.png"
-            alt="computer landing phones"
-            style={{ height: 450 }}
-          />
-        </div>
-
-        <img
-        className="computer_bottom_right_logo"
-        src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
-        alt="loco logo"
-        style={{ height: 25, padding: 20 }}
-      />
-        </div>
+      <div className="computer_MessageBox">
+        <iframe
+          src={currentLocation}
+          height="680"
+          width="360"
+          title="Iframe Example"
+          style={{ borderRadius: 20, border: "5px solid lightgrey" }}
+        ></iframe>
+      </div>
+    </div>
   );
 };
+
+{
+  /* <div className="computer_QrWrapper">
+  <img
+    src="https://dciv99su0d7r5.cloudfront.net/vosh_qr.png"
+    alt="qr_code"
+    style={{ height: 150 }}
+  />
+  <p>Scan with mobile</p>
+</div>; */
+}
