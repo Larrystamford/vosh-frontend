@@ -75,14 +75,6 @@ function ProfileVideo({
     setDoubleTapped(true);
   });
 
-  var el = document.getElementById("demo");
-  if (el) {
-    el.addEventListener("long-press", function (e) {
-      alert("long press");
-      e.preventDefault();
-    });
-  }
-
   const videoRef = useRef(null);
   const [justUnpaused, setJustUnpaused] = useState(false);
   const onVideoClick = () => {

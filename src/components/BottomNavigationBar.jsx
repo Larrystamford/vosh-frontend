@@ -67,7 +67,7 @@ export const BottomNavigationBar = ({ match }) => {
     if (size.height / size.width > 2) {
       return "3.5rem";
     } else {
-      return "2.7rem";
+      return "2.6rem";
     }
   };
 

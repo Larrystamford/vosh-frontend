@@ -8,13 +8,6 @@
   scroll-snap-stop: always;
 }
 
-.imgPlaceHolder {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
-}
-
 .video_placeholder {
   position: relative;
   background-color: black;
@@ -25,14 +18,7 @@
   scroll-snap-stop: always;
 }
 
-.video__player {
-  object-fit: fill;
-  /* height: 100vh !important;
-  height: calc(var(--vh, 1vh) * 100) !important;
-  width: 100vw !important; */
-  /* height: 50vh !important; */
-  background-color: white;
-}
+
 
 .vsc-controller {
   display: none;

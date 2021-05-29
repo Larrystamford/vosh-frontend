@@ -39,6 +39,7 @@ function VideoSidebar({
   openAmazon,
   setOpenAmazon,
   proShareCount,
+  handleShareClicked,
 }) {
   const [liked, setLiked] = useState(profileFeedType === "likedVideos");
   const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
@@ -70,12 +71,6 @@ function VideoSidebar({
       window.removeEventListener("popstate", handleCommentsPop);
     };
   }, []);
-
-  const [shareStatus, setShareStatus] = useState(false);
-  const handleShareClicked = () => {
-    setShareStatus(true);
-    setTimeout(() => setShareStatus(false), 3000);
-  };
 
   useEffect(() => {
     if (localStorage.getItem("USER_ID")) {
@@ -171,33 +166,19 @@ function VideoSidebar({
 
       <div className="videoSidebar__button">
         <CopyToClipboard text={videoLink}>
-          {shareStatus ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CheckOutlinedIcon fontSize="default" />
-              <p style={{ fontSize: 10 }}>Copied</p>
-            </div>
-          ) : (
-            <ShareIcon
-              fontSize="default"
-              onClick={() => {
-                handleShareClicked();
-                Event(
-                  "video",
-                  "Clicked the share button for videoId: " + id,
-                  "Share Button"
-                );
+          <ShareIcon
+            fontSize="default"
+            onClick={() => {
+              handleShareClicked();
+              Event(
+                "video",
+                "Clicked the share button for videoId: " + id,
+                "Share Button"
+              );
 
-                ReactPixel.track("AddToWishlist", { content_name: id });
-              }}
-            />
-          )}
+              ReactPixel.track("AddToWishlist", { content_name: id });
+            }}
+          />
         </CopyToClipboard>
       </div>
 

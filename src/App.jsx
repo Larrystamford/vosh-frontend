@@ -23,7 +23,7 @@ import { ContentTagging } from "./profile/pro/ContentTagging";
 import { ProEdit } from "./profile/pro/ProEdit";
 import { Verified } from "./verified/Verified";
 import { VerifiedUsername } from "./verified/VerifiedUsername";
-import { FeedTest } from "./feed/FeedTest";
+import { FeedRefactored } from "./feed/FeedRefactored";
 import { Discover } from "./discover/Discover";
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { PersonalProfile } from "./profile/PersonalProfile";
@@ -131,7 +131,7 @@ function App() {
             "/room/:id",
           ]}
           exact
-          component={FeedTest}
+          component={FeedRefactored}
         />
 
         <Switch>

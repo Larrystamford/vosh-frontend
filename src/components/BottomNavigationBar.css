@@ -9,7 +9,7 @@ input[type="file"] {
   width: 100vw;
   z-index: 1000;
   border-top: 1px solid whitesmoke;
-  height: 2.5rem;
+  height: 2.6rem;
   flex-shrink: 0;
   display: flex;
   flex-direction: row;
