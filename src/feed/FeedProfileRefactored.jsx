@@ -343,7 +343,7 @@ export const FeedProfileRefactored = (props) => {
               }
         }
       >
-        <div onClick={props.handleChangeView}>
+        <div onClick={props.handleScrollViewClose}>
           <ArrowBackIosIcon fontSize="large" />
           <p className="ProfileFeed_bottom_words">Back to profile</p>
         </div>

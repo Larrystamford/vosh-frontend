@@ -134,6 +134,7 @@ function VideoFooter({
   };
   const handleAffiliatePop = useCallback(() => {
     setOpenAffiliate(false);
+    setGlobalModalOpened(false);
   }, []);
   useEffect(() => {
     window.addEventListener("popstate", handleAffiliatePop);
@@ -203,23 +204,14 @@ function VideoFooter({
         ></div>
       </div>
 
-      <h5
-        className="videoFooter_username"
-        onClick={onVideoClick}
-      >
+      <h5 className="videoFooter_username" onClick={onVideoClick}>
         @{userName}
       </h5>
 
-      <div
-        className="videoFooter_multiline"
-        onClick={onVideoClick}
-      >
+      <div className="videoFooter_multiline" onClick={onVideoClick}>
         <p>{caption}</p>
       </div>
-      <div
-        className="videoFooter_creator"
-        onClick={onVideoClick}
-      >
+      <div className="videoFooter_creator" onClick={onVideoClick}>
         <VideocamIcon fontSize="small" style={{ paddingRight: 5 }} />
         <Ticker mode="smooth" speed={2}>
           {({ index }) => (

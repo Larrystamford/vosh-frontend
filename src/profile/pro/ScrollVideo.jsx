@@ -33,7 +33,7 @@ export const ScrollVideo = ({
   openScrollVideo,
   proVideos,
   viewIndex,
-  handleChangeView,
+  handleScrollViewClose,
   selectedCategoryId,
   proTheme,
   userId
@@ -61,7 +61,7 @@ export const ScrollVideo = ({
           }
         })}
         viewIndex={viewIndex}
-        handleChangeView={handleChangeView}
+        handleScrollViewClose={handleScrollViewClose}
         proTheme={proTheme}
         userId={userId}
       />

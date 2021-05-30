@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./ProProfile.css";
 import { VideoGrid } from "../VideoGrid";
 import { useGlobalState } from "../../GlobalStates";
+import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 import useOnScreen from "../../customHooks/useOnScreen";
 
 import { ImageLoad } from "../../components/ImageLoad";
@@ -50,8 +51,6 @@ export const ProProfile = ({ match, location }) => {
 
   const [showVideos, setShowVideos] = useState([]);
 
-  const [scrollView, setScrollView] = useState(false);
-  const [viewIndex, setViewIndex] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [likeButtonToggle, setLikeButtonToggle] = useState(false);
 
@@ -135,43 +134,38 @@ export const ProProfile = ({ match, location }) => {
     });
   }, []);
 
-  const handleChangeView = (i) => {
-    if (scrollView) {
-      window.history.back();
-    } else {
-      window.history.pushState(
-        {
-          scrollView: "scrollView",
-        },
-        "",
-        ""
-      );
-    }
-
-    setScrollView(!scrollView);
+  // SCROLL VIEW
+  const [scrollView, setScrollView] = useState(false);
+  const [viewIndex, setViewIndex] = useState(0);
+  const handleScrollViewOpen = (i) => {
+    setScrollView(true);
     setViewIndex(i);
-  };
 
+    window.history.pushState(
+      {
+        scrollView: "scrollView",
+      },
+      "",
+      ""
+    );
+  };
+  const handleScrollViewClose = () => {
+    history.goBack();
+  };
   const handleScrollViewPop = useCallback(() => {
     setScrollView(false);
   }, []);
-
-  useEffect(() => {
+  useDidMountEffect(() => {
     if (globalModalOpened) {
-      window.removeEventListener("popstate", handleScrollViewPop);
+      window.removeEventListener("popstate", handleScrollViewPop, true);
+    } else if (scrollView) {
+      window.addEventListener("popstate", handleScrollViewPop, true);
     } else {
-      window.addEventListener("popstate", handleScrollViewPop);
+      window.removeEventListener("popstate", handleScrollViewPop, true);
     }
+  }, [scrollView, globalModalOpened]);
 
-    // cleanup this component
-    return () => {
-      window.removeEventListener("popstate", handleScrollViewPop);
-    };
-  }, [globalModalOpened]);
-
-  const goBack = () => {
-    history.goBack();
-  };
+  // SCROLL VIEW END
 
   const handleFollow = (i) => {
     if (localStorage.getItem("USER_ID")) {
@@ -578,7 +572,7 @@ export const ProProfile = ({ match, location }) => {
             })}
             showVideos={showVideos}
             setShowVideos={setShowVideos}
-            handleChangeView={handleChangeView}
+            handleChangeView={handleScrollViewOpen}
             scrolledBottomCount={scrolledBottomCount}
             selectedCategoryId={selectedCategoryId}
           />
@@ -612,7 +606,7 @@ export const ProProfile = ({ match, location }) => {
           openScrollVideo={scrollView}
           proVideos={proVideos}
           viewIndex={viewIndex}
-          handleChangeView={handleChangeView}
+          handleScrollViewClose={handleScrollViewClose}
           selectedCategoryId={selectedCategoryId}
           proTheme={proTheme}
           userId={userId}

@@ -25,24 +25,23 @@ export const ComputerLanding = ({ currentLocation }) => {
     <div className="computer_landing_body">
       <div className="computer_MessageBox">
         <p className="computer_WordHeader">VOSH</p>
-        <p className="computer_WelcomeText">Join Vosh as an Influencer</p>
+        <p className="computer_WelcomeText">Join Vosh as a Creator</p>
         <p className="computer_NormalText">
-          On Vosh, we let fans and influencers support each other in sustainable
+          On Vosh, we let fans and creators support each other in sustainable
           ways. Whether it is shopping their recommendations or purchasing a
           shout out, every bit of ❤️ goes a long way.
         </p>
 
         <p className="computer_NormalText">
-          We want to give influencers the freedom to focus on doing what they
-          love, while we focus on ensuring that they can continue to do what
-          they love. If you’re ready to take make your content work for you,
-          reach out to us and get started with Vosh!
+          We want creators to be able to focus on doing what they love, while we
+          assist with everything else. If you’re ready to make your content
+          work for you, reach out to us and get started with Vosh!
         </p>
 
         <TextField
           style={{ marginTop: "2rem", width: "19rem" }}
           id="get-started-email"
-          label="influencer@mail.com"
+          label="creator@mail.com"
           variant="outlined"
           value={value}
           onChange={handleChange}
