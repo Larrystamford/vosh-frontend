@@ -584,7 +584,7 @@ export const ProProfile = ({ match, location }) => {
           style={{ zIndex: 4001 }}
           className="pro_profile_bottom_snackbar_temp"
           onClick={() => {
-            history.push("/getVerified");
+            history.push("/getStarted");
           }}
         ></div>
       )}
