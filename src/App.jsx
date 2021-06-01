@@ -136,7 +136,7 @@ function App() {
 
         <Switch>
           <Route path="/video/:id" component={VideoIndividual} />
-          <Route path="/getVerified" component={Verified} />
+          <Route path="/getStarted" component={Verified} />
           <Route path="/changeUsername" component={VerifiedUsername} />
           <Route path="/ProProfile" component={EditProProfile} />
           <Route path="/ProEdit" component={ProEdit} />
