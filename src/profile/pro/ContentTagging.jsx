@@ -148,7 +148,7 @@ export const ContentTagging = () => {
         setProCategories({ items: data.proCategories });
         setVideos(sortedVideos);
 
-        setPreviousLinks(data.previousProductLinks.reverse());
+        setPreviousLinks(data.allProductLinks);
         setPreviousCats(data.previousMainHashtags);
         setPreviousSubCats(data.previousSubHashtags);
 
@@ -512,8 +512,7 @@ export const ContentTagging = () => {
           "/v1/users/pushPreviousProductLinks/" +
             localStorage.getItem("USER_ID"),
           {
-            previousProductLinks: itemLinks.items,
-            proVideo: displayVideoId,
+            allProductLinks: itemLinks.items,
           }
         );
 

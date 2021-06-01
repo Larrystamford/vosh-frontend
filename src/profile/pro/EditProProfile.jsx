@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./ProProfile.css";
 import { VideoGrid } from "../VideoGrid";
+import { YoutubeGrid } from "../YoutubeGrid";
+import { ReadGrid } from "../ReadGrid";
 import { useGlobalState } from "../../GlobalStates";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
+
+import { CategoriesSelector } from "./CategoriesSelector";
 
 import useOnScreen from "../../customHooks/useOnScreen";
 
@@ -17,6 +21,11 @@ import {
 } from "../../helpers/CommonFunctions";
 
 import CreateIcon from "@material-ui/icons/Create";
+import SlideshowOutlinedIcon from "@material-ui/icons/SlideshowOutlined";
+import GridOnIcon from "@material-ui/icons/GridOn";
+import WallpaperIcon from "@material-ui/icons/Wallpaper";
+import BallotOutlinedIcon from "@material-ui/icons/BallotOutlined";
+
 import * as legoData from "../../components/lego-loader";
 
 import { useHistory } from "react-router";
@@ -46,7 +55,12 @@ export const EditProProfile = ({ match, location }) => {
   const [proVideos, setProVideos] = useState([]);
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
+  const [allProductLinks, setAllProductLinks] = useState([]);
+
   const [proCategories, setProCategories] = useState([]);
+  const [proCategories_youtube, setProCategories_youtube] = useState([]);
+  const [proCategories_instagram, setProCategories_instagram] = useState([]);
+
   const [proTheme, setProTheme] = useState({});
   const [profileBio, setProfileBio] = useState("");
 
@@ -114,6 +128,7 @@ export const EditProProfile = ({ match, location }) => {
         setSocialAccounts(data.socialAccounts);
         setProLinks(data.proLinks);
         setProCategories(data.proCategories);
+        setAllProductLinks(data.allProductLinks);
 
         if (data.profileBio) {
           setProfileBio(data.profileBio);
@@ -131,7 +146,7 @@ export const EditProProfile = ({ match, location }) => {
     }
 
     PageView();
-  }, []);
+  }, [loginCheck]);
 
   // SCROLL VIEW
   const [scrollView, setScrollView] = useState(false);
@@ -165,17 +180,41 @@ export const EditProProfile = ({ match, location }) => {
   }, [scrollView, globalModalOpened]);
 
   // SCROLL VIEW END
+  const [showSocialSelections, setShowSocialSelections] = useState([
+    ["tiktok", "all"],
+    ["youtube", "all_youtube"],
+    ["instagram", "all_instagram"],
+    ["allProductLinks", "nil"],
+  ]);
 
-  const [selectedCategoryName, setSelectedCategoryName] = useState("all");
-  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
+  const [showSocial, setShowSocial] = useState(showSocialSelections[0][0]);
+
+  // to be deprecated
+  const [selectedCategoryName, setSelectedCategoryName] = useState(
+    showSocialSelections[0][0]
+  );
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState(
+    showSocialSelections[0][1]
+  );
   const handleCategorySelection = (id, name) => {
     setScrolledBottomCount(0);
     setSelectedCategoryId(id);
+
+    // to be deprecated
     setSelectedCategoryName(name);
   };
 
   const topRef = useRef();
   const isVisible = useOnScreen(topRef);
+
+  const getSimilarSocialColor = (color) => {
+    if (color == "white") {
+      return "grey";
+    } else if (color == "black") {
+      return "#f2f2f2";
+    }
+  };
 
   return (
     <div
@@ -204,6 +243,7 @@ export const EditProProfile = ({ match, location }) => {
               <p className="pro_profile_loading_word">Vosh</p>
             </div>
           </div>
+          <div ref={topRef} className="pro_profile_social_selector"></div>
         </div>
       ) : (
         <div className="pro_profile_top">
@@ -262,13 +302,13 @@ export const EditProProfile = ({ match, location }) => {
                     <div
                       className="pro_profile_top_name"
                       style={{
-                        color: proTheme.primaryFontColor,
+                        color: proTheme.socialIconsColor,
                       }}
                     >
                       <p
                         className="pro_profile_top_name"
                         style={{
-                          color: proTheme.primaryFontColor,
+                          color: proTheme.socialIconsColor,
                         }}
                       >
                         @{username}
@@ -311,7 +351,7 @@ export const EditProProfile = ({ match, location }) => {
                         ))}
                     </div>
                   ) : (
-                    <>
+                    <div>
                       <div className="pro_profile_top_social_medias">
                         {socialAccounts
                           .slice(0, 5)
@@ -378,7 +418,7 @@ export const EditProProfile = ({ match, location }) => {
                             />
                           ))}
                       </div>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
@@ -396,12 +436,7 @@ export const EditProProfile = ({ match, location }) => {
                 </div>
               </div>
 
-              <div
-                className="pro_profile_top_linker"
-                style={{
-                  backgroundImage: `url(${proTheme.background2})`,
-                }}
-              >
+              <div className="pro_profile_top_linker">
                 {proLinks.length > 0 ? (
                   proLinks.map(({ proLinkName, proLink }) => (
                     <div
@@ -411,9 +446,9 @@ export const EditProProfile = ({ match, location }) => {
                         backgroundColor: proTheme.linkBoxColor,
                       }}
                     >
-                      <p style={{ color: proTheme.linkWordsColor }}>
+                      <h4 style={{ color: proTheme.linkWordsColor }}>
                         {proLinkName}
-                      </p>
+                      </h4>
                     </div>
                   ))
                 ) : (
@@ -432,21 +467,127 @@ export const EditProProfile = ({ match, location }) => {
                   </div>
                 )}
               </div>
-              <div
-                className="pro_profile_shop_div"
-                style={{
-                  color: proTheme.primaryFontColor,
-                }}
-              >
-                <p>
-                  Shop{" "}
-                  <span
-                    style={{ fontStyle: "italic", textDecoration: "underline" }}
-                  >
-                    {titleCase(selectedCategoryName)}
-                  </span>
-                </p>
-              </div>
+            </div>
+          </div>
+
+          <div className="pro_profile_social_selector">
+            <div
+              className="pro_profile_social_selector_line"
+              style={
+                showSocial == "tiktok"
+                  ? {
+                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                    }
+                  : {
+                      borderBottom: `1px solid ${getSimilarSocialColor(
+                        proTheme.socialIconsColor
+                      )}`,
+                    }
+              }
+              onClick={() => {
+                setShowSocial("tiktok");
+                handleCategorySelection("all");
+              }}
+            >
+              <GridOnIcon
+                style={
+                  showSocial == "tiktok"
+                    ? { fontSize: 22, color: proTheme.socialIconsColor }
+                    : {
+                        fontSize: 22,
+                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                      }
+                }
+              />
+            </div>
+            <div
+              className="pro_profile_social_selector_line"
+              style={
+                showSocial == "youtube"
+                  ? {
+                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                    }
+                  : {
+                      borderBottom: `1px solid ${getSimilarSocialColor(
+                        proTheme.socialIconsColor
+                      )}`,
+                    }
+              }
+              onClick={() => {
+                setShowSocial("youtube");
+                handleCategorySelection("all_youtube");
+              }}
+            >
+              <SlideshowOutlinedIcon
+                style={
+                  showSocial == "youtube"
+                    ? { fontSize: 25, color: proTheme.socialIconsColor }
+                    : {
+                        fontSize: 25,
+                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                      }
+                }
+              />
+            </div>
+
+            <div
+              className="pro_profile_social_selector_line"
+              style={
+                showSocial == "instagram"
+                  ? {
+                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                    }
+                  : {
+                      borderBottom: `1px solid ${getSimilarSocialColor(
+                        proTheme.socialIconsColor
+                      )}`,
+                    }
+              }
+              onClick={() => {
+                setShowSocial("instagram");
+                handleCategorySelection("all_instagram");
+              }}
+            >
+              <WallpaperIcon
+                style={
+                  showSocial == "instagram"
+                    ? { fontSize: 22, color: proTheme.socialIconsColor }
+                    : {
+                        fontSize: 22,
+                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                      }
+                }
+              />
+            </div>
+
+            <div
+              className="pro_profile_social_selector_line"
+              style={
+                showSocial == "allProductLinks"
+                  ? {
+                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                    }
+                  : {
+                      borderBottom: `1px solid ${getSimilarSocialColor(
+                        proTheme.socialIconsColor
+                      )}`,
+                    }
+              }
+              onClick={() => {
+                setShowSocial("allProductLinks");
+                handleCategorySelection("nil");
+              }}
+            >
+              <BallotOutlinedIcon
+                style={
+                  showSocial == "allProductLinks"
+                    ? { fontSize: 25, color: proTheme.socialIconsColor }
+                    : {
+                        fontSize: 25,
+                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                      }
+                }
+              />
             </div>
           </div>
 
@@ -461,80 +602,23 @@ export const EditProProfile = ({ match, location }) => {
             }
           ></div>
 
-          <div
-            className="pro_profile_top_selector"
-            style={
-              isVisible
-                ? {
-                    backgroundImage: `url(${proTheme.background2})`,
-                  }
-                : {
-                    backgroundImage: `url(${proTheme.background2})`,
-                    position: "fixed",
-                  }
-            }
-          >
-            <div
-              className="pro_profile_icon_and_name"
-              onClick={() => {
-                handleCategorySelection("all", "all");
-              }}
-            >
-              <span
-                style={
-                  selectedCategoryId == "all"
-                    ? { margin: 3, fontSize: 20, fontWeight: "bold" }
-                    : { margin: 3, fontSize: 16 }
-                }
-              >
-                🌎
-              </span>
-              <p
-                style={{
-                  color: proTheme.categoryWordsColor,
-                }}
-              >
-                all
-              </p>
-            </div>
-            {proCategories.map(({ id, proCategoryName, proCategoryImage }) => (
-              <div
-                className="pro_profile_icon_and_name"
-                onClick={() => {
-                  handleCategorySelection(id, proCategoryName);
-                }}
-              >
-                {proCategoryImage.includes(".png") ? (
-                  <img src={proCategoryImage} style={{ height: 20 }} />
-                ) : (
-                  <span
-                    style={
-                      selectedCategoryId == id
-                        ? { margin: 3, fontSize: 20, fontWeight: "bold" }
-                        : { margin: 3, fontSize: 16 }
-                    }
-                  >
-                    {proCategoryImage}
-                  </span>
-                )}
-
-                <p
-                  style={{
-                    color: proTheme.categoryWordsColor,
-                  }}
-                >
-                  {proCategoryName}
-                </p>
-              </div>
-            ))}
-          </div>
+          <CategoriesSelector
+            proTheme={proTheme}
+            isVisible={isVisible}
+            showSocial={showSocial}
+            selectedCategoryId={selectedCategoryId}
+            proCategories={proCategories}
+            proCategories_youtube={proCategories_youtube}
+            proCategories_instagram={proCategories_instagram}
+            handleCategorySelection={handleCategorySelection}
+          />
         </div>
       )}
 
       <div className="pro_profile_bottom">
         {isLoading ? (
           <div></div>
-        ) : (
+        ) : showSocial === "tiktok" ? (
           <VideoGrid
             videos={proVideos.filter((video) => {
               if (selectedCategoryId === "all") {
@@ -549,7 +633,17 @@ export const EditProProfile = ({ match, location }) => {
             scrolledBottomCount={scrolledBottomCount}
             selectedCategoryId={selectedCategoryId}
           />
-        )}
+        ) : showSocial === "youtube" ? (
+          <YoutubeGrid />
+        ) : showSocial === "instagram" ? (
+          <YoutubeGrid />
+        ) : showSocial === "allProductLinks" ? (
+          <ReadGrid
+            allProductLinks={allProductLinks}
+            size={size}
+            proTheme={proTheme}
+          />
+        ) : null}
       </div>
 
       {localStorage.getItem("USER_ID") ? null : (

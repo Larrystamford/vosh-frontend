@@ -112,8 +112,8 @@ function App() {
             "/",
             "/discover",
             "/inbox",
-            "/profile",
-            "/profile/:id",
+            // "/profile",
+            // "/profile/:id",
             "/video/:id",
           ]}
           exact
@@ -124,10 +124,10 @@ function App() {
             "/",
             "/discover",
             "/inbox",
-            "/profile",
+            // "/profile",
             "/review",
             "/about-us",
-            "/profile/:id",
+            // "/profile/:id",
             "/room/:id",
           ]}
           exact
@@ -136,9 +136,9 @@ function App() {
 
         <Switch>
           <Route path="/video/:id" component={VideoIndividual} />
-          <Route path="/getVerified" component={Verified} />
+          <Route path="/getStarted" component={Verified} />
           <Route path="/changeUsername" component={VerifiedUsername} />
-          <Route path="/ProProfile" component={EditProProfile} />
+          <Route path="/profile" component={EditProProfile} />
           <Route path="/ProEdit" component={ProEdit} />
           <Route path="/ContentTagging" component={ContentTagging} />
           <Route path="/profileBio" component={NonSlidingBio} />
@@ -147,8 +147,6 @@ function App() {
           <Route path="/changePassword" component={ChangePassword} />
           <Route path="/discover" component={Discover} />
           <Route path="/upload" component={Upload} />
-          <Route path="/profile" exact component={PersonalProfile} />
-          <Route path="/profile/:id" component={Profile} />
           <Route path="/inbox" component={Inbox} />
           <Route path="/room/:id" component={Room} />
           <Route path="/review" component={Review} />
@@ -168,3 +166,6 @@ export default App;
 // <Route path="/" component={OfflineDetection} />
 
 // <Route path="/" component={InstallPWA} />
+
+// <Route path="/profile" exact component={PersonalProfile} />
+// <Route path="/profile/:id" component={Profile} />

@@ -243,7 +243,7 @@ function VideoFooter({
             style={
               affiliateGroupName
                 ? {
-                    backgroundImage: `url(${proTheme.background2})`,
+                    backgroundImage: `url(${proTheme.background1})`,
                     minWidth: "16rem",
                     height: "60%",
                     display: "flex",
@@ -323,14 +323,19 @@ function VideoFooter({
                           <p
                             style={{
                               color: proTheme.linkWordsColor,
-                              minWidth: "60%",
                             }}
                           >
                             {product.itemLinkName}
                           </p>
                         </div>
                       ) : (
-                        <p>{product.itemLinkName}</p>
+                        <p
+                          style={{
+                            color: proTheme.linkWordsColor,
+                          }}
+                        >
+                          {product.itemLinkName}
+                        </p>
                       )}
                     </div>
                   ))

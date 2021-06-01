@@ -170,12 +170,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-export const SlidingItemLinks = ({
+export const SlidingProductLinks = ({
   openItemLinks,
   itemLinks,
   setItemLinks,
-  previousLinks,
-  setPreviousLinks,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -191,8 +189,6 @@ export const SlidingItemLinks = ({
 
   const [gettingProductImage, setGettingProductImage] = useState(false);
 
-  const [openLinkPrevious, setOpenLinkPrevious] = useState(false);
-
   const [affiliateGroupName, setAffiliateGroupName] =
     useState("Product Links!");
 
@@ -200,6 +196,7 @@ export const SlidingItemLinks = ({
   const [inputValues, setInputValues] = useState({
     itemLink: "",
     itemLinkName: "",
+    itemLinkDesc: "",
     itemImage: "",
   });
 
@@ -260,7 +257,7 @@ export const SlidingItemLinks = ({
               transform: "translate(-50%, -50%)",
             }}
           >
-            Product Linking
+            All Products
           </span>
         </div>
 
@@ -280,18 +277,6 @@ export const SlidingItemLinks = ({
           <div className="SlidingEdit_AddNewLinkDetails">
             <AddOutlinedIcon style={{ margin: 5 }} />
             <span>Add New Product Link</span>
-          </div>
-        </div>
-
-        <div
-          className="SlidingEdit_AddOldLink"
-          onClick={() => {
-            setOpenLinkPrevious(true);
-          }}
-        >
-          <div className="SlidingEdit_AddNewLinkDetails">
-            <PlaylistAddOutlinedIcon style={{ margin: 5 }} />
-            <span>Existing Product Links</span>
           </div>
         </div>
 
@@ -333,32 +318,10 @@ export const SlidingItemLinks = ({
         linksState={itemLinks}
         setLinksState={setItemLinks}
         editingIndex={editingIndex}
-        setPreviousLinks={setPreviousLinks}
         gettingProductImage={gettingProductImage}
         setGettingProductImage={setGettingProductImage}
-        disableEdit={true}
-      />
-      <LinkPrevious
-        openLinkPrevious={openLinkPrevious}
-        setOpenLinkPrevious={setOpenLinkPrevious}
-        previousLinks={previousLinks}
-        linksState={itemLinks}
-        setLinksState={setItemLinks}
+        disableEdit={false}
       />
     </Dialog>
   );
 };
-
-// <div className="product_linking_group_name">
-// Product Links!
-// </div>
-
-// <ImageEdit
-//   inputValues={inputValues}
-//   setInputValues={setInputValues}
-//   openEditImage={openEditImage}
-//   setOpenEditImage={setOpenEditImage}
-//   editingIndex={editingIndex}
-//   linksState={itemLinks} // db items
-//   setLinksState={setItemLinks} // db items
-// />

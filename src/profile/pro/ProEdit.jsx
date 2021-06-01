@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./ProEdit.css";
 import { useGlobalState } from "../../GlobalStates";
 import { useHistory } from "react-router";
@@ -6,6 +6,7 @@ import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 
 import { SlidingSocials } from "./SlidingSocials";
 import { SlidingLinks } from "./SlidingLinks";
+import { SlidingProductLinks } from "./SlidingProductLinks";
 import { SlidingCategories } from "./SlidingCategories";
 
 import { SimpleBottomNotification } from "../../components/SimpleBottomNotification";
@@ -21,6 +22,7 @@ import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Snackbar } from "@material-ui/core";
@@ -33,6 +35,7 @@ export const ProEdit = () => {
 
   const [socialItems, setSocialItems] = useState({ items: [] });
   const [proLinks, setProLinks] = useState({ items: [] });
+  const [allProductLinks, setAllProductLinks] = useState({ items: [] });
   const [proCategories, setProCategories] = useGlobalState("proCategories");
   const [profileBio, setProfileBio] = useState("");
 
@@ -46,6 +49,7 @@ export const ProEdit = () => {
         setSocialItems({ items: data.socialAccounts });
         setProLinks({ items: data.proLinks });
         setProCategories({ items: data.proCategories });
+        setAllProductLinks({ items: data.allProductLinks });
         if (data.profileBio) {
           setProfileBio(data.profileBio);
         }
@@ -92,11 +96,10 @@ export const ProEdit = () => {
       setOpenSocials(false);
     }
   };
+  const handleSocialsPop = useCallback(() => {
+    setOpenSocials(false);
+  }, []);
   useDidMountEffect(() => {
-    const handleSocialsPop = () => {
-      setOpenSocials(false);
-    };
-
     if (openSocials) {
       window.addEventListener("popstate", handleSocialsPop);
     } else {
@@ -140,11 +143,10 @@ export const ProEdit = () => {
       setOpenLinks(false);
     }
   };
+  const handleLinksPop = useCallback(() => {
+    setOpenLinks(false);
+  }, []);
   useDidMountEffect(() => {
-    const handleLinksPop = () => {
-      setOpenLinks(false);
-    };
-
     if (openLinks) {
       window.addEventListener("popstate", handleLinksPop);
     } else {
@@ -152,6 +154,51 @@ export const ProEdit = () => {
       window.removeEventListener("popstate", handleLinksPop);
     }
   }, [openLinks]);
+
+  // edit product links
+  const [openProductLinks, setOpenProductLinks] = useState(false);
+  const handleProductLinksOpen = () => {
+    if (safeToEdit) {
+      setOpenProductLinks(true);
+      window.history.pushState(
+        {
+          productLinks: "productLinks",
+        },
+        "",
+        ""
+      );
+    }
+  };
+  const handleProductLinksClose = async () => {
+    if (safeToEdit) {
+      const res = await axios.put(
+        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        {
+          allProductLinks: allProductLinks.items,
+        }
+      );
+
+      if (res.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
+      }
+    }
+  };
+  const handleProductLinksPop = useCallback(() => {
+    setOpenProductLinks(false);
+  }, []);
+  useDidMountEffect(() => {
+    if (openProductLinks) {
+      window.addEventListener("popstate", handleProductLinksPop);
+    } else {
+      handleProductLinksClose();
+      window.removeEventListener("popstate", handleProductLinksPop);
+    }
+  }, [openProductLinks]);
 
   // edit categories
   const [openCategories, setOpenCategories] = useState(false);
@@ -188,11 +235,10 @@ export const ProEdit = () => {
       setOpenCategories(false);
     }
   };
+  const handleCategoriesPop = useCallback(() => {
+    setOpenCategories(false);
+  }, []);
   useDidMountEffect(() => {
-    const handleCategoriesPop = () => {
-      setOpenCategories(false);
-    };
-
     if (openCategories) {
       window.addEventListener("popstate", handleCategoriesPop);
     } else {
@@ -305,6 +351,17 @@ export const ProEdit = () => {
             />
           </div>
         </div>
+        <div className="SlidingEdit_Pannel" onClick={handleProductLinksOpen}>
+          <div className="SlidingEdit_TypeLeft">
+            <LocalMallIcon style={{ fontSize: 20 }} />
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>Product Links</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: "1rem" }}
+            />
+          </div>
+        </div>
         <div
           className="SlidingEdit_Pannel"
           onClick={() => {
@@ -399,6 +456,12 @@ export const ProEdit = () => {
         openLinks={openLinks}
         proLinks={proLinks}
         setProLinks={setProLinks}
+      />
+
+      <SlidingProductLinks
+        openItemLinks={openProductLinks}
+        itemLinks={allProductLinks}
+        setItemLinks={setAllProductLinks}
       />
 
       <SlidingCategories

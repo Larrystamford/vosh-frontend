@@ -123,8 +123,6 @@ export const LinkEditCategory = ({
     setInputValues({ ...inputValues, proCategoryImage: emojiObject.emoji });
   };
 
-  console.log(inputValues);
-
   const size = useWindowSize();
   const classes = useStyles();
 

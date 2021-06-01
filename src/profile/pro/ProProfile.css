@@ -332,8 +332,30 @@
 .pro_profile_top_profileBio > span {
 }
 
+.pro_profile_social_selector {
+  min-height: 2.2rem;
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  font-size: 14px;
+  z-index: 2800;
+}
+
+.pro_profile_social_selector_line {
+  width: 100%;
+  min-height: 2.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pro_profile_top_selector {
-  min-height: 3.7rem;
+  min-height: 2.5rem;
   width: 100%;
 
   display: flex;
@@ -342,8 +364,7 @@
   justify-content: flex-start;
   overflow-x: scroll;
 
-  background-repeat: repeat;
-  background-position: center;
+  font-size: 13px;
 
   z-index: 2800;
 }
@@ -360,7 +381,7 @@
 
 .pro_profile_top_linker {
   max-height: 17rem;
-  width: 90%;
+  width: 95%;
   border-radius: 6px;
   margin: 1rem;
   padding-top: 6px;
@@ -386,12 +407,14 @@
 }
 
 .pro_profile_top_link_div {
-  min-height: 2.7rem;
-  width: 97%;
+  min-height: 3.2rem;
+  width: 100%;
   background-color: var(--vosh-color-7);
   margin-top: 7px;
 
-  border-radius: 4px;
+  opacity: 0.92;
+
+  border-radius: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -402,7 +425,7 @@
   text-align: center;
 }
 
-.pro_profile_top_link_div > p {
+.pro_profile_top_link_div > h4 {
   margin: 5px;
   color: white;
   font-size: 15px;
@@ -443,6 +466,20 @@
   min-height: 2.5rem;
   position: relative;
   padding-bottom: 5px;
+}
+
+.pro_profile_icon_and_name_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.2rem;
+  border: 2px solid #f2f2f2;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: white;
+  border-radius: 4px;
+  height: 1.4rem;
 }
 
 .pro_profile_icon_and_name_underline {
@@ -496,7 +533,7 @@
 /* iphone5 */
 @media only screen and (max-height: 580px) {
   .pro_profile_top_selector {
-    min-height: 3.2rem;
+    min-height: 2.4rem;
   }
 
   .pro_profile_top_profileBio {
@@ -534,7 +571,7 @@
   }
 
   .pro_profile_top_link_div {
-    min-height: 2.3rem;
+    min-height: 2.6rem;
   }
 
   .pro_profile_top_linker {

@@ -55,9 +55,10 @@ const StayLoginFormPage = (props) => {
   const [nextClicked, setNextClicked] = useState(false);
 
   const [webView, setWebView] = useState(false);
-  let isWebview = /(Version\/\d+.*\/\d+.0.0.0 Mobile|; ?wv|(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari))/i.test(
-    navigator.userAgent
-  );
+  let isWebview =
+    /(Version\/\d+.*\/\d+.0.0.0 Mobile|; ?wv|(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari))/i.test(
+      navigator.userAgent
+    );
 
   isWebview = true; // temp put this to wait for bug to stop
 
@@ -81,14 +82,13 @@ const StayLoginFormPage = (props) => {
             proTheme: {
               background1:
                 "https://dciv99su0d7r5.cloudfront.net/vosh-template-bg12.jpg",
-              background2:
-                "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
+              background2: "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
             },
           })
           .then((res) => {
             localStorage.setItem("USER_NAME", res.data[0].userName);
             history.push({
-              pathname: "/proProfile",
+              pathname: "/profile",
             });
             setNextClicked(false);
           })

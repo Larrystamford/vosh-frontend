@@ -66,6 +66,7 @@ export const Verified = () => {
     "profileBio",
     "theme",
     "changePassword",
+    "getStarted",
     "404",
   ];
 
@@ -114,7 +115,10 @@ export const Verified = () => {
       }
     }
 
-    if (values.username === localStorage.getItem("USER_NAME").toLowerCase()) {
+    if (
+      localStorage.getItem("USER_NAME") &&
+      values.username === localStorage.getItem("USER_NAME").toLowerCase()
+    ) {
       return true;
     }
 

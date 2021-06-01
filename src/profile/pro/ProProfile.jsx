@@ -77,7 +77,7 @@ export const ProProfile = ({ match, location }) => {
 
             // redirect to profile if user clicks on own userName
             if (data._id === localStorage.getItem("USER_ID")) {
-              history.push("/ProProfile");
+              history.push("/profile");
             }
 
             setImage(data.picture);
@@ -584,7 +584,7 @@ export const ProProfile = ({ match, location }) => {
           style={{ zIndex: 4001 }}
           className="pro_profile_bottom_snackbar_temp"
           onClick={() => {
-            history.push("/getVerified");
+            history.push("/addSocials");
           }}
         ></div>
       )}

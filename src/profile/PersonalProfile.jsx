@@ -218,7 +218,7 @@ export const PersonalProfile = (props) => {
 
         if (data.accountType === "pro") {
           history.push({
-            pathname: "/ProProfile",
+            pathname: "/profile",
           });
         }
         let likedVideosRemoveRepeats = data.likedVideos;

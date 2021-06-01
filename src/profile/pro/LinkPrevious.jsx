@@ -63,16 +63,24 @@ export const LinkPrevious = ({
   // setOpenLinkEdit(false);
   // };
 
-  const handleSelectedLink = (id, itemLink, itemLinkName, itemImage) => {
+  const handleSelectedLink = (
+    id,
+    itemLink,
+    itemLinkName,
+    itemLinkDesc,
+    itemImage
+  ) => {
     setLinksState((prevState) => ({
       items: [
-        ...prevState["items"],
         {
           id: itemLink + new Date().getTime(),
+          itemId: id,
           itemLink: itemLink,
           itemLinkName: itemLinkName,
+          itemLinkDesc: itemLinkDesc,
           itemImage: itemImage,
         },
+        ...prevState["items"],
       ],
     }));
   };
@@ -80,17 +88,23 @@ export const LinkPrevious = ({
   return (
     <Dialog open={openLinkPrevious}>
       <DialogContent>
-        <DialogContentText>Select Previous Products</DialogContentText>
+        <DialogContentText>Select Existing Products</DialogContentText>
         {previousLinks
           .filter(
             (v, i, a) =>
               a.findIndex((t) => t.itemLinkName === v.itemLinkName) === i
           )
-          .map(({ id, itemLink, itemLinkName, itemImage }) => (
+          .map(({ id, itemLink, itemLinkName, itemLinkDesc, itemImage }) => (
             <div
               className="Link_Previous_Content_Box"
               onClick={() =>
-                handleSelectedLink(id, itemLink, itemLinkName, itemImage)
+                handleSelectedLink(
+                  id,
+                  itemLink,
+                  itemLinkName,
+                  itemLinkDesc,
+                  itemImage
+                )
               }
             >
               {itemImage ? (
@@ -100,7 +114,7 @@ export const LinkPrevious = ({
                     flexDirection: "row",
                     justifyContent: "flex-start",
                     alignItems: "center",
-                    width: "95%",
+                    minWidth: "95%",
                   }}
                 >
                   <img
@@ -109,7 +123,7 @@ export const LinkPrevious = ({
                     style={{ margin: "5px 20px 5px 10px" }}
                   />
 
-                  <p style={{ minWidth: "70%" }}>{itemLinkName}</p>
+                  <p>{itemLinkName}</p>
                 </div>
               ) : (
                 <p>{itemLinkName}</p>

@@ -46,6 +46,7 @@ export const LinkItemEdit = ({
   setPreviousLinks,
   gettingProductImage,
   setGettingProductImage,
+  disableEdit,
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -64,9 +65,10 @@ export const LinkItemEdit = ({
 
   const updateItemWithProductImage = async (
     new_id,
+    new_itemId,
     new_itemLink,
     new_itemLinkName,
-    new_itemIndex
+    new_itemLinkDesc,
   ) => {
     setGettingProductImage(true);
 
@@ -81,15 +83,15 @@ export const LinkItemEdit = ({
 
         const newLinkObj = {
           id: new_id,
+          itemId: new_itemId,
           itemLink: new_itemLink,
           itemLinkName: new_itemLinkName,
+          itemLinkDesc: new_itemLinkDesc,
           itemImage: webImageLink,
         };
 
-        prevItems[new_itemIndex] = newLinkObj;
-
-        setLinksState({ items: prevItems });
-        setPreviousLinks((prevState) => [newLinkObj, ...prevState]);
+        setLinksState({ items: [newLinkObj, ...prevItems] });
+        // setPreviousLinks((prevState) => [newLinkObj, ...prevState]);
         setGettingProductImage(false);
       });
   };
@@ -102,35 +104,40 @@ export const LinkItemEdit = ({
           const linkEditObj = {
             _id: prevItems[editingIndex]._id,
             id: prevItems[editingIndex].id,
+            itemId: prevItems[editingIndex].itemId,
             itemLink: inputValues.itemLink,
             itemLinkName: inputValues.itemLinkName,
+            itemLinkDesc: inputValues.itemLinkDesc,
             itemImage: inputValues.itemImage,
           };
           prevItems[editingIndex] = linkEditObj;
 
-          setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
+          // setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
           setLinksState({ items: prevItems });
         } else {
           let new_id = inputValues.itemLink + new Date().getTime();
           let new_itemLink = inputValues.itemLink;
           let new_itemLinkName = inputValues.itemLinkName;
-          let new_itemIndex = linksState.items.length;
+          let new_itemLinkDesc = inputValues.itemLinkDesc;
 
           const linkObj = {
             id: new_id,
+            itemId: new_id,
             itemLink: new_itemLink,
             itemLinkName: new_itemLinkName,
+            itemLinkDesc: new_itemLinkDesc,
           };
 
-          setLinksState((prevState) => ({
-            items: [...prevState["items"], linkObj],
-          }));
+          // setLinksState((prevState) => ({
+          //   items: [linkObj, ...prevState["items"]],
+          // }));
 
           updateItemWithProductImage(
             new_id,
+            new_id,
             new_itemLink,
             new_itemLinkName,
-            new_itemIndex
+            new_itemLinkDesc,
           );
         }
 
@@ -231,6 +238,7 @@ export const LinkItemEdit = ({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
+          disabled={disableEdit && editingIndex !== -1}
         />
 
         <TextField
@@ -245,6 +253,23 @@ export const LinkItemEdit = ({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
+          disabled={disableEdit && editingIndex !== -1}
+        />
+
+        <TextField
+          multiline
+          rows={7}
+          label="optional product story / description"
+          id="outlined-start-adornment"
+          className={clsx(classes.margin, classes.textField)}
+          variant="outlined"
+          value={inputValues.itemLinkDesc}
+          onChange={handleChange("itemLinkDesc")}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          style={{ backgroundColor: "white", marginTop: "1rem" }}
+          disabled={disableEdit && editingIndex !== -1}
         />
       </DialogContent>
       <DialogActions>
