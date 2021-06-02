@@ -18,25 +18,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
+export const ReadGrid = ({
+  allProductLinks,
+  size,
+  proTheme,
+  showReadProducts,
+  setShowReadProducts,
+  scrolledBottomCount,
+}) => {
   const history = useHistory();
 
-  // useEffect(() => {
-  //   setShowVideos(videos.slice(0, 9));
-  // }, [selectedCategoryId]);
+  useEffect(() => {
+    setShowReadProducts(allProductLinks.slice(0, 7));
+  }, []);
 
-  // const getHistoryFeed = (scrolledBottomCount) => {
-  //   setShowVideos((prevState) => [
-  //     ...prevState,
-  //     ...videos.slice(scrolledBottomCount * 9, scrolledBottomCount * 9 + 9),
-  //   ]);
-  // };
+  const getHistoryFeed = (scrolledBottomCount) => {
+    setShowReadProducts((prevState) => [
+      ...prevState,
+      ...allProductLinks.slice(
+        scrolledBottomCount * 7,
+        scrolledBottomCount * 7 + 7
+      ),
+    ]);
+  };
 
-  // useDidMountEffect(() => {
-  //   if (scrolledBottomCount != 0) {
-  //     getHistoryFeed(scrolledBottomCount);
-  //   }
-  // }, [scrolledBottomCount]);
+  useDidMountEffect(() => {
+    if (scrolledBottomCount != 0) {
+      getHistoryFeed(scrolledBottomCount);
+    }
+  }, [scrolledBottomCount]);
 
   // if (videos.length === 0) {
   //   return (
@@ -109,7 +119,7 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
 
   return (
     <div className="profile_bottom_container" style={{ marginTop: "2px" }}>
-      {allProductLinks.map((eachProductLink, i) => {
+      {showReadProducts.map((eachProductLink, i) => {
         if (eachProductLink.itemImage) {
           if (i % 2 === 1) {
             return (

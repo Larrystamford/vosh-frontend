@@ -176,8 +176,8 @@ export const SlidingItemLinks = ({
   setItemLinks,
   previousLinks,
   setPreviousLinks,
+  setChangesMade,
 }) => {
-  console.log(itemLinks);
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -337,6 +337,7 @@ export const SlidingItemLinks = ({
         setPreviousLinks={setPreviousLinks}
         gettingProductImage={gettingProductImage}
         setGettingProductImage={setGettingProductImage}
+        setChangesMade={setChangesMade}
       />
       <LinkPrevious
         openLinkPrevious={openLinkPrevious}
@@ -344,6 +345,7 @@ export const SlidingItemLinks = ({
         previousLinks={previousLinks}
         linksState={itemLinks}
         setLinksState={setItemLinks}
+        setChangesMade={setChangesMade}
       />
     </Dialog>
   );

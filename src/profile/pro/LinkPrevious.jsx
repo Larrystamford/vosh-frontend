@@ -35,6 +35,7 @@ export const LinkPrevious = ({
   previousLinks,
   linksState,
   setLinksState,
+  setChangesMade,
 }) => {
   const size = useWindowSize();
   const classes = useStyles();
@@ -84,6 +85,7 @@ export const LinkPrevious = ({
         ...prevState["items"],
       ],
     }));
+    setChangesMade(true);
   };
 
   return (

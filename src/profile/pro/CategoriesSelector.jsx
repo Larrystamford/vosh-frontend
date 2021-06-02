@@ -33,6 +33,7 @@ export const CategoriesSelector = ({
           : {
               backgroundColor: "white",
               position: "fixed",
+              opacity: 0.9,
             }
       }
     >

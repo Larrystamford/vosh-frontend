@@ -173,7 +173,7 @@
   display: flex;
   flex-direction: row;
 
-  background-color: rgb(245, 245, 245);
+  background-color: rgb(250, 250, 250);
 }
 .Tagging_Top_Main_Left {
   height: 100%;
@@ -191,7 +191,7 @@
   justify-content: center;
 }
 .Tagging_Top_Main_Right_Tag_Body {
-  height: 78%;
+  height: 70%;
   width: 90%;
 
   display: flex;
@@ -200,7 +200,7 @@
   justify-content: flex-end;
 }
 .Tagging_Top_Main_Left_Image_Body {
-  height: 78%;
+  height: 70%;
   width: 85%;
 
   position: relative;
@@ -259,6 +259,30 @@
   height: 100%;
   background-color: #c7c7c7;
   border-radius: 4px;
+}
+
+.Tagging_Top_Main_Youtube {
+  height: 57vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+}
+
+.Tagging_Top_Main_Youtube_video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.Tagging_Top_Main_Youtube_Tag_Body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .gallery_slider_body_wrapper {

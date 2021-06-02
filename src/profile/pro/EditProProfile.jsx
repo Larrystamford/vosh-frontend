@@ -60,6 +60,7 @@ export const EditProProfile = ({ match, location }) => {
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
   const [allProductLinks, setAllProductLinks] = useState([]);
+  const [youtubeVideos, setYoutubeVideos] = useState([]);
 
   const [proCategories, setProCategories] = useState([]);
   const [proCategories_youtube, setProCategories_youtube] = useState([]);
@@ -69,6 +70,8 @@ export const EditProProfile = ({ match, location }) => {
   const [profileBio, setProfileBio] = useState("");
 
   const [showVideos, setShowVideos] = useState([]);
+  const [showYoutubeVideos, setShowYoutubeVideos] = useState([]);
+  const [showReadProducts, setShowReadProducts] = useState([]);
 
   const [likeButtonToggle, setLikeButtonToggle] = useState(false);
 
@@ -140,6 +143,7 @@ export const EditProProfile = ({ match, location }) => {
           setProLinks(data.proLinks);
           setProCategories(data.proCategories);
           setAllProductLinks(data.allProductLinks);
+          setYoutubeVideos(data.youtubeVideos);
 
           if (data.profileBio) {
             setProfileBio(data.profileBio);
@@ -260,7 +264,7 @@ export const EditProProfile = ({ match, location }) => {
   // SCROLL VIEW END
   const [showSocialSelections, setShowSocialSelections] = useState([
     ["tiktok", "all"],
-    // ["youtube", "all_youtube"],
+    ["youtube", "all_youtube"],
     // ["instagram", "all_instagram"],
     ["allProductLinks", "nil"],
   ]);
@@ -704,7 +708,14 @@ export const EditProProfile = ({ match, location }) => {
             selectedCategoryId={selectedCategoryId}
           />
         ) : showSocial === "youtube" ? (
-          <YoutubeGrid />
+          <YoutubeGrid
+            youtubeVideos={youtubeVideos}
+            size={size}
+            proTheme={proTheme}
+            showYoutubeVideos={showYoutubeVideos}
+            setShowYoutubeVideos={setShowYoutubeVideos}
+            scrolledBottomCount={scrolledBottomCount}
+          />
         ) : showSocial === "instagram" ? (
           <YoutubeGrid />
         ) : showSocial === "allProductLinks" ? (
@@ -712,6 +723,9 @@ export const EditProProfile = ({ match, location }) => {
             allProductLinks={allProductLinks}
             size={size}
             proTheme={proTheme}
+            showReadProducts={showReadProducts}
+            setShowReadProducts={setShowReadProducts}
+            scrolledBottomCount={scrolledBottomCount}
           />
         ) : null}
       </div>

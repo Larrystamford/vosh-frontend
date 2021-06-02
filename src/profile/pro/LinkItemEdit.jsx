@@ -46,6 +46,7 @@ export const LinkItemEdit = ({
   setPreviousLinks,
   gettingProductImage,
   setGettingProductImage,
+  setChangesMade,
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -92,6 +93,7 @@ export const LinkItemEdit = ({
         setLinksState({ items: [newLinkObj, ...prevItems] });
         // setPreviousLinks((prevState) => [newLinkObj, ...prevState]);
         setGettingProductImage(false);
+        setChangesMade(true);
       });
   };
 
@@ -113,6 +115,7 @@ export const LinkItemEdit = ({
 
           // setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
           setLinksState({ items: prevItems });
+          setChangesMade(true);
         } else {
           let new_id = inputValues.itemLink + new Date().getTime();
           let new_itemLink = inputValues.itemLink;
@@ -132,6 +135,7 @@ export const LinkItemEdit = ({
           setLinksState((prevState) => ({
             items: [linkObj, ...prevState["items"]],
           }));
+          setChangesMade(true);
 
           // updateItemWithProductImage(
           //   new_id,

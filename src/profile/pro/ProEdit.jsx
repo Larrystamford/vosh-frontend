@@ -395,17 +395,6 @@ export const ProEdit = () => {
             />
           </div>
         </div>
-        <div className="SlidingEdit_Pannel" onClick={handleCategoriesOpen}>
-          <div className="SlidingEdit_TypeLeft">
-            <CategoryOutlinedIcon style={{ fontSize: 20 }} />
-          </div>
-          <div className="SlidingEdit_TypeAndIcon">
-            <p>Categories</p>
-            <ArrowForwardIosOutlinedIcon
-              style={{ fontSize: 12, marginLeft: "1rem" }}
-            />
-          </div>
-        </div>
 
         <div
           className="SlidingEdit_Pannel"
@@ -481,3 +470,13 @@ export const ProEdit = () => {
     </div>
   );
 };
+
+// <div className="SlidingEdit_Pannel" onClick={handleCategoriesOpen}>
+//   <div className="SlidingEdit_TypeLeft">
+//     <CategoryOutlinedIcon style={{ fontSize: 20 }} />
+//   </div>
+//   <div className="SlidingEdit_TypeAndIcon">
+//     <p>Categories</p>
+//     <ArrowForwardIosOutlinedIcon style={{ fontSize: 12, marginLeft: "1rem" }} />
+//   </div>
+// </div>;
