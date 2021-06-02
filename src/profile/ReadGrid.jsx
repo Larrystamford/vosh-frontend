@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 
-import "./VideoGrid.css";
-import LocalMallIcon from "@material-ui/icons/LocalMall";
+import { ImageLoad } from "../components/ImageLoad";
 
+import "./VideoGrid.css";
 import { useHistory } from "react-router";
 
 import Button from "@material-ui/core/Button";
@@ -19,6 +19,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
+  const history = useHistory();
+
   // useEffect(() => {
   //   setShowVideos(videos.slice(0, 9));
   // }, [selectedCategoryId]);
@@ -36,7 +38,6 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
   //   }
   // }, [scrolledBottomCount]);
 
-  // const history = useHistory();
   // if (videos.length === 0) {
   //   return (
   //     <div className="Purchases_NoInfo">
@@ -119,9 +120,9 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
                   window.open(eachProductLink.itemLink, "_blank");
                 }}
               >
-                <img
+                <ImageLoad
                   src={eachProductLink.itemImage}
-                  className="profile_bottom_container_image_box"
+                  style={{ height: size.width / 2, width: size.width / 2 }}
                 />
                 <div
                   className="profile_bottom_container_read_box"
@@ -168,9 +169,9 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
                     true
                   )}
                 </div>
-                <img
+                <ImageLoad
                   src={eachProductLink.itemImage}
-                  className="profile_bottom_container_image_box"
+                  style={{ height: size.width / 2, width: size.width / 2 }}
                 />
               </div>
             );
@@ -231,6 +232,19 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <div
+        className="pro_profile_icon_and_name profile_bottom_container_logo"
+        onClick={() => {
+          history.push("/getStarted");
+        }}
+      >
+        <p style={{ color: "white", fontSize: "14px" }}>Vosh</p>
+        <img
+          src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
+          style={{ height: "16px" }}
+        />
+      </div>
     </div>
   );
 };

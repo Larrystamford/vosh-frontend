@@ -320,7 +320,6 @@ export const SlidingProductLinks = ({
         editingIndex={editingIndex}
         gettingProductImage={gettingProductImage}
         setGettingProductImage={setGettingProductImage}
-        disableEdit={false}
       />
     </Dialog>
   );

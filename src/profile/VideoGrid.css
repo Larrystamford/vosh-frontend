@@ -8,6 +8,13 @@
   min-height: 50vh;
 
   padding-bottom: 3rem;
+
+  position: relative;
+}
+
+.profile_bottom_container_logo {
+  bottom: 0;
+  position: absolute;
 }
 
 .profile_bottom_grid_history {
@@ -105,11 +112,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.profile_bottom_container_image_box {
-  height: 100%;
-  width: 50%;
 }
 
 .profile_bottom_container_read_box_title {

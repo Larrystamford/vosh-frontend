@@ -177,6 +177,7 @@ export const SlidingItemLinks = ({
   previousLinks,
   setPreviousLinks,
 }) => {
+  console.log(itemLinks);
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
@@ -336,7 +337,6 @@ export const SlidingItemLinks = ({
         setPreviousLinks={setPreviousLinks}
         gettingProductImage={gettingProductImage}
         setGettingProductImage={setGettingProductImage}
-        disableEdit={true}
       />
       <LinkPrevious
         openLinkPrevious={openLinkPrevious}

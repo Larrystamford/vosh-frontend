@@ -154,7 +154,7 @@ function App() {
           <Route path="/logout" exact component={Logout} />
           <Route path="/404" exact component={PageNoExist} />
           <Route path="/" exact />
-          <Route component={ProProfile} />
+          <Route component={EditProProfile} />
         </Switch>
       </Router>
     </Provider>

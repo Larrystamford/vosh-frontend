@@ -7,6 +7,10 @@ import { useGlobalState } from "../../GlobalStates";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 
 import { CategoriesSelector } from "./CategoriesSelector";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
+
+import { Snackbar } from "@material-ui/core";
 
 import useOnScreen from "../../customHooks/useOnScreen";
 
@@ -82,7 +86,9 @@ export const EditProProfile = ({ match, location }) => {
   // change profile picture
   const hiddenFileInput = useRef(null);
   const handleUploadClick = (event) => {
-    hiddenFileInput.current.click();
+    if (onProfile) {
+      hiddenFileInput.current.click();
+    }
   };
   const handleFileUpload = async (file) => {
     const mediaType = file.type.split("/")[0];
@@ -109,44 +115,116 @@ export const EditProProfile = ({ match, location }) => {
     return result.data.url;
   };
 
+  const [onProfile, setOnProfile] = useState(false);
+
   // load data
   useEffect(() => {
-    const userId = localStorage.getItem("USER_ID");
-    if (userId) {
-      axios.get("/v1/users/getPro/" + userId).then((response) => {
-        let data = response.data[0];
-        setImage(data.picture);
-        setProTheme(data.proTheme);
+    const windowLocationName = window.location.pathname.slice(1);
+    if (windowLocationName === "profile" || windowLocationName === "profile/") {
+      setOnProfile(true);
+      const userId = localStorage.getItem("USER_ID");
+      if (userId) {
+        axios.get("/v1/users/getPro/" + userId).then((response) => {
+          let data = response.data[0];
+          setImage(data.picture);
+          setProTheme(data.proTheme);
 
-        const sortedProVideos = data.proVideos.sort((a, b) => {
-          return b.tiktokCreatedAt - a.tiktokCreatedAt;
+          const sortedProVideos = data.proVideos.sort((a, b) => {
+            return b.tiktokCreatedAt - a.tiktokCreatedAt;
+          });
+          setProVideos(sortedProVideos);
+
+          setUsername(data.userName);
+          setUserId(data._id);
+          setSocialAccounts(data.socialAccounts);
+          setProLinks(data.proLinks);
+          setProCategories(data.proCategories);
+          setAllProductLinks(data.allProductLinks);
+
+          if (data.profileBio) {
+            setProfileBio(data.profileBio);
+          }
+
+          // set theme up
+          // theme1 to theme6 -> front end helper function to return the respective colors
+          // document.documentElement.style.setProperty(
+          //   "--background1",
+          //   data.proTheme.background1
+          // );
+
+          setIsLoading(false);
         });
-        setProVideos(sortedProVideos);
+      }
+    } else {
+      axios
+        .get("/v1/users/getByUserNamePro/" + windowLocationName)
+        .then((response) => {
+          let data = response.data[0];
 
-        setUsername(data.userName);
-        setUserId(data._id);
-        setSocialAccounts(data.socialAccounts);
-        setProLinks(data.proLinks);
-        setProCategories(data.proCategories);
-        setAllProductLinks(data.allProductLinks);
+          // redirect to profile if user clicks on own userName
+          if (data._id === localStorage.getItem("USER_ID")) {
+            history.push("/profile");
+          }
 
-        if (data.profileBio) {
-          setProfileBio(data.profileBio);
-        }
+          setImage(data.picture);
+          setProTheme(data.proTheme);
 
-        // set theme up
-        // theme1 to theme6 -> front end helper function to return the respective colors
-        document.documentElement.style.setProperty(
-          "--background1",
-          data.proTheme.background1
-        );
+          const sortedProVideos = data.proVideos.sort((a, b) => {
+            return b.tiktokCreatedAt - a.tiktokCreatedAt;
+          });
+          setProVideos(sortedProVideos);
 
-        setIsLoading(false);
+          setUsername(data.userName);
+          setUserId(data._id);
+          setSocialAccounts(data.socialAccounts);
+          setProLinks(data.proLinks);
+          setProCategories(data.proCategories);
+          setAllProductLinks(data.allProductLinks);
+
+          if (data.profileBio) {
+            setProfileBio(data.profileBio);
+          }
+
+          // check if already following
+          // axios
+          //   .get(
+          //     `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
+          //       data._id
+          //     }`
+          //   )
+          //   .then((res) => {
+          //     setIsFollowing(res.data.isFollowing);
+          //   });
+
+          setIsLoading(false);
+        });
+
+      axios.post("/v1/metrics/incrementMetrics", {
+        id: userId,
+        unqiueIdentifier: "total page visits",
       });
     }
 
     PageView();
   }, [loginCheck]);
+
+  const [shareStatus, setShareStatus] = useState(false);
+  const handleShareClicked = () => {
+    axios.post("/v1/metrics/incrementMetrics", {
+      id: userId,
+      unqiueIdentifier: "total profile shares",
+    });
+    axios
+      .post("/v1/follow/followUser", {
+        followerId: localStorage.getItem("USER_ID"),
+        followingId: userId,
+      })
+      .then(() => {
+        console.log("followed");
+      });
+    setShareStatus(true);
+    setTimeout(() => setShareStatus(false), 1300);
+  };
 
   // SCROLL VIEW
   const [scrollView, setScrollView] = useState(false);
@@ -182,8 +260,8 @@ export const EditProProfile = ({ match, location }) => {
   // SCROLL VIEW END
   const [showSocialSelections, setShowSocialSelections] = useState([
     ["tiktok", "all"],
-    ["youtube", "all_youtube"],
-    ["instagram", "all_instagram"],
+    // ["youtube", "all_youtube"],
+    // ["instagram", "all_instagram"],
     ["allProductLinks", "nil"],
   ]);
 
@@ -262,39 +340,66 @@ export const EditProProfile = ({ match, location }) => {
                           className="pro_profile_top_image_circular"
                         />
 
-                        <div className="edit_pro_profile_edit_image_circle">
-                          <CreateIcon
-                            className="edit_pro_profile_edit_image"
-                            style={{ fontSize: 14 }}
-                          />
-                        </div>
-                        <input
-                          ref={hiddenFileInput}
-                          type="file"
-                          name="file"
-                          onChange={(e) => {
-                            handleFileUpload(e.target.files[0]);
-                          }}
-                        />
+                        {onProfile && (
+                          <div>
+                            <div className="edit_pro_profile_edit_image_circle">
+                              <CreateIcon
+                                className="edit_pro_profile_edit_image"
+                                style={{ fontSize: 14 }}
+                              />
+                            </div>
+                            <input
+                              ref={hiddenFileInput}
+                              type="file"
+                              name="file"
+                              onChange={(e) => {
+                                handleFileUpload(e.target.files[0]);
+                              }}
+                            />
+                          </div>
+                        )}
                       </div>
                     ) : null}
                   </div>
-                  <div className="pro_profile_top_follow">
-                    <div
-                      className="edit_pro_profile_top_edit_button"
-                      onClick={() => {
-                        history.push("/ProEdit");
-                      }}
-                    >
-                      <SettingsOutlinedIcon
-                        style={{
-                          fontSize: 18,
-                          color: proTheme.socialIconsColor,
+                  {onProfile ? (
+                    <div className="pro_profile_top_follow">
+                      <div
+                        className="edit_pro_profile_top_edit_button"
+                        onClick={() => {
+                          history.push("/ProEdit");
                         }}
-                      />
-                      <p style={{ color: proTheme.socialIconsColor }}>Edit</p>
+                      >
+                        <SettingsOutlinedIcon
+                          style={{
+                            fontSize: 18,
+                            color: proTheme.socialIconsColor,
+                          }}
+                        />
+                        <p style={{ color: proTheme.socialIconsColor }}>Edit</p>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <CopyToClipboard text={"vosh.club/" + username}>
+                      <div
+                        className="pro_profile_top_follow"
+                        onClick={() => {
+                          handleShareClicked();
+                        }}
+                      >
+                        <div className="edit_pro_profile_top_edit_button">
+                          <ReplyOutlinedIcon
+                            style={{
+                              fontSize: 18,
+                              color: proTheme.socialIconsColor,
+                            }}
+                          />
+                          <p style={{ color: proTheme.socialIconsColor }}>
+                            Share
+                          </p>
+                        </div>
+                      </div>
+                    </CopyToClipboard>
+                  )}
                 </div>
 
                 <div className="pro_profile_top_name_social_cta">
@@ -436,7 +541,10 @@ export const EditProProfile = ({ match, location }) => {
                 </div>
               </div>
 
-              <div className="pro_profile_top_linker">
+              <div
+                className="pro_profile_top_linker"
+                style={proLinks.length == 0 ? { margin: "0.5rem" } : null}
+              >
                 {proLinks.length > 0 ? (
                   proLinks.map(({ proLinkName, proLink }) => (
                     <div
@@ -457,9 +565,13 @@ export const EditProProfile = ({ match, location }) => {
                     onClick={() => {
                       history.push("/ProEdit");
                     }}
-                    style={{
-                      backgroundColor: proTheme.linkBoxColor,
-                    }}
+                    style={
+                      onProfile
+                        ? {
+                            backgroundColor: proTheme.linkBoxColor,
+                          }
+                        : { display: "none" }
+                    }
                   >
                     <p style={{ color: proTheme.linkWordsColor }}>
                       Set Up Your Links!
@@ -471,124 +583,82 @@ export const EditProProfile = ({ match, location }) => {
           </div>
 
           <div className="pro_profile_social_selector">
-            <div
-              className="pro_profile_social_selector_line"
-              style={
-                showSocial == "tiktok"
-                  ? {
-                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
-                    }
-                  : {
-                      borderBottom: `1px solid ${getSimilarSocialColor(
-                        proTheme.socialIconsColor
-                      )}`,
-                    }
-              }
-              onClick={() => {
-                setShowSocial("tiktok");
-                handleCategorySelection("all");
-              }}
-            >
-              <GridOnIcon
-                style={
-                  showSocial == "tiktok"
-                    ? { fontSize: 22, color: proTheme.socialIconsColor }
-                    : {
-                        fontSize: 22,
-                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+            {showSocialSelections.map(([social, socialId]) => {
+              return (
+                <div
+                  className="pro_profile_social_selector_line"
+                  style={
+                    showSocial == social
+                      ? {
+                          borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                        }
+                      : {
+                          borderBottom: `1px solid ${getSimilarSocialColor(
+                            proTheme.socialIconsColor
+                          )}`,
+                        }
+                  }
+                  onClick={() => {
+                    setShowSocial(social);
+                    handleCategorySelection(socialId);
+                  }}
+                >
+                  {social == "tiktok" ? (
+                    <GridOnIcon
+                      style={
+                        showSocial == social
+                          ? { fontSize: 22, color: proTheme.socialIconsColor }
+                          : {
+                              fontSize: 22,
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor
+                              ),
+                            }
                       }
-                }
-              />
-            </div>
-            <div
-              className="pro_profile_social_selector_line"
-              style={
-                showSocial == "youtube"
-                  ? {
-                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
-                    }
-                  : {
-                      borderBottom: `1px solid ${getSimilarSocialColor(
-                        proTheme.socialIconsColor
-                      )}`,
-                    }
-              }
-              onClick={() => {
-                setShowSocial("youtube");
-                handleCategorySelection("all_youtube");
-              }}
-            >
-              <SlideshowOutlinedIcon
-                style={
-                  showSocial == "youtube"
-                    ? { fontSize: 25, color: proTheme.socialIconsColor }
-                    : {
-                        fontSize: 25,
-                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                    />
+                  ) : social == "youtube" ? (
+                    <SlideshowOutlinedIcon
+                      style={
+                        showSocial == social
+                          ? { fontSize: 25, color: proTheme.socialIconsColor }
+                          : {
+                              fontSize: 25,
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor
+                              ),
+                            }
                       }
-                }
-              />
-            </div>
-
-            <div
-              className="pro_profile_social_selector_line"
-              style={
-                showSocial == "instagram"
-                  ? {
-                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
-                    }
-                  : {
-                      borderBottom: `1px solid ${getSimilarSocialColor(
-                        proTheme.socialIconsColor
-                      )}`,
-                    }
-              }
-              onClick={() => {
-                setShowSocial("instagram");
-                handleCategorySelection("all_instagram");
-              }}
-            >
-              <WallpaperIcon
-                style={
-                  showSocial == "instagram"
-                    ? { fontSize: 22, color: proTheme.socialIconsColor }
-                    : {
-                        fontSize: 22,
-                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                    />
+                  ) : social == "instagram" ? (
+                    <WallpaperIcon
+                      style={
+                        showSocial == social
+                          ? { fontSize: 22, color: proTheme.socialIconsColor }
+                          : {
+                              fontSize: 22,
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor
+                              ),
+                            }
                       }
-                }
-              />
-            </div>
-
-            <div
-              className="pro_profile_social_selector_line"
-              style={
-                showSocial == "allProductLinks"
-                  ? {
-                      borderBottom: `1px solid ${proTheme.socialIconsColor}`,
-                    }
-                  : {
-                      borderBottom: `1px solid ${getSimilarSocialColor(
-                        proTheme.socialIconsColor
-                      )}`,
-                    }
-              }
-              onClick={() => {
-                setShowSocial("allProductLinks");
-                handleCategorySelection("nil");
-              }}
-            >
-              <BallotOutlinedIcon
-                style={
-                  showSocial == "allProductLinks"
-                    ? { fontSize: 25, color: proTheme.socialIconsColor }
-                    : {
-                        fontSize: 25,
-                        color: getSimilarSocialColor(proTheme.socialIconsColor),
+                    />
+                  ) : (
+                    <BallotOutlinedIcon
+                      style={
+                        showSocial == social
+                          ? { fontSize: 25, color: proTheme.socialIconsColor }
+                          : {
+                              fontSize: 25,
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor
+                              ),
+                            }
                       }
-                }
-              />
-            </div>
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           <div
@@ -646,9 +716,9 @@ export const EditProProfile = ({ match, location }) => {
         ) : null}
       </div>
 
-      {localStorage.getItem("USER_ID") ? null : (
+      {!localStorage.getItem("USER_ID") && onProfile ? (
         <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
-      )}
+      ) : null}
 
       {scrollView && (
         <ScrollVideo
@@ -660,6 +730,12 @@ export const EditProProfile = ({ match, location }) => {
           proTheme={proTheme}
         />
       )}
+
+      <Snackbar
+        open={shareStatus}
+        message="Profile copied!"
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      />
     </div>
   );
 };

@@ -137,6 +137,7 @@ export const ContentTagging = () => {
   const [previousLinks, setPreviousLinks] = useState([]);
   const [previousCats, setPreviousCats] = useState([]);
   const [previousSubCats, setPreviousSubCats] = useState([]);
+
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -147,6 +148,8 @@ export const ContentTagging = () => {
         });
         setProCategories({ items: data.proCategories });
         setVideos(sortedVideos);
+
+        console.log(sortedVideos);
 
         setPreviousLinks(data.allProductLinks);
         setPreviousCats(data.previousMainHashtags);
@@ -507,6 +510,8 @@ export const ContentTagging = () => {
             previousSubHashtags: selectedSubCategories,
           }
         );
+
+        console.log(itemLinks.items);
 
         const res2 = await axios.put(
           "/v1/users/pushPreviousProductLinks/" +

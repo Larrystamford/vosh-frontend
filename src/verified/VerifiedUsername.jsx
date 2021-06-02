@@ -52,7 +52,7 @@ export const VerifiedUsername = () => {
     "feed",
     "search",
     "vosh",
-    "getVerified",
+    "getStarted",
     "editProProfile",
     "ContentTagging",
     "changeUsername",

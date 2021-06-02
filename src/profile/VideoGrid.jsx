@@ -74,6 +74,19 @@ export const VideoGrid = ({
           </div>
         ))}
       </div>
+
+      <div
+        className="pro_profile_icon_and_name profile_bottom_container_logo"
+        onClick={() => {
+          history.push("/getStarted");
+        }}
+      >
+        <p style={{ color: "white", fontSize: "14px" }}>Vosh</p>
+        <img
+          src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
+          style={{ height: "16px" }}
+        />
+      </div>
     </div>
   );
 };

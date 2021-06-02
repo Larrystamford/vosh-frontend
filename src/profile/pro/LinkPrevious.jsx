@@ -65,6 +65,7 @@ export const LinkPrevious = ({
 
   const handleSelectedLink = (
     id,
+    itemId,
     itemLink,
     itemLinkName,
     itemLinkDesc,
@@ -74,7 +75,7 @@ export const LinkPrevious = ({
       items: [
         {
           id: itemLink + new Date().getTime(),
-          itemId: id,
+          itemId: itemId,
           itemLink: itemLink,
           itemLinkName: itemLinkName,
           itemLinkDesc: itemLinkDesc,
@@ -94,42 +95,52 @@ export const LinkPrevious = ({
             (v, i, a) =>
               a.findIndex((t) => t.itemLinkName === v.itemLinkName) === i
           )
-          .map(({ id, itemLink, itemLinkName, itemLinkDesc, itemImage }) => (
-            <div
-              className="Link_Previous_Content_Box"
-              onClick={() =>
-                handleSelectedLink(
-                  id,
-                  itemLink,
-                  itemLinkName,
-                  itemLinkDesc,
-                  itemImage
-                )
-              }
-            >
-              {itemImage ? (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    minWidth: "95%",
-                  }}
-                >
-                  <img
-                    className="SlidingEdit_TypeLeft_Image_Placeholder"
-                    src={itemImage}
-                    style={{ margin: "5px 20px 5px 10px" }}
-                  />
+          .map(
+            ({
+              id,
+              itemId,
+              itemLink,
+              itemLinkName,
+              itemLinkDesc,
+              itemImage,
+            }) => (
+              <div
+                className="Link_Previous_Content_Box"
+                onClick={() =>
+                  handleSelectedLink(
+                    id,
+                    itemId,
+                    itemLink,
+                    itemLinkName,
+                    itemLinkDesc,
+                    itemImage
+                  )
+                }
+              >
+                {itemImage ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      minWidth: "95%",
+                    }}
+                  >
+                    <img
+                      className="SlidingEdit_TypeLeft_Image_Placeholder"
+                      src={itemImage}
+                      style={{ margin: "5px 20px 5px 10px" }}
+                    />
 
+                    <p>{itemLinkName}</p>
+                  </div>
+                ) : (
                   <p>{itemLinkName}</p>
-                </div>
-              ) : (
-                <p>{itemLinkName}</p>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            )
+          )}
       </DialogContent>
       <DialogActions>
         <Button

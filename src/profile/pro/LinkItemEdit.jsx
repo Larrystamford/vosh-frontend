@@ -46,7 +46,6 @@ export const LinkItemEdit = ({
   setPreviousLinks,
   gettingProductImage,
   setGettingProductImage,
-  disableEdit,
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -68,7 +67,7 @@ export const LinkItemEdit = ({
     new_itemId,
     new_itemLink,
     new_itemLinkName,
-    new_itemLinkDesc,
+    new_itemLinkDesc
   ) => {
     setGettingProductImage(true);
 
@@ -104,7 +103,7 @@ export const LinkItemEdit = ({
           const linkEditObj = {
             _id: prevItems[editingIndex]._id,
             id: prevItems[editingIndex].id,
-            itemId: prevItems[editingIndex].itemId,
+            itemId: inputValues.itemLink + new Date().getTime(), // change item Id if an edit happens
             itemLink: inputValues.itemLink,
             itemLinkName: inputValues.itemLinkName,
             itemLinkDesc: inputValues.itemLinkDesc,
@@ -119,6 +118,7 @@ export const LinkItemEdit = ({
           let new_itemLink = inputValues.itemLink;
           let new_itemLinkName = inputValues.itemLinkName;
           let new_itemLinkDesc = inputValues.itemLinkDesc;
+          let new_itemImage = inputValues.itemImage;
 
           const linkObj = {
             id: new_id,
@@ -126,19 +126,20 @@ export const LinkItemEdit = ({
             itemLink: new_itemLink,
             itemLinkName: new_itemLinkName,
             itemLinkDesc: new_itemLinkDesc,
+            itemImage: new_itemImage,
           };
 
-          // setLinksState((prevState) => ({
-          //   items: [linkObj, ...prevState["items"]],
-          // }));
+          setLinksState((prevState) => ({
+            items: [linkObj, ...prevState["items"]],
+          }));
 
-          updateItemWithProductImage(
-            new_id,
-            new_id,
-            new_itemLink,
-            new_itemLinkName,
-            new_itemLinkDesc,
-          );
+          // updateItemWithProductImage(
+          //   new_id,
+          //   new_id,
+          //   new_itemLink,
+          //   new_itemLinkName,
+          //   new_itemLinkDesc
+          // );
         }
 
         setOpenLinkEdit(false);
@@ -187,44 +188,46 @@ export const LinkItemEdit = ({
           {editingIndex === -1 ? "Add New Product" : "Edit Product"}
         </DialogContentText>
 
-        {editingIndex > -1 && (
-          <div className="SlidingEdit_Big_Image_Wrapper">
-            {inputValues.itemImage ? (
-              <img
-                className="SlidingEdit_Big_Image_Placeholder"
-                src={inputValues.itemImage}
-                onClick={handleUploadClick}
-              />
-            ) : (
-              <div
-                className="SlidingEdit_Big_Image_Placeholder"
-                onClick={handleUploadClick}
-              >
-                <p style={{ fontSize: 13, textAlign: "center" }}>
-                  Optional Image
-                </p>
-              </div>
-            )}
-
-            <div className="SlidingEdit_Big_Image_Icons_Wrapper">
-              <AddPhotoAlternateOutlinedIcon onClick={handleUploadClick} />
-              <DeleteOutlineOutlinedIcon
-                style={{ marginTop: "15px" }}
-                onClick={() => {
-                  setInputValues({ ...inputValues, itemImage: "" });
-                }}
-              />
-              <input
-                ref={hiddenFileInput}
-                type="file"
-                name="file"
-                onChange={(e) => {
-                  handleFileUpload(e.target.files[0]);
-                }}
-              />
+        <div className="SlidingEdit_Big_Image_Wrapper">
+          {inputValues.itemImage ? (
+            <img
+              className="SlidingEdit_Big_Image_Placeholder"
+              src={inputValues.itemImage}
+              onClick={() => {
+                handleUploadClick();
+              }}
+            />
+          ) : (
+            <div
+              className="SlidingEdit_Big_Image_Placeholder"
+              onClick={() => {
+                handleUploadClick();
+              }}
+            >
+              <p style={{ fontSize: 13, textAlign: "center" }}>
+                Optional Image
+              </p>
             </div>
+          )}
+
+          <div className="SlidingEdit_Big_Image_Icons_Wrapper">
+            <AddPhotoAlternateOutlinedIcon onClick={handleUploadClick} />
+            <DeleteOutlineOutlinedIcon
+              style={{ marginTop: "15px" }}
+              onClick={() => {
+                setInputValues({ ...inputValues, itemImage: "" });
+              }}
+            />
+            <input
+              ref={hiddenFileInput}
+              type="file"
+              name="file"
+              onChange={(e) => {
+                handleFileUpload(e.target.files[0]);
+              }}
+            />
           </div>
-        )}
+        </div>
 
         <TextField
           size={size.height < 580 ? "small" : null}
@@ -238,7 +241,6 @@ export const LinkItemEdit = ({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
-          disabled={disableEdit && editingIndex !== -1}
         />
 
         <TextField
@@ -253,7 +255,6 @@ export const LinkItemEdit = ({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
-          disabled={disableEdit && editingIndex !== -1}
         />
 
         <TextField
@@ -269,7 +270,6 @@ export const LinkItemEdit = ({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
-          disabled={disableEdit && editingIndex !== -1}
         />
       </DialogContent>
       <DialogActions>

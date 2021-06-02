@@ -98,13 +98,6 @@ export const ProProfile = ({ match, location }) => {
               setProfileBio(data.profileBio);
             }
 
-            // set theme up
-            // theme1 to theme6 -> front end helper function to return the respective colors
-            document.documentElement.style.setProperty(
-              "--background1",
-              data.proTheme.background1
-            );
-
             // check if already following
             axios
               .get(
@@ -584,7 +577,7 @@ export const ProProfile = ({ match, location }) => {
           style={{ zIndex: 4001 }}
           className="pro_profile_bottom_snackbar_temp"
           onClick={() => {
-            history.push("/addSocials");
+            history.push("/getStarted");
           }}
         ></div>
       )}
