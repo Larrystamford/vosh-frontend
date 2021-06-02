@@ -479,6 +479,8 @@
   background-color: white;
   border-radius: 4px;
   height: 1.4rem;
+
+  white-space: nowrap;
 }
 
 .pro_profile_icon_and_name_underline {

@@ -175,6 +175,7 @@ export const SlidingProductLinks = ({
   itemLinks,
   setItemLinks,
 }) => {
+  console.log(itemLinks);
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
