@@ -129,7 +129,7 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
                   style={{
                     backgroundColor: proTheme.linkBoxColor,
                     color: proTheme.linkWordsColor,
-                    opacity: 0.92,
+                    opacity: 0.9,
                   }}
                 >
                   <h4 className="profile_bottom_container_read_box_title">
@@ -157,7 +157,7 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
                   style={{
                     backgroundColor: proTheme.linkBoxColor,
                     color: proTheme.linkWordsColor,
-                    opacity: 0.92,
+                    opacity: 0.9,
                   }}
                 >
                   <h4 className="profile_bottom_container_read_box_title">
@@ -194,7 +194,7 @@ export const ReadGrid = ({ allProductLinks, size, proTheme }) => {
                 style={{
                   backgroundColor: proTheme.linkBoxColor,
                   color: proTheme.linkWordsColor,
-                  opacity: 0.92,
+                  opacity: 0.9,
                 }}
               >
                 <h4 className="profile_bottom_container_read_box_title">
