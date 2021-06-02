@@ -170,6 +170,7 @@ export const ProEdit = () => {
     }
   };
   const handleProductLinksClose = async () => {
+    console.log(allProductLinks.items);
     if (safeToEdit) {
       const res = await axios.put(
         "/v1/users/update/" + localStorage.getItem("USER_ID"),

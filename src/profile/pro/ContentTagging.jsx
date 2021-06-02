@@ -511,8 +511,6 @@ export const ContentTagging = () => {
           }
         );
 
-        console.log(itemLinks.items);
-
         const res2 = await axios.put(
           "/v1/users/pushPreviousProductLinks/" +
             localStorage.getItem("USER_ID"),
