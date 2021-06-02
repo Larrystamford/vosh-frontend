@@ -516,6 +516,7 @@ export const ContentTagging = () => {
             localStorage.getItem("USER_ID"),
           {
             allProductLinks: itemLinks.items,
+            proVideo: displayVideoId,
           }
         );
 
