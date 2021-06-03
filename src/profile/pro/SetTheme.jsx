@@ -12,61 +12,92 @@ import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 
+import Dialog from "@material-ui/core/Dialog";
+
 import axios from "../../axios";
+import { prototype } from "react-copy-to-clipboard";
 
 export const SetTheme = () => {
   const history = useHistory();
 
   const [proTheme, setProTheme] = useState({
-    arrangement: "",
     background1: "",
     background2: "",
+    background3: { imageUrl: "", videoUrl: "" },
+    primaryFontColor: "",
+    socialIconsColor: "",
     linkBoxColor: "",
-    fontType: "",
-    color1: "",
-    color2: "",
-    color3: "",
+    linkWordsColor: "",
+    categoryWordsColor: "",
   });
-  const [showNotif, setShowNotif] = useState("");
 
+  const [safeToEdit, setSafeToEdit] = useState(false);
+  const [showNotif, setShowNotif] = useState("");
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
       axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
         setProTheme(data.proTheme);
+
+        setSafeToEdit(true);
       });
     }
   }, []);
+
+  const [openBackground3, setOpenBackground3] = useState(false);
 
   // change background
   const hiddenBackground1Input = useRef(null);
   const handleUploadClick1 = (event) => {
     hiddenBackground1Input.current.click();
   };
-  const hiddenBackground2Input = useRef(null);
+  const hiddenBackground3Input = useRef(null);
   const handleUploadClick2 = (event) => {
-    hiddenBackground2Input.current.click();
+    if (proTheme.background3) {
+      setOpenBackground3(true);
+    } else {
+      hiddenBackground3Input.current.click();
+    }
   };
   const handleFileUpload = async (file, background) => {
     let mediaType = file.type.split("/")[0];
-    if (mediaType != "image") {
+    if (background === "background1" && mediaType != "image") {
       alert("Please upload images only");
+    } else if (background === "background3" && mediaType != "video") {
+      alert("Please upload videos only");
     } else {
-      let imageUrl = await getFileUrl(file);
-
       if (background === "background1") {
+        const imageUrl = await getFileUrl(file);
+
         setProTheme((prevState) => ({ ...prevState, background1: imageUrl }));
+        if (safeToEdit) {
+          await axios.put(
+            "/v1/users/update/" + localStorage.getItem("USER_ID"),
+            {
+              proTheme: { ...proTheme, background1: imageUrl },
+            }
+          );
+        }
+      } else if (background === "background3") {
+        const [imageLink, videoLink] = await getVideoUrls(file);
 
-        await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-          proTheme: { ...proTheme, background1: imageUrl },
-        });
-      } else if (background === "background2") {
-        setProTheme((prevState) => ({ ...prevState, background2: imageUrl }));
+        setProTheme((prevState) => ({
+          ...prevState,
+          background3: { imageUrl: imageLink, videoUrl: videoLink },
+        }));
 
-        await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-          proTheme: { ...proTheme, background2: imageUrl },
-        });
+        if (safeToEdit) {
+          await axios.put(
+            "/v1/users/update/" + localStorage.getItem("USER_ID"),
+            {
+              proTheme: {
+                ...proTheme,
+                background3: { imageUrl: imageLink, videoUrl: videoLink },
+              },
+            }
+          );
+        }
       }
     }
   };
@@ -79,9 +110,12 @@ export const SetTheme = () => {
     }));
   };
   const handleSavePrimaryColor = async () => {
-    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-      proTheme: proTheme,
-    });
+    if (safeToEdit) {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        proTheme: proTheme,
+      });
+    }
+
     setOpenPrimaryColorSelect(false);
   };
 
@@ -93,15 +127,17 @@ export const SetTheme = () => {
     }));
   };
   const handleSaveSocialColor = async () => {
-    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-      proTheme: proTheme,
-    });
+    if (safeToEdit) {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        proTheme: proTheme,
+      });
+    }
+
     setOpenSocialColorSelect(false);
   };
 
-  const [openLinkBoxColorSelection, setLinkBoxOpenColorSelection] = useState(
-    false
-  );
+  const [openLinkBoxColorSelection, setLinkBoxOpenColorSelection] =
+    useState(false);
   const handleSetLinkBoxColor = (event) => {
     setProTheme((prevState) => ({
       ...prevState,
@@ -109,15 +145,17 @@ export const SetTheme = () => {
     }));
   };
   const handleSaveLinkBoxColor = async () => {
-    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-      proTheme: proTheme,
-    });
+    if (safeToEdit) {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        proTheme: proTheme,
+      });
+    }
+
     setLinkBoxOpenColorSelection(false);
   };
 
-  const [openLinkWordsColorSelect, setOpenLinkWordsColorSelect] = useState(
-    false
-  );
+  const [openLinkWordsColorSelect, setOpenLinkWordsColorSelect] =
+    useState(false);
   const handleSetLinkWordsColor = (event) => {
     setProTheme((prevState) => ({
       ...prevState,
@@ -125,9 +163,12 @@ export const SetTheme = () => {
     }));
   };
   const handleSaveLinkWordsColor = async () => {
-    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-      proTheme: proTheme,
-    });
+    if (safeToEdit) {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        proTheme: proTheme,
+      });
+    }
+
     setOpenLinkWordsColorSelect(false);
   };
 
@@ -139,9 +180,12 @@ export const SetTheme = () => {
     }));
   };
   const handleSaveCatColor = async () => {
-    await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-      proTheme: proTheme,
-    });
+    if (safeToEdit) {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        proTheme: proTheme,
+      });
+    }
+
     setOpenCatColorSelect(false);
   };
 
@@ -155,6 +199,30 @@ export const SetTheme = () => {
       },
     });
     return result.data.url;
+  };
+
+  const getVideoUrls = async (file) => {
+    let formData = new FormData();
+    formData.append("media", file);
+
+    const result = await axios.post("/v1/upload/awsWithFirstFrame", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return [result.data.imageUrl, result.data.videoUrl];
+  };
+
+  const removeVideo = async () => {
+    if (safeToEdit) {
+      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        proTheme: { ...proTheme, background3: { imageUrl: "", videoUrl: "" } },
+      });
+      setProTheme({ ...proTheme, background3: { imageUrl: "", videoUrl: "" } });
+    }
+
+    setOpenCatColorSelect(false);
   };
 
   return (
@@ -187,10 +255,18 @@ export const SetTheme = () => {
               className="SlidingEdit_Pannels_Image_Circle_Wrapper"
               onClick={handleUploadClick1}
             >
-              <ImageLoad
-                src={proTheme.background1}
-                className="SlidingEdit_Pannels_Image_Circle"
-              />
+              {proTheme.background1 ? (
+                <ImageLoad
+                  src={proTheme.background1}
+                  className="SlidingEdit_Pannels_Image_Circle"
+                />
+              ) : (
+                <div
+                  className="SlidingEdit_Pannels_Image_Circle"
+                  style={{ background: "grey" }}
+                ></div>
+              )}
+
               <PhotoCameraOutlinedIcon
                 style={{
                   color: "white",
@@ -210,7 +286,7 @@ export const SetTheme = () => {
               />
             </div>
 
-            <p>Background</p>
+            <p>Image Background</p>
           </div>
 
           <div className="SlidingEdit_Pannels_BackgroundImageCircleAndWords">
@@ -218,10 +294,18 @@ export const SetTheme = () => {
               className="SlidingEdit_Pannels_Image_Circle_Wrapper"
               onClick={handleUploadClick2}
             >
-              <ImageLoad
-                src={proTheme.background2}
-                className="SlidingEdit_Pannels_Image_Circle"
-              />
+              {proTheme.background3 && proTheme.background3.imageUrl ? (
+                <ImageLoad
+                  src={proTheme.background3.imageUrl}
+                  className="SlidingEdit_Pannels_Image_Circle"
+                />
+              ) : (
+                <div
+                  className="SlidingEdit_Pannels_Image_Circle"
+                  style={{ background: "grey" }}
+                ></div>
+              )}
+
               <PhotoCameraOutlinedIcon
                 style={{
                   color: "white",
@@ -232,16 +316,16 @@ export const SetTheme = () => {
                 }}
               />
               <input
-                ref={hiddenBackground2Input}
+                ref={hiddenBackground3Input}
                 type="file"
                 name="file"
                 onChange={(e) => {
-                  handleFileUpload(e.target.files[0], "background2");
+                  handleFileUpload(e.target.files[0], "background3");
                 }}
               />
             </div>
 
-            <p>Box Background</p>
+            <p>Video Background</p>
           </div>
         </div>
 
@@ -411,6 +495,62 @@ export const SetTheme = () => {
         handleSetLinkBoxColor={handleSetCatColor}
         handleSaveLinkBoxColor={handleSaveCatColor}
       />
+
+      <Dialog
+        onClose={() => {
+          setOpenBackground3(false);
+        }}
+        aria-labelledby="simple-dialog-title"
+        open={openBackground3}
+      >
+        <div
+          style={{
+            minWidth: "80vw",
+            height: "8rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              width: "90%",
+              height: "3rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onClick={() => {
+              hiddenBackground3Input.current.click();
+              setOpenBackground3(false);
+            }}
+          >
+            <p>Change Video</p>
+          </div>
+          <div
+            style={{
+              width: "90%",
+              height: "3rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "maroon",
+            }}
+          >
+            <p
+              onClick={async () => {
+                if (safeToEdit) {
+                  await removeVideo();
+                  setOpenBackground3(false);
+                }
+              }}
+            >
+              Remove Video
+            </p>
+          </div>
+        </div>
+      </Dialog>
 
       {showNotif && <SimpleBottomNotification message={showNotif} />}
     </div>

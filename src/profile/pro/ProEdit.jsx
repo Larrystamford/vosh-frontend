@@ -259,7 +259,7 @@ export const ProEdit = () => {
       <div className="SlidingEdit_Header">
         <ArrowBackIosOutlinedIcon
           onClick={() => {
-            history.goBack();
+            history.push("/profile");
           }}
           style={{ paddingLeft: 10 }}
         />

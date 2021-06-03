@@ -107,6 +107,7 @@ const displayPreviewFile = (
 };
 
 export const ContentTikTok = ({
+  tiktokSocialLink,
   setCategorySelection,
   setVideos,
   setVideoI,
@@ -136,7 +137,14 @@ export const ContentTikTok = ({
   setItemLinks,
   changesMade,
   setChangesMade,
+  setInstructionsOpen,
 }) => {
+  useEffect(() => {
+    if (!tiktokSocialLink) {
+      setInstructionsOpen(true);
+    }
+  }, []);
+
   const [importing, setImporting] = useGlobalState("tiktokImporting");
 
   const classes = useStyles();
@@ -167,24 +175,28 @@ export const ContentTikTok = ({
 
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
-      axios.get("/v1/users/getPro/" + userId).then((response) => {
-        let data = response.data[0];
+      axios
+        .get("/v1/users/getPro/" + userId)
+        .then((response) => {
+          let data = response.data[0];
 
-        if (isMounted) {
-          setVideos(
-            data.videos.sort((a, b) => {
-              return b.tiktokCreatedAt - a.tiktokCreatedAt;
-            })
-          );
-        }
-      });
+          if (isMounted) {
+            setVideos(
+              data.videos.sort((a, b) => {
+                return b.tiktokCreatedAt - a.tiktokCreatedAt;
+              })
+            );
+          }
+          setImporting(false);
+        })
+        .catch((err) => {
+          setImporting(false);
+        });
     }
 
     if (result === "success") {
       alert("Import done");
     }
-
-    setImporting(false);
 
     return () => {
       isMounted = false;
@@ -278,6 +290,10 @@ export const ContentTikTok = ({
       handleCategoriesClose();
       window.removeEventListener("popstate", handleCategoriesPop);
     }
+
+    return () => {
+      window.removeEventListener("popstate", handleCategoriesPop);
+    };
   }, [openCategories]);
 
   const [openItemLinks, setOpenItemLinks] = useState(false);
@@ -301,6 +317,10 @@ export const ContentTikTok = ({
     } else {
       window.removeEventListener("popstate", handleItemLinksPop);
     }
+
+    return () => {
+      window.removeEventListener("popstate", handleItemLinksPop);
+    };
   }, [openItemLinks]);
 
   // edit hashtags

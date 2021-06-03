@@ -56,11 +56,12 @@ export const EditProProfile = ({ match, location }) => {
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [image, setImage] = useState("");
-  const [proVideos, setProVideos] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [socialAccounts, setSocialAccounts] = useState([]);
   const [proLinks, setProLinks] = useState([]);
   const [allProductLinks, setAllProductLinks] = useState([]);
   const [youtubeVideos, setYoutubeVideos] = useState([]);
+  const [instagramVideos, setInstagramVideos] = useState([]);
 
   const [proCategories, setProCategories] = useState([]);
   const [proCategories_youtube, setProCategories_youtube] = useState([]);
@@ -132,10 +133,10 @@ export const EditProProfile = ({ match, location }) => {
           setImage(data.picture);
           setProTheme(data.proTheme);
 
-          const sortedProVideos = data.proVideos.sort((a, b) => {
+          const sortedVideos = data.proVideos.sort((a, b) => {
             return b.tiktokCreatedAt - a.tiktokCreatedAt;
           });
-          setProVideos(sortedProVideos);
+          setVideos(sortedVideos);
 
           setUsername(data.userName);
           setUserId(data._id);
@@ -147,6 +148,48 @@ export const EditProProfile = ({ match, location }) => {
 
           if (data.profileBio) {
             setProfileBio(data.profileBio);
+          }
+
+          if (
+            data.showSocialSelections.length > 0 &&
+            !(
+              data.proVideos.length === 0 &&
+              data.youtubeVideos.length === 0 &&
+              instagramVideos.length === 0
+            )
+          ) {
+            const filteredShowSocialSelections = [];
+            for (const eachSocial of data.showSocialSelections) {
+              if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+              if (
+                eachSocial[0] == "youtube" &&
+                data.youtubeVideos.length !== 0
+              ) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+              if (
+                eachSocial[0] == "instagram" &&
+                instagramVideos.length !== 0
+              ) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+              if (eachSocial[0] == "allProductLinks") {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+            }
+            setShowSocialSelections(filteredShowSocialSelections);
+            setShowSocial(filteredShowSocialSelections[0][0]);
+            setSelectedCategoryName(filteredShowSocialSelections[0][0]);
+            setSelectedCategoryId(filteredShowSocialSelections[0][1]);
+          } else {
+            setShowSocialSelections([
+              ["tiktok", "all"],
+              ["youtube", "all_youtube"],
+              ["instagram", "all_instagram"],
+              ["allProductLinks", "nil"],
+            ]);
           }
 
           // set theme up
@@ -173,10 +216,10 @@ export const EditProProfile = ({ match, location }) => {
           setImage(data.picture);
           setProTheme(data.proTheme);
 
-          const sortedProVideos = data.proVideos.sort((a, b) => {
+          const sortedVideos = data.proVideos.sort((a, b) => {
             return b.tiktokCreatedAt - a.tiktokCreatedAt;
           });
-          setProVideos(sortedProVideos);
+          setVideos(sortedVideos);
 
           setUsername(data.userName);
           setUserId(data._id);
@@ -189,6 +232,19 @@ export const EditProProfile = ({ match, location }) => {
             setProfileBio(data.profileBio);
           }
 
+          if (data.showSocialSelections.length > 0) {
+            setShowSocialSelections(data.showSocialSelections);
+            setShowSocial(data.showSocialSelections[0][0]);
+            setSelectedCategoryName(data.showSocialSelections[0][0]);
+            setSelectedCategoryId(data.showSocialSelections[0][1]);
+          } else {
+            setShowSocialSelections([
+              ["tiktok", "all"],
+              ["youtube", "all_youtube"],
+              ["instagram", "all_instagram"],
+              ["allProductLinks", "nil"],
+            ]);
+          }
           // check if already following
           // axios
           //   .get(
@@ -262,23 +318,13 @@ export const EditProProfile = ({ match, location }) => {
   }, [scrollView, globalModalOpened]);
 
   // SCROLL VIEW END
-  const [showSocialSelections, setShowSocialSelections] = useState([
-    ["tiktok", "all"],
-    ["youtube", "all_youtube"],
-    // ["instagram", "all_instagram"],
-    ["allProductLinks", "nil"],
-  ]);
+  const [showSocialSelections, setShowSocialSelections] = useState([]);
 
-  const [showSocial, setShowSocial] = useState(showSocialSelections[0][0]);
-
+  const [showSocial, setShowSocial] = useState("tiktok");
   // to be deprecated
-  const [selectedCategoryName, setSelectedCategoryName] = useState(
-    showSocialSelections[0][0]
-  );
+  const [selectedCategoryName, setSelectedCategoryName] = useState("tiktok");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState(
-    showSocialSelections[0][1]
-  );
   const handleCategorySelection = (id, name) => {
     setScrolledBottomCount(0);
     setSelectedCategoryId(id);
@@ -302,9 +348,15 @@ export const EditProProfile = ({ match, location }) => {
     <div
       className="ProProfile"
       ref={scrollRef}
-      style={{
-        backgroundImage: `url(${proTheme.background1})`,
-      }}
+      style={
+        proTheme.background3 &&
+        proTheme.background3.videoUrl &&
+        proTheme.background3.imageUrl
+          ? null
+          : {
+              backgroundImage: `url(${proTheme.background1})`,
+            }
+      }
     >
       {isLoading ? (
         <div className="pro_profile_top">
@@ -693,7 +745,7 @@ export const EditProProfile = ({ match, location }) => {
           <div></div>
         ) : showSocial === "tiktok" ? (
           <VideoGrid
-            videos={proVideos.filter((video) => {
+            videos={videos.filter((video) => {
               if (selectedCategoryId === "all") {
                 return video;
               } else {
@@ -716,7 +768,14 @@ export const EditProProfile = ({ match, location }) => {
             scrolledBottomCount={scrolledBottomCount}
           />
         ) : showSocial === "instagram" ? (
-          <YoutubeGrid />
+          <YoutubeGrid
+            youtubeVideos={youtubeVideos}
+            size={size}
+            proTheme={proTheme}
+            showYoutubeVideos={showYoutubeVideos}
+            setShowYoutubeVideos={setShowYoutubeVideos}
+            scrolledBottomCount={scrolledBottomCount}
+          />
         ) : showSocial === "allProductLinks" ? (
           <ReadGrid
             allProductLinks={allProductLinks}
@@ -736,13 +795,27 @@ export const EditProProfile = ({ match, location }) => {
       {scrollView && (
         <ScrollVideo
           openScrollVideo={scrollView}
-          proVideos={proVideos}
+          videos={videos}
           viewIndex={viewIndex}
           handleScrollViewClose={handleScrollViewClose}
           selectedCategoryId={selectedCategoryId}
           proTheme={proTheme}
         />
       )}
+
+      {proTheme.background3 &&
+        proTheme.background3.videoUrl &&
+        proTheme.background3.imageUrl && (
+          <video
+            src={proTheme.background3.videoUrl}
+            poster={proTheme.background3.imageUrl}
+            playsInline
+            autoPlay
+            muted
+            loop
+            id="backgroundVideo"
+          />
+        )}
 
       <Snackbar
         open={shareStatus}

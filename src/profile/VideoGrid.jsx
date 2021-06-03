@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 
 import "./VideoGrid.css";
-import ShopIcon from '@material-ui/icons/Shop'
+import ShopIcon from "@material-ui/icons/Shop";
 
 import { DisplayPreviewFile } from "./DisplayPreviewFile";
 import { useHistory } from "react-router";
@@ -42,7 +42,7 @@ export const VideoGrid = ({
             history.push("/ContentTagging");
           }}
         >
-          <p>Import & Tag Your TikToks</p>
+          <p>Import & Tag Your Content</p>
         </div>
       </div>
     );

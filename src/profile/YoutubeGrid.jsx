@@ -108,6 +108,21 @@ export const YoutubeGrid = ({
     };
   }, []);
 
+  if (showYoutubeVideos.length === 0) {
+    return (
+      <div className="Purchases_NoInfo">
+        <div
+          className="Video_Grid_redirect_button"
+          onClick={() => {
+            history.push("/ContentTagging");
+          }}
+        >
+          <p>Import & Tag Your Content</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="profile_bottom_container">
       {showYoutubeVideos.map((eachVideo) => (

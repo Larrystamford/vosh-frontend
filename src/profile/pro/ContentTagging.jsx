@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+
 import "./ProEdit.css";
 import { useGlobalState } from "../../GlobalStates";
 import { useHistory } from "react-router";
@@ -8,6 +9,7 @@ import * as constants from "../../helpers/CategoriesConstants";
 import { ContentTikTok } from "./ContentTikTok";
 import { ContentYoutube } from "./ContentYoutube";
 
+import { SlidingSocials } from "./SlidingSocials";
 import { SlidingCategories } from "./SlidingCategories";
 import { SlidingItemLinks } from "./SlidingItemLinks";
 import { SlidingHashtags } from "./SlidingHashtags";
@@ -23,6 +25,7 @@ import BallotOutlinedIcon from "@material-ui/icons/BallotOutlined";
 import { SimpleMiddleNotification } from "../../components/SimpleMiddleNotification";
 import { downloadAndSaveTikToksWithRetry } from "../../helpers/CommonFunctions";
 import { ContentCategory } from "./ContentCategory";
+import { ContentInstructions } from "./ContentInstructions";
 
 import { useSwipeable } from "react-swipeable";
 import { makeStyles } from "@material-ui/core/styles";
@@ -116,8 +119,10 @@ export const ContentTagging = () => {
   const history = useHistory();
 
   const [socialItems, setSocialItems] = useState({ items: [] });
+  const [openSocials, setOpenSocials] = useState(false);
 
   // TIKTOK
+  const [tiktokSocialLink, setTikTokSocialLink] = useState("");
   const [importing, setImporting] = useGlobalState("tiktokImporting");
   const [proCategories, setProCategories] = useGlobalState("proCategories");
   const [displayImage, setDisplayImage] = useState("");
@@ -150,14 +155,13 @@ export const ContentTagging = () => {
   // YOUTUBE
   const [youtubeSocialLink, setYoutubeSocialLink] = useState("");
   const [youtubeVideos, setYoutubeVideos] = useState([]);
-  const [youtubeImporting, setYoutubeImporting] = useState(false);
   const [youtubeVideoI, setYoutubeVideoI] = useState(0);
   const [youtubeItemLinks, setYoutubeItemLinks] = useState({ items: [] });
   const [youtubeDisplayImage, setYoutubeDisplayImage] = useState("");
   const [youtubeDisplayVideo, setYoutubeDisplayVideo] = useState("");
   const [youtubeDisplayVideoId, setYoutubeDisplayVideoId] = useState("");
   //YOUTUBE
-  console.log(youtubeSocialLink);
+
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -168,6 +172,21 @@ export const ContentTagging = () => {
           if (eachSocialAccount.socialType == "Youtube") {
             setYoutubeSocialLink(eachSocialAccount.socialLink);
           }
+          if (eachSocialAccount.socialType == "TikTok") {
+            setTikTokSocialLink(eachSocialAccount.socialLink);
+          }
+        }
+
+        if (data.showSocialSelections.length > 0) {
+          setShowSocialSelections(data.showSocialSelections);
+          setShowSocial(data.showSocialSelections[0][0]);
+        } else {
+          setShowSocialSelections([
+            ["tiktok", "all"],
+            ["youtube", "all_youtube"],
+            ["instagram", "all_instagram"],
+          ]);
+          setShowSocial("tiktok");
         }
 
         // TIKTOK
@@ -212,10 +231,14 @@ export const ContentTagging = () => {
 
         // YOUTUBE
         setYoutubeVideos(data.youtubeVideos);
-        setYoutubeDisplayImage(data.youtubeVideos[0].coverImageUrl);
-        setYoutubeDisplayVideo(data.youtubeVideos[0].videoId);
-        setYoutubeDisplayVideoId(data.youtubeVideos[0]._id);
-        setVideoI(0);
+
+        if (data.youtubeVideos.length > 0) {
+          setYoutubeDisplayImage(data.youtubeVideos[0].coverImageUrl);
+          setYoutubeDisplayVideo(data.youtubeVideos[0].videoId);
+          setYoutubeDisplayVideoId(data.youtubeVideos[0]._id);
+          setVideoI(0);
+        }
+
         // YOUTUBE
 
         if (response.status === 200) {
@@ -225,12 +248,8 @@ export const ContentTagging = () => {
     }
   }, []);
 
-  const [showSocialSelections, setShowSocialSelections] = useState([
-    ["tiktok", "all"],
-    ["youtube", "all_youtube"],
-    ["instagram", "all_instagram"],
-  ]);
-  const [showSocial, setShowSocial] = useState(showSocialSelections[0][0]);
+  const [showSocialSelections, setShowSocialSelections] = useState([]);
+  const [showSocial, setShowSocial] = useState("");
   const [tempSocial, setTempSocial] = useState("");
   const [rearrangeCount, setRearrangeCount] = useState(1);
   const handleRearrangeSocials = () => {
@@ -277,6 +296,82 @@ export const ContentTagging = () => {
     setRearrangeCount(rearrangeCount + 1);
   };
 
+  useDidMountEffect(() => {
+    if (safeToEdit) {
+      axios
+        .put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+          showSocialSelections: [
+            ...showSocialSelections,
+            ["allProductLinks", "nil"],
+          ],
+        })
+        .then((res) => {
+          console.log("updated category selection");
+        });
+    }
+  }, [showSocialSelections]);
+
+  // edit socials
+  const handleSocialsOpen = () => {
+    if (safeToEdit) {
+      setOpenSocials(true);
+      window.history.pushState(
+        {
+          socials: "socials",
+        },
+        "",
+        ""
+      );
+    }
+  };
+  const handleSocialsClose = async () => {
+    if (safeToEdit) {
+      const res = await axios.put(
+        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        {
+          socialAccounts: socialItems.items,
+        }
+      );
+
+      for (const eachSocialAccount of socialItems.items) {
+        if (eachSocialAccount.socialType == "Youtube") {
+          setYoutubeSocialLink(eachSocialAccount.socialLink);
+        }
+        if (eachSocialAccount.socialType == "TikTok") {
+          setTikTokSocialLink(eachSocialAccount.socialLink);
+        }
+      }
+
+      if (res.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
+      }
+
+      setOpenSocials(false);
+    }
+  };
+  const handleSocialsPop = useCallback(() => {
+    setOpenSocials(false);
+  }, []);
+  useDidMountEffect(() => {
+    if (openSocials) {
+      window.addEventListener("popstate", handleSocialsPop);
+    } else {
+      handleSocialsClose();
+      window.removeEventListener("popstate", handleSocialsPop);
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handleSocialsPop);
+    };
+  }, [openSocials]);
+
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
+
   return (
     <div className="SlidingEdit_Body">
       <div className="SlidingEdit_Header" style={{ border: "none" }}>
@@ -285,7 +380,9 @@ export const ContentTagging = () => {
             if (changesMade) {
               setOpenSelect2(true);
             } else {
-              history.goBack();
+              history.push({
+                pathname: "/ProEdit",
+              });
             }
           }}
           style={{ paddingLeft: 10 }}
@@ -422,6 +519,7 @@ export const ContentTagging = () => {
       </div>
       {safeToEdit && showSocial === "tiktok" && (
         <ContentTikTok
+          tiktokSocialLink={tiktokSocialLink}
           setCategorySelection={setCategorySelection}
           setVideos={setVideos}
           setVideoI={setVideoI}
@@ -451,6 +549,7 @@ export const ContentTagging = () => {
           setItemLinks={setItemLinks}
           changesMade={changesMade}
           setChangesMade={setChangesMade}
+          setInstructionsOpen={setInstructionsOpen}
         />
       )}
       {safeToEdit && showSocial === "youtube" && (
@@ -461,8 +560,6 @@ export const ContentTagging = () => {
           setYoutubeVideos={setYoutubeVideos}
           previousLinks={previousLinks}
           setPreviousLinks={setPreviousLinks}
-          youtubeImporting={youtubeImporting}
-          setYoutubeImporting={setYoutubeImporting}
           youtubeVideoI={youtubeVideoI}
           setYoutubeVideoI={setYoutubeVideoI}
           youtubeItemLinks={youtubeItemLinks}
@@ -477,6 +574,7 @@ export const ContentTagging = () => {
           setSocialItems={setSocialItems}
           changesMade={changesMade}
           setChangesMade={setChangesMade}
+          setInstructionsOpen={setInstructionsOpen}
         />
       )}
 
@@ -493,6 +591,18 @@ export const ContentTagging = () => {
         openSelect2={openSelect2}
         setOpenSelect2={setOpenSelect2}
         setChangesMade={setChangesMade}
+      />
+
+      <SlidingSocials
+        openSocials={openSocials}
+        socialItems={socialItems}
+        setSocialItems={setSocialItems}
+      />
+
+      <ContentInstructions
+        open={instructionsOpen}
+        setInstructionsOpen={setInstructionsOpen}
+        handleSocialsOpen={handleSocialsOpen}
       />
 
       {showNotif && <SimpleMiddleNotification message={showNotif} />}

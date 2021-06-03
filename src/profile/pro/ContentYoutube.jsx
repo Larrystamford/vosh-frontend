@@ -5,9 +5,6 @@ import { useHistory } from "react-router";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 import * as constants from "../../helpers/CategoriesConstants";
 
-import { ContentInstructions } from "./ContentInstructions";
-
-import { SlidingSocials } from "./SlidingSocials";
 import { SlidingItemLinks } from "./SlidingItemLinks";
 import { ConfirmImport } from "./ConfirmImport";
 import { ConfirmSelect } from "./ConfirmSelect";
@@ -93,8 +90,6 @@ export const ContentYoutube = ({
   setYoutubeVideos,
   previousLinks,
   setPreviousLinks,
-  youtubeImporting,
-  setYoutubeImporting,
   youtubeVideoI,
   setYoutubeVideoI,
   youtubeItemLinks,
@@ -109,7 +104,17 @@ export const ContentYoutube = ({
   setSocialItems,
   changesMade,
   setChangesMade,
+  setInstructionsOpen,
 }) => {
+  const [youtubeImporting, setYoutubeImporting] = useState(false);
+
+  console.log(youtubeImporting);
+
+  useEffect(() => {
+    if (!youtubeSocialLink) {
+      setInstructionsOpen(true);
+    }
+  }, []);
   const classes = useStyles();
   const [checked, setChecked] = useState(true);
 
@@ -123,9 +128,9 @@ export const ContentYoutube = ({
   const [heartSticker, setHeartSticker] = useState([]);
 
   const handleImportClicked = async () => {
-    let isMounted = true; // note this flag denote mount status
-
     setYoutubeImporting(true);
+
+    let isMounted = true; // note this flag denote mount status
 
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -140,13 +145,14 @@ export const ContentYoutube = ({
             setYoutubeVideos(youtubeVideos);
             alert("Import done");
           }
+
+          setYoutubeImporting(false);
         })
         .catch((err) => {
+          setYoutubeImporting(false);
           alert("Import Error. Check if your youtube channel link is correct.");
         });
     }
-
-    setYoutubeImporting(false);
 
     return () => {
       isMounted = false;
@@ -199,6 +205,10 @@ export const ContentYoutube = ({
     } else {
       window.removeEventListener("popstate", handleItemLinksPop);
     }
+
+    return () => {
+      window.removeEventListener("popstate", handleItemLinksPop);
+    };
   }, [openItemLinks]);
 
   // submit
@@ -251,59 +261,6 @@ export const ContentYoutube = ({
     },
     ...{ delta: 15, trackMouse: true, trackTouch: true },
   });
-
-  const [instructionsOpen, setInstructionsOpen] = useState(false);
-  useEffect(() => {
-    setInstructionsOpen(!youtubeSocialLink);
-  }, []);
-
-  // edit socials
-
-  const [openSocials, setOpenSocials] = useState(false);
-  const handleSocialsOpen = () => {
-    if (safeToEdit) {
-      setOpenSocials(true);
-      window.history.pushState(
-        {
-          socials: "socials",
-        },
-        "",
-        ""
-      );
-    }
-  };
-  const handleSocialsClose = async () => {
-    if (safeToEdit) {
-      const res = await axios.put(
-        "/v1/users/update/" + localStorage.getItem("USER_ID"),
-        {
-          socialAccounts: socialItems.items,
-        }
-      );
-
-      if (res.status === 201) {
-        setShowNotif("Saved");
-        setTimeout(() => {
-          setShowNotif("");
-        }, 3000);
-      } else {
-        setShowNotif("Error");
-      }
-
-      setOpenSocials(false);
-    }
-  };
-  const handleSocialsPop = useCallback(() => {
-    setOpenSocials(false);
-  }, []);
-  useDidMountEffect(() => {
-    if (openSocials) {
-      window.addEventListener("popstate", handleSocialsPop);
-    } else {
-      handleSocialsClose();
-      window.removeEventListener("popstate", handleSocialsPop);
-    }
-  }, [openSocials]);
 
   return (
     <div className="Tagging_Main">
@@ -464,20 +421,6 @@ export const ContentYoutube = ({
       />
 
       {showNotif && <SimpleMiddleNotification message={showNotif} />}
-
-      {!youtubeSocialLink && (
-        <ContentInstructions
-          open={instructionsOpen}
-          setInstructionsOpen={setInstructionsOpen}
-          handleSocialsOpen={handleSocialsOpen}
-        />
-      )}
-
-      <SlidingSocials
-        openSocials={openSocials}
-        socialItems={socialItems}
-        setSocialItems={setSocialItems}
-      />
     </div>
   );
 };

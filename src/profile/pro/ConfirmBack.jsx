@@ -40,7 +40,9 @@ export const ConfirmBack = ({
           onClick={() => {
             setOpenSelect2(false);
             setChangesMade(false);
-            history.goBack();
+            history.push({
+              pathname: "/ProEdit",
+            });
           }}
           color="primary"
           autoFocus

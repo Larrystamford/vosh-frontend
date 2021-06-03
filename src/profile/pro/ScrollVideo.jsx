@@ -31,12 +31,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const ScrollVideo = ({
   openScrollVideo,
-  proVideos,
+  videos,
   viewIndex,
   handleScrollViewClose,
   selectedCategoryId,
   proTheme,
-  userId
+  userId,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -53,7 +53,7 @@ export const ScrollVideo = ({
       fullScreen={fullScreen}
     >
       <FeedProfileRefactored
-        videos={proVideos.filter((video) => {
+        videos={videos.filter((video) => {
           if (selectedCategoryId === "all") {
             return video;
           } else {

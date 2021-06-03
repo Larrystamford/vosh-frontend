@@ -196,12 +196,12 @@
   height: calc(var(--vh, 1vh) * 100);
 
   width: 100vw;
-  background-color: white;
 
   overflow-y: scroll;
 
-  background-repeat: repeat;
-  background-position: center;
+  object-fit: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 
   z-index: 4000;
 }
@@ -279,8 +279,8 @@
 
 .pro_profile_top_image_circular {
   display: inline-block;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -324,7 +324,7 @@
 .pro_profile_top_profileBio {
   width: 90%;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 0.6rem;
   margin-bottom: 0.6rem;
 }
@@ -529,6 +529,17 @@
     height: 700px;
     width: 415px;
   }
+}
+
+#backgroundVideo {
+  position: fixed;
+
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -100;
 }
 
 /* iphone5 */
