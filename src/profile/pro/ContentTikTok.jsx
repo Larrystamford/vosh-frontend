@@ -134,6 +134,8 @@ export const ContentTikTok = ({
   setPreviousLinks,
   itemLinks,
   setItemLinks,
+  changesMade,
+  setChangesMade,
 }) => {
   const [importing, setImporting] = useGlobalState("tiktokImporting");
 
@@ -141,8 +143,6 @@ export const ContentTikTok = ({
   const [checked, setChecked] = useState(true);
 
   const history = useHistory();
-
-  const [changesMade, setChangesMade] = useState(false);
 
   const [proVideos, setProVideos] = useState([]);
   const [showNotif, setShowNotif] = useState("");
@@ -416,7 +416,7 @@ export const ContentTikTok = ({
           categories: selectedCategories,
           subCategories: selectedSubCategories,
           proCategories: proCategoriesUpdate,
-          affiliateGroupName: "Products",
+          affiliateGroupName: "Links",
           affiliateProducts: itemLinks.items,
         });
 
@@ -535,7 +535,7 @@ export const ContentTikTok = ({
                     : { border: "1px solid lightgrey" }
                 }
               >
-                Links
+                Add Links
               </div>
               <div
                 className="Tagging_Choices"

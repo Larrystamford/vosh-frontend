@@ -132,7 +132,11 @@ export const ReadGrid = ({
               >
                 <ImageLoad
                   src={eachProductLink.itemImage}
-                  style={{ height: size.width / 2, width: size.width / 2 }}
+                  style={{
+                    height: size.width / 2,
+                    width: size.width / 2,
+                    objectFit: "cover",
+                  }}
                 />
                 <div
                   className="profile_bottom_container_read_box"
@@ -181,7 +185,11 @@ export const ReadGrid = ({
                 </div>
                 <ImageLoad
                   src={eachProductLink.itemImage}
-                  style={{ height: size.width / 2, width: size.width / 2 }}
+                  style={{
+                    height: size.width / 2,
+                    width: size.width / 2,
+                    objectFit: "cover",
+                  }}
                 />
               </div>
             );

@@ -115,6 +115,8 @@ export const ContentTagging = () => {
   const [checked, setChecked] = useState(true);
   const history = useHistory();
 
+  const [socialItems, setSocialItems] = useState({ items: [] });
+
   // TIKTOK
   const [importing, setImporting] = useGlobalState("tiktokImporting");
   const [proCategories, setProCategories] = useGlobalState("proCategories");
@@ -146,6 +148,7 @@ export const ContentTagging = () => {
   // TIKTOK
 
   // YOUTUBE
+  const [youtubeSocialLink, setYoutubeSocialLink] = useState("");
   const [youtubeVideos, setYoutubeVideos] = useState([]);
   const [youtubeImporting, setYoutubeImporting] = useState(false);
   const [youtubeVideoI, setYoutubeVideoI] = useState(0);
@@ -153,14 +156,19 @@ export const ContentTagging = () => {
   const [youtubeDisplayImage, setYoutubeDisplayImage] = useState("");
   const [youtubeDisplayVideo, setYoutubeDisplayVideo] = useState("");
   const [youtubeDisplayVideoId, setYoutubeDisplayVideoId] = useState("");
-
   //YOUTUBE
-
+  console.log(youtubeSocialLink);
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
       axios.get("/v1/users/getPro/" + userId).then((response) => {
         let data = response.data[0];
+        setSocialItems({ items: data.socialAccounts });
+        for (const eachSocialAccount of data.socialAccounts) {
+          if (eachSocialAccount.socialType == "Youtube") {
+            setYoutubeSocialLink(eachSocialAccount.socialLink);
+          }
+        }
 
         // TIKTOK
         const sortedVideos = data.videos.sort((a, b) => {
@@ -223,6 +231,7 @@ export const ContentTagging = () => {
     ["instagram", "all_instagram"],
   ]);
   const [showSocial, setShowSocial] = useState(showSocialSelections[0][0]);
+  const [tempSocial, setTempSocial] = useState("");
   const [rearrangeCount, setRearrangeCount] = useState(1);
   const handleRearrangeSocials = () => {
     const socialArrangements = [
@@ -326,7 +335,12 @@ export const ContentTagging = () => {
                     }
               }
               onClick={() => {
-                setShowSocial(social);
+                if (changesMade) {
+                  setOpenSelect(true);
+                  setTempSocial(social);
+                } else {
+                  setShowSocial(social);
+                }
               }}
             >
               {social == "tiktok" ? (
@@ -435,10 +449,14 @@ export const ContentTagging = () => {
           setPreviousLinks={setPreviousLinks}
           itemLinks={itemLinks}
           setItemLinks={setItemLinks}
+          changesMade={changesMade}
+          setChangesMade={setChangesMade}
         />
       )}
       {safeToEdit && showSocial === "youtube" && (
         <ContentYoutube
+          safeToEdit={safeToEdit}
+          youtubeSocialLink={youtubeSocialLink}
           youtubeVideos={youtubeVideos}
           setYoutubeVideos={setYoutubeVideos}
           previousLinks={previousLinks}
@@ -455,8 +473,27 @@ export const ContentTagging = () => {
           setYoutubeDisplayVideo={setYoutubeDisplayVideo}
           youtubeDisplayVideoId={youtubeDisplayVideoId}
           setYoutubeDisplayVideoId={setYoutubeDisplayVideoId}
+          socialItems={socialItems}
+          setSocialItems={setSocialItems}
+          changesMade={changesMade}
+          setChangesMade={setChangesMade}
         />
       )}
+
+      <ConfirmSelect
+        openSelect={openSelect}
+        setOpenSelect={setOpenSelect}
+        handleSelectVideo={() => {
+          setShowSocial(tempSocial);
+        }}
+        setChangesMade={setChangesMade}
+      />
+
+      <ConfirmBack
+        openSelect2={openSelect2}
+        setOpenSelect2={setOpenSelect2}
+        setChangesMade={setChangesMade}
+      />
 
       {showNotif && <SimpleMiddleNotification message={showNotif} />}
     </div>

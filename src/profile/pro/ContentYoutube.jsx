@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./ProEdit.css";
 import { useGlobalState } from "../../GlobalStates";
 import { useHistory } from "react-router";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
 import * as constants from "../../helpers/CategoriesConstants";
 
-import { SlidingCategories } from "./SlidingCategories";
+import { ContentInstructions } from "./ContentInstructions";
+
+import { SlidingSocials } from "./SlidingSocials";
 import { SlidingItemLinks } from "./SlidingItemLinks";
-import { SlidingHashtags } from "./SlidingHashtags";
 import { ConfirmImport } from "./ConfirmImport";
 import { ConfirmSelect } from "./ConfirmSelect";
 import { ConfirmBack } from "./ConfirmBack";
@@ -68,11 +69,11 @@ const displayPreviewFile = (
   i,
   coverImageUrl,
   heartSticker,
-  youtubeItemLinks
+  affiliateGroupName
 ) => {
   return (
     <div className="content_tagging_video_box" style={{ position: "relative" }}>
-      {youtubeItemLinks.items.length > 0 || heartSticker.includes(i) ? (
+      {affiliateGroupName || heartSticker.includes(i) ? (
         <LoyaltyIcon
           style={{ color: "rgb(182, 81, 81)" }}
           className="profile_bottom_imageOrVideoIcon"
@@ -86,6 +87,8 @@ const displayPreviewFile = (
 };
 
 export const ContentYoutube = ({
+  safeToEdit,
+  youtubeSocialLink,
   youtubeVideos,
   setYoutubeVideos,
   previousLinks,
@@ -102,18 +105,18 @@ export const ContentYoutube = ({
   setYoutubeDisplayVideo,
   youtubeDisplayVideoId,
   setYoutubeDisplayVideoId,
+  socialItems,
+  setSocialItems,
+  changesMade,
+  setChangesMade,
 }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState(true);
 
   const history = useHistory();
 
-  const [changesMade, setChangesMade] = useState(false);
-
   const [proyoutubeVideos, setProyoutubeVideos] = useState([]);
   const [showNotif, setShowNotif] = useState("");
-  const [openContentCategory, setOpenContentCategory] = useState(false);
-  const [openImport, setOpenImport] = useState(false);
   const [openSelect, setOpenSelect] = useState(-1);
   const [openSelect2, setOpenSelect2] = useState(false);
 
@@ -124,27 +127,23 @@ export const ContentYoutube = ({
 
     setYoutubeImporting(true);
 
-    const result = await downloadAndSaveTikToksWithRetry(1);
-
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
       axios
-        .post("/v1/youtube/getYoutubeyoutubeVideosByChannel/", {
+        .post("/v1/youtube/getYoutubeVideosByChannel/", {
           userId: userId,
-          channelLink:
-            "https://www.youtube.com/channel/UCoqWWM5IKCiPqDisy4lD47g",
         })
         .then((response) => {
-          let data = response.data[0];
+          let youtubeVideos = response.data.youtubeVideos;
 
           if (isMounted) {
-            setYoutubeVideos(data.youtubeVideos);
+            setYoutubeVideos(youtubeVideos);
+            alert("Import done");
           }
+        })
+        .catch((err) => {
+          alert("Import Error. Check if your youtube channel link is correct.");
         });
-    }
-
-    if (result === "success") {
-      alert("Import done");
     }
 
     setYoutubeImporting(false);
@@ -204,46 +203,38 @@ export const ContentYoutube = ({
 
   // submit
   const handleSubmit = async () => {
-    if (youtubeItemLinks.items.length === 0) {
-      alert("Add at least one product link");
-    } else {
-      try {
-        // const res = await axios.put(
-        //   "/v1/video/update/" + youtubeDisplayVideoId,
-        //   {
-        //     categories: selectedCategories,
-        //     subCategories: selectedSubCategories,
-        //     proCategories: proCategoriesUpdate,
-        //     affiliateGroupName: "Products",
-        //     affiliateProducts: youtubeItemLinks.items,
-        //   }
-        // );
+    try {
+      const res = await axios.put(
+        "/v1/youtube/update/" + youtubeDisplayVideoId,
+        {
+          affiliateGroupName: "Links",
+          affiliateProducts: youtubeItemLinks.items,
+        }
+      );
 
-        // const res2 = await axios.put(
-        //   "/v1/users/pushPreviousProductLinks/" +
-        //     localStorage.getItem("USER_ID"),
-        //   {
-        //     allProductLinks: youtubeItemLinks.items,
-        //     proVideo: youtubeDisplayVideoId,
-        //   }
-        // );
+      const res1 = await axios.put(
+        "/v1/users/pushPreviousProductLinks/" + localStorage.getItem("USER_ID"),
+        {
+          allProductLinks: youtubeItemLinks.items,
+          proYoutubeVideos: youtubeDisplayVideoId,
+        }
+      );
 
-        // if (res.status === 201 && res1.status === 201 && res2.status === 201) {
-        //   setShowNotif("Saved");
-        //   setTimeout(() => {
-        //     setShowNotif("");
-        //   }, 3000);
-        // } else {
-        //   setShowNotif("Error");
-        // }
-
-        setHeartSticker([...heartSticker, youtubeVideoI]);
-        setChangesMade(false);
-
-        youtubeVideos[youtubeVideoI].affiliateProducts = youtubeItemLinks.items;
-      } catch {
-        alert("Try publishing again");
+      if (res.status === 201 && res1.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
       }
+
+      setHeartSticker([...heartSticker, youtubeVideoI]);
+      setChangesMade(false);
+
+      youtubeVideos[youtubeVideoI].affiliateProducts = youtubeItemLinks.items;
+    } catch {
+      alert("Try publishing again");
     }
   };
 
@@ -260,6 +251,59 @@ export const ContentYoutube = ({
     },
     ...{ delta: 15, trackMouse: true, trackTouch: true },
   });
+
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
+  useEffect(() => {
+    setInstructionsOpen(!youtubeSocialLink);
+  }, []);
+
+  // edit socials
+
+  const [openSocials, setOpenSocials] = useState(false);
+  const handleSocialsOpen = () => {
+    if (safeToEdit) {
+      setOpenSocials(true);
+      window.history.pushState(
+        {
+          socials: "socials",
+        },
+        "",
+        ""
+      );
+    }
+  };
+  const handleSocialsClose = async () => {
+    if (safeToEdit) {
+      const res = await axios.put(
+        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        {
+          socialAccounts: socialItems.items,
+        }
+      );
+
+      if (res.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
+      }
+
+      setOpenSocials(false);
+    }
+  };
+  const handleSocialsPop = useCallback(() => {
+    setOpenSocials(false);
+  }, []);
+  useDidMountEffect(() => {
+    if (openSocials) {
+      window.addEventListener("popstate", handleSocialsPop);
+    } else {
+      handleSocialsClose();
+      window.removeEventListener("popstate", handleSocialsPop);
+    }
+  }, [openSocials]);
 
   return (
     <div className="Tagging_Main">
@@ -291,7 +335,7 @@ export const ContentYoutube = ({
                     }
               }
             >
-              Links
+              Add Links
             </div>
 
             <Button
@@ -347,9 +391,7 @@ export const ContentYoutube = ({
                 variant="contained"
                 size="small"
                 className={classes.button}
-                onClick={() => {
-                  setOpenImport(true);
-                }}
+                onClick={handleImportClicked}
                 color="primary"
               >
                 Import
@@ -372,7 +414,7 @@ export const ContentYoutube = ({
                   0,
                   youtubeVideos[0].coverImageUrl,
                   heartSticker,
-                  youtubeItemLinks
+                  youtubeVideos[0].affiliateGroupName
                 )}
               </div>
             ) : (
@@ -393,7 +435,7 @@ export const ContentYoutube = ({
                   i + 1,
                   eachVideo.coverImageUrl,
                   heartSticker,
-                  youtubeItemLinks
+                  eachVideo.affiliateGroupName
                 )}
               </div>
             ))}
@@ -414,12 +456,6 @@ export const ContentYoutube = ({
         setChangesMade={setChangesMade}
       />
 
-      <ConfirmImport
-        openImport={openImport}
-        setOpenImport={setOpenImport}
-        handleImportClicked={handleImportClicked}
-      />
-
       <ConfirmSelect
         openSelect={openSelect}
         setOpenSelect={setOpenSelect}
@@ -427,13 +463,21 @@ export const ContentYoutube = ({
         setChangesMade={setChangesMade}
       />
 
-      <ConfirmBack
-        openSelect2={openSelect2}
-        setOpenSelect2={setOpenSelect2}
-        setChangesMade={setChangesMade}
-      />
-
       {showNotif && <SimpleMiddleNotification message={showNotif} />}
+
+      {!youtubeSocialLink && (
+        <ContentInstructions
+          open={instructionsOpen}
+          setInstructionsOpen={setInstructionsOpen}
+          handleSocialsOpen={handleSocialsOpen}
+        />
+      )}
+
+      <SlidingSocials
+        openSocials={openSocials}
+        socialItems={socialItems}
+        setSocialItems={setSocialItems}
+      />
     </div>
   );
 };

@@ -14,7 +14,8 @@ import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 import VideocamIcon from "@material-ui/icons/Videocam";
 
 import { Event } from "../components/tracking/Tracker";
-import LocalMallIcon from "@material-ui/icons/LocalMall";
+import ShopIcon from '@material-ui/icons/Shop'
+
 
 import axios from "../axios";
 
@@ -115,7 +116,6 @@ function VideoFooter({
   };
 
   const [openAffiliate, setOpenAffiliate] = useState(false);
-
   // affiliate
   const handleAffiliateOpen = () => {
     setOpenAffiliate(true);
@@ -128,7 +128,6 @@ function VideoFooter({
       ""
     );
   };
-
   const handleAffiliateClose = () => {
     window.history.back();
   };
@@ -180,7 +179,7 @@ function VideoFooter({
                 className="profile_bottom_productImages_video"
               />
             ) : (
-              <LocalMallIcon
+              <ShopIcon
                 style={{
                   opacity: 1,
                   fontSize: 17,

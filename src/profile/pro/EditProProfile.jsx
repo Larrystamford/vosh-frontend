@@ -682,7 +682,6 @@ export const EditProProfile = ({ match, location }) => {
             showSocial={showSocial}
             selectedCategoryId={selectedCategoryId}
             proCategories={proCategories}
-            proCategories_youtube={proCategories_youtube}
             proCategories_instagram={proCategories_instagram}
             handleCategorySelection={handleCategorySelection}
           />

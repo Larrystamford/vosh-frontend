@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 
 import "./VideoGrid.css";
-import LocalMallIcon from "@material-ui/icons/LocalMall";
+import ShopIcon from '@material-ui/icons/Shop'
 
 import { DisplayPreviewFile } from "./DisplayPreviewFile";
 import { useHistory } from "react-router";
@@ -56,7 +56,7 @@ export const VideoGrid = ({
             className="profile_bottom_grid_video"
             style={{ position: "relative" }}
           >
-            <LocalMallIcon
+            <ShopIcon
               className="profile_bottom_imageOrVideoIcon"
               style={{
                 opacity: 0.9,

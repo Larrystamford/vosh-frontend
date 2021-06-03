@@ -13,14 +13,12 @@ export const CategoriesSelector = ({
   const selectProCategories = (showSocial) => {
     if (showSocial == "tiktok") {
       return proCategories;
-    } else if (showSocial == "youtube") {
-      return proCategories_youtube;
     } else if (showSocial == "instagram") {
       return proCategories_instagram;
     }
   };
 
-  if (showSocial == "allProductLinks") {
+  if (showSocial == "allProductLinks" || showSocial == "youtube") {
     return <div></div>;
   }
 

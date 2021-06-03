@@ -22,7 +22,7 @@ import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
-import LocalMallIcon from "@material-ui/icons/LocalMall";
+import ShopIcon from "@material-ui/icons/Shop";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Snackbar } from "@material-ui/core";
@@ -354,10 +354,10 @@ export const ProEdit = () => {
         </div>
         <div className="SlidingEdit_Pannel" onClick={handleProductLinksOpen}>
           <div className="SlidingEdit_TypeLeft">
-            <LocalMallIcon style={{ fontSize: 20 }} />
+            <ShopIcon style={{ fontSize: 20 }} />
           </div>
           <div className="SlidingEdit_TypeAndIcon">
-            <p>All Product Links</p>
+            <p>All Media Links</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />
