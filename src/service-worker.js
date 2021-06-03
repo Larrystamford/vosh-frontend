@@ -38,8 +38,8 @@ function openPushNotification(event) {
 self.addEventListener("push", receivePushNotification);
 self.addEventListener("notificationclick", openPushNotification);
 
-const staticCacheName = "site-static-v45";
-const dynamicCacheName = "site-dynamic-v45";
+const staticCacheName = "site-static-v46";
+const dynamicCacheName = "site-dynamic-v46";
 
 const assets = [
   "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",

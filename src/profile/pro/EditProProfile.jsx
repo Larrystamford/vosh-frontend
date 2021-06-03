@@ -232,11 +232,39 @@ export const EditProProfile = ({ match, location }) => {
             setProfileBio(data.profileBio);
           }
 
-          if (data.showSocialSelections.length > 0) {
-            setShowSocialSelections(data.showSocialSelections);
-            setShowSocial(data.showSocialSelections[0][0]);
-            setSelectedCategoryName(data.showSocialSelections[0][0]);
-            setSelectedCategoryId(data.showSocialSelections[0][1]);
+          if (
+            data.showSocialSelections.length > 0 &&
+            !(
+              data.proVideos.length === 0 &&
+              data.youtubeVideos.length === 0 &&
+              instagramVideos.length === 0
+            )
+          ) {
+            const filteredShowSocialSelections = [];
+            for (const eachSocial of data.showSocialSelections) {
+              if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+              if (
+                eachSocial[0] == "youtube" &&
+                data.youtubeVideos.length !== 0
+              ) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+              if (
+                eachSocial[0] == "instagram" &&
+                instagramVideos.length !== 0
+              ) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+              if (eachSocial[0] == "allProductLinks") {
+                filteredShowSocialSelections.push(eachSocial);
+              }
+            }
+            setShowSocialSelections(filteredShowSocialSelections);
+            setShowSocial(filteredShowSocialSelections[0][0]);
+            setSelectedCategoryName(filteredShowSocialSelections[0][0]);
+            setSelectedCategoryId(filteredShowSocialSelections[0][1]);
           } else {
             setShowSocialSelections([
               ["tiktok", "all"],
@@ -245,6 +273,7 @@ export const EditProProfile = ({ match, location }) => {
               ["allProductLinks", "nil"],
             ]);
           }
+
           // check if already following
           // axios
           //   .get(
