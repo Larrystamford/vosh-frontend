@@ -38,8 +38,8 @@ function openPushNotification(event) {
 self.addEventListener("push", receivePushNotification);
 self.addEventListener("notificationclick", openPushNotification);
 
-const staticCacheName = "site-static-v46";
-const dynamicCacheName = "site-dynamic-v46";
+const staticCacheName = "site-static-v47";
+const dynamicCacheName = "site-dynamic-v47";
 
 const assets = [
   "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
@@ -130,6 +130,8 @@ function getCacheOrFetch(event) {
         );
       })
       .catch(() => {
+        console.log("failed");
+        console.log(event.request);
         if (
           event.request.url &&
           event.request.url.indexOf("vosh.club") > -1 &&
