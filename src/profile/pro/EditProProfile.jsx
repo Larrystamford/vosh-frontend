@@ -375,19 +375,7 @@ export const EditProProfile = ({ match, location }) => {
   };
 
   return (
-    <div
-      className="ProProfile"
-      ref={scrollRef}
-      style={
-        proTheme.background3 &&
-        proTheme.background3.videoUrl &&
-        proTheme.background3.imageUrl
-          ? null
-          : {
-              backgroundImage: `url(${proTheme.background1})`,
-            }
-      }
-    >
+    <div className="ProProfile" ref={scrollRef}>
       {isLoading ? (
         <div className="pro_profile_top">
           <div ref={topRef} className="pro_profile_top_with_left_right">
@@ -552,13 +540,13 @@ export const EditProProfile = ({ match, location }) => {
                               style={
                                 proTheme.socialIconsColor === "white"
                                   ? {
-                                      height: 15,
+                                      height: 16,
                                       margin: 6,
                                       filter: "invert(100%)",
                                       WebkitFilter: "invert(100%)",
                                     }
                                   : {
-                                      height: 15,
+                                      height: 16,
                                       margin: 6,
                                       filter: "invert(0%)",
                                       WebkitFilter: "invert(0%)",
@@ -585,13 +573,13 @@ export const EditProProfile = ({ match, location }) => {
                               style={
                                 proTheme.socialIconsColor === "white"
                                   ? {
-                                      height: 15,
+                                      height: 16,
                                       margin: 6,
                                       filter: "invert(100%)",
                                       WebkitFilter: "invert(100%)",
                                     }
                                   : {
-                                      height: 15,
+                                      height: 16,
                                       margin: 6,
                                       filter: "invert(0%)",
                                       WebkitFilter: "invert(0%)",
@@ -834,18 +822,20 @@ export const EditProProfile = ({ match, location }) => {
       )}
 
       {proTheme.background3 &&
-        proTheme.background3.videoUrl &&
-        proTheme.background3.imageUrl && (
-          <video
-            src={proTheme.background3.videoUrl}
-            poster={proTheme.background3.imageUrl}
-            playsInline
-            autoPlay
-            muted
-            loop
-            id="backgroundVideo"
-          />
-        )}
+      proTheme.background3.videoUrl &&
+      proTheme.background3.imageUrl ? (
+        <video
+          src={proTheme.background3.videoUrl}
+          poster={proTheme.background3.imageUrl}
+          playsInline
+          autoPlay
+          muted
+          loop
+          id="backgroundVideo"
+        />
+      ) : (
+        <img id="backgroundImage" src={proTheme.background1} />
+      )}
 
       <Snackbar
         open={shareStatus}

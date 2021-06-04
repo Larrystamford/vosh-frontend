@@ -220,6 +220,9 @@ export const ProProfile = ({ match, location }) => {
       ref={scrollRef}
       style={{
         backgroundImage: `url(${proTheme.background1})`,
+        objectFit: "contain",
+        height: "100%",
+        width: "100%",
       }}
     >
       {isLoading ? (
