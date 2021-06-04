@@ -177,8 +177,8 @@ export const ContentTagging = () => {
           }
         }
 
-        if (data.showSocialSelections.length > 0) {
-          setShowSocialSelections(data.showSocialSelections);
+        if (data.showSocialSelections.length > 1) {
+          setShowSocialSelections(data.showSocialSelections.slice(0, 3));
           setShowSocial(data.showSocialSelections[0][0]);
         } else {
           setShowSocialSelections([

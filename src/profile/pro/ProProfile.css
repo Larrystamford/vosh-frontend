@@ -408,7 +408,7 @@
   min-height: 3.2rem;
   width: 100%;
   background-color: var(--vosh-color-7);
-  margin-top: 7px;
+  margin-top: 0.8rem;
 
   opacity: 0.9;
 
@@ -424,7 +424,10 @@
 }
 
 .pro_profile_top_link_div > h4 {
-  margin: 5px;
+  margin: 9px;
+  margin-left: 15px;
+  margin-right: 15px;
+
   color: white;
   font-size: 15px;
 }

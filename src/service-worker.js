@@ -105,28 +105,38 @@ function getCacheOrFetch(event) {
       .then((cacheRes) => {
         return (
           cacheRes ||
-          fetch(event.request).then((fetchRes) => {
-            return caches.open(dynamicCacheName).then((cache) => {
-              if (
-                event.request.url.indexOf("google-analytics") > -1 ||
-                event.request.url.indexOf("service-worker") > -1 ||
-                event.request.url.indexOf("hot-update") > -1 ||
-                event.request.url.indexOf("manifest.json") > -1 ||
-                event.request.url.indexOf("api.shoplocoloco") > -1 ||
-                event.request.url.indexOf("stripe") > -1 ||
-                event.request.url.indexOf("pay.google.com") > -1 ||
-                event.request.status === 206 ||
-                event.request.url.indexOf("http") !== 0
-              ) {
-                console.log("not cacheing these", event.request.url, fetchRes);
-                return fetchRes;
-              }
+          fetch(event.request)
+            .then((fetchRes) => {
+              return caches.open(dynamicCacheName).then((cache) => {
+                if (
+                  event.request.url.indexOf("google-analytics") > -1 ||
+                  event.request.url.indexOf("service-worker") > -1 ||
+                  event.request.url.indexOf("hot-update") > -1 ||
+                  event.request.url.indexOf("manifest.json") > -1 ||
+                  event.request.url.indexOf("api.shoplocoloco") > -1 ||
+                  event.request.url.indexOf("stripe") > -1 ||
+                  event.request.url.indexOf("pay.google.com") > -1 ||
+                  event.request.status === 206 ||
+                  event.request.url.indexOf("http") !== 0
+                ) {
+                  console.log(
+                    "not cacheing these",
+                    event.request.url,
+                    fetchRes
+                  );
+                  return fetchRes;
+                }
 
-              cache.put(event.request.url, fetchRes.clone());
-              limitCacheSize(dynamicCacheName, 100);
-              return fetchRes;
-            });
-          })
+                cache.put(event.request.url, fetchRes.clone());
+                limitCacheSize(dynamicCacheName, 100);
+                return fetchRes;
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              console.log("failed");
+              console.log(event.request);
+            })
         );
       })
       .catch(() => {
