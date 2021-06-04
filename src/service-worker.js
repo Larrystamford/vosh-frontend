@@ -116,9 +116,13 @@ function getCacheOrFetch(event) {
                   event.request.url.indexOf("api.shoplocoloco") > -1 ||
                   event.request.url.indexOf("stripe") > -1 ||
                   event.request.url.indexOf("pay.google.com") > -1 ||
-                  event.request.status === 206 ||
+                  event.request.destination === "video" ||
                   event.request.url.indexOf("http") !== 0
                 ) {
+                  if (event.request.destination === "video") {
+                    console.log(event);
+                    console.log("hey");
+                  }
                   console.log(
                     "not cacheing these",
                     event.request.url,
@@ -126,8 +130,7 @@ function getCacheOrFetch(event) {
                   );
                   return fetchRes;
                 }
-                
-                console.log(event.request);
+
                 cache.put(event.request.url, fetchRes.clone());
                 limitCacheSize(dynamicCacheName, 100);
                 return fetchRes;
@@ -135,14 +138,11 @@ function getCacheOrFetch(event) {
             })
             .catch((err) => {
               console.log(err);
-              console.log("failed");
               console.log(event.request);
             })
         );
       })
       .catch(() => {
-        console.log("failed");
-        console.log(event.request);
         if (
           event.request.url &&
           event.request.url.indexOf("vosh.club") > -1 &&
