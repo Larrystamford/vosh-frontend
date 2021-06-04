@@ -227,6 +227,7 @@ export const EditProProfile = ({ match, location }) => {
           setProLinks(data.proLinks);
           setProCategories(data.proCategories);
           setAllProductLinks(data.allProductLinks);
+          setYoutubeVideos(data.youtubeVideos);
 
           if (data.profileBio) {
             setProfileBio(data.profileBio);
