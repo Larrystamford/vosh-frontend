@@ -126,7 +126,8 @@ function getCacheOrFetch(event) {
                   );
                   return fetchRes;
                 }
-
+                
+                console.log(event.request);
                 cache.put(event.request.url, fetchRes.clone());
                 limitCacheSize(dynamicCacheName, 100);
                 return fetchRes;
