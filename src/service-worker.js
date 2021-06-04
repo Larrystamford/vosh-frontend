@@ -38,8 +38,8 @@ function openPushNotification(event) {
 self.addEventListener("push", receivePushNotification);
 self.addEventListener("notificationclick", openPushNotification);
 
-const staticCacheName = "site-static-v47";
-const dynamicCacheName = "site-dynamic-v47";
+const staticCacheName = "site-static-v48";
+const dynamicCacheName = "site-dynamic-v48";
 
 const assets = [
   "https://dciv99su0d7r5.cloudfront.net/favicon-96x96.png",
@@ -119,10 +119,6 @@ function getCacheOrFetch(event) {
                   event.request.destination === "video" ||
                   event.request.url.indexOf("http") !== 0
                 ) {
-                  if (event.request.destination === "video") {
-                    console.log(event);
-                    console.log("hey");
-                  }
                   console.log(
                     "not cacheing these",
                     event.request.url,
