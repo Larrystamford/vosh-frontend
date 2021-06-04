@@ -115,7 +115,8 @@ function getCacheOrFetch(event) {
                 event.request.url.indexOf("api.shoplocoloco") > -1 ||
                 event.request.url.indexOf("stripe") > -1 ||
                 event.request.url.indexOf("pay.google.com") > -1 ||
-                event.request.status === 206
+                event.request.status === 206 ||
+                event.request.url.indexOf("http") !== 0
               ) {
                 console.log("not cacheing these", event.request.url, fetchRes);
                 return fetchRes;
