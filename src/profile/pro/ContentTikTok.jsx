@@ -12,6 +12,8 @@ import { ConfirmImport } from "./ConfirmImport";
 import { ConfirmSelect } from "./ConfirmSelect";
 import { ConfirmBack } from "./ConfirmBack";
 
+import Checkbox from "@material-ui/core/Checkbox";
+
 import SlideshowOutlinedIcon from "@material-ui/icons/SlideshowOutlined";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import WallpaperIcon from "@material-ui/icons/Wallpaper";
@@ -71,7 +73,8 @@ const displayPreviewFile = (
   coverImageUrl,
   tiktokCoverImageUrl,
   proCategories,
-  heartSticker
+  proVideos,
+  videoId
 ) => {
   if (mediaType === "video") {
     return (
@@ -79,7 +82,7 @@ const displayPreviewFile = (
         className="content_tagging_video_box"
         style={{ position: "relative" }}
       >
-        {proCategories.length > 0 || heartSticker.includes(i) ? (
+        {proVideos.includes(videoId) ? (
           <LoyaltyIcon
             style={{ color: "rgb(182, 81, 81)" }}
             className="profile_bottom_imageOrVideoIcon"
@@ -138,6 +141,12 @@ export const ContentTikTok = ({
   changesMade,
   setChangesMade,
   setInstructionsOpen,
+  showPublishOnly,
+  setShowPublishOnly,
+  proVideos,
+  setProVideos,
+  isPublish,
+  setIsPublish,
 }) => {
   useEffect(() => {
     if (!tiktokSocialLink) {
@@ -152,7 +161,6 @@ export const ContentTikTok = ({
 
   const history = useHistory();
 
-  const [proVideos, setProVideos] = useState([]);
   const [showNotif, setShowNotif] = useState("");
   const [openContentCategory, setOpenContentCategory] = useState(false);
   const [openImport, setOpenImport] = useState(false);
@@ -213,6 +221,12 @@ export const ContentTikTok = ({
 
   const handleSelectVideo = (i) => {
     setChecked(true);
+
+    if (proVideos.includes(videos[i]._id)) {
+      setIsPublish(true);
+    } else {
+      setIsPublish(false);
+    }
 
     setVideoI(i);
     setCategorySelection({});
@@ -419,10 +433,6 @@ export const ContentTikTok = ({
   const handleSubmit = async () => {
     if (Object.keys(categorySelection).length === 0) {
       alert("Assign your video to at least one category");
-    } else if (selectedCategories.length === 0) {
-      alert("Choose at least one hashtag");
-    } else if (itemLinks.items.length === 0) {
-      alert("Add at least one link");
     } else {
       const proCategoriesUpdate = [];
       for (const [key, value] of Object.entries(categorySelection)) {
@@ -466,11 +476,12 @@ export const ContentTikTok = ({
           setShowNotif("Error");
         }
 
-        setHeartSticker([...heartSticker, videoI]);
-
         setChangesMade(false);
         setPreviousCats(selectedCategories);
         setPreviousSubCats(selectedSubCategories);
+
+        setProVideos([...proVideos, displayVideoId]);
+        setIsPublish(true);
 
         videos[videoI].proCategories = proCategoriesUpdate;
         videos[videoI].categories = selectedCategories;
@@ -479,6 +490,30 @@ export const ContentTikTok = ({
       } catch {
         alert("Try publishing again");
       }
+    }
+  };
+
+  const handleUnsubmit = async () => {
+    try {
+      const res = await axios.put("/v1/tiktok/unpublish", {
+        userId: localStorage.getItem("USER_ID"),
+        videoId: displayVideoId,
+      });
+
+      if (res.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
+      }
+
+      setChangesMade(false);
+      setProVideos(proVideos.filter((e) => e !== displayVideoId));
+      setIsPublish(false);
+    } catch {
+      alert("Try publishing again");
     }
   };
 
@@ -496,8 +531,39 @@ export const ContentTikTok = ({
     ...{ delta: 15, trackMouse: true, trackTouch: true },
   });
 
+  const handlePublishToggle = async () => {
+    try {
+      await axios.put("/v1/tiktok/tiktokProOrAll/", {
+        userId: localStorage.getItem("USER_ID"),
+        tiktokProOrAll: !showPublishOnly,
+      });
+      setShowPublishOnly(!showPublishOnly);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="Tagging_Main">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "12px",
+          position: "absolute",
+          top: 0,
+          right: 0,
+        }}
+      >
+        <p>show viewers published videos only</p>
+        <Checkbox
+          checked={showPublishOnly}
+          onChange={handlePublishToggle}
+          color="secondary"
+        />
+      </div>
       <Collapse in={checked}>
         <div className="Tagging_Top_Main">
           <div className="Tagging_Top_Main_Left">
@@ -569,16 +635,29 @@ export const ContentTikTok = ({
                 Hashtags
               </div>
 
-              <Button
-                style={{ height: "2.7rem", width: "90%", marginTop: "2rem" }}
-                variant="contained"
-                size="small"
-                className={classes.button}
-                color="secondary"
-                onClick={handleSubmit}
-              >
-                Publish
-              </Button>
+              {isPublish ? (
+                <Button
+                  style={{ height: "2.7rem", width: "90%", marginTop: "2rem" }}
+                  variant="contained"
+                  size="small"
+                  className={classes.button}
+                  color="secondary"
+                  onClick={handleUnsubmit}
+                >
+                  Unpublish
+                </Button>
+              ) : (
+                <Button
+                  style={{ height: "2.7rem", width: "90%", marginTop: "2rem" }}
+                  variant="contained"
+                  size="small"
+                  className={classes.button}
+                  color="secondary"
+                  onClick={handleSubmit}
+                >
+                  Publish
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -649,7 +728,8 @@ export const ContentTikTok = ({
                   videos[0].coverImageUrl,
                   videos[0].tiktokCoverImageUrl,
                   videos[0].proCategories,
-                  heartSticker
+                  proVideos,
+                  videos[0]._id
                 )}
               </div>
             ) : (
@@ -671,7 +751,8 @@ export const ContentTikTok = ({
                   eachVideo.coverImageUrl,
                   eachVideo.tiktokCoverImageUrl,
                   eachVideo.proCategories,
-                  heartSticker
+                  proVideos,
+                  videos[i + 1]._id
                 )}
               </div>
             ))}

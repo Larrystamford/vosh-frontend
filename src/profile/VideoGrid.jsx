@@ -56,13 +56,15 @@ export const VideoGrid = ({
             className="profile_bottom_grid_video"
             style={{ position: "relative" }}
           >
-            <ShopIcon
-              className="profile_bottom_imageOrVideoIcon"
-              style={{
-                opacity: 0.9,
-                zIndex: 2000,
-              }}
-            />
+            {eachVideo.affiliateProducts.length > 0 && (
+              <ShopIcon
+                className="profile_bottom_imageOrVideoIcon"
+                style={{
+                  opacity: 0.9,
+                  zIndex: 2000,
+                }}
+              />
+            )}
 
             <DisplayPreviewFile
               mediaType={eachVideo.mediaType}

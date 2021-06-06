@@ -14,8 +14,7 @@ import { StaySlidingSetUp } from "../login/StaySlidingSetUp";
 import VideocamIcon from "@material-ui/icons/Videocam";
 
 import { Event } from "../components/tracking/Tracker";
-import ShopIcon from '@material-ui/icons/Shop'
-
+import ShopIcon from "@material-ui/icons/Shop";
 
 import axios from "../axios";
 
@@ -167,35 +166,38 @@ function VideoFooter({
           width: "100%",
         }}
       >
-        <div
-          className="videoFooter__button"
-          style={{ minWidth: "70px" }}
-          onClick={handleAffiliateOpen}
-        >
-          <div className="videoFooter_icon_and_name">
-            {hasProductImages(affiliateProducts) ? (
-              <ProductImagesCarousel
-                affiliateProducts={affiliateProducts}
-                className="profile_bottom_productImages_video"
-              />
-            ) : (
-              <ShopIcon
-                style={{
-                  opacity: 1,
-                  fontSize: 17,
-                  color: "orange",
-                }}
-              />
-            )}
-          </div>
-
-          <p
-            className="videoFooter__button_temp_words"
-            style={{ opacity: 0.9 }}
+        {affiliateProducts.length > 0 && (
+          <div
+            className="videoFooter__button"
+            style={{ minWidth: "70px" }}
+            onClick={handleAffiliateOpen}
           >
-            LINKS
-          </p>
-        </div>
+            <div className="videoFooter_icon_and_name">
+              {hasProductImages(affiliateProducts) ? (
+                <ProductImagesCarousel
+                  affiliateProducts={affiliateProducts}
+                  className="profile_bottom_productImages_video"
+                />
+              ) : (
+                <ShopIcon
+                  style={{
+                    opacity: 1,
+                    fontSize: 17,
+                    color: "orange",
+                  }}
+                />
+              )}
+            </div>
+
+            <p
+              className="videoFooter__button_temp_words"
+              style={{ opacity: 0.9 }}
+            >
+              LINKS
+            </p>
+          </div>
+        )}
+
         <div
           id="videoFooter__button_empty_forClick"
           style={{ width: "70%", height: "2rem" }}

@@ -125,6 +125,7 @@ export const ContentTagging = () => {
   const [tiktokSocialLink, setTikTokSocialLink] = useState("");
   const [importing, setImporting] = useGlobalState("tiktokImporting");
   const [proCategories, setProCategories] = useGlobalState("proCategories");
+  const [showPublishOnly, setShowPublishOnly] = useState(false);
   const [displayImage, setDisplayImage] = useState("");
   const [displayVideo, setDisplayVideo] = useState("");
   const [displayVideoId, setDisplayVideoId] = useState("");
@@ -150,16 +151,21 @@ export const ContentTagging = () => {
   const [previousLinks, setPreviousLinks] = useState([]);
   const [previousCats, setPreviousCats] = useState([]);
   const [previousSubCats, setPreviousSubCats] = useState([]);
+  const [isPublish, setIsPublish] = useState(true);
+
   // TIKTOK
 
   // YOUTUBE
   const [youtubeSocialLink, setYoutubeSocialLink] = useState("");
   const [youtubeVideos, setYoutubeVideos] = useState([]);
+  const [proYoutubeVideos, setProYoutubeVideos] = useState([]);
   const [youtubeVideoI, setYoutubeVideoI] = useState(0);
   const [youtubeItemLinks, setYoutubeItemLinks] = useState({ items: [] });
   const [youtubeDisplayImage, setYoutubeDisplayImage] = useState("");
   const [youtubeDisplayVideo, setYoutubeDisplayVideo] = useState("");
   const [youtubeDisplayVideoId, setYoutubeDisplayVideoId] = useState("");
+  const [youtubeShowPublishOnly, setYoutubeShowPublishOnly] = useState(false);
+  const [youtubeIsPublish, setYoutubeIsPublish] = useState(true);
   //YOUTUBE
 
   useEffect(() => {
@@ -193,16 +199,34 @@ export const ContentTagging = () => {
         const sortedVideos = data.videos.sort((a, b) => {
           return b.tiktokCreatedAt - a.tiktokCreatedAt;
         });
-        setProCategories({ items: data.proCategories });
+        const reducedProVideo = [];
+        const sortedProVideos = data.proVideos.sort((a, b) => {
+          return b.tiktokCreatedAt - a.tiktokCreatedAt;
+        });
+        for (const eachProVideo of sortedProVideos) {
+          reducedProVideo.push(eachProVideo._id);
+        }
+        setProVideos(reducedProVideo);
         setVideos(sortedVideos);
+
+        setProCategories({ items: data.proCategories });
+        setShowPublishOnly(data.tiktokProOrAll);
         setPreviousLinks(data.allProductLinks);
         setPreviousCats(data.previousMainHashtags);
         setPreviousSubCats(data.previousSubHashtags);
+
         if (sortedVideos.length > 0) {
           setDisplayImage(sortedVideos[0].coverImageUrl);
           setDisplayVideo(sortedVideos[0].url);
           setDisplayVideoId(sortedVideos[0]._id);
           setVideoI(0);
+
+          if (reducedProVideo.includes(sortedVideos[0]._id)) {
+            setIsPublish(true);
+          } else {
+            setIsPublish(false);
+          }
+
           if (
             sortedVideos[0].proCategories &&
             sortedVideos[0].proCategories.length > 0
@@ -231,12 +255,30 @@ export const ContentTagging = () => {
 
         // YOUTUBE
         setYoutubeVideos(data.youtubeVideos);
+        const reducedProYoutubeVideo = [];
+        for (const eachProYoutubeVideo of data.proYoutubeVideos) {
+          reducedProYoutubeVideo.push(eachProYoutubeVideo._id);
+        }
+        setProYoutubeVideos(reducedProYoutubeVideo);
+        setYoutubeShowPublishOnly(data.youtubeProOrAll);
 
         if (data.youtubeVideos.length > 0) {
           setYoutubeDisplayImage(data.youtubeVideos[0].coverImageUrl);
           setYoutubeDisplayVideo(data.youtubeVideos[0].videoId);
           setYoutubeDisplayVideoId(data.youtubeVideos[0]._id);
           setVideoI(0);
+
+          if (data.proYoutubeVideos.includes(data.youtubeVideos[0]._id)) {
+            setYoutubeIsPublish(true);
+          } else {
+            setYoutubeIsPublish(false);
+          }
+
+          if (data.youtubeVideos[0].affiliateProducts.length > 0) {
+            setYoutubeItemLinks({
+              items: data.youtubeVideos[0].affiliateProducts,
+            });
+          }
         }
 
         // YOUTUBE
@@ -550,6 +592,12 @@ export const ContentTagging = () => {
           changesMade={changesMade}
           setChangesMade={setChangesMade}
           setInstructionsOpen={setInstructionsOpen}
+          showPublishOnly={showPublishOnly}
+          setShowPublishOnly={setShowPublishOnly}
+          proVideos={proVideos}
+          setProVideos={setProVideos}
+          isPublish={isPublish}
+          setIsPublish={setIsPublish}
         />
       )}
       {safeToEdit && showSocial === "youtube" && (
@@ -575,6 +623,12 @@ export const ContentTagging = () => {
           changesMade={changesMade}
           setChangesMade={setChangesMade}
           setInstructionsOpen={setInstructionsOpen}
+          youtubeShowPublishOnly={youtubeShowPublishOnly}
+          setYoutubeShowPublishOnly={setYoutubeShowPublishOnly}
+          proYoutubeVideos={proYoutubeVideos}
+          setProYoutubeVideos={setProYoutubeVideos}
+          youtubeIsPublish={youtubeIsPublish}
+          setYoutubeIsPublish={setYoutubeIsPublish}
         />
       )}
 

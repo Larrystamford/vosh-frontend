@@ -35,6 +35,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import useOnScreen from "../../customHooks/useOnScreen";
 
+import Checkbox from "@material-ui/core/Checkbox";
+
 import axios from "../../axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,15 +64,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const displayPreviewFile = (
-  i,
-  coverImageUrl,
-  heartSticker,
-  affiliateGroupName
-) => {
+const displayPreviewFile = (i, coverImageUrl, proYoutubeVideos, videoId) => {
   return (
     <div className="content_tagging_video_box" style={{ position: "relative" }}>
-      {affiliateGroupName || heartSticker.includes(i) ? (
+      {proYoutubeVideos.includes(videoId) ? (
         <LoyaltyIcon
           style={{ color: "rgb(182, 81, 81)" }}
           className="profile_bottom_imageOrVideoIcon"
@@ -105,10 +102,14 @@ export const ContentYoutube = ({
   changesMade,
   setChangesMade,
   setInstructionsOpen,
+  youtubeShowPublishOnly,
+  setYoutubeShowPublishOnly,
+  proYoutubeVideos,
+  setProYoutubeVideos,
+  youtubeIsPublish,
+  setYoutubeIsPublish,
 }) => {
   const [youtubeImporting, setYoutubeImporting] = useState(false);
-
-  console.log(youtubeImporting);
 
   useEffect(() => {
     if (!youtubeSocialLink) {
@@ -120,12 +121,9 @@ export const ContentYoutube = ({
 
   const history = useHistory();
 
-  const [proyoutubeVideos, setProyoutubeVideos] = useState([]);
   const [showNotif, setShowNotif] = useState("");
   const [openSelect, setOpenSelect] = useState(-1);
   const [openSelect2, setOpenSelect2] = useState(false);
-
-  const [heartSticker, setHeartSticker] = useState([]);
 
   const handleImportClicked = async () => {
     setYoutubeImporting(true);
@@ -169,6 +167,12 @@ export const ContentYoutube = ({
 
   const handleSelectVideo = (i) => {
     setChecked(true);
+
+    if (proYoutubeVideos.includes(youtubeVideos[i]._id)) {
+      setYoutubeIsPublish(true);
+    } else {
+      setYoutubeIsPublish(false);
+    }
 
     setYoutubeVideoI(i);
     setYoutubeItemLinks({ items: [] });
@@ -239,10 +243,37 @@ export const ContentYoutube = ({
         setShowNotif("Error");
       }
 
-      setHeartSticker([...heartSticker, youtubeVideoI]);
       setChangesMade(false);
+      setProYoutubeVideos([...proYoutubeVideos, youtubeDisplayVideoId]);
+      setYoutubeIsPublish(true);
 
       youtubeVideos[youtubeVideoI].affiliateProducts = youtubeItemLinks.items;
+    } catch {
+      alert("Try publishing again");
+    }
+  };
+
+  const handleUnsubmit = async () => {
+    try {
+      const res = await axios.put("/v1/youtube/unpublish", {
+        userId: localStorage.getItem("USER_ID"),
+        videoId: youtubeDisplayVideoId,
+      });
+
+      if (res.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
+      }
+
+      setChangesMade(false);
+      setProYoutubeVideos(
+        proYoutubeVideos.filter((e) => e !== youtubeDisplayVideoId)
+      );
+      setYoutubeIsPublish(false);
     } catch {
       alert("Try publishing again");
     }
@@ -262,8 +293,40 @@ export const ContentYoutube = ({
     ...{ delta: 15, trackMouse: true, trackTouch: true },
   });
 
+  const handlePublishToggle = async () => {
+    try {
+      await axios.put("/v1/youtube/youtubeProOrAll/", {
+        userId: localStorage.getItem("USER_ID"),
+        youtubeProOrAll: !youtubeShowPublishOnly,
+      });
+      setYoutubeShowPublishOnly(!youtubeShowPublishOnly);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="Tagging_Main">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "12px",
+          position: "absolute",
+          top: 0,
+          right: 0,
+        }}
+      >
+        <p>show viewers published videos only</p>
+        <Checkbox
+          checked={youtubeShowPublishOnly}
+          onChange={handlePublishToggle}
+          color="secondary"
+        />
+      </div>
+
       <Collapse in={checked}>
         <div className="Tagging_Top_Main_Youtube">
           <div className="Tagging_Top_Main_Youtube_video">
@@ -295,16 +358,29 @@ export const ContentYoutube = ({
               Add Links
             </div>
 
-            <Button
-              style={{ height: "2.7rem", width: "7rem", marginTop: "2rem" }}
-              variant="contained"
-              size="small"
-              className={classes.button}
-              color="secondary"
-              onClick={handleSubmit}
-            >
-              Publish
-            </Button>
+            {youtubeIsPublish ? (
+              <Button
+                style={{ height: "2.7rem", width: "7rem", marginTop: "2rem" }}
+                variant="contained"
+                size="small"
+                className={classes.button}
+                color="secondary"
+                onClick={handleUnsubmit}
+              >
+                Unpublish
+              </Button>
+            ) : (
+              <Button
+                style={{ height: "2.7rem", width: "7rem", marginTop: "2rem" }}
+                variant="contained"
+                size="small"
+                className={classes.button}
+                color="secondary"
+                onClick={handleSubmit}
+              >
+                Publish
+              </Button>
+            )}
           </div>
         </div>
       </Collapse>
@@ -370,8 +446,8 @@ export const ContentYoutube = ({
                 {displayPreviewFile(
                   0,
                   youtubeVideos[0].coverImageUrl,
-                  heartSticker,
-                  youtubeVideos[0].affiliateGroupName
+                  proYoutubeVideos,
+                  youtubeVideos[0]._id
                 )}
               </div>
             ) : (
@@ -391,8 +467,8 @@ export const ContentYoutube = ({
                 {displayPreviewFile(
                   i + 1,
                   eachVideo.coverImageUrl,
-                  heartSticker,
-                  eachVideo.affiliateGroupName
+                  proYoutubeVideos,
+                  youtubeVideos[i + 1]._id
                 )}
               </div>
             ))}

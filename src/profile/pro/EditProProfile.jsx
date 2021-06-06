@@ -133,10 +133,17 @@ export const EditProProfile = ({ match, location }) => {
           setImage(data.picture);
           setProTheme(data.proTheme);
 
-          const sortedVideos = data.proVideos.sort((a, b) => {
-            return b.tiktokCreatedAt - a.tiktokCreatedAt;
-          });
-          setVideos(sortedVideos);
+          if (data.tiktokProOrAll) {
+            const sortedVideos1 = data.proVideos.sort((a, b) => {
+              return b.tiktokCreatedAt - a.tiktokCreatedAt;
+            });
+            setVideos(sortedVideos1);
+          } else {
+            const sortedVideos2 = data.videos.sort((a, b) => {
+              return b.tiktokCreatedAt - a.tiktokCreatedAt;
+            });
+            setVideos(sortedVideos2);
+          }
 
           setUsername(data.userName);
           setUserId(data._id);
@@ -144,7 +151,12 @@ export const EditProProfile = ({ match, location }) => {
           setProLinks(data.proLinks);
           setProCategories(data.proCategories);
           setAllProductLinks(data.allProductLinks);
-          setYoutubeVideos(data.youtubeVideos);
+
+          if (data.youtubeProOrAll) {
+            setYoutubeVideos(data.proYoutubeVideos.reverse());
+          } else {
+            setYoutubeVideos(data.youtubeVideos);
+          }
 
           if (data.profileBio) {
             setProfileBio(data.profileBio);
@@ -227,7 +239,12 @@ export const EditProProfile = ({ match, location }) => {
           setProLinks(data.proLinks);
           setProCategories(data.proCategories);
           setAllProductLinks(data.allProductLinks);
-          setYoutubeVideos(data.youtubeVideos);
+
+          if (data.youtubeProOrAll) {
+            setYoutubeVideos(data.proYoutubeVideos.reverse());
+          } else {
+            setYoutubeVideos(data.youtubeVideos);
+          }
 
           if (data.profileBio) {
             setProfileBio(data.profileBio);
@@ -734,17 +751,6 @@ export const EditProProfile = ({ match, location }) => {
               );
             })}
           </div>
-
-          <div
-            className="pro_profile_top_selector"
-            style={
-              isVisible
-                ? {
-                    display: "none",
-                  }
-                : {}
-            }
-          ></div>
 
           <CategoriesSelector
             proTheme={proTheme}

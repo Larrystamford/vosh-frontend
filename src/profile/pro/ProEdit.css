@@ -152,6 +152,7 @@
 
 .Tagging_Main {
   height: 90%;
+  position: relative;
 }
 
 .gallery_slider_header {
@@ -457,9 +458,5 @@
 @media only screen and (min-height: 580px) {
   .gallery_slider_body {
     grid-auto-rows: 6.5rem;
-  }
-
-  .Tagging_Choices {
-    font-size: 16px;
   }
 }
