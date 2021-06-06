@@ -8,6 +8,7 @@ import * as constants from "../../helpers/CategoriesConstants";
 
 import { ContentTikTok } from "./ContentTikTok";
 import { ContentYoutube } from "./ContentYoutube";
+import { ContentInsta } from "./ContentInsta";
 
 import { SlidingSocials } from "./SlidingSocials";
 import { SlidingCategories } from "./SlidingCategories";
@@ -631,6 +632,8 @@ export const ContentTagging = () => {
           setYoutubeIsPublish={setYoutubeIsPublish}
         />
       )}
+
+      {safeToEdit && showSocial === "instagram" && <ContentInsta />}
 
       <ConfirmSelect
         openSelect={openSelect}
