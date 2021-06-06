@@ -166,7 +166,7 @@ function VideoFooter({
           width: "100%",
         }}
       >
-        {affiliateProducts.length > 0 && (
+        {affiliateProducts && affiliateProducts.length > 0 && (
           <div
             className="videoFooter__button"
             style={{ minWidth: "70px" }}
