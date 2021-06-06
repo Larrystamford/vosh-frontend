@@ -26,17 +26,7 @@ export const ComputerLanding = ({ currentLocation }) => {
       <div className="computer_MessageBox">
         <p className="computer_WordHeader">VOSH</p>
         <p className="computer_WelcomeText">Join Vosh as a Creator</p>
-        <p className="computer_NormalText">
-          On Vosh, we let fans and creators support each other in sustainable
-          ways. Whether it is shopping their recommendations or purchasing a
-          shout out, every bit of ❤️ goes a long way.
-        </p>
-
-        <p className="computer_NormalText">
-          We want creators to be able to focus on doing what they love, while we
-          assist with everything else. If you’re ready to make your content
-          work for you, reach out to us and get started with Vosh!
-        </p>
+        <p className="computer_NormalText">Level up your Link In Bio</p>
 
         <TextField
           style={{ marginTop: "2rem", width: "19rem" }}
