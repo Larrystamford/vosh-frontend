@@ -151,7 +151,7 @@ export const ContentTagging = () => {
   const [previousLinks, setPreviousLinks] = useState([]);
   const [previousCats, setPreviousCats] = useState([]);
   const [previousSubCats, setPreviousSubCats] = useState([]);
-  const [isPublish, setIsPublish] = useState(true);
+  const [isPublish, setIsPublish] = useState(false);
 
   // TIKTOK
 
@@ -165,7 +165,7 @@ export const ContentTagging = () => {
   const [youtubeDisplayVideo, setYoutubeDisplayVideo] = useState("");
   const [youtubeDisplayVideoId, setYoutubeDisplayVideoId] = useState("");
   const [youtubeShowPublishOnly, setYoutubeShowPublishOnly] = useState(false);
-  const [youtubeIsPublish, setYoutubeIsPublish] = useState(true);
+  const [youtubeIsPublish, setYoutubeIsPublish] = useState(false);
   //YOUTUBE
 
   useEffect(() => {
