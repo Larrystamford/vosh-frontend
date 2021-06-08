@@ -204,13 +204,6 @@ export const EditProProfile = ({ match, location }) => {
             ]);
           }
 
-          // set theme up
-          // theme1 to theme6 -> front end helper function to return the respective colors
-          // document.documentElement.style.setProperty(
-          //   "--background1",
-          //   data.proTheme.background1
-          // );
-
           setIsLoading(false);
         });
       }
@@ -394,26 +387,30 @@ export const EditProProfile = ({ match, location }) => {
   return (
     <div className="ProProfile" ref={scrollRef}>
       {isLoading ? (
-        <div className="pro_profile_top">
-          <div ref={topRef} className="pro_profile_top_with_left_right">
-            <div className="pro_profile_loading">
-              <Lottie
-                options={{
-                  loop: true,
-                  autoPlay: true,
-                  animationData: legoData.default,
-                  rendererSettings: {
-                    preserveAspectRatio: "xMidYMid slice",
-                  },
-                }}
-                height={220}
-                width={220}
-              />
-              <p className="pro_profile_loading_word">Vosh</p>
+        window.location.search == "?iframe=true" ? (
+          <div ref={topRef} className="pro_profile_top_with_left_right"></div>
+        ) : (
+          <div className="pro_profile_top">
+            <div ref={topRef} className="pro_profile_top_with_left_right">
+              <div className="pro_profile_loading">
+                <Lottie
+                  options={{
+                    loop: true,
+                    autoPlay: true,
+                    animationData: legoData.default,
+                    rendererSettings: {
+                      preserveAspectRatio: "xMidYMid slice",
+                    },
+                  }}
+                  height={220}
+                  width={220}
+                />
+                <p className="pro_profile_loading_word">Vosh</p>
+              </div>
             </div>
+            <div ref={topRef} className="pro_profile_social_selector"></div>
           </div>
-          <div ref={topRef} className="pro_profile_social_selector"></div>
-        </div>
+        )
       ) : (
         <div className="pro_profile_top">
           <div className="pro_profile_top_with_left_right">
@@ -827,9 +824,9 @@ export const EditProProfile = ({ match, location }) => {
         />
       )}
 
-      {proTheme.background3 &&
-      proTheme.background3.videoUrl &&
-      proTheme.background3.imageUrl ? (
+      {window.location.search == "?iframe=true" ? null : proTheme.background3 &&
+        proTheme.background3.videoUrl &&
+        proTheme.background3.imageUrl ? (
         <video
           src={proTheme.background3.videoUrl}
           poster={proTheme.background3.imageUrl}

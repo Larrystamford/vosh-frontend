@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
@@ -40,6 +40,7 @@ import { ServiceWorkerWrapper } from "./ServiceWorkerWrapper";
 import { OfflineDetection } from "./utils/OfflineDetection";
 
 import { ComputerLanding } from "./utils_pages/ComputerLanding";
+import { ProfileDesktop } from "./utils_pages/ProfileDesktop";
 
 import ReactGA from "react-ga";
 import { Exception } from "./components/tracking/Tracker";
@@ -86,10 +87,17 @@ function App() {
           Exception(err + "failed to get user address on app load");
         });
     }
+    
   }, []);
 
-  if (size.width > 1100 && window.location.pathname != "/privacy-policy") {
+  if (
+    size.width > 1100 &&
+    window.location.pathname != "/privacy-policy" &&
+    window.location.pathname == "/"
+  ) {
     return <ComputerLanding currentLocation={window.location.pathname} />;
+  } else if (size.width > 1100) {
+    return <ProfileDesktop currentLocation={window.location.pathname} />;
   }
 
   return (

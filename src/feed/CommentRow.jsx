@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Comments.css";
 
-
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { CommentSubRow } from "./CommentSubRow";
@@ -28,19 +27,18 @@ export const CommentRow = ({
 
   useEffect(() => {
     // deal with some bug when new comment added, liked is set to true
-    if (likes.length == 0) {
+    if (likes && likes.length == 0) {
       setLiked(0);
-      return;
-    }
-    const userId = localStorage.getItem("USER_ID");
-    for (const likeId of likes) {
-      if (likeId == userId) {
-        setLiked(true);
-        break;
+
+      const userId = localStorage.getItem("USER_ID");
+      for (const likeId of likes) {
+        if (likeId == userId) {
+          setLiked(true);
+          break;
+        }
       }
     }
   }, [commentsLength]);
-
 
   const handleLikeButtonClicked = (likeOrUnlike) => {
     if (likeOrUnlike === "like") {
@@ -81,11 +79,11 @@ export const CommentRow = ({
   return (
     <div className="comments_row">
       <div className="comments_picture">
-          <img
-            src={picture}
-            className="comments_picture_image"
-            alt="temp avatar"
-          />
+        <img
+          src={picture}
+          className="comments_picture_image"
+          alt="temp avatar"
+        />
       </div>
 
       <div className="comments_NameCommentReplies">
@@ -150,11 +148,11 @@ export const CommentRow = ({
         {tempReply && !repliesClicked && (
           <div className="subComments_row">
             <div className="subComments_picture">
-                <img
-                  src={tempReply.picture}
-                  className="subComments_picture_image"
-                  alt="avatar"
-                />
+              <img
+                src={tempReply.picture}
+                className="subComments_picture_image"
+                alt="avatar"
+              />
             </div>
 
             <div

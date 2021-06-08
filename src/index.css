@@ -52,7 +52,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: white;
   overflow: scroll;
   overflow-x: hidden;
 }
@@ -106,7 +105,6 @@ html {
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background-color: white;
     /* background: linear-gradient(70deg, white 60%, var(--vosh-color-1) 60%); */
   }
 }
