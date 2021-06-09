@@ -1,21 +1,72 @@
 import React, { useEffect, useState } from "react";
 import "./Landing.css";
+import { useHistory } from "react-router";
+
+import axios from "../axios";
 
 export const ProfileDesktop = ({ currentLocation }) => {
+  const history = useHistory();
+  const [proTheme, setProTheme] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  // load data
+  useEffect(() => {
+    const windowLocationName = window.location.pathname.slice(1);
+    if (windowLocationName === "profile" || windowLocationName === "profile/") {
+      const userId = localStorage.getItem("USER_ID");
+      if (userId) {
+        axios.get("/v1/users/getPro/" + userId).then((response) => {
+          let data = response.data[0];
+          setProTheme(data.proTheme);
+          setIsLoading(false);
+        });
+      }
+    } else {
+      axios.get("/v1/users/userNameIsPro/" + windowLocationName).then((res) => {
+        if (res.data.userNameIsPro) {
+          axios
+            .get("/v1/users/getByUserNamePro/" + windowLocationName)
+            .then((response) => {
+              let data = response.data[0];
+              setProTheme(data.proTheme);
+              setIsLoading(false);
+            });
+        }
+      });
+    }
+  }, []);
+
   return (
     <div className="computer_landing_body">
       <iframe
-        src={currentLocation + "?iframe=true"}
+        src={currentLocation}
         height="100%"
         width="640"
         title="Iframe Example"
         frameBorder="0"
+        allow="fullscreen;"
+        allowFullScreen="allowFullScreen"
+        mozallowfullscreen="mozallowfullscreen"
+        msallowfullscreen="msallowfullscreen"
+        oallowfullscreen="oallowfullscreen"
+        webkitallowfullscreen="webkitallowfullscreen"
       ></iframe>
 
-      <img
-        id="backgroundImage"
-        src="https://media2locoloco-dev.s3.ap-southeast-1.amazonaws.com/1622561908009_vosh-template-bg12.jpg"
-      />
+      {proTheme.background3 &&
+      proTheme.background3.videoUrl &&
+      proTheme.background3.imageUrl ? (
+        <video
+          src={proTheme.background3.videoUrl}
+          poster={proTheme.background3.imageUrl}
+          playsInline
+          autoPlay
+          muted
+          loop
+          id="backgroundVideo"
+        />
+      ) : (
+        <img id="backgroundImage" src={proTheme.background1} />
+      )}
     </div>
   );
 };

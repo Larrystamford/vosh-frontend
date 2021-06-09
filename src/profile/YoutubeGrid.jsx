@@ -134,8 +134,13 @@ export const YoutubeGrid = ({
             <iframe
               width={size.width - 40}
               height={size.width / 2}
-              allowfullscreen={true}
-              frameborder="0"
+              allow="fullscreen;"
+              allowFullScreen="allowFullScreen"
+              mozallowfullscreen="mozallowfullscreen"
+              msallowfullscreen="msallowfullscreen"
+              oallowfullscreen="oallowfullscreen"
+              webkitallowfullscreen="webkitallowfullscreen"
+              frameBorder="0"
               src={"https://www.youtube.com/embed/" + eachVideo.videoId}
             ></iframe>
           </div>
