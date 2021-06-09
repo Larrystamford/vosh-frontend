@@ -22,17 +22,15 @@ export const ProfileDesktop = ({ currentLocation }) => {
         });
       }
     } else {
-      axios.get("/v1/users/userNameIsPro/" + windowLocationName).then((res) => {
-        if (res.data.userNameIsPro) {
-          axios
-            .get("/v1/users/getByUserNamePro/" + windowLocationName)
-            .then((response) => {
-              let data = response.data[0];
-              setProTheme(data.proTheme);
-              setIsLoading(false);
-            });
-        }
-      });
+      axios
+        .get("/v1/users/getByUserNamePro/" + windowLocationName)
+        .then((response) => {
+          let data = response.data[0];
+          if (data && data.proTheme) {
+            setProTheme(data.proTheme);
+          }
+          setIsLoading(false);
+        });
     }
   }, []);
 

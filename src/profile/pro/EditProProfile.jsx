@@ -210,12 +210,14 @@ export const EditProProfile = ({ match, location }) => {
     if (windowLocationName === "profile" || windowLocationName === "profile/") {
       handleProfileLoad();
     } else {
-      axios.get("/v1/users/userNameIsPro/" + windowLocationName).then((res) => {
-        if (res.data.userNameIsPro) {
           axios
             .get("/v1/users/getByUserNamePro/" + windowLocationName)
             .then((response) => {
               let data = response.data[0];
+
+              if (!data || !data._id) {
+                  history.push("/404");
+              }
 
               // redirect to profile if user clicks on own userName
               if (data._id === localStorage.getItem("USER_ID")) {
@@ -310,9 +312,7 @@ export const EditProProfile = ({ match, location }) => {
             id: userId,
             unqiueIdentifier: "total page visits",
           });
-        } else {
-          history.push("/404");
-        }
+        } 
       });
     }
 
