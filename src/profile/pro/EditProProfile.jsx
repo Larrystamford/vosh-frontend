@@ -210,109 +210,103 @@ export const EditProProfile = ({ match, location }) => {
     if (windowLocationName === "profile" || windowLocationName === "profile/") {
       handleProfileLoad();
     } else {
-          axios
-            .get("/v1/users/getByUserNamePro/" + windowLocationName)
-            .then((response) => {
-              let data = response.data[0];
+      axios
+        .get("/v1/users/getByUserNamePro/" + windowLocationName)
+        .then((response) => {
+          let data = response.data[0];
 
-              if (!data || !data._id) {
-                  history.push("/404");
-              }
+          if (!data || !data._id) {
+            history.push("/404");
+          }
 
-              // redirect to profile if user clicks on own userName
-              if (data._id === localStorage.getItem("USER_ID")) {
-                handleProfileLoad();
-              } else {
-                setImage(data.picture);
-                setProTheme(data.proTheme);
+          // redirect to profile if user clicks on own userName
+          if (data._id === localStorage.getItem("USER_ID")) {
+            handleProfileLoad();
+          } else {
+            setImage(data.picture);
+            setProTheme(data.proTheme);
 
-                const sortedVideos = data.proVideos.sort((a, b) => {
-                  return b.tiktokCreatedAt - a.tiktokCreatedAt;
-                });
-                setVideos(sortedVideos);
-
-                setUsername(data.userName);
-                setUserId(data._id);
-                setSocialAccounts(data.socialAccounts);
-                setProLinks(data.proLinks);
-                setProCategories(data.proCategories);
-                setAllProductLinks(data.allProductLinks);
-
-                if (data.youtubeProOrAll) {
-                  setYoutubeVideos(data.proYoutubeVideos.reverse());
-                } else {
-                  setYoutubeVideos(data.youtubeVideos);
-                }
-
-                if (data.profileBio) {
-                  setProfileBio(data.profileBio);
-                }
-
-                if (
-                  data.showSocialSelections.length > 0 &&
-                  !(
-                    data.proVideos.length === 0 &&
-                    data.youtubeVideos.length === 0 &&
-                    instagramVideos.length === 0
-                  )
-                ) {
-                  const filteredShowSocialSelections = [];
-                  for (const eachSocial of data.showSocialSelections) {
-                    if (
-                      eachSocial[0] == "tiktok" &&
-                      data.proVideos.length !== 0
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    }
-                    if (
-                      eachSocial[0] == "youtube" &&
-                      data.youtubeVideos.length !== 0
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    }
-                    if (
-                      eachSocial[0] == "instagram" &&
-                      instagramVideos.length !== 0
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    }
-                    if (eachSocial[0] == "allProductLinks") {
-                      filteredShowSocialSelections.push(eachSocial);
-                    }
-                  }
-                  setShowSocialSelections(filteredShowSocialSelections);
-                  setShowSocial(filteredShowSocialSelections[0][0]);
-                  setSelectedCategoryName(filteredShowSocialSelections[0][0]);
-                  setSelectedCategoryId(filteredShowSocialSelections[0][1]);
-                } else {
-                  setShowSocialSelections([
-                    ["tiktok", "all"],
-                    ["youtube", "all_youtube"],
-                    ["instagram", "all_instagram"],
-                    ["allProductLinks", "nil"],
-                  ]);
-                }
-
-                // check if already following
-                // axios
-                //   .get(
-                //     `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
-                //       data._id
-                //     }`
-                //   )
-                //   .then((res) => {
-                //     setIsFollowing(res.data.isFollowing);
-                //   });
-
-                setIsLoading(false);
-              }
+            const sortedVideos = data.proVideos.sort((a, b) => {
+              return b.tiktokCreatedAt - a.tiktokCreatedAt;
             });
+            setVideos(sortedVideos);
 
-          axios.post("/v1/metrics/incrementMetrics", {
-            id: userId,
-            unqiueIdentifier: "total page visits",
-          });
-        } 
+            setUsername(data.userName);
+            setUserId(data._id);
+            setSocialAccounts(data.socialAccounts);
+            setProLinks(data.proLinks);
+            setProCategories(data.proCategories);
+            setAllProductLinks(data.allProductLinks);
+
+            if (data.youtubeProOrAll) {
+              setYoutubeVideos(data.proYoutubeVideos.reverse());
+            } else {
+              setYoutubeVideos(data.youtubeVideos);
+            }
+
+            if (data.profileBio) {
+              setProfileBio(data.profileBio);
+            }
+
+            if (
+              data.showSocialSelections.length > 0 &&
+              !(
+                data.proVideos.length === 0 &&
+                data.youtubeVideos.length === 0 &&
+                instagramVideos.length === 0
+              )
+            ) {
+              const filteredShowSocialSelections = [];
+              for (const eachSocial of data.showSocialSelections) {
+                if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
+                  filteredShowSocialSelections.push(eachSocial);
+                }
+                if (
+                  eachSocial[0] == "youtube" &&
+                  data.youtubeVideos.length !== 0
+                ) {
+                  filteredShowSocialSelections.push(eachSocial);
+                }
+                if (
+                  eachSocial[0] == "instagram" &&
+                  instagramVideos.length !== 0
+                ) {
+                  filteredShowSocialSelections.push(eachSocial);
+                }
+                if (eachSocial[0] == "allProductLinks") {
+                  filteredShowSocialSelections.push(eachSocial);
+                }
+              }
+              setShowSocialSelections(filteredShowSocialSelections);
+              setShowSocial(filteredShowSocialSelections[0][0]);
+              setSelectedCategoryName(filteredShowSocialSelections[0][0]);
+              setSelectedCategoryId(filteredShowSocialSelections[0][1]);
+            } else {
+              setShowSocialSelections([
+                ["tiktok", "all"],
+                ["youtube", "all_youtube"],
+                ["instagram", "all_instagram"],
+                ["allProductLinks", "nil"],
+              ]);
+            }
+
+            // check if already following
+            // axios
+            //   .get(
+            //     `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
+            //       data._id
+            //     }`
+            //   )
+            //   .then((res) => {
+            //     setIsFollowing(res.data.isFollowing);
+            //   });
+
+            setIsLoading(false);
+          }
+        });
+      axios.post("/v1/metrics/incrementMetrics", {
+        id: userId,
+        unqiueIdentifier: "total page visits",
       });
     }
 
