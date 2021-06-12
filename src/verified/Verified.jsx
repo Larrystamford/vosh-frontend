@@ -4,6 +4,7 @@ import "./Verified.css";
 import { useDidMountEffect } from "../customHooks/useDidMountEffect";
 import axios from "../axios";
 import { useHistory } from "react-router";
+import { restrictedNames } from "../helpers/CommonVars";
 
 import {
   convertUsernameToSocialLink,
@@ -40,35 +41,6 @@ export const Verified = () => {
   const size = useWindowSize();
   const history = useHistory();
   const classes = useStyles();
-
-  const restrictedNames = [
-    "login",
-    "discover",
-    "upload",
-    "profile",
-    "video",
-    "inbox",
-    "notifications",
-    "room",
-    "review",
-    "about-us",
-    "verified",
-    "logout",
-    "feed",
-    "search",
-    "vosh",
-    "getStarted",
-    "editProProfile",
-    "ContentTagging",
-    "changeUsername",
-    "ProProfile",
-    "ProEdit",
-    "profileBio",
-    "theme",
-    "changePassword",
-    "getStarted",
-    "404",
-  ];
 
   const [values, setValues] = useState({
     username: "",
@@ -204,9 +176,9 @@ export const Verified = () => {
     <div className="verifiedMain">
       <div className="verifiedMessageWrapper">
         <p className="verified_WelcomeWord">VOSH</p>
-        <p className="verified_HeaderText">Pro Account Setup</p>
+        <p className="verified_HeaderText">Account Setup</p>
         <p className="verified_NormalText">
-          Everything you need to take content creation full time
+          Connect all your audiences and content with a single website
         </p>
       </div>
 
@@ -294,9 +266,9 @@ export const Verified = () => {
       </div>
 
       {focused1 || focused2 || focused3 ? null : (
-        <p className="verified_next" onClick={() => onSubmitUserName()}>
-          Next
-        </p>
+        <div className="verified_continue" onClick={() => onSubmitUserName()}>
+          Continue
+        </div>
       )}
     </div>
   );

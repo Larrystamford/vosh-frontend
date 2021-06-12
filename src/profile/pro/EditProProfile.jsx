@@ -5,7 +5,6 @@ import { YoutubeGrid } from "../YoutubeGrid";
 import { ReadGrid } from "../ReadGrid";
 import { useGlobalState } from "../../GlobalStates";
 import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
-
 import useDeviceDetect from "../../customHooks/useDeviceDetect";
 
 import { CategoriesSelector } from "./CategoriesSelector";
@@ -46,9 +45,9 @@ import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 
 export const EditProProfile = ({ match, location }) => {
   const { isMobile } = useDeviceDetect();
+  const size = useWindowSize();
 
   const history = useHistory();
-  const size = useWindowSize();
 
   const [globalModalOpened, setGlobalModalOpened] =
     useGlobalState("globalModalOpened");
@@ -388,6 +387,8 @@ export const EditProProfile = ({ match, location }) => {
       return "#f2f2f2";
     }
   };
+
+  console.log(window);
 
   return (
     <div className="ProProfile" ref={scrollRef}>
@@ -829,7 +830,7 @@ export const EditProProfile = ({ match, location }) => {
         />
       )}
 
-      {!isMobile ? null : proTheme.background3 &&
+      {!isMobile && size.width > 1100 ? null : proTheme.background3 &&
         proTheme.background3.videoUrl &&
         proTheme.background3.imageUrl ? (
         <video

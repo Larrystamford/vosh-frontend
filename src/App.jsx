@@ -25,6 +25,10 @@ import { Verified } from "./verified/Verified";
 import { VerifiedUsername } from "./verified/VerifiedUsername";
 import { FeedRefactored } from "./feed/FeedRefactored";
 import { Discover } from "./discover/Discover";
+import { Home } from "./home/Home";
+import { HomeDesktop } from "./home/HomeDesktop";
+import { GetStartedDesktop } from "./home/GetStartedDesktop";
+
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { PersonalProfile } from "./profile/PersonalProfile";
 import { Profile } from "./profile/Profile";
@@ -87,15 +91,15 @@ function App() {
           Exception(err + "failed to get user address on app load");
         });
     }
-    
   }, []);
 
-  if (
+  if (size.width > 1100 && window.location.pathname == "/") {
+    return <HomeDesktop currentLocation={window.location.pathname} />;
+  } else if (
     size.width > 1100 &&
-    window.location.pathname != "/privacy-policy" &&
-    window.location.pathname == "/"
+    window.location.pathname.toLowerCase() == "/getstarted"
   ) {
-    return <ComputerLanding currentLocation={window.location.pathname} />;
+    return <GetStartedDesktop currentLocation={window.location.pathname} />;
   } else if (size.width > 1100) {
     return <ProfileDesktop currentLocation={window.location.pathname} />;
   }
@@ -115,32 +119,30 @@ function App() {
     >
       <Router>
         <Route path="/" component={ServiceWorkerWrapper} />
-        <Route
+        {/* <Route
           path={[
             "/",
             "/discover",
             "/inbox",
-            // "/profile",
-            // "/profile/:id",
             "/video/:id",
           ]}
           exact
           component={BottomNavigationBar}
-        />
-        <Route
+        /> */}
+        {/* <Route
           path={[
             "/",
             "/discover",
             "/inbox",
-            // "/profile",
             "/review",
             "/about-us",
-            // "/profile/:id",
             "/room/:id",
           ]}
           exact
           component={FeedRefactored}
-        />
+        /> */}
+
+        <Route path={["/"]} exact component={Home} />
 
         <Switch>
           <Route path="/video/:id" component={VideoIndividual} />

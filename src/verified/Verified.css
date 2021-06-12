@@ -110,6 +110,26 @@
   font-weight: bold;
 }
 
+.verified_continue {
+  font-size: 18px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-weight: bold;
+
+  background-color: var(--vosh-color-10);
+  color: white;
+  height: 3rem;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
 /* iphone5 */
 @media only screen and (max-height: 580px) {
   .verified_WelcomeWord {

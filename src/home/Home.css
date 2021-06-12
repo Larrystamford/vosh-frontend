@@ -1,0 +1,87 @@
+.home_phone_body {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.home_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  min-height: 4rem;
+  width: 95%;
+  z-index: 100;
+}
+
+.home_header_logo_word {
+  font-family: Avenir Black, "Century Gothic", CenturyGothic, AppleGothic,
+    sans-serif;
+  font-size: 25px;
+  color: black;
+  width: 100%;
+}
+
+.home_header_button {
+  background-color: var(--vosh-color-10);
+  color: white;
+  height: 3rem;
+  width: 6.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.home_phone_blocks {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home_phone_blocks_text {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+.home_phone_blocks_smaller_text {
+  font-size: 14px;
+  text-align: center;
+}
+
+.home_dekstop_blocks {
+  margin-top: 5rem;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+.home_dekstop_blocks_left {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.home_dekstop_blocks_right {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.home_desktop_blocks_text {
+  font-size: 48px;
+  font-weight: bold;
+  width: 90%;
+  text-align: left;
+}
