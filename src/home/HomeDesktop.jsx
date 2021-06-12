@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css";
 
+import { useHistory } from "react-router";
 import { ImageLoad } from "../components/ImageLoad";
 
 import TextField from "@material-ui/core/TextField";
@@ -9,13 +10,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "../axios";
 
 export const HomeDesktop = ({}) => {
+  const history = useHistory();
   return (
     <div className="home_phone_body">
       <div className="home_header">
         <div
           className="pro_profile_icon_and_name"
           onClick={() => {
-            window.open("/", "_self");
+            history.push("/");
           }}
         >
           <img
@@ -28,7 +30,7 @@ export const HomeDesktop = ({}) => {
             className="home_header_button"
             style={{ color: "black", backgroundColor: "transparent" }}
             onClick={() => {
-              window.open("/login", "_self");
+              history.push("/getStarted");
             }}
           >
             Sign In
@@ -36,7 +38,7 @@ export const HomeDesktop = ({}) => {
           <div
             className="home_header_button"
             onClick={() => {
-              window.open("/getStarted", "_self");
+              history.push("/getStarted");
             }}
           >
             Sign Up
@@ -69,7 +71,7 @@ export const HomeDesktop = ({}) => {
           <div
             className="home_header_button"
             onClick={() => {
-              window.open("/getStarted", "_self");
+              history.push("/getStarted");
             }}
             style={{ width: "8.5rem", marginTop: "2rem" }}
           >

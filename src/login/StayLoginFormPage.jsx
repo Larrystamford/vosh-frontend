@@ -81,7 +81,7 @@ const StayLoginFormPage = (props) => {
             processingTikToksStartTime: new Date().getTime(),
             proTheme: {
               background1:
-                "https://dciv99su0d7r5.cloudfront.net/vosh-template-bg12.jpg",
+                "https://dciv99su0d7r5.cloudfront.net/vosh-default-bg.jpeg",
               background2: "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
             },
           })

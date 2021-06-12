@@ -59,7 +59,7 @@
 
 .home_dekstop_blocks {
   margin-top: 5rem;
-  width: 85%;
+  width: 95%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -84,4 +84,22 @@
   font-weight: bold;
   width: 90%;
   text-align: left;
+}
+
+.signup_continue {
+  font-size: 18px;
+  position: absolute;
+  bottom: 20px;
+
+  font-weight: bold;
+
+  background-color: var(--vosh-color-10);
+  color: white;
+  height: 3rem;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  font-weight: bold;
 }

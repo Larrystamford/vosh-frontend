@@ -140,7 +140,7 @@ export const Verified = () => {
             processingTikToksStartTime: new Date().getTime(),
             proTheme: {
               background1:
-                "https://dciv99su0d7r5.cloudfront.net/vosh-template-bg12.jpg",
+                "https://dciv99su0d7r5.cloudfront.net/vosh-default-bg.jpeg",
               background2: "https://dciv99su0d7r5.cloudfront.net/white_bg.jpg",
             },
           }
@@ -177,7 +177,7 @@ export const Verified = () => {
       <div className="verifiedMessageWrapper">
         <p className="verified_WelcomeWord">VOSH</p>
         <p className="verified_HeaderText">Account Setup</p>
-        <p className="verified_NormalText">
+        <p className="verified_NormalText" style={{ marginTop: "0.5rem" }}>
           Connect all your audiences and content with a single website
         </p>
       </div>

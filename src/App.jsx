@@ -28,6 +28,7 @@ import { Discover } from "./discover/Discover";
 import { Home } from "./home/Home";
 import { HomeDesktop } from "./home/HomeDesktop";
 import { GetStartedDesktop } from "./home/GetStartedDesktop";
+import { SignUpDesktop } from "./home/SignUpDesktop";
 
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { PersonalProfile } from "./profile/PersonalProfile";
@@ -93,15 +94,28 @@ function App() {
     }
   }, []);
 
-  if (size.width > 1100 && window.location.pathname == "/") {
-    return <HomeDesktop currentLocation={window.location.pathname} />;
-  } else if (
-    size.width > 1100 &&
-    window.location.pathname.toLowerCase() == "/getstarted"
-  ) {
-    return <GetStartedDesktop currentLocation={window.location.pathname} />;
-  } else if (size.width > 1100) {
-    return <ProfileDesktop currentLocation={window.location.pathname} />;
+  // if (size.width > 1100 && window.location.pathname == "/") {
+  //   return <HomeDesktop currentLocation={window.location.pathname} />;
+  // } else if (
+  //   size.width > 1100 &&
+  //   window.location.pathname.toLowerCase() == "/getstarted"
+  // ) {
+  //   return <GetStartedDesktop currentLocation={window.location.pathname} />;
+  // } else if (size.width > 1100) {
+  //   return <ProfileDesktop currentLocation={window.location.pathname} />;
+  // }
+
+  if (size.width > 1100) {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/" exact component={HomeDesktop} />
+          <Route path="/getStarted" component={GetStartedDesktop} />
+          <Route path="/signup" component={SignUpDesktop} />
+          <Route component={ProfileDesktop} />
+        </Switch>
+      </Router>
+    );
   }
 
   return (

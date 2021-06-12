@@ -124,7 +124,7 @@ export const VerifiedUsername = () => {
       <div className="verifiedMessageWrapper">
         <p className="verified_WelcomeWord">VOSH</p>
         <p className="verified_HeaderText">Account Setup</p>
-        <p className="verified_NormalText">
+        <p className="verified_NormalText" style={{ marginTop: "0.5rem" }}>
           Connect all your audiences and content with a single website
         </p>
       </div>

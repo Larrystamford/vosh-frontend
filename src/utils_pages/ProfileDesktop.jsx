@@ -4,7 +4,8 @@ import { useHistory } from "react-router";
 
 import axios from "../axios";
 
-export const ProfileDesktop = ({ currentLocation }) => {
+export const ProfileDesktop = ({}) => {
+  const currentLocation = window.location.pathname;
   const history = useHistory();
   const [proTheme, setProTheme] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,7 @@ export const ProfileDesktop = ({ currentLocation }) => {
       <iframe
         src={currentLocation}
         height="100%"
-        width="640"
+        width="640.1"
         title="Iframe Example"
         frameBorder="0"
         allow="fullscreen;"

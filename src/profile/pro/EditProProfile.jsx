@@ -388,8 +388,6 @@ export const EditProProfile = ({ match, location }) => {
     }
   };
 
-  console.log(window);
-
   return (
     <div className="ProProfile" ref={scrollRef}>
       {isLoading ? (
@@ -830,7 +828,8 @@ export const EditProProfile = ({ match, location }) => {
         />
       )}
 
-      {!isMobile && size.width > 1100 ? null : proTheme.background3 &&
+      {!isMobile &&
+      (size.width > 1100 || size.width == 640) ? null : proTheme.background3 &&
         proTheme.background3.videoUrl &&
         proTheme.background3.imageUrl ? (
         <video
