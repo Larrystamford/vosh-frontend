@@ -169,8 +169,6 @@ export const ContentTikTok = ({
 
   const [heartSticker, setHeartSticker] = useState([]);
 
-  const [sharableUrl, setSharableUrl] = useState("");
-
   const setCategorySelectionTrack = (values) => {
     setChangesMade(true);
     setCategorySelection(values);
@@ -181,37 +179,31 @@ export const ContentTikTok = ({
 
     setImporting(true);
 
-    console.log(sharableUrl, localStorage.getItem("USER_ID"));
+    const result = await downloadAndSaveTikToksWithRetry(1);
 
-    try {
-      await axios.post("/v1/tiktok/getVideoByUrl", {
-        userId: localStorage.getItem("USER_ID"),
-        videoUrl: sharableUrl,
-      });
+    const userId = localStorage.getItem("USER_ID");
+    if (userId) {
+      axios
+        .get("/v1/users/getPro/" + userId)
+        .then((response) => {
+          let data = response.data[0];
 
-      const userId = localStorage.getItem("USER_ID");
-      if (userId) {
-        axios
-          .get("/v1/users/getPro/" + userId)
-          .then((response) => {
-            let data = response.data[0];
+          if (isMounted) {
+            setVideos(
+              data.videos.sort((a, b) => {
+                return b.tiktokCreatedAt - a.tiktokCreatedAt;
+              })
+            );
+          }
+          setImporting(false);
+        })
+        .catch((err) => {
+          setImporting(false);
+        });
+    }
 
-            if (isMounted) {
-              setVideos(
-                data.videos.sort((a, b) => {
-                  return b.tiktokCreatedAt - a.tiktokCreatedAt;
-                })
-              );
-            }
-            setImporting(false);
-          })
-          .catch((err) => {
-            setImporting(false);
-          });
-      }
-    } catch (e) {
-      setImporting(false);
-      alert("Opps. Please try again");
+    if (result === "success") {
+      alert("Import done");
     }
 
     return () => {
@@ -811,8 +803,6 @@ export const ContentTikTok = ({
         openImport={openImport}
         setOpenImport={setOpenImport}
         handleImportClicked={handleImportClicked}
-        sharableUrl={sharableUrl}
-        setSharableUrl={setSharableUrl}
       />
 
       <ConfirmSelect
