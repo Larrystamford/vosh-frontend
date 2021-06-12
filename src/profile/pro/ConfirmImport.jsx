@@ -20,7 +20,7 @@ export const ConfirmImport = ({
       <DialogContent>
         <span>
           Importing your videos from your TikTok account might take a few
-          minutes. (Maximum latest 50 Videos)
+          minutes. (Latest 30 Videos)
         </span>
       </DialogContent>
       <DialogActions>
