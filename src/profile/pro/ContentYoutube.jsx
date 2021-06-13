@@ -9,6 +9,7 @@ import { SlidingItemLinks } from "./SlidingItemLinks";
 import { ConfirmImport } from "./ConfirmImport";
 import { ConfirmSelect } from "./ConfirmSelect";
 import { ConfirmBack } from "./ConfirmBack";
+import { ConfirmYoutubeImport } from "./ConfirmYoutubeImport";
 
 import SlideshowOutlinedIcon from "@material-ui/icons/SlideshowOutlined";
 import GridOnIcon from "@material-ui/icons/GridOn";
@@ -110,6 +111,7 @@ export const ContentYoutube = ({
   setYoutubeIsPublish,
 }) => {
   const [youtubeImporting, setYoutubeImporting] = useState(false);
+  const [openImport, setOpenImport] = useState(false);
 
   useEffect(() => {
     if (!youtubeSocialLink) {
@@ -424,7 +426,9 @@ export const ContentYoutube = ({
                 variant="contained"
                 size="small"
                 className={classes.button}
-                onClick={handleImportClicked}
+                onClick={() => {
+                  setOpenImport(true);
+                }}
                 color="primary"
               >
                 Import
@@ -487,6 +491,12 @@ export const ContentYoutube = ({
         previousLinks={previousLinks}
         setPreviousLinks={setPreviousLinks}
         setChangesMade={setChangesMade}
+      />
+
+      <ConfirmYoutubeImport
+        openImport={openImport}
+        setOpenImport={setOpenImport}
+        handleImportClicked={handleImportClicked}
       />
 
       <ConfirmSelect

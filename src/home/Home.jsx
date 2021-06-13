@@ -114,7 +114,7 @@ export const Home = ({}) => {
       </div>
       <div className="home_phone_blocks" style={{ minHeight: "25rem" }}>
         <ImageLoad
-          src="https://dciv99su0d7r5.cloudfront.net/growth_monetise_3.png"
+          src="https://dciv99su0d7r5.cloudfront.net/growth_monetise_4.png"
           style={{ width: "100%" }}
         />
         <p className="home_phone_blocks_text" style={{ fontSize: "22px" }}>

@@ -163,25 +163,39 @@ export const EditProProfile = ({ match, location }) => {
         }
 
         if (
-          data.showSocialSelections.length > 0 &&
           !(
             data.proVideos.length === 0 &&
             data.youtubeVideos.length === 0 &&
             instagramVideos.length === 0
           )
         ) {
+          let showSocialSelection;
+          if (data.showSocialSelections.length > 0) {
+            showSocialSelection = data.showSocialSelections;
+          } else {
+            showSocialSelection = [
+              ["tiktok", "all"],
+              ["youtube", "all_youtube"],
+              ["instagram", "all_instagram"],
+              ["allProductLinks", "nil"],
+            ];
+          }
+
           const filteredShowSocialSelections = [];
-          for (const eachSocial of data.showSocialSelections) {
+          for (const eachSocial of showSocialSelection) {
             if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
               filteredShowSocialSelections.push(eachSocial);
             }
             if (eachSocial[0] == "youtube" && data.youtubeVideos.length !== 0) {
               filteredShowSocialSelections.push(eachSocial);
             }
-            if (eachSocial[0] == "instagram" && instagramVideos.length !== 0) {
-              filteredShowSocialSelections.push(eachSocial);
-            }
-            if (eachSocial[0] == "allProductLinks") {
+            // if (eachSocial[0] == "instagram" && instagramVideos.length !== 0) {
+            //   filteredShowSocialSelections.push(eachSocial);
+            // }
+            if (
+              eachSocial[0] == "allProductLinks" &&
+              data.allProductLinks.length > 0
+            ) {
               filteredShowSocialSelections.push(eachSocial);
             }
           }
@@ -248,15 +262,25 @@ export const EditProProfile = ({ match, location }) => {
             }
 
             if (
-              data.showSocialSelections.length > 0 &&
               !(
                 data.proVideos.length === 0 &&
                 data.youtubeVideos.length === 0 &&
                 instagramVideos.length === 0
               )
             ) {
+              let showSocialSelection;
+              if (data.showSocialSelections.length > 0) {
+                showSocialSelection = data.showSocialSelections;
+              } else {
+                showSocialSelection = [
+                  ["tiktok", "all"],
+                  ["youtube", "all_youtube"],
+                  ["instagram", "all_instagram"],
+                  ["allProductLinks", "nil"],
+                ];
+              }
               const filteredShowSocialSelections = [];
-              for (const eachSocial of data.showSocialSelections) {
+              for (const eachSocial of showSocialSelection) {
                 if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
                   filteredShowSocialSelections.push(eachSocial);
                 }
@@ -266,13 +290,16 @@ export const EditProProfile = ({ match, location }) => {
                 ) {
                   filteredShowSocialSelections.push(eachSocial);
                 }
+                // if (
+                //   eachSocial[0] == "instagram" &&
+                //   instagramVideos.length !== 0
+                // ) {
+                //   filteredShowSocialSelections.push(eachSocial);
+                // }
                 if (
-                  eachSocial[0] == "instagram" &&
-                  instagramVideos.length !== 0
+                  eachSocial[0] == "allProductLinks" &&
+                  data.allProductLinks.length > 0
                 ) {
-                  filteredShowSocialSelections.push(eachSocial);
-                }
-                if (eachSocial[0] == "allProductLinks") {
                   filteredShowSocialSelections.push(eachSocial);
                 }
               }

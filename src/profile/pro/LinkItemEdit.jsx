@@ -93,7 +93,9 @@ export const LinkItemEdit = ({
         setLinksState({ items: [newLinkObj, ...prevItems] });
         // setPreviousLinks((prevState) => [newLinkObj, ...prevState]);
         setGettingProductImage(false);
-        setChangesMade(true);
+        try {
+          setChangesMade(true);
+        } catch {}
       });
   };
 
@@ -115,7 +117,9 @@ export const LinkItemEdit = ({
 
           // setPreviousLinks((prevState) => [linkEditObj, ...prevState]);
           setLinksState({ items: prevItems });
-          setChangesMade(true);
+          try {
+            setChangesMade(true);
+          } catch {}
         } else {
           let new_id = inputValues.itemLink + new Date().getTime();
           let new_itemLink = inputValues.itemLink;
@@ -135,8 +139,9 @@ export const LinkItemEdit = ({
           setLinksState((prevState) => ({
             items: [linkObj, ...prevState["items"]],
           }));
-          setChangesMade(true);
-
+          try {
+            setChangesMade(true);
+          } catch {}
           // updateItemWithProductImage(
           //   new_id,
           //   new_id,
