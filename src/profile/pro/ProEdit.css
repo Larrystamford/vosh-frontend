@@ -263,7 +263,7 @@
 }
 
 .Tagging_Top_Main_Youtube {
-  height: 57vh;
+  height: 62vh;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -272,6 +272,7 @@
 }
 
 .Tagging_Top_Main_Youtube_video {
+  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

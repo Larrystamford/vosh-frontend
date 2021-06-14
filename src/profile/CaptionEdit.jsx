@@ -17,8 +17,8 @@ export const CaptionEdit = ({
   const [caption, setCaption] = useState("");
 
   const handleSaveCaption = async () => {
-    if (caption.length > 75) {
-      alert("Maximum 75 Characters");
+    if (caption.length > 200) {
+      alert("Maximum 200 Characters");
     } else {
       await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
         profileBio: caption,

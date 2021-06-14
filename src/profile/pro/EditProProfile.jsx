@@ -42,6 +42,7 @@ import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { useWindowSize } from "../../customHooks/useWindowSize";
 
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+import { database } from "firebase";
 
 export const EditProProfile = ({ match, location }) => {
   const { isMobile } = useDeviceDetect();
@@ -174,11 +175,26 @@ export const EditProProfile = ({ match, location }) => {
 
           const filteredShowSocialSelections = [];
           for (const eachSocial of showSocialSelection) {
-            if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
-              filteredShowSocialSelections.push(eachSocial);
+            if (eachSocial[0] == "tiktok") {
+              if (
+                data.tiktokProOrAll &&
+                data.proVideos.length !== 0 &&
+                !data.proVideos.includes(null)
+              ) {
+                filteredShowSocialSelections.push(eachSocial);
+              } else if (!data.tiktokProOrAll && data.videos.length !== 0) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
             }
             if (eachSocial[0] == "youtube" && data.youtubeVideos.length !== 0) {
-              filteredShowSocialSelections.push(eachSocial);
+              if (data.youtubeProOrAll && data.proYoutubeVideos.length !== 0) {
+                filteredShowSocialSelections.push(eachSocial);
+              } else if (
+                !data.youtubeProOrAll &&
+                data.youtubeVideos.length !== 0
+              ) {
+                filteredShowSocialSelections.push(eachSocial);
+              }
             }
             if (
               eachSocial[0] == "allProductLinks" &&
@@ -187,10 +203,13 @@ export const EditProProfile = ({ match, location }) => {
               filteredShowSocialSelections.push(eachSocial);
             }
           }
-          setShowSocialSelections(filteredShowSocialSelections);
-          setShowSocial(filteredShowSocialSelections[0][0]);
-          setSelectedCategoryName(filteredShowSocialSelections[0][0]);
-          setSelectedCategoryId(filteredShowSocialSelections[0][1]);
+
+          if (filteredShowSocialSelections.length > 0) {
+            setShowSocialSelections(filteredShowSocialSelections);
+            setShowSocial(filteredShowSocialSelections[0][0]);
+            setSelectedCategoryName(filteredShowSocialSelections[0][0]);
+            setSelectedCategoryId(filteredShowSocialSelections[0][1]);
+          }
         } else {
           setShowSocialSelections([
             ["tiktok", "all"],
@@ -263,16 +282,33 @@ export const EditProProfile = ({ match, location }) => {
               }
               const filteredShowSocialSelections = [];
               for (const eachSocial of showSocialSelection) {
-                if (eachSocial[0] == "tiktok" && data.proVideos.length !== 0) {
-                  filteredShowSocialSelections.push(eachSocial);
+                if (eachSocial[0] == "tiktok") {
+                  if (
+                    data.tiktokProOrAll &&
+                    data.proVideos.length !== 0 &&
+                    !data.proVideos.includes(null)
+                  ) {
+                    filteredShowSocialSelections.push(eachSocial);
+                  } else if (!data.tiktokProOrAll && data.videos.length !== 0) {
+                    filteredShowSocialSelections.push(eachSocial);
+                  }
                 }
                 if (
                   eachSocial[0] == "youtube" &&
                   data.youtubeVideos.length !== 0
                 ) {
-                  filteredShowSocialSelections.push(eachSocial);
+                  if (
+                    data.youtubeProOrAll &&
+                    data.proYoutubeVideos.length !== 0
+                  ) {
+                    filteredShowSocialSelections.push(eachSocial);
+                  } else if (
+                    !data.youtubeProOrAll &&
+                    data.youtubeVideos.length !== 0
+                  ) {
+                    filteredShowSocialSelections.push(eachSocial);
+                  }
                 }
-
                 if (
                   eachSocial[0] == "allProductLinks" &&
                   data.allProductLinks.length > 0
@@ -280,10 +316,12 @@ export const EditProProfile = ({ match, location }) => {
                   filteredShowSocialSelections.push(eachSocial);
                 }
               }
-              setShowSocialSelections(filteredShowSocialSelections);
-              setShowSocial(filteredShowSocialSelections[0][0]);
-              setSelectedCategoryName(filteredShowSocialSelections[0][0]);
-              setSelectedCategoryId(filteredShowSocialSelections[0][1]);
+              if (filteredShowSocialSelections.length > 0) {
+                setShowSocialSelections(filteredShowSocialSelections);
+                setShowSocial(filteredShowSocialSelections[0][0]);
+                setSelectedCategoryName(filteredShowSocialSelections[0][0]);
+                setSelectedCategoryId(filteredShowSocialSelections[0][1]);
+              }
             } else {
               setShowSocialSelections([
                 ["tiktok", "all"],
@@ -678,69 +716,74 @@ export const EditProProfile = ({ match, location }) => {
           </div>
 
           <div className="pro_profile_social_selector">
-            {showSocialSelections.map(([social, socialId]) => {
-              return (
-                <div
-                  className="pro_profile_social_selector_line"
-                  style={
-                    showSocial == social
-                      ? {
-                          borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+            {!(
+              showVideos.length == 0 &&
+              showYoutubeVideos.length == 0 &&
+              showReadProducts.length == 0
+            ) &&
+              showSocialSelections.map(([social, socialId]) => {
+                return (
+                  <div
+                    className="pro_profile_social_selector_line"
+                    style={
+                      showSocial == social
+                        ? {
+                            borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                          }
+                        : {
+                            borderBottom: `1px solid ${getSimilarSocialColor(
+                              proTheme.socialIconsColor
+                            )}`,
+                          }
+                    }
+                    onClick={() => {
+                      setShowSocial(social);
+                      handleCategorySelection(socialId);
+                    }}
+                  >
+                    {social == "tiktok" ? (
+                      <GridOnIcon
+                        style={
+                          showSocial == social
+                            ? { fontSize: 22, color: proTheme.socialIconsColor }
+                            : {
+                                fontSize: 22,
+                                color: getSimilarSocialColor(
+                                  proTheme.socialIconsColor
+                                ),
+                              }
                         }
-                      : {
-                          borderBottom: `1px solid ${getSimilarSocialColor(
-                            proTheme.socialIconsColor
-                          )}`,
+                      />
+                    ) : social == "youtube" ? (
+                      <SlideshowOutlinedIcon
+                        style={
+                          showSocial == social
+                            ? { fontSize: 25, color: proTheme.socialIconsColor }
+                            : {
+                                fontSize: 25,
+                                color: getSimilarSocialColor(
+                                  proTheme.socialIconsColor
+                                ),
+                              }
                         }
-                  }
-                  onClick={() => {
-                    setShowSocial(social);
-                    handleCategorySelection(socialId);
-                  }}
-                >
-                  {social == "tiktok" ? (
-                    <GridOnIcon
-                      style={
-                        showSocial == social
-                          ? { fontSize: 22, color: proTheme.socialIconsColor }
-                          : {
-                              fontSize: 22,
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor
-                              ),
-                            }
-                      }
-                    />
-                  ) : social == "youtube" ? (
-                    <SlideshowOutlinedIcon
-                      style={
-                        showSocial == social
-                          ? { fontSize: 25, color: proTheme.socialIconsColor }
-                          : {
-                              fontSize: 25,
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor
-                              ),
-                            }
-                      }
-                    />
-                  ) : social == "allProductLinks" ? (
-                    <BallotOutlinedIcon
-                      style={
-                        showSocial == social
-                          ? { fontSize: 25, color: proTheme.socialIconsColor }
-                          : {
-                              fontSize: 25,
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor
-                              ),
-                            }
-                      }
-                    />
-                  ) : null}
-                </div>
-              );
-            })}
+                      />
+                    ) : social == "allProductLinks" ? (
+                      <BallotOutlinedIcon
+                        style={
+                          showSocial == social
+                            ? { fontSize: 25, color: proTheme.socialIconsColor }
+                            : {
+                                fontSize: 25,
+                                color: getSimilarSocialColor(
+                                  proTheme.socialIconsColor
+                                ),
+                              }
+                        }
+                      />
+                    ) : null}
+                  </div>
+                );
+              })}
           </div>
 
           <CategoriesSelector

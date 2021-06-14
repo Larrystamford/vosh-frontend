@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 import { LinkItemEdit } from "./LinkItemEdit";
 import { LinkPrevious } from "./LinkPrevious";
 import { ConfirmDelete } from "./ConfirmDelete";
+import { SimpleMiddleNotification } from "../../components/SimpleMiddleNotification";
 
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
@@ -20,6 +21,8 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
+import axios from "../../axios";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -166,14 +169,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="left" ref={ref} {...props} />;
-});
-
-export const SlidingProductLinks = ({
+export const ContentAllProducts = ({
   openItemLinks,
   itemLinks,
   setItemLinks,
+  changesMade,
+  setChangesMade,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -214,6 +215,8 @@ export const SlidingProductLinks = ({
     setItemLinks({ items: currentItems });
   };
 
+  const [showNotif, setShowNotif] = useState("");
+
   function onDragEnd(result) {
     if (!result.destination) {
       return;
@@ -232,35 +235,42 @@ export const SlidingProductLinks = ({
     setItemLinks({ items });
   }
 
-  return (
-    <Dialog
-      open={openItemLinks}
-      TransitionComponent={Transition}
-      keepMounted
-      aria-labelledby="alert-dialog-slide-title"
-      aria-describedby="alert-dialog-slide-description"
-      fullScreen={fullScreen}
-    >
-      <div className="SlidingEdit_Body">
-        <div className="SlidingEdit_Header">
-          <ArrowBackIosOutlinedIcon
-            onClick={() => history.goBack()}
-            style={{ paddingLeft: 14 }}
-          />
-          <span
-            style={{
-              fontSize: 14,
-              position: "absolute",
-              fontWeight: 700,
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            All Products
-          </span>
-        </div>
+  const handleSaveProducts = async () => {
+    const res = await axios.put(
+      "/v1/users/update/" + localStorage.getItem("USER_ID"),
+      {
+        allProductLinks: itemLinks.items,
+      }
+    );
 
+    if (res.status === 201) {
+      setShowNotif("Saved");
+      setTimeout(() => {
+        setShowNotif("");
+      }, 3000);
+      setChangesMade(false);
+    } else {
+      setShowNotif("Error");
+    }
+  };
+
+  return (
+    <div style={{ position: "relative" }}>
+      <div className="SlidingEdit_Body">
+        <div
+          className="SlidingEdit_AddNewLink"
+          style={{
+            backgroundColor: "rgb(245,23,86)",
+            border: "2px solid rgb(245,23,86)",
+            color: "white",
+            height: "2.1rem",
+          }}
+          onClick={handleSaveProducts}
+        >
+          <div className="SlidingEdit_AddNewLinkDetails">
+            <span>SAVE</span>
+          </div>
+        </div>
         <div
           className="SlidingEdit_AddNewLink"
           onClick={() => {
@@ -308,6 +318,7 @@ export const SlidingProductLinks = ({
         deleteItem={deleteItem}
         deleteIndex={deleteIndex}
         handleDeleteItem={handleDeleteItem}
+        setChangesMade={setChangesMade}
       />
       <LinkItemEdit
         inputValues={inputValues}
@@ -320,7 +331,10 @@ export const SlidingProductLinks = ({
         editingIndex={editingIndex}
         gettingProductImage={gettingProductImage}
         setGettingProductImage={setGettingProductImage}
+        setChangesMade={setChangesMade}
       />
-    </Dialog>
+
+      {showNotif && <SimpleMiddleNotification message={showNotif} />}
+    </div>
   );
 };

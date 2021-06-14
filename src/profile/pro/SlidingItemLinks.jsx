@@ -55,20 +55,7 @@ function Draggable_Item({
           <div className="Draggable_Icon_Wrap">
             <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
-          <div
-            className="SlidingEdit_TypeLeft"
-            onClick={() => {
-              setEditingIndex(index);
-              // temp inputs for editing
-              setInputValues({
-                itemLink: item.itemLink,
-                itemLinkName: item.itemLinkName,
-                itemLinkDesc: item.itemLinkDesc,
-                itemImage: item.itemImage,
-              });
-              setOpenLinkEdit(true);
-            }}
-          >
+          <div className="SlidingEdit_TypeLeft">
             {item.itemImage ? (
               <div className="pro_profile_icon_and_name">
                 <img
@@ -89,20 +76,6 @@ function Draggable_Item({
           <div className="SlidingEdit_TypeAndIcon">
             <p className="Draggable_Link_Item_Content_2">{item.itemLinkName}</p>
 
-            <EditOutlinedIcon
-              style={{ fontSize: 22, marginLeft: "0.5rem" }}
-              onClick={() => {
-                setEditingIndex(index);
-                // temp inputs for editing
-                setInputValues({
-                  itemLink: item.itemLink,
-                  itemLinkName: item.itemLinkName,
-                  itemLinkDesc: item.itemLinkDesc,
-                  itemImage: item.itemImage,
-                });
-                setOpenLinkEdit(true);
-              }}
-            />
             <DeleteOutlineOutlinedIcon
               style={{ fontSize: 22, marginLeft: "0.5rem" }}
               onClick={() => {
@@ -266,25 +239,6 @@ export const SlidingItemLinks = ({
         </div>
 
         <div
-          className="SlidingEdit_AddNewLink"
-          onClick={() => {
-            setEditingIndex(-1);
-            setInputValues({
-              itemLink: "",
-              itemLinkName: "",
-              itemLinkDesc: "",
-              itemImage: "",
-            });
-            setOpenLinkEdit(true);
-          }}
-        >
-          <div className="SlidingEdit_AddNewLinkDetails">
-            <AddOutlinedIcon style={{ margin: 5 }} />
-            <span>Add New Product Link</span>
-          </div>
-        </div>
-
-        <div
           className="SlidingEdit_AddOldLink"
           onClick={() => {
             setOpenLinkPrevious(true);
@@ -324,6 +278,7 @@ export const SlidingItemLinks = ({
         deleteItem={deleteItem}
         deleteIndex={deleteIndex}
         handleDeleteItem={handleDeleteItem}
+        setChangesMade={setChangesMade}
       />
       <LinkItemEdit
         inputValues={inputValues}
@@ -364,3 +319,24 @@ export const SlidingItemLinks = ({
 //   linksState={itemLinks} // db items
 //   setLinksState={setItemLinks} // db items
 // />
+
+{
+  /* <div
+className="SlidingEdit_AddNewLink"
+onClick={() => {
+  setEditingIndex(-1);
+  setInputValues({
+    itemLink: "",
+    itemLinkName: "",
+    itemLinkDesc: "",
+    itemImage: "",
+  });
+  setOpenLinkEdit(true);
+}}
+>
+<div className="SlidingEdit_AddNewLinkDetails">
+  <AddOutlinedIcon style={{ margin: 5 }} />
+  <span>Add New Product Link</span>
+</div>
+</div> */
+}

@@ -140,12 +140,9 @@ export const LinkEditCategory = ({
   };
 
   const handleLinkEditSave = () => {
-    if (
-      inputValues.proCategoryName != "" &&
-      inputValues.proCategoryImage != ""
-    ) {
-      if (inputValues.proCategoryName.length > 10) {
-        alert("Sorry, maximum 10 Characters!");
+    if (inputValues.proCategoryName != "") {
+      if (inputValues.proCategoryName.length > 30) {
+        alert("Maximum 30 Characters!");
       } else {
         if (editingIndex > -1) {
           let prevItems = linksState["items"];
@@ -176,25 +173,15 @@ export const LinkEditCategory = ({
   };
 
   return (
-    <Dialog open={openLinkEdit} fullScreen={fullScreen}>
+    <Dialog open={openLinkEdit}>
       <DialogContent>
         <DialogContentText>
           {editingIndex === -1 ? "Add New Category" : "Edit Category"}
         </DialogContentText>
-        {!focused && (
-          <div>
-            {chosenEmoji ? (
-              <span>Selected Category Logo: {chosenEmoji.emoji}</span>
-            ) : (
-              <span>Select an Emoji Logo:</span>
-            )}
-            <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} />
-          </div>
-        )}
 
         <TextField
           size={size.height < 580 ? "small" : null}
-          label={`Category Name (${inputValues.proCategoryName.length}/10)`}
+          label={`Category Name (${inputValues.proCategoryName.length}/30)`}
           id="outlined-start-adornment"
           className={clsx(classes.margin, classes.textField)}
           variant="outlined"
@@ -217,3 +204,14 @@ export const LinkEditCategory = ({
     </Dialog>
   );
 };
+
+// {!focused && (
+//   <div>
+//     {chosenEmoji ? (
+//       <span>Selected Category Logo: {chosenEmoji.emoji}</span>
+//     ) : (
+//       <span>Select an Emoji Logo:</span>
+//     )}
+//     <Picker onEmojiClick={onEmojiClick} disableSearchBar={true} />
+//   </div>
+// )}

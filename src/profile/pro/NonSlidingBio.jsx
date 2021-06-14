@@ -51,8 +51,8 @@ export const NonSlidingBio = () => {
   }, []);
 
   const handleSaveCaption = async () => {
-    if (caption.length > 75) {
-      alert("Maximum 75 Characters");
+    if (caption.length > 250) {
+      alert("Maximum 250 Characters");
     } else {
       await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
         profileBio: caption,
@@ -107,7 +107,7 @@ export const NonSlidingBio = () => {
         style={{ backgroundColor: "white" }}
       />
       <div className="bio_chars_and_save">
-        <p>{caption.length} / 75</p>
+        <p>{caption.length} / 250</p>
         <p style={{ color: "rgb(25,118,210)" }} onClick={handleSaveCaption}>
           Save
         </p>

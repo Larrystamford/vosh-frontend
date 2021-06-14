@@ -12,6 +12,7 @@ export const ConfirmDelete = ({
   deleteItem,
   deleteIndex,
   handleDeleteItem,
+  setChangesMade,
 }) => {
   const PromptText = () => {
     let text = `Deleteing ${deleteItem}`;
@@ -46,6 +47,9 @@ export const ConfirmDelete = ({
           onClick={() => {
             setOpenCancel(false);
             handleDeleteItem(deleteIndex);
+            try {
+              setChangesMade(true);
+            } catch {}
           }}
           color="primary"
           autoFocus

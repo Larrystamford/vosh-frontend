@@ -8,7 +8,7 @@ import * as constants from "../../helpers/CategoriesConstants";
 
 import { ContentTikTok } from "./ContentTikTok";
 import { ContentYoutube } from "./ContentYoutube";
-import { ContentInsta } from "./ContentInsta";
+import { ContentAllProducts } from "./ContentAllProducts";
 
 import { SlidingSocials } from "./SlidingSocials";
 import { SlidingCategories } from "./SlidingCategories";
@@ -168,6 +168,10 @@ export const ContentTagging = () => {
   const [youtubeIsPublish, setYoutubeIsPublish] = useState(false);
   //YOUTUBE
 
+  // ALL PRODUCT LINKS
+  const [allProductLinks, setAllProductLinks] = useState({ items: [] });
+  // ALL PRODUCT LINKS
+
   useEffect(() => {
     const userId = localStorage.getItem("USER_ID");
     if (userId) {
@@ -284,8 +288,11 @@ export const ContentTagging = () => {
             });
           }
         }
-
         // YOUTUBE
+
+        // ALL PRODUCT LINKS
+        setAllProductLinks({ items: data.allProductLinks });
+        // ALL PRODUCT LINKS
 
         if (response.status === 200) {
           setSafeToEdit(true);
@@ -346,10 +353,7 @@ export const ContentTagging = () => {
     if (safeToEdit) {
       axios
         .put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
-          showSocialSelections: [
-            ...showSocialSelections,
-            ["allProductLinks", "nil"],
-          ],
+          showSocialSelections: [...showSocialSelections],
         })
         .then((res) => {
           console.log("updated category selection");
@@ -636,7 +640,15 @@ export const ContentTagging = () => {
         />
       )}
 
-      {safeToEdit && showSocial === "instagram" && <ContentInsta />}
+      {safeToEdit && showSocial === "allProductLinks" && (
+        <ContentAllProducts
+          openItemLinks={true}
+          itemLinks={allProductLinks}
+          setItemLinks={setAllProductLinks}
+          changesMade={changesMade}
+          setChangesMade={setChangesMade}
+        />
+      )}
 
       <ConfirmSelect
         openSelect={openSelect}

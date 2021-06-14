@@ -593,7 +593,7 @@ export const ContentTikTok = ({
                     setOpenContentCategory(true);
                   }}
                   style={
-                    changesMade && reduceCategory()
+                    changesMade
                       ? { border: "1px solid orange" }
                       : { border: "1px solid lightgrey" }
                   }
@@ -611,26 +611,16 @@ export const ContentTikTok = ({
                 className="Tagging_Choices"
                 onClick={handleItemLinksOpen}
                 style={
-                  changesMade && itemLinks.items.length > 0
+                  changesMade
                     ? { border: "1px solid orange" }
                     : { border: "1px solid lightgrey" }
                 }
               >
-                Add Links
+                Link Products
               </div>
-              <div
-                className="Tagging_Choices"
-                onClick={handleHashtagsOpen}
-                style={
-                  changesMade && selectedCategories.length > 0
-                    ? { border: "1px solid orange" }
-                    : { border: "1px solid lightgrey" }
-                }
-              >
-                Hashtags
-              </div>
+            
 
-              {isPublish ? (
+              {isPublish && !changesMade ? (
                 <Button
                   style={{ height: "2.7rem", width: "90%", marginTop: "2rem" }}
                   variant="contained"
@@ -817,3 +807,16 @@ export const ContentTikTok = ({
     </div>
   );
 };
+
+
+{/* <div
+className="Tagging_Choices"
+onClick={handleHashtagsOpen}
+style={
+  changesMade
+    ? { border: "1px solid orange" }
+    : { border: "1px solid lightgrey" }
+}
+>
+Hashtags
+</div> */}
