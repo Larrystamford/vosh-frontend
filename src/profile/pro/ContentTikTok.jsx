@@ -431,65 +431,60 @@ export const ContentTikTok = ({
 
   // submit
   const handleSubmit = async () => {
-    if (Object.keys(categorySelection).length === 0) {
-      alert("Assign your video to at least one category");
-    } else {
-      const proCategoriesUpdate = [];
-      for (const [key, value] of Object.entries(categorySelection)) {
-        if (value) {
-          proCategoriesUpdate.push(key);
+    const proCategoriesUpdate = [];
+    for (const [key, value] of Object.entries(categorySelection)) {
+      if (value) {
+        proCategoriesUpdate.push(key);
+      }
+    }
+
+    try {
+      const res = await axios.put("/v1/video/update/" + displayVideoId, {
+        categories: selectedCategories,
+        subCategories: selectedSubCategories,
+        proCategories: proCategoriesUpdate,
+        affiliateGroupName: "Links",
+        affiliateProducts: itemLinks.items,
+      });
+
+      const res1 = await axios.put(
+        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        {
+          previousMainHashtags: selectedCategories,
+          previousSubHashtags: selectedSubCategories,
         }
+      );
+
+      const res2 = await axios.put(
+        "/v1/users/pushPreviousProductLinks/" + localStorage.getItem("USER_ID"),
+        {
+          allProductLinks: itemLinks.items,
+          proVideo: displayVideoId,
+        }
+      );
+
+      if (res.status === 201 && res1.status === 201 && res2.status === 201) {
+        setShowNotif("Saved");
+        setTimeout(() => {
+          setShowNotif("");
+        }, 3000);
+      } else {
+        setShowNotif("Error");
       }
 
-      try {
-        const res = await axios.put("/v1/video/update/" + displayVideoId, {
-          categories: selectedCategories,
-          subCategories: selectedSubCategories,
-          proCategories: proCategoriesUpdate,
-          affiliateGroupName: "Links",
-          affiliateProducts: itemLinks.items,
-        });
+      setChangesMade(false);
+      setPreviousCats(selectedCategories);
+      setPreviousSubCats(selectedSubCategories);
 
-        const res1 = await axios.put(
-          "/v1/users/update/" + localStorage.getItem("USER_ID"),
-          {
-            previousMainHashtags: selectedCategories,
-            previousSubHashtags: selectedSubCategories,
-          }
-        );
+      setProVideos([...proVideos, displayVideoId]);
+      setIsPublish(true);
 
-        const res2 = await axios.put(
-          "/v1/users/pushPreviousProductLinks/" +
-            localStorage.getItem("USER_ID"),
-          {
-            allProductLinks: itemLinks.items,
-            proVideo: displayVideoId,
-          }
-        );
-
-        if (res.status === 201 && res1.status === 201 && res2.status === 201) {
-          setShowNotif("Saved");
-          setTimeout(() => {
-            setShowNotif("");
-          }, 3000);
-        } else {
-          setShowNotif("Error");
-        }
-
-        setChangesMade(false);
-        setPreviousCats(selectedCategories);
-        setPreviousSubCats(selectedSubCategories);
-
-        setProVideos([...proVideos, displayVideoId]);
-        setIsPublish(true);
-
-        videos[videoI].proCategories = proCategoriesUpdate;
-        videos[videoI].categories = selectedCategories;
-        videos[videoI].subCategories = selectedSubCategories;
-        videos[videoI].affiliateProducts = itemLinks.items;
-      } catch {
-        alert("Try publishing again");
-      }
+      videos[videoI].proCategories = proCategoriesUpdate;
+      videos[videoI].categories = selectedCategories;
+      videos[videoI].subCategories = selectedSubCategories;
+      videos[videoI].affiliateProducts = itemLinks.items;
+    } catch {
+      alert("Try publishing again");
     }
   };
 

@@ -191,7 +191,7 @@ function VideoFooter({
 
             <p
               className="videoFooter__button_temp_words"
-              style={{ opacity: 0.9 }}
+              style={{ opacity: 0.85 }}
             >
               LINKS
             </p>

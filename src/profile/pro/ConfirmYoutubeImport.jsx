@@ -21,7 +21,7 @@ export const ConfirmYoutubeImport = ({
       </DialogTitle>
       <DialogContent>
         <span style={{ fontSize: "14px" }}>
-          Please ensure that your youtube link that was added contains your
+          Please ensure that your youtube link that was added under "Social Accounts" contains your
           channel ID which looks like:
         </span>
         <p style={{ fontSize: "14px", fontStyle: "italic" }}>

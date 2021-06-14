@@ -357,7 +357,7 @@ export const ProEdit = () => {
             <ShopIcon style={{ fontSize: 20 }} />
           </div>
           <div className="SlidingEdit_TypeAndIcon">
-            <p>All Media Links</p>
+            <p>All Product Links</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: "1rem" }}
             />

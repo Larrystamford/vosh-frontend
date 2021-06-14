@@ -14,6 +14,7 @@ export const VideoGrid = ({
   handleChangeView,
   scrolledBottomCount,
   selectedCategoryId,
+  onProfile,
 }) => {
   useEffect(() => {
     setShowVideos(videos.slice(0, 9));
@@ -34,18 +35,22 @@ export const VideoGrid = ({
 
   const history = useHistory();
   if (videos.length === 0) {
-    return (
-      <div className="Purchases_NoInfo">
-        <div
-          className="Video_Grid_redirect_button"
-          onClick={() => {
-            history.push("/ContentTagging");
-          }}
-        >
-          <p>Import & Tag Your Content</p>
+    if (onProfile) {
+      return (
+        <div className="Purchases_NoInfo">
+          <div
+            className="Video_Grid_redirect_button"
+            onClick={() => {
+              history.push("/ContentTagging");
+            }}
+          >
+            <p>Import & Tag Your Content</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <div></div>;
+    }
   }
 
   return (
@@ -60,7 +65,7 @@ export const VideoGrid = ({
               <ShopIcon
                 className="profile_bottom_imageOrVideoIcon"
                 style={{
-                  opacity: 0.9,
+                  opacity: 0.85,
                   zIndex: 2000,
                 }}
               />

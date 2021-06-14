@@ -20,7 +20,6 @@ import { ConfirmBack } from "./ConfirmBack";
 
 import SlideshowOutlinedIcon from "@material-ui/icons/SlideshowOutlined";
 import GridOnIcon from "@material-ui/icons/GridOn";
-import WallpaperIcon from "@material-ui/icons/Wallpaper";
 import BallotOutlinedIcon from "@material-ui/icons/BallotOutlined";
 
 import { SimpleMiddleNotification } from "../../components/SimpleMiddleNotification";
@@ -191,7 +190,7 @@ export const ContentTagging = () => {
           setShowSocialSelections([
             ["tiktok", "all"],
             ["youtube", "all_youtube"],
-            ["instagram", "all_instagram"],
+            ["allProductLinks", "all_read"],
           ]);
           setShowSocial("tiktok");
         }
@@ -204,9 +203,13 @@ export const ContentTagging = () => {
         const sortedProVideos = data.proVideos.sort((a, b) => {
           return b.tiktokCreatedAt - a.tiktokCreatedAt;
         });
-        for (const eachProVideo of sortedProVideos) {
-          reducedProVideo.push(eachProVideo._id);
+
+        if (!sortedProVideos.includes(null)) {
+          for (const eachProVideo of sortedProVideos) {
+            reducedProVideo.push(eachProVideo._id);
+          }
         }
+
         setProVideos(reducedProVideo);
         setVideos(sortedVideos);
 
@@ -300,30 +303,30 @@ export const ContentTagging = () => {
       [
         ["tiktok", "all"],
         ["youtube", "all_youtube"],
-        ["instagram", "all_instagram"],
+        ["allProductLinks", "all_read"],
       ],
       [
         ["youtube", "all_youtube"],
         ["tiktok", "all"],
-        ["instagram", "all_instagram"],
+        ["allProductLinks", "all_read"],
       ],
       [
         ["youtube", "all_youtube"],
-        ["instagram", "all_instagram"],
+        ["allProductLinks", "all_read"],
         ["tiktok", "all"],
       ],
       [
         ["tiktok", "all"],
-        ["instagram", "all_instagram"],
+        ["allProductLinks", "all_read"],
         ["youtube", "all_youtube"],
       ],
       [
-        ["instagram", "all_instagram"],
+        ["allProductLinks", "all_read"],
         ["youtube", "all_youtube"],
         ["tiktok", "all"],
       ],
       [
-        ["instagram", "all_instagram"],
+        ["allProductLinks", "all_read"],
         ["tiktok", "all"],
         ["youtube", "all_youtube"],
       ],
@@ -531,9 +534,9 @@ export const ContentTagging = () => {
                     YouTube
                   </p>
                 </div>
-              ) : social == "instagram" ? (
+              ) : social == "allProductLinks" ? (
                 <div className="pro_profile_icon_and_name">
-                  <WallpaperIcon
+                  <BallotOutlinedIcon
                     style={
                       showSocial == social
                         ? { fontSize: 22, color: "black" }
@@ -552,7 +555,7 @@ export const ContentTagging = () => {
                           }
                     }
                   >
-                    Instagram
+                    Products
                   </p>
                 </div>
               ) : null}

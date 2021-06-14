@@ -51,7 +51,7 @@
 }
 
 .profile_bottom_productImages {
-  opacity: 0.9;
+  opacity: 0.85;
   z-index: 2000;
 
   position: absolute;
@@ -78,9 +78,7 @@
 }
 
 .Video_Grid_redirect_button {
-  font-style: italic;
   font-weight: 600;
-  color: var(--vosh-color-7);
   font-size: 14px;
 }
 

@@ -64,11 +64,9 @@ export const EditProProfile = ({ match, location }) => {
   const [proLinks, setProLinks] = useState([]);
   const [allProductLinks, setAllProductLinks] = useState([]);
   const [youtubeVideos, setYoutubeVideos] = useState([]);
-  const [instagramVideos, setInstagramVideos] = useState([]);
 
   const [proCategories, setProCategories] = useState([]);
   const [proCategories_youtube, setProCategories_youtube] = useState([]);
-  const [proCategories_instagram, setProCategories_instagram] = useState([]);
 
   const [proTheme, setProTheme] = useState({});
   const [profileBio, setProfileBio] = useState("");
@@ -162,13 +160,7 @@ export const EditProProfile = ({ match, location }) => {
           setProfileBio(data.profileBio);
         }
 
-        if (
-          !(
-            data.proVideos.length === 0 &&
-            data.youtubeVideos.length === 0 &&
-            instagramVideos.length === 0
-          )
-        ) {
+        if (!(data.proVideos.length === 0 && data.youtubeVideos.length === 0)) {
           let showSocialSelection;
           if (data.showSocialSelections.length > 0) {
             showSocialSelection = data.showSocialSelections;
@@ -176,8 +168,7 @@ export const EditProProfile = ({ match, location }) => {
             showSocialSelection = [
               ["tiktok", "all"],
               ["youtube", "all_youtube"],
-              ["instagram", "all_instagram"],
-              ["allProductLinks", "nil"],
+              ["allProductLinks", "all_read"],
             ];
           }
 
@@ -189,9 +180,6 @@ export const EditProProfile = ({ match, location }) => {
             if (eachSocial[0] == "youtube" && data.youtubeVideos.length !== 0) {
               filteredShowSocialSelections.push(eachSocial);
             }
-            // if (eachSocial[0] == "instagram" && instagramVideos.length !== 0) {
-            //   filteredShowSocialSelections.push(eachSocial);
-            // }
             if (
               eachSocial[0] == "allProductLinks" &&
               data.allProductLinks.length > 0
@@ -207,8 +195,7 @@ export const EditProProfile = ({ match, location }) => {
           setShowSocialSelections([
             ["tiktok", "all"],
             ["youtube", "all_youtube"],
-            ["instagram", "all_instagram"],
-            ["allProductLinks", "nil"],
+            ["allProductLinks", "all_read"],
           ]);
         }
 
@@ -232,7 +219,7 @@ export const EditProProfile = ({ match, location }) => {
             history.push("/404");
           }
 
-          // redirect to profile if user clicks on own userName
+          // load profile if user is on his own page
           if (data._id === localStorage.getItem("USER_ID")) {
             handleProfileLoad();
           } else {
@@ -262,11 +249,7 @@ export const EditProProfile = ({ match, location }) => {
             }
 
             if (
-              !(
-                data.proVideos.length === 0 &&
-                data.youtubeVideos.length === 0 &&
-                instagramVideos.length === 0
-              )
+              !(data.proVideos.length === 0 && data.youtubeVideos.length === 0)
             ) {
               let showSocialSelection;
               if (data.showSocialSelections.length > 0) {
@@ -275,8 +258,7 @@ export const EditProProfile = ({ match, location }) => {
                 showSocialSelection = [
                   ["tiktok", "all"],
                   ["youtube", "all_youtube"],
-                  ["instagram", "all_instagram"],
-                  ["allProductLinks", "nil"],
+                  ["allProductLinks", "all_read"],
                 ];
               }
               const filteredShowSocialSelections = [];
@@ -290,12 +272,7 @@ export const EditProProfile = ({ match, location }) => {
                 ) {
                   filteredShowSocialSelections.push(eachSocial);
                 }
-                // if (
-                //   eachSocial[0] == "instagram" &&
-                //   instagramVideos.length !== 0
-                // ) {
-                //   filteredShowSocialSelections.push(eachSocial);
-                // }
+
                 if (
                   eachSocial[0] == "allProductLinks" &&
                   data.allProductLinks.length > 0
@@ -311,8 +288,7 @@ export const EditProProfile = ({ match, location }) => {
               setShowSocialSelections([
                 ["tiktok", "all"],
                 ["youtube", "all_youtube"],
-                ["instagram", "all_instagram"],
-                ["allProductLinks", "nil"],
+                ["allProductLinks", "all_read"],
               ]);
             }
 
@@ -748,20 +724,7 @@ export const EditProProfile = ({ match, location }) => {
                             }
                       }
                     />
-                  ) : social == "instagram" ? (
-                    <WallpaperIcon
-                      style={
-                        showSocial == social
-                          ? { fontSize: 22, color: proTheme.socialIconsColor }
-                          : {
-                              fontSize: 22,
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor
-                              ),
-                            }
-                      }
-                    />
-                  ) : (
+                  ) : social == "allProductLinks" ? (
                     <BallotOutlinedIcon
                       style={
                         showSocial == social
@@ -774,7 +737,7 @@ export const EditProProfile = ({ match, location }) => {
                             }
                       }
                     />
-                  )}
+                  ) : null}
                 </div>
               );
             })}
@@ -786,7 +749,6 @@ export const EditProProfile = ({ match, location }) => {
             showSocial={showSocial}
             selectedCategoryId={selectedCategoryId}
             proCategories={proCategories}
-            proCategories_instagram={proCategories_instagram}
             handleCategorySelection={handleCategorySelection}
           />
         </div>
@@ -801,7 +763,9 @@ export const EditProProfile = ({ match, location }) => {
               if (selectedCategoryId === "all") {
                 return video;
               } else {
-                return video.proCategories.includes(selectedCategoryId);
+                if (video) {
+                  return video.proCategories.includes(selectedCategoryId);
+                }
               }
             })}
             showVideos={showVideos}
@@ -809,6 +773,7 @@ export const EditProProfile = ({ match, location }) => {
             handleChangeView={handleScrollViewOpen}
             scrolledBottomCount={scrolledBottomCount}
             selectedCategoryId={selectedCategoryId}
+            onProfile={onProfile}
           />
         ) : showSocial === "youtube" ? (
           <YoutubeGrid
@@ -818,15 +783,7 @@ export const EditProProfile = ({ match, location }) => {
             showYoutubeVideos={showYoutubeVideos}
             setShowYoutubeVideos={setShowYoutubeVideos}
             scrolledBottomCount={scrolledBottomCount}
-          />
-        ) : showSocial === "instagram" ? (
-          <YoutubeGrid
-            youtubeVideos={youtubeVideos}
-            size={size}
-            proTheme={proTheme}
-            showYoutubeVideos={showYoutubeVideos}
-            setShowYoutubeVideos={setShowYoutubeVideos}
-            scrolledBottomCount={scrolledBottomCount}
+            onProfile={onProfile}
           />
         ) : showSocial === "allProductLinks" ? (
           <ReadGrid

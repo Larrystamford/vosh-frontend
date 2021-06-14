@@ -27,6 +27,7 @@ export const YoutubeGrid = ({
   showYoutubeVideos,
   setShowYoutubeVideos,
   scrolledBottomCount,
+  onProfile,
 }) => {
   const history = useHistory();
 
@@ -49,21 +50,6 @@ export const YoutubeGrid = ({
       getHistoryFeed(scrolledBottomCount);
     }
   }, [scrolledBottomCount]);
-
-  // if (videos.length === 0) {
-  //   return (
-  //     <div className="Purchases_NoInfo">
-  //       <div
-  //         className="Video_Grid_redirect_button"
-  //         onClick={() => {
-  //           history.push("/ContentTagging");
-  //         }}
-  //       >
-  //         <p>Import & Tag Your TikToks</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   const [header, setHeader] = React.useState("");
   const [reading, setReading] = React.useState("");
@@ -109,18 +95,22 @@ export const YoutubeGrid = ({
   }, []);
 
   if (showYoutubeVideos.length === 0) {
-    return (
-      <div className="Purchases_NoInfo">
-        <div
-          className="Video_Grid_redirect_button"
-          onClick={() => {
-            history.push("/ContentTagging");
-          }}
-        >
-          <p>Import & Tag Your Content</p>
+    if (onProfile) {
+      return (
+        <div className="Purchases_NoInfo">
+          <div
+            className="Video_Grid_redirect_button"
+            onClick={() => {
+              history.push("/ContentTagging");
+            }}
+          >
+            <p>Import & Tag Your Content</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <div></div>;
+    }
   }
 
   return (
