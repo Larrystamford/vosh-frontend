@@ -56,7 +56,6 @@ function Draggable_Item({
           {...provided.dragHandleProps}
         >
           <div className="Draggable_Icon_Wrap">
-            <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
           <div
             className="SlidingEdit_TypeLeft"
@@ -71,6 +70,7 @@ function Draggable_Item({
               });
               setOpenLinkEdit(true);
             }}
+            style={{ marginLeft: "1rem" }}
           >
             {item.itemImage ? (
               <div className="pro_profile_icon_and_name">
@@ -255,8 +255,17 @@ export const ContentAllProducts = ({
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <div className="SlidingEdit_Body">
+    <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "white",
+          position: "relative",
+        }}
+      >
         <div
           className="SlidingEdit_AddNewLink"
           style={{

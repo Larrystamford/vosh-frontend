@@ -5,6 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import AddIcon from "@material-ui/icons/Add";
 
 import clsx from "clsx";
 import { useWindowSize } from "../../customHooks/useWindowSize";
@@ -280,6 +281,23 @@ export const LinkItemEdit = ({
           onBlur={() => setFocused(false)}
           style={{ backgroundColor: "white", marginTop: "1rem" }}
         />
+
+        <div
+          className="Tagging_Choices_2_Wrapper"
+          style={{
+            margin: 0,
+            width: "100%",
+            marginLeft: "0.5rem",
+            marginTop: "1rem",
+          }}
+        >
+          <div className="Tagging_Choices_Left" style={{ margin: 0 }}>
+            <p>Categories</p>
+          </div>
+          <div className="Tagging_Choices_Right" style={{ margin: 0 }}>
+            <AddIcon style={{ fontSize: 18 }} />
+          </div>
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleLinkEditClose} color="primary">

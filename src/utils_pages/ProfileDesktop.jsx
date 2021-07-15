@@ -40,8 +40,7 @@ export const ProfileDesktop = ({}) => {
       <iframe
         src={currentLocation}
         height="100%"
-        width="640.1"
-        title="Iframe Example"
+        width="640"
         frameBorder="0"
         allow="fullscreen;"
         allowFullScreen="allowFullScreen"
@@ -49,6 +48,7 @@ export const ProfileDesktop = ({}) => {
         msallowfullscreen="msallowfullscreen"
         oallowfullscreen="oallowfullscreen"
         webkitallowfullscreen="webkitallowfullscreen"
+        style={{ border: 0 }}
       ></iframe>
 
       {proTheme.background3 &&

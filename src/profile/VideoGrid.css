@@ -179,3 +179,16 @@ video::-webkit-media-controls {
     height: 140px;
   }
 }
+
+/* iframe and ipad */
+@media only screen and (min-height: 640px) {
+  .profile_bottom_grid {
+    grid-auto-rows: 270px;
+    grid-row-gap: 3rem;
+    grid-column-gap: 3rem;
+  }
+
+  .profile_bottom_grid_video {
+    height: 270px;
+  }
+}

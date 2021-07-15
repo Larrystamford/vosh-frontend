@@ -30,7 +30,7 @@ export const HomeDesktop = ({}) => {
             className="home_header_button"
             style={{ color: "black", backgroundColor: "transparent" }}
             onClick={() => {
-              history.push("/getStarted");
+              history.push("/login");
             }}
           >
             Sign In

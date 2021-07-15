@@ -29,6 +29,7 @@ import { Home } from "./home/Home";
 import { HomeDesktop } from "./home/HomeDesktop";
 import { GetStartedDesktop } from "./home/GetStartedDesktop";
 import { SignUpDesktop } from "./home/SignUpDesktop";
+import { SignInDesktop } from "./home/SignInDesktop";
 
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { PersonalProfile } from "./profile/PersonalProfile";
@@ -110,8 +111,10 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={HomeDesktop} />
-          <Route path="/getStarted" component={GetStartedDesktop} />
-          <Route path="/signup" component={SignUpDesktop} />
+          <Route path="/getStarted" exact component={GetStartedDesktop} />
+          <Route path="/signup" exact component={SignUpDesktop} />
+          <Route path="/login" exact component={SignInDesktop} />
+          <Route path="/404" exact component={PageNoExist} />
           <Route component={ProfileDesktop} />
         </Switch>
       </Router>
