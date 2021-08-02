@@ -181,7 +181,7 @@ video::-webkit-media-controls {
 }
 
 /* iframe and ipad */
-@media only screen and (min-height: 640px) {
+@media only screen and (min-height: 813px) {
   .profile_bottom_grid {
     grid-auto-rows: 270px;
     grid-row-gap: 3rem;
