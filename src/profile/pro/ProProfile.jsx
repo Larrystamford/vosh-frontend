@@ -575,28 +575,6 @@ export const ProProfile = ({ match, location }) => {
         )}
       </div>
 
-      {voshBanner && (
-        <div
-          style={{ zIndex: 4001 }}
-          className="pro_profile_bottom_snackbar_temp"
-          onClick={() => {
-            history.push("/getStarted");
-          }}
-        ></div>
-      )}
-
-      <Snackbar
-        style={{ zIndex: 4000 }}
-        open={voshBanner}
-        message="Create Your Vosh Website Now"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        action={
-          <React.Fragment>
-            <ClearOutlinedIcon onClick={() => setVoshBanner(false)} />
-          </React.Fragment>
-        }
-      />
-
       {scrollView && (
         <ScrollVideo
           openScrollVideo={scrollView}
