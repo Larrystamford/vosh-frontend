@@ -1,57 +1,57 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 
-import "./ProEdit.css";
-import { useGlobalState } from "../../GlobalStates";
-import { useHistory } from "react-router";
-import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
-import * as constants from "../../helpers/CategoriesConstants";
+import './ProEdit.css'
+import { useGlobalState } from '../../GlobalStates'
+import { useHistory } from 'react-router'
+import { useDidMountEffect } from '../../customHooks/useDidMountEffect'
+import * as constants from '../../helpers/CategoriesConstants'
 
-import { ContentTikTok } from "./ContentTikTok";
-import { ContentYoutube } from "./ContentYoutube";
-import { ContentAllProducts } from "./ContentAllProducts";
+import { ContentTikTok } from './ContentTikTok'
+import { ContentYoutube } from './ContentYoutube'
+import { ContentAllProducts } from './ContentAllProducts'
 
-import { SlidingSocials } from "./SlidingSocials";
-import { SlidingCategories } from "./SlidingCategories";
-import { SlidingItemLinks } from "./SlidingItemLinks";
-import { SlidingHashtags } from "./SlidingHashtags";
-import { ConfirmImport } from "./ConfirmImport";
-import { ConfirmSelect } from "./ConfirmSelect";
-import { ConfirmBack } from "./ConfirmBack";
+import { SlidingSocials } from './SlidingSocials'
+import { SlidingCategories } from './SlidingCategories'
+import { SlidingItemLinks } from './SlidingItemLinks'
+import { SlidingHashtags } from './SlidingHashtags'
+import { ConfirmImport } from './ConfirmImport'
+import { ConfirmSelect } from './ConfirmSelect'
+import { ConfirmBack } from './ConfirmBack'
 
-import SlideshowOutlinedIcon from "@material-ui/icons/SlideshowOutlined";
-import GridOnIcon from "@material-ui/icons/GridOn";
-import BallotOutlinedIcon from "@material-ui/icons/BallotOutlined";
+import SlideshowOutlinedIcon from '@material-ui/icons/SlideshowOutlined'
+import GridOnIcon from '@material-ui/icons/GridOn'
+import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined'
 
-import { SimpleMiddleNotification } from "../../components/SimpleMiddleNotification";
-import { downloadAndSaveTikToksWithRetry } from "../../helpers/CommonFunctions";
-import { ContentCategory } from "./ContentCategory";
-import { ContentInstructions } from "./ContentInstructions";
+import { SimpleMiddleNotification } from '../../components/SimpleMiddleNotification'
+import { downloadAndSaveTikToksWithRetry } from '../../helpers/CommonFunctions'
+import { ContentCategory } from './ContentCategory'
+import { ContentInstructions } from './ContentInstructions'
 
-import { useSwipeable } from "react-swipeable";
-import { makeStyles } from "@material-ui/core/styles";
-import Collapse from "@material-ui/core/Collapse";
-import SwapHorizOutlinedIcon from "@material-ui/icons/SwapHorizOutlined";
-import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
-import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
-import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import AddIcon from "@material-ui/icons/Add";
-import VolumeOffOutlinedIcon from "@material-ui/icons/VolumeOffOutlined";
-import VolumeUpOutlinedIcon from "@material-ui/icons/VolumeUpOutlined";
-import LoyaltyIcon from "@material-ui/icons/Loyalty";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useSwipeable } from 'react-swipeable'
+import { makeStyles } from '@material-ui/core/styles'
+import Collapse from '@material-ui/core/Collapse'
+import SwapHorizOutlinedIcon from '@material-ui/icons/SwapHorizOutlined'
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined'
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary'
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import AddIcon from '@material-ui/icons/Add'
+import VolumeOffOutlinedIcon from '@material-ui/icons/VolumeOffOutlined'
+import VolumeUpOutlinedIcon from '@material-ui/icons/VolumeUpOutlined'
+import LoyaltyIcon from '@material-ui/icons/Loyalty'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-import useOnScreen from "../../customHooks/useOnScreen";
+import useOnScreen from '../../customHooks/useOnScreen'
 
-import axios from "../../axios";
+import axios from '../../axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: 180,
   },
   container: {
-    display: "flex",
+    display: 'flex',
   },
   paper: {
     margin: theme.spacing(1),
@@ -66,10 +66,10 @@ const useStyles = makeStyles((theme) => ({
     strokeWidth: 1,
   },
   buttonRoot: {
-    backgroundColor: "#c7c7c7",
-    color: "black",
+    backgroundColor: '#c7c7c7',
+    color: 'black',
   },
-}));
+}))
 
 const displayPreviewFile = (
   i,
@@ -78,17 +78,17 @@ const displayPreviewFile = (
   coverImageUrl,
   tiktokCoverImageUrl,
   proCategories,
-  heartSticker
+  heartSticker,
 ) => {
-  if (mediaType === "video") {
+  if (mediaType === 'video') {
     return (
       <div
         className="content_tagging_video_box"
-        style={{ position: "relative" }}
+        style={{ position: 'relative' }}
       >
         {proCategories.length > 0 || heartSticker.includes(i) ? (
           <LoyaltyIcon
-            style={{ color: "rgb(182, 81, 81)" }}
+            style={{ color: 'rgb(182, 81, 81)' }}
             className="profile_bottom_imageOrVideoIcon"
           />
         ) : (
@@ -99,340 +99,340 @@ const displayPreviewFile = (
           src={tiktokCoverImageUrl ? tiktokCoverImageUrl : coverImageUrl}
         />
       </div>
-    );
-  } else if (mediaType === "image") {
+    )
+  } else if (mediaType === 'image') {
     return (
       <div
         className="profile_bottom_grid_video"
-        style={{ position: "relative" }}
+        style={{ position: 'relative' }}
       >
         <PhotoLibraryIcon className="profile_bottom_imageOrVideoIcon" />
         <img className="profile_bottom_grid_video" src={url} />
       </div>
-    );
+    )
   }
-};
+}
 
 export const ContentTagging = () => {
-  const classes = useStyles();
-  const [checked, setChecked] = useState(true);
-  const history = useHistory();
+  const classes = useStyles()
+  const [checked, setChecked] = useState(true)
+  const history = useHistory()
 
-  const [socialItems, setSocialItems] = useState({ items: [] });
-  const [openSocials, setOpenSocials] = useState(false);
+  const [socialItems, setSocialItems] = useState({ items: [] })
+  const [openSocials, setOpenSocials] = useState(false)
 
   // TIKTOK
-  const [tiktokSocialLink, setTikTokSocialLink] = useState("");
-  const [importing, setImporting] = useGlobalState("tiktokImporting");
-  const [proCategories, setProCategories] = useGlobalState("proCategories");
-  const [showPublishOnly, setShowPublishOnly] = useState(false);
-  const [displayImage, setDisplayImage] = useState("");
-  const [displayVideo, setDisplayVideo] = useState("");
-  const [displayVideoId, setDisplayVideoId] = useState("");
-  const [changesMade, setChangesMade] = useState(false);
-  const [safeToEdit, setSafeToEdit] = useState(false);
-  const [videos, setVideos] = useState([]);
-  const [proVideos, setProVideos] = useState([]);
-  const [showNotif, setShowNotif] = useState("");
-  const [openContentCategory, setOpenContentCategory] = useState(false);
-  const [openImport, setOpenImport] = useState(false);
-  const [openSelect, setOpenSelect] = useState(-1);
-  const [openSelect2, setOpenSelect2] = useState(false);
-  const [videoI, setVideoI] = useState(0);
-  const [heartSticker, setHeartSticker] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedSubCategories, setSelectedSubCategories] = useState([]);
-  const [categorySelection, setCategorySelection] = useState({});
+  const [tiktokSocialLink, setTikTokSocialLink] = useState('')
+  const [importing, setImporting] = useGlobalState('tiktokImporting')
+  const [proCategories, setProCategories] = useGlobalState('proCategories')
+  const [showPublishOnly, setShowPublishOnly] = useState(false)
+  const [displayImage, setDisplayImage] = useState('')
+  const [displayVideo, setDisplayVideo] = useState('')
+  const [displayVideoId, setDisplayVideoId] = useState('')
+  const [changesMade, setChangesMade] = useState(false)
+  const [safeToEdit, setSafeToEdit] = useState(false)
+  const [videos, setVideos] = useState([])
+  const [proVideos, setProVideos] = useState([])
+  const [showNotif, setShowNotif] = useState('')
+  const [openContentCategory, setOpenContentCategory] = useState(false)
+  const [openImport, setOpenImport] = useState(false)
+  const [openSelect, setOpenSelect] = useState(-1)
+  const [openSelect2, setOpenSelect2] = useState(false)
+  const [videoI, setVideoI] = useState(0)
+  const [heartSticker, setHeartSticker] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedSubCategories, setSelectedSubCategories] = useState([])
+  const [categorySelection, setCategorySelection] = useState({})
   const setCategorySelectionTrack = (values) => {
-    setChangesMade(true);
-    setCategorySelection(values);
-  };
-  const [itemLinks, setItemLinks] = useState({ items: [] });
-  const [previousLinks, setPreviousLinks] = useState([]);
-  const [previousCats, setPreviousCats] = useState([]);
-  const [previousSubCats, setPreviousSubCats] = useState([]);
-  const [isPublish, setIsPublish] = useState(false);
+    setChangesMade(true)
+    setCategorySelection(values)
+  }
+  const [itemLinks, setItemLinks] = useState({ items: [] })
+  const [previousLinks, setPreviousLinks] = useState([])
+  const [previousCats, setPreviousCats] = useState([])
+  const [previousSubCats, setPreviousSubCats] = useState([])
+  const [isPublish, setIsPublish] = useState(false)
 
   // TIKTOK
 
   // YOUTUBE
-  const [youtubeSocialLink, setYoutubeSocialLink] = useState("");
-  const [youtubeVideos, setYoutubeVideos] = useState([]);
-  const [proYoutubeVideos, setProYoutubeVideos] = useState([]);
-  const [youtubeVideoI, setYoutubeVideoI] = useState(0);
-  const [youtubeItemLinks, setYoutubeItemLinks] = useState({ items: [] });
-  const [youtubeDisplayImage, setYoutubeDisplayImage] = useState("");
-  const [youtubeDisplayVideo, setYoutubeDisplayVideo] = useState("");
-  const [youtubeDisplayVideoId, setYoutubeDisplayVideoId] = useState("");
-  const [youtubeShowPublishOnly, setYoutubeShowPublishOnly] = useState(false);
-  const [youtubeIsPublish, setYoutubeIsPublish] = useState(false);
+  const [youtubeSocialLink, setYoutubeSocialLink] = useState('')
+  const [youtubeVideos, setYoutubeVideos] = useState([])
+  const [proYoutubeVideos, setProYoutubeVideos] = useState([])
+  const [youtubeVideoI, setYoutubeVideoI] = useState(0)
+  const [youtubeItemLinks, setYoutubeItemLinks] = useState({ items: [] })
+  const [youtubeDisplayImage, setYoutubeDisplayImage] = useState('')
+  const [youtubeDisplayVideo, setYoutubeDisplayVideo] = useState('')
+  const [youtubeDisplayVideoId, setYoutubeDisplayVideoId] = useState('')
+  const [youtubeShowPublishOnly, setYoutubeShowPublishOnly] = useState(false)
+  const [youtubeIsPublish, setYoutubeIsPublish] = useState(false)
   //YOUTUBE
 
   // ALL PRODUCT LINKS
-  const [allProductLinks, setAllProductLinks] = useState({ items: [] });
+  const [allProductLinks, setAllProductLinks] = useState({ items: [] })
   // ALL PRODUCT LINKS
 
   useEffect(() => {
-    const userId = localStorage.getItem("USER_ID");
+    const userId = localStorage.getItem('USER_ID')
     if (userId) {
-      axios.get("/v1/users/getPro/" + userId).then((response) => {
-        let data = response.data[0];
-        setSocialItems({ items: data.socialAccounts });
+      axios.get('/v1/users/getPro/' + userId).then((response) => {
+        let data = response.data[0]
+        setSocialItems({ items: data.socialAccounts })
         for (const eachSocialAccount of data.socialAccounts) {
-          if (eachSocialAccount.socialType == "Youtube") {
-            setYoutubeSocialLink(eachSocialAccount.socialLink);
+          if (eachSocialAccount.socialType == 'Youtube') {
+            setYoutubeSocialLink(eachSocialAccount.socialLink)
           }
-          if (eachSocialAccount.socialType == "TikTok") {
-            setTikTokSocialLink(eachSocialAccount.socialLink);
+          if (eachSocialAccount.socialType == 'TikTok') {
+            setTikTokSocialLink(eachSocialAccount.socialLink)
           }
         }
 
         if (data.showSocialSelections.length > 1) {
-          setShowSocialSelections(data.showSocialSelections.slice(0, 3));
-          setShowSocial(data.showSocialSelections[0][0]);
+          setShowSocialSelections(data.showSocialSelections.slice(0, 3))
+          setShowSocial(data.showSocialSelections[0][0])
         } else {
           setShowSocialSelections([
-            ["tiktok", "all"],
-            ["youtube", "all_youtube"],
-            ["allProductLinks", "all_read"],
-          ]);
-          setShowSocial("tiktok");
+            ['tiktok', 'all'],
+            ['youtube', 'all_youtube'],
+            ['allProductLinks', 'all_read'],
+          ])
+          setShowSocial('tiktok')
         }
 
         // TIKTOK
         const sortedVideos = data.videos.sort((a, b) => {
-          return b.tiktokCreatedAt - a.tiktokCreatedAt;
-        });
-        const reducedProVideo = [];
+          return b.tiktokCreatedAt - a.tiktokCreatedAt
+        })
+        const reducedProVideo = []
         const sortedProVideos = data.proVideos.sort((a, b) => {
-          return b.tiktokCreatedAt - a.tiktokCreatedAt;
-        });
+          return b.tiktokCreatedAt - a.tiktokCreatedAt
+        })
 
         if (!sortedProVideos.includes(null)) {
           for (const eachProVideo of sortedProVideos) {
-            reducedProVideo.push(eachProVideo._id);
+            reducedProVideo.push(eachProVideo._id)
           }
         }
 
-        setProVideos(reducedProVideo);
-        setVideos(sortedVideos);
+        setProVideos(reducedProVideo)
+        setVideos(sortedVideos)
 
-        setProCategories({ items: data.proCategories });
-        setShowPublishOnly(data.tiktokProOrAll);
-        setPreviousLinks(data.allProductLinks);
-        setPreviousCats(data.previousMainHashtags);
-        setPreviousSubCats(data.previousSubHashtags);
+        setProCategories({ items: data.proCategories })
+        setShowPublishOnly(data.tiktokProOrAll)
+        setPreviousLinks(data.allProductLinks)
+        setPreviousCats(data.previousMainHashtags)
+        setPreviousSubCats(data.previousSubHashtags)
 
         if (sortedVideos.length > 0) {
-          setDisplayImage(sortedVideos[0].coverImageUrl);
-          setDisplayVideo(sortedVideos[0].url);
-          setDisplayVideoId(sortedVideos[0]._id);
-          setVideoI(0);
+          setDisplayImage(sortedVideos[0].coverImageUrl)
+          setDisplayVideo(sortedVideos[0].url)
+          setDisplayVideoId(sortedVideos[0]._id)
+          setVideoI(0)
 
           if (reducedProVideo.includes(sortedVideos[0]._id)) {
-            setIsPublish(true);
+            setIsPublish(true)
           } else {
-            setIsPublish(false);
+            setIsPublish(false)
           }
 
           if (
             sortedVideos[0].proCategories &&
             sortedVideos[0].proCategories.length > 0
           ) {
-            const catSelection = {};
+            const catSelection = {}
             for (const eachProCat of sortedVideos[0].proCategories) {
-              catSelection[eachProCat] = true;
+              catSelection[eachProCat] = true
             }
-            setCategorySelection(catSelection);
+            setCategorySelection(catSelection)
           }
           if (
             sortedVideos[0].categories &&
             sortedVideos[0].categories.length > 0
           ) {
-            setSelectedCategories(sortedVideos[0].categories);
-            setSelectedSubCategories(sortedVideos[0].subCategories);
+            setSelectedCategories(sortedVideos[0].categories)
+            setSelectedSubCategories(sortedVideos[0].subCategories)
           }
           if (
             sortedVideos[0].affiliateProducts &&
             sortedVideos[0].affiliateProducts.length > 0
           ) {
-            setItemLinks({ items: sortedVideos[0].affiliateProducts });
+            setItemLinks({ items: sortedVideos[0].affiliateProducts })
           }
         }
         // TIKTOK
 
         // YOUTUBE
-        setYoutubeVideos(data.youtubeVideos);
-        const reducedProYoutubeVideo = [];
+        setYoutubeVideos(data.youtubeVideos)
+        const reducedProYoutubeVideo = []
         for (const eachProYoutubeVideo of data.proYoutubeVideos) {
-          reducedProYoutubeVideo.push(eachProYoutubeVideo._id);
+          reducedProYoutubeVideo.push(eachProYoutubeVideo._id)
         }
-        setProYoutubeVideos(reducedProYoutubeVideo);
-        setYoutubeShowPublishOnly(data.youtubeProOrAll);
+        setProYoutubeVideos(reducedProYoutubeVideo)
+        setYoutubeShowPublishOnly(data.youtubeProOrAll)
 
         if (data.youtubeVideos.length > 0) {
-          setYoutubeDisplayImage(data.youtubeVideos[0].coverImageUrl);
-          setYoutubeDisplayVideo(data.youtubeVideos[0].videoId);
-          setYoutubeDisplayVideoId(data.youtubeVideos[0]._id);
-          setVideoI(0);
+          setYoutubeDisplayImage(data.youtubeVideos[0].coverImageUrl)
+          setYoutubeDisplayVideo(data.youtubeVideos[0].videoId)
+          setYoutubeDisplayVideoId(data.youtubeVideos[0]._id)
+          setVideoI(0)
 
           if (data.proYoutubeVideos.includes(data.youtubeVideos[0]._id)) {
-            setYoutubeIsPublish(true);
+            setYoutubeIsPublish(true)
           } else {
-            setYoutubeIsPublish(false);
+            setYoutubeIsPublish(false)
           }
 
           if (data.youtubeVideos[0].affiliateProducts.length > 0) {
             setYoutubeItemLinks({
               items: data.youtubeVideos[0].affiliateProducts,
-            });
+            })
           }
         }
         // YOUTUBE
 
         // ALL PRODUCT LINKS
-        setAllProductLinks({ items: data.allProductLinks });
+        setAllProductLinks({ items: data.allProductLinks })
         // ALL PRODUCT LINKS
 
         if (response.status === 200) {
-          setSafeToEdit(true);
+          setSafeToEdit(true)
         }
-      });
+      })
     }
-  }, []);
+  }, [])
 
-  const [showSocialSelections, setShowSocialSelections] = useState([]);
-  const [showSocial, setShowSocial] = useState("");
-  const [tempSocial, setTempSocial] = useState("");
-  const [rearrangeCount, setRearrangeCount] = useState(1);
+  const [showSocialSelections, setShowSocialSelections] = useState([])
+  const [showSocial, setShowSocial] = useState('')
+  const [tempSocial, setTempSocial] = useState('')
+  const [rearrangeCount, setRearrangeCount] = useState(1)
   const handleRearrangeSocials = () => {
     const socialArrangements = [
       [
-        ["tiktok", "all"],
-        ["youtube", "all_youtube"],
-        ["allProductLinks", "all_read"],
+        ['tiktok', 'all'],
+        ['youtube', 'all_youtube'],
+        ['allProductLinks', 'all_read'],
       ],
       [
-        ["youtube", "all_youtube"],
-        ["tiktok", "all"],
-        ["allProductLinks", "all_read"],
+        ['youtube', 'all_youtube'],
+        ['tiktok', 'all'],
+        ['allProductLinks', 'all_read'],
       ],
       [
-        ["youtube", "all_youtube"],
-        ["allProductLinks", "all_read"],
-        ["tiktok", "all"],
+        ['youtube', 'all_youtube'],
+        ['allProductLinks', 'all_read'],
+        ['tiktok', 'all'],
       ],
       [
-        ["tiktok", "all"],
-        ["allProductLinks", "all_read"],
-        ["youtube", "all_youtube"],
+        ['tiktok', 'all'],
+        ['allProductLinks', 'all_read'],
+        ['youtube', 'all_youtube'],
       ],
       [
-        ["allProductLinks", "all_read"],
-        ["youtube", "all_youtube"],
-        ["tiktok", "all"],
+        ['allProductLinks', 'all_read'],
+        ['youtube', 'all_youtube'],
+        ['tiktok', 'all'],
       ],
       [
-        ["allProductLinks", "all_read"],
-        ["tiktok", "all"],
-        ["youtube", "all_youtube"],
+        ['allProductLinks', 'all_read'],
+        ['tiktok', 'all'],
+        ['youtube', 'all_youtube'],
       ],
-    ];
+    ]
 
     setShowSocial(
-      socialArrangements[rearrangeCount % socialArrangements.length][0][0]
-    );
+      socialArrangements[rearrangeCount % socialArrangements.length][0][0],
+    )
     setShowSocialSelections(
-      socialArrangements[rearrangeCount % socialArrangements.length]
-    );
+      socialArrangements[rearrangeCount % socialArrangements.length],
+    )
 
-    setRearrangeCount(rearrangeCount + 1);
-  };
+    setRearrangeCount(rearrangeCount + 1)
+  }
 
   useDidMountEffect(() => {
     if (safeToEdit) {
       axios
-        .put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+        .put('/v1/users/update/' + localStorage.getItem('USER_ID'), {
           showSocialSelections: [...showSocialSelections],
         })
         .then((res) => {
-          console.log("updated category selection");
-        });
+          console.log('updated category selection')
+        })
     }
-  }, [showSocialSelections]);
+  }, [showSocialSelections])
 
   // edit socials
   const handleSocialsOpen = () => {
     if (safeToEdit) {
-      setOpenSocials(true);
+      setOpenSocials(true)
       window.history.pushState(
         {
-          socials: "socials",
+          socials: 'socials',
         },
-        "",
-        ""
-      );
+        '',
+        '',
+      )
     }
-  };
+  }
   const handleSocialsClose = async () => {
     if (safeToEdit) {
       const res = await axios.put(
-        "/v1/users/update/" + localStorage.getItem("USER_ID"),
+        '/v1/users/update/' + localStorage.getItem('USER_ID'),
         {
           socialAccounts: socialItems.items,
-        }
-      );
+        },
+      )
 
       for (const eachSocialAccount of socialItems.items) {
-        if (eachSocialAccount.socialType == "Youtube") {
-          setYoutubeSocialLink(eachSocialAccount.socialLink);
+        if (eachSocialAccount.socialType == 'Youtube') {
+          setYoutubeSocialLink(eachSocialAccount.socialLink)
         }
-        if (eachSocialAccount.socialType == "TikTok") {
-          setTikTokSocialLink(eachSocialAccount.socialLink);
+        if (eachSocialAccount.socialType == 'TikTok') {
+          setTikTokSocialLink(eachSocialAccount.socialLink)
         }
       }
 
       if (res.status === 201) {
-        setShowNotif("Saved");
+        setShowNotif('Saved')
         setTimeout(() => {
-          setShowNotif("");
-        }, 3000);
+          setShowNotif('')
+        }, 3000)
       } else {
-        setShowNotif("Error");
+        setShowNotif('Error')
       }
 
-      setOpenSocials(false);
+      setOpenSocials(false)
     }
-  };
+  }
   const handleSocialsPop = useCallback(() => {
-    setOpenSocials(false);
-  }, []);
+    setOpenSocials(false)
+  }, [])
   useDidMountEffect(() => {
     if (openSocials) {
-      window.addEventListener("popstate", handleSocialsPop);
+      window.addEventListener('popstate', handleSocialsPop)
     } else {
-      handleSocialsClose();
-      window.removeEventListener("popstate", handleSocialsPop);
+      handleSocialsClose()
+      window.removeEventListener('popstate', handleSocialsPop)
     }
 
     return () => {
-      window.removeEventListener("popstate", handleSocialsPop);
-    };
-  }, [openSocials]);
+      window.removeEventListener('popstate', handleSocialsPop)
+    }
+  }, [openSocials])
 
-  const [instructionsOpen, setInstructionsOpen] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false)
 
   return (
     <div className="SlidingEdit_Body">
-      <div className="SlidingEdit_Header" style={{ border: "none" }}>
+      <div className="SlidingEdit_Header" style={{ border: 'none' }}>
         <ArrowBackIosOutlinedIcon
           onClick={() => {
             if (changesMade) {
-              setOpenSelect2(true);
+              setOpenSelect2(true)
             } else {
               history.push({
-                pathname: "/ProEdit",
-              });
+                pathname: '/ProEdit',
+              })
             }
           }}
           style={{ paddingLeft: 10 }}
@@ -440,31 +440,31 @@ export const ContentTagging = () => {
         <span
           style={{
             fontSize: 14,
-            position: "absolute",
+            position: 'absolute',
             fontWeight: 700,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           }}
         >
-          Content Tagging
+          Shopping Links & Tagging
         </span>
       </div>
       <div
         className="pro_profile_social_selector"
         style={{
-          borderBottom: "1px solid lightgrey",
-          position: "relative",
-          zIndex: "1",
+          borderBottom: '1px solid lightgrey',
+          position: 'relative',
+          zIndex: '1',
         }}
       >
         <SwapHorizOutlinedIcon
           style={{
-            position: "absolute",
+            position: 'absolute',
             right: 5,
             top: 0,
             fontSize: 22,
-            marginTop: "-5px",
+            marginTop: '-5px',
           }}
           onClick={handleRearrangeSocials}
         />
@@ -483,22 +483,22 @@ export const ContentTagging = () => {
               }
               onClick={() => {
                 if (changesMade) {
-                  setOpenSelect(true);
-                  setTempSocial(social);
+                  setOpenSelect(true)
+                  setTempSocial(social)
                 } else {
-                  setShowSocial(social);
+                  setShowSocial(social)
                 }
               }}
             >
-              {social == "tiktok" ? (
+              {social == 'tiktok' ? (
                 <div className="pro_profile_icon_and_name">
                   <GridOnIcon
                     style={
                       showSocial == social
-                        ? { fontSize: 22, color: "black" }
+                        ? { fontSize: 22, color: 'black' }
                         : {
                             fontSize: 22,
-                            color: "lightgrey",
+                            color: 'lightgrey',
                           }
                     }
                   />
@@ -507,22 +507,22 @@ export const ContentTagging = () => {
                       showSocial == social
                         ? null
                         : {
-                            color: "lightgrey",
+                            color: 'lightgrey',
                           }
                     }
                   >
                     TikTok
                   </p>
                 </div>
-              ) : social == "youtube" ? (
+              ) : social == 'youtube' ? (
                 <div className="pro_profile_icon_and_name">
                   <SlideshowOutlinedIcon
                     style={
                       showSocial == social
-                        ? { fontSize: 25, color: "black" }
+                        ? { fontSize: 25, color: 'black' }
                         : {
                             fontSize: 25,
-                            color: "lightgrey",
+                            color: 'lightgrey',
                           }
                     }
                   />
@@ -531,22 +531,22 @@ export const ContentTagging = () => {
                       showSocial == social
                         ? null
                         : {
-                            color: "lightgrey",
+                            color: 'lightgrey',
                           }
                     }
                   >
                     YouTube
                   </p>
                 </div>
-              ) : social == "allProductLinks" ? (
+              ) : social == 'allProductLinks' ? (
                 <div className="pro_profile_icon_and_name">
                   <BallotOutlinedIcon
                     style={
                       showSocial == social
-                        ? { fontSize: 22, color: "black" }
+                        ? { fontSize: 22, color: 'black' }
                         : {
                             fontSize: 22,
-                            color: "lightgrey",
+                            color: 'lightgrey',
                           }
                     }
                   />
@@ -555,7 +555,7 @@ export const ContentTagging = () => {
                       showSocial == social
                         ? null
                         : {
-                            color: "lightgrey",
+                            color: 'lightgrey',
                           }
                     }
                   >
@@ -564,10 +564,10 @@ export const ContentTagging = () => {
                 </div>
               ) : null}
             </div>
-          );
+          )
         })}
       </div>
-      {safeToEdit && showSocial === "tiktok" && (
+      {safeToEdit && showSocial === 'tiktok' && (
         <ContentTikTok
           tiktokSocialLink={tiktokSocialLink}
           setCategorySelection={setCategorySelection}
@@ -608,7 +608,7 @@ export const ContentTagging = () => {
           setIsPublish={setIsPublish}
         />
       )}
-      {safeToEdit && showSocial === "youtube" && (
+      {safeToEdit && showSocial === 'youtube' && (
         <ContentYoutube
           safeToEdit={safeToEdit}
           youtubeSocialLink={youtubeSocialLink}
@@ -640,7 +640,7 @@ export const ContentTagging = () => {
         />
       )}
 
-      {safeToEdit && showSocial === "allProductLinks" && (
+      {safeToEdit && showSocial === 'allProductLinks' && (
         <ContentAllProducts
           openItemLinks={true}
           itemLinks={allProductLinks}
@@ -654,7 +654,7 @@ export const ContentTagging = () => {
         openSelect={openSelect}
         setOpenSelect={setOpenSelect}
         handleSelectVideo={() => {
-          setShowSocial(tempSocial);
+          setShowSocial(tempSocial)
         }}
         setChangesMade={setChangesMade}
       />
@@ -679,5 +679,5 @@ export const ContentTagging = () => {
 
       {showNotif && <SimpleMiddleNotification message={showNotif} />}
     </div>
-  );
-};
+  )
+}

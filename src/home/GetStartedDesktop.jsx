@@ -197,7 +197,7 @@ export const GetStartedDesktop = ({}) => {
                 className="verified_NormalText"
                 style={{ marginTop: "0.5rem" }}
               >
-                Connect all your audiences and content with a single website
+                Connect all your audiences and shoppable content with a single website
               </p>
             </div>
 

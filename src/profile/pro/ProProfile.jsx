@@ -101,8 +101,7 @@ export const ProProfile = ({ match, location }) => {
             // check if already following
             axios
               .get(
-                `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
-                  data._id
+                `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${data._id
                 }`
               )
               .then((res) => {
@@ -116,11 +115,10 @@ export const ProProfile = ({ match, location }) => {
           id: userId,
           unqiueIdentifier: "total page visits",
         });
-
         PageView();
         setTimeout(() => {
           setVoshBanner(true);
-        }, 60000);
+        }, 30000);
       } else {
         history.push("/404");
       }
@@ -313,17 +311,17 @@ export const ProProfile = ({ match, location }) => {
                             style={
                               proTheme.socialIconsColor === "white"
                                 ? {
-                                    height: 19,
-                                    margin: 10,
-                                    filter: "invert(100%)",
-                                    WebkitFilter: "invert(100%)",
-                                  }
+                                  height: 19,
+                                  margin: 10,
+                                  filter: "invert(100%)",
+                                  WebkitFilter: "invert(100%)",
+                                }
                                 : {
-                                    height: 19,
-                                    margin: 10,
-                                    filter: "invert(0%)",
-                                    WebkitFilter: "invert(0%)",
-                                  }
+                                  height: 19,
+                                  margin: 10,
+                                  filter: "invert(0%)",
+                                  WebkitFilter: "invert(0%)",
+                                }
                             }
                             onClick={() => {
                               if (socialType == "Email") {
@@ -348,17 +346,17 @@ export const ProProfile = ({ match, location }) => {
                               style={
                                 proTheme.socialIconsColor === "white"
                                   ? {
-                                      height: 15,
-                                      margin: 6,
-                                      filter: "invert(100%)",
-                                      WebkitFilter: "invert(100%)",
-                                    }
+                                    height: 15,
+                                    margin: 6,
+                                    filter: "invert(100%)",
+                                    WebkitFilter: "invert(100%)",
+                                  }
                                   : {
-                                      height: 15,
-                                      margin: 6,
-                                      filter: "invert(0%)",
-                                      WebkitFilter: "invert(0%)",
-                                    }
+                                    height: 15,
+                                    margin: 6,
+                                    filter: "invert(0%)",
+                                    WebkitFilter: "invert(0%)",
+                                  }
                               }
                               onClick={() => {
                                 if (socialType == "Email") {
@@ -381,17 +379,17 @@ export const ProProfile = ({ match, location }) => {
                               style={
                                 proTheme.socialIconsColor === "white"
                                   ? {
-                                      height: 15,
-                                      margin: 6,
-                                      filter: "invert(100%)",
-                                      WebkitFilter: "invert(100%)",
-                                    }
+                                    height: 15,
+                                    margin: 6,
+                                    filter: "invert(100%)",
+                                    WebkitFilter: "invert(100%)",
+                                  }
                                   : {
-                                      height: 15,
-                                      margin: 6,
-                                      filter: "invert(0%)",
-                                      WebkitFilter: "invert(0%)",
-                                    }
+                                    height: 15,
+                                    margin: 6,
+                                    filter: "invert(0%)",
+                                    WebkitFilter: "invert(0%)",
+                                  }
                               }
                               onClick={() => {
                                 if (socialType == "Email") {
@@ -428,11 +426,11 @@ export const ProProfile = ({ match, location }) => {
                 style={
                   proLinks.length > 0
                     ? {
-                        backgroundImage: `url(${proTheme.background2})`,
-                      }
+                      backgroundImage: `url(${proTheme.background2})`,
+                    }
                     : {
-                        display: "none",
-                      }
+                      display: "none",
+                    }
                 }
               >
                 {proLinks.map(({ id, proLinkName, proLink }) => (
@@ -479,8 +477,8 @@ export const ProProfile = ({ match, location }) => {
             style={
               isVisible
                 ? {
-                    display: "none",
-                  }
+                  display: "none",
+                }
                 : {}
             }
           ></div>
@@ -489,12 +487,12 @@ export const ProProfile = ({ match, location }) => {
             style={
               isVisible
                 ? {
-                    backgroundImage: `url(${proTheme.background2})`,
-                  }
+                  backgroundImage: `url(${proTheme.background2})`,
+                }
                 : {
-                    backgroundImage: `url(${proTheme.background2})`,
-                    position: "fixed",
-                  }
+                  backgroundImage: `url(${proTheme.background2})`,
+                  position: "fixed",
+                }
             }
           >
             <div
@@ -574,6 +572,28 @@ export const ProProfile = ({ match, location }) => {
           />
         )}
       </div>
+
+      {voshBanner && (
+        <div
+          style={{ zIndex: 4001 }}
+          className="pro_profile_bottom_snackbar_temp"
+          onClick={() => {
+            history.push("/getStarted");
+          }}
+        ></div>
+      )}
+
+      <Snackbar
+        style={{ zIndex: 4000 }}
+        open={voshBanner}
+        message="Create Your Vosh Website Now"
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        action={
+          <React.Fragment>
+            <ClearOutlinedIcon onClick={() => setVoshBanner(false)} />
+          </React.Fragment>
+        }
+      />
 
       {scrollView && (
         <ScrollVideo

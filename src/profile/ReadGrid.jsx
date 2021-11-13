@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { useDidMountEffect } from "../customHooks/useDidMountEffect";
+import React, { useEffect } from 'react'
+import { useDidMountEffect } from '../customHooks/useDidMountEffect'
 
-import { ImageLoad } from "../components/ImageLoad";
+import { ImageLoad } from '../components/ImageLoad'
 
-import "./VideoGrid.css";
-import { useHistory } from "react-router";
+import './VideoGrid.css'
+import { useHistory } from 'react-router'
 
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Slide from '@material-ui/core/Slide'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+  return <Slide direction="up" ref={ref} {...props} />
+})
 
 export const ReadGrid = ({
   allProductLinks,
@@ -25,28 +25,29 @@ export const ReadGrid = ({
   showReadProducts,
   setShowReadProducts,
   scrolledBottomCount,
+  handleScrollViewOpen,
 }) => {
-  const history = useHistory();
+  const history = useHistory()
 
   useEffect(() => {
-    setShowReadProducts(allProductLinks.slice(0, 7));
-  }, []);
+    setShowReadProducts(allProductLinks.slice(0, 7))
+  }, [])
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowReadProducts((prevState) => [
       ...prevState,
       ...allProductLinks.slice(
         scrolledBottomCount * 7,
-        scrolledBottomCount * 7 + 7
+        scrolledBottomCount * 7 + 7,
       ),
-    ]);
-  };
+    ])
+  }
 
   useDidMountEffect(() => {
     if (scrolledBottomCount != 0) {
-      getHistoryFeed(scrolledBottomCount);
+      getHistoryFeed(scrolledBottomCount)
     }
-  }, [scrolledBottomCount]);
+  }, [scrolledBottomCount])
 
   // if (videos.length === 0) {
   //   return (
@@ -63,62 +64,62 @@ export const ReadGrid = ({
   //   );
   // }
 
-  const [header, setHeader] = React.useState("");
-  const [reading, setReading] = React.useState("");
+  const [header, setHeader] = React.useState('')
+  const [reading, setReading] = React.useState('')
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const handleClickOpen = (name, desc) => {
-    setHeader(name);
-    setReading(desc);
-    setOpen(true);
-  };
+    setHeader(name)
+    setReading(desc)
+    setOpen(true)
+  }
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const addElipsis = (name, desc, square) => {
     if (square) {
       if (desc && desc.length > 150) {
         return (
           <p className="profile_bottom_container_read_box_desc">
-            {desc.slice(0, 150) + "... "}
+            {desc.slice(0, 150) + '... '}
             <span
-              style={{ fontSize: "12px", fontWeight: "bold" }}
+              style={{ fontSize: '12px', fontWeight: 'bold' }}
               onClick={(e) => {
-                e.stopPropagation();
-                handleClickOpen(name, desc);
+                e.stopPropagation()
+                handleClickOpen(name, desc)
               }}
             >
               read more
             </span>
           </p>
-        );
+        )
       }
     } else {
       if (desc && desc.length > 100) {
         return (
           <p className="profile_bottom_container_read_box_desc">
-            {desc.slice(0, 100) + "... "}
+            {desc.slice(0, 100) + '... '}
             <span
-              style={{ fontSize: "12px", fontWeight: "bold" }}
+              style={{ fontSize: '12px', fontWeight: 'bold' }}
               onMouseDown={(e) => e.stopPropagation()}
               onClick={(e) => {
-                e.stopPropagation();
-                handleClickOpen(name, desc);
+                e.stopPropagation()
+                handleClickOpen(name, desc)
               }}
             >
               read more
             </span>
           </p>
-        );
+        )
       }
     }
 
-    return <p className="profile_bottom_container_read_box_desc">{desc}</p>;
-  };
+    return <p className="profile_bottom_container_read_box_desc">{desc}</p>
+  }
 
   return (
-    <div className="profile_bottom_container" style={{ marginTop: "2px" }}>
+    <div className="profile_bottom_container" style={{ marginTop: '2px' }}>
       {showReadProducts.map((eachProductLink, i) => {
         if (eachProductLink.itemImage) {
           if (i % 2 === 1) {
@@ -126,16 +127,14 @@ export const ReadGrid = ({
               <div
                 className="profile_bottom_container_read_row"
                 style={{ height: size.width / 2 }}
-                onClick={() => {
-                  window.open(eachProductLink.itemLink, "_blank");
-                }}
+                onClick={() => handleScrollViewOpen(i)}
               >
                 <ImageLoad
                   src={eachProductLink.itemImage}
                   style={{
                     height: size.width / 2,
                     width: size.width / 2,
-                    objectFit: "cover",
+                    objectFit: 'cover',
                   }}
                 />
                 <div
@@ -152,19 +151,17 @@ export const ReadGrid = ({
                   {addElipsis(
                     eachProductLink.itemLinkName,
                     eachProductLink.itemLinkDesc,
-                    true
+                    true,
                   )}
                 </div>
               </div>
-            );
+            )
           } else {
             return (
               <div
                 className="profile_bottom_container_read_row"
                 style={{ height: size.width / 2 }}
-                onClick={() => {
-                  window.open(eachProductLink.itemLink, "_blank");
-                }}
+                onClick={() => handleScrollViewOpen(i)}
               >
                 <div
                   className="profile_bottom_container_read_box"
@@ -180,7 +177,7 @@ export const ReadGrid = ({
                   {addElipsis(
                     eachProductLink.itemLinkName,
                     eachProductLink.itemLinkDesc,
-                    true
+                    true,
                   )}
                 </div>
                 <ImageLoad
@@ -188,11 +185,11 @@ export const ReadGrid = ({
                   style={{
                     height: size.width / 2,
                     width: size.width / 2,
-                    objectFit: "cover",
+                    objectFit: 'cover',
                   }}
                 />
               </div>
-            );
+            )
           }
         } else {
           return (
@@ -202,10 +199,7 @@ export const ReadGrid = ({
                 height: size.width / 4,
                 borderBottom: `2px solid ${proTheme.linkBoxColor}`,
               }}
-              onClick={() => {
-                console.log(eachProductLink);
-                window.open(eachProductLink.itemLink, "_blank");
-              }}
+              onClick={() => handleScrollViewOpen(i)}
             >
               <div
                 className="profile_bottom_container_no_image"
@@ -221,11 +215,11 @@ export const ReadGrid = ({
                 {addElipsis(
                   eachProductLink.itemLinkName,
                   eachProductLink.itemLinkDesc,
-                  false
+                  false,
                 )}
               </div>
             </div>
-          );
+          )
         }
       })}
 
@@ -254,15 +248,15 @@ export const ReadGrid = ({
       <div
         className="pro_profile_icon_and_name profile_bottom_container_logo"
         onClick={() => {
-          history.push("/getStarted");
+          history.push('/getStarted')
         }}
       >
-        <p style={{ color: "white", fontSize: "14px" }}>Vosh</p>
+        <p style={{ color: 'white', fontSize: '14px' }}>Vosh</p>
         <img
           src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
-          style={{ height: "16px" }}
+          style={{ height: '16px' }}
         />
       </div>
     </div>
-  );
-};
+  )
+}

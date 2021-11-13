@@ -405,14 +405,14 @@
 }
 
 .pro_profile_top_link_div {
-  min-height: 3.2rem;
+  min-height: 3.5rem;
   width: 100%;
   background-color: var(--vosh-color-7);
   margin-top: 0.8rem;
 
   opacity: 0.85;
 
-  border-radius: 25px;
+  border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -493,6 +493,16 @@
   border-radius: 10px;
 }
 
+.pro_profile_icon_name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: butler bold, 'Times New Roman', Times, serif, butler bold,
+    Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  font-weight: bold;
+}
+
 .pro_profile_icon_and_name > p {
   font-size: 10px;
   font-weight: bold;
@@ -541,7 +551,7 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: -100;
+  z-index: 10001;
 }
 #backgroundImage {
   position: fixed;
@@ -551,7 +561,7 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: -100;
+  z-index: 10001;
 }
 
 /* iphone5 */

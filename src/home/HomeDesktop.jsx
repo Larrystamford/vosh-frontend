@@ -48,7 +48,7 @@ export const HomeDesktop = ({}) => {
       <div className="home_dekstop_blocks" style={{ minHeight: "50rem" }}>
         <div className="home_dekstop_blocks_left">
           <p className="home_desktop_blocks_text">
-            Connect all your audiences and content with a single website
+          Connect all your audiences and shoppable content with a single website
           </p>
           <p
             className="home_desktop_blocks_text"

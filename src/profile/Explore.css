@@ -1,0 +1,212 @@
+.ExplorePage {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+
+  width: 100vw;
+
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+
+  /* background-position: center center;
+    background-repeat: no-repeat; */
+
+  z-index: 4000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ExploreHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3rem;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid lightgrey;
+}
+
+#backgroundVideo {
+  position: fixed;
+
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -100;
+}
+#backgroundImage {
+  position: fixed;
+
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -100;
+}
+
+.explore_selector {
+  width: 100%;
+  min-height: 3.2rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.explore_icon_name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: butler bold, 'Times New Roman', Times, serif, butler bold,
+    Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+  font-weight: bold;
+}
+
+.contentDetailsHeaderContainer {
+  height: 3rem;
+  width: 100%;
+
+  background-color: white;
+  margin-bottom: -5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.explore_page_video_image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.explore_page_image {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.explore_page_image_container {
+  margin-top: 1rem;
+  min-height: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.explore_page_video_container {
+  margin-top: 1rem;
+  min-height: 630px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.exploreIframeContainer {
+  width: 287px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.contentDetailsBottomContainer {
+  background-color: white;
+  height: 14%;
+  width: 101%;
+  position: absolute;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contentDetailsBottomRow {
+  width: 95%;
+  min-height: 1rem;
+  color: black;
+  margin-top: 7px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 14px;
+  font-weight: bold;
+  font-family: Poppins Regular, 'Century Gothic', CenturyGothic, AppleGothic,
+    sans-serif;
+}
+
+.contentDetailsBottomRowMetrics {
+  width: 95%;
+  color: grey;
+  margin-top: 1px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 13px;
+  font-weight: bold;
+  font-family: Poppins Regular, 'Century Gothic', CenturyGothic, AppleGothic,
+    sans-serif;
+}
+
+.contentDetailsBottomButton {
+  width: 95%;
+  min-height: 2.8rem;
+  color: white;
+  margin-top: 6px;
+  border-radius: 10px;
+  background-color: #3997f0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.explore_header_image_circular {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid grey;
+}

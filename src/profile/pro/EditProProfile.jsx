@@ -1,438 +1,302 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import "./ProProfile.css";
-import { VideoGrid } from "../VideoGrid";
-import { YoutubeGrid } from "../YoutubeGrid";
-import { ReadGrid } from "../ReadGrid";
-import { useGlobalState } from "../../GlobalStates";
-import { useDidMountEffect } from "../../customHooks/useDidMountEffect";
-import useDeviceDetect from "../../customHooks/useDeviceDetect";
+import React, { useState, useEffect, useCallback, useRef } from 'react'
+import './ProProfile.css'
+import { VideoGrid } from '../VideoGrid'
+import { YoutubeGrid } from '../YoutubeGrid'
+import { ReadGrid } from '../ReadGrid'
+import { useGlobalState } from '../../GlobalStates'
+import { useDidMountEffect } from '../../customHooks/useDidMountEffect'
+import useDeviceDetect from '../../customHooks/useDeviceDetect'
+import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined'
+import LoyaltyOutlinedIcon from '@material-ui/icons/LoyaltyOutlined'
 
-import { CategoriesSelector } from "./CategoriesSelector";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
+import { CategoriesSelector } from './CategoriesSelector'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import ReplyOutlinedIcon from '@material-ui/icons/ReplyOutlined'
 
-import { Snackbar } from "@material-ui/core";
+import { Snackbar } from '@material-ui/core'
 
-import useOnScreen from "../../customHooks/useOnScreen";
+import useOnScreen from '../../customHooks/useOnScreen'
 
-import { ScrollVideo } from "./ScrollVideo";
+import { ExploreScroll } from '../ExploreScroll'
 
-import { ImageLoad } from "../../components/ImageLoad";
+import { ImageLoad } from '../../components/ImageLoad'
 
-import { StaySlidingSetUp } from "../../login/StaySlidingSetUp";
+import { StaySlidingSetUp } from '../../login/StaySlidingSetUp'
 import {
   convertSocialTypeToImage,
   titleCase,
-} from "../../helpers/CommonFunctions";
+} from '../../helpers/CommonFunctions'
 
-import CreateIcon from "@material-ui/icons/Create";
-import SlideshowOutlinedIcon from "@material-ui/icons/SlideshowOutlined";
-import GridOnIcon from "@material-ui/icons/GridOn";
-import WallpaperIcon from "@material-ui/icons/Wallpaper";
-import BallotOutlinedIcon from "@material-ui/icons/BallotOutlined";
+import CreateIcon from '@material-ui/icons/Create'
+import SlideshowOutlinedIcon from '@material-ui/icons/SlideshowOutlined'
+import GridOnIcon from '@material-ui/icons/GridOn'
+import WallpaperIcon from '@material-ui/icons/Wallpaper'
+import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined'
 
-import * as legoData from "../../components/lego-loader";
+import * as legoData from '../../components/lego-loader'
 
-import { useHistory } from "react-router";
-import axios from "../../axios";
-import { PageView } from "../../components/tracking/Tracker";
+import { useHistory } from 'react-router'
+import axios from '../../axios'
+import { PageView } from '../../components/tracking/Tracker'
 
-import Lottie from "react-lottie";
-import { useBottomScrollListener } from "react-bottom-scroll-listener";
-import { useWindowSize } from "../../customHooks/useWindowSize";
+import Lottie from 'react-lottie'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener'
+import { useWindowSize } from '../../customHooks/useWindowSize'
 
-import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
-import { database } from "firebase";
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
+import { database } from 'firebase'
 
 export const EditProProfile = ({ match, location }) => {
-  const { isMobile } = useDeviceDetect();
-  const size = useWindowSize();
+  const { isMobile } = useDeviceDetect()
+  const size = useWindowSize()
 
-  const history = useHistory();
+  const history = useHistory()
 
-  const [globalModalOpened, setGlobalModalOpened] =
-    useGlobalState("globalModalOpened");
-  const [scrolledBottomCount, setScrolledBottomCount] = useState(0);
+  const [globalModalOpened, setGlobalModalOpened] = useGlobalState(
+    'globalModalOpened',
+  )
+  const [scrolledBottomCount, setScrolledBottomCount] = useState(0)
   const scrollRef = useBottomScrollListener(() => {
-    setScrolledBottomCount(scrolledBottomCount + 1);
-  });
+    setScrolledBottomCount(scrolledBottomCount + 1)
+  })
+  const [voshBanner, setVoshBanner] = useState(false)
 
-  const [userId, setUserId] = useState("");
-  const [username, setUsername] = useState("");
-  const [image, setImage] = useState("");
-  const [videos, setVideos] = useState([]);
-  const [socialAccounts, setSocialAccounts] = useState([]);
-  const [proLinks, setProLinks] = useState([]);
-  const [allProductLinks, setAllProductLinks] = useState([]);
-  const [youtubeVideos, setYoutubeVideos] = useState([]);
+  const [userId, setUserId] = useState('')
+  const [username, setUsername] = useState('')
+  const [image, setImage] = useState('')
+  const [videos, setVideos] = useState([])
+  const [socialAccounts, setSocialAccounts] = useState([])
+  const [proLinks, setProLinks] = useState([])
+  const [allProductLinks, setAllProductLinks] = useState([])
+  const [youtubeVideos, setYoutubeVideos] = useState([])
 
-  const [proCategories, setProCategories] = useState([]);
-  const [proCategories_youtube, setProCategories_youtube] = useState([]);
+  const [proCategories, setProCategories] = useState([])
+  const [proCategories_youtube, setProCategories_youtube] = useState([])
 
-  const [proTheme, setProTheme] = useState({});
-  const [profileBio, setProfileBio] = useState("");
+  const [proTheme, setProTheme] = useState({})
+  const [profileBio, setProfileBio] = useState('')
 
-  const [showVideos, setShowVideos] = useState([]);
-  const [showYoutubeVideos, setShowYoutubeVideos] = useState([]);
-  const [showReadProducts, setShowReadProducts] = useState([]);
+  const [showVideos, setShowVideos] = useState([])
+  const [showYoutubeVideos, setShowYoutubeVideos] = useState([])
+  const [showReadProducts, setShowReadProducts] = useState([])
 
-  const [likeButtonToggle, setLikeButtonToggle] = useState(false);
+  const [likeButtonToggle, setLikeButtonToggle] = useState(false)
 
   // login in functions
-  const [isLoading, setIsLoading] = useState(true);
-  const [loginCheck, setLoginCheck] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
+  const [loginCheck, setLoginCheck] = useState(true)
   const handleLoginOpen = () => {
-    setLoginCheck(true);
-  };
+    setLoginCheck(true)
+  }
   const handleLoginClose = () => {
-    setLoginCheck(false);
-    history.push("/profile");
-  };
+    setLoginCheck(false)
+    history.push('/profile')
+  }
 
   // change profile picture
-  const hiddenFileInput = useRef(null);
+  const hiddenFileInput = useRef(null)
   const handleUploadClick = (event) => {
     if (onProfile) {
-      hiddenFileInput.current.click();
+      hiddenFileInput.current.click()
     }
-  };
+  }
   const handleFileUpload = async (file) => {
-    const mediaType = file.type.split("/")[0];
-    if (mediaType != "image") {
-      alert("Please upload images only");
+    const mediaType = file.type.split('/')[0]
+    if (mediaType != 'image') {
+      alert('Please upload images only')
     } else {
-      const imageUrl = await getFileUrl(file);
-      await axios.put("/v1/users/update/" + localStorage.getItem("USER_ID"), {
+      const imageUrl = await getFileUrl(file)
+      await axios.put('/v1/users/update/' + localStorage.getItem('USER_ID'), {
         picture: imageUrl,
-      });
-      setImage(imageUrl);
-      localStorage.setItem("PICTURE", imageUrl);
+      })
+      setImage(imageUrl)
+      localStorage.setItem('PICTURE', imageUrl)
     }
-  };
+  }
   const getFileUrl = async (file) => {
-    let formData = new FormData();
-    formData.append("media", file);
+    let formData = new FormData()
+    formData.append('media', file)
 
-    const result = await axios.post("/v1/upload/aws", formData, {
+    const result = await axios.post('/v1/upload/aws', formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
-    });
-    return result.data.url;
-  };
+    })
+    return result.data.url
+  }
 
-  const [onProfile, setOnProfile] = useState(false);
+  const [onProfile, setOnProfile] = useState(false)
 
   const handleProfileLoad = () => {
-    setOnProfile(true);
-    const userId = localStorage.getItem("USER_ID");
+    setOnProfile(true)
+    const userId = localStorage.getItem('USER_ID')
     if (userId) {
-      axios.get("/v1/users/getPro/" + userId).then((response) => {
-        let data = response.data[0];
-        setImage(data.picture);
-        setProTheme(data.proTheme);
+      axios.get('/v1/users/getPro/' + userId).then((response) => {
+        let data = response.data[0]
+        setImage(data.picture)
+        setProTheme(data.proTheme)
 
         if (data.tiktokProOrAll) {
           const sortedVideos1 = data.proVideos.sort((a, b) => {
-            return b.tiktokCreatedAt - a.tiktokCreatedAt;
-          });
-          setVideos(sortedVideos1);
+            return b.tiktokCreatedAt - a.tiktokCreatedAt
+          })
+          setVideos(sortedVideos1)
         } else {
           const sortedVideos2 = data.videos.sort((a, b) => {
-            return b.tiktokCreatedAt - a.tiktokCreatedAt;
-          });
-          setVideos(sortedVideos2);
+            return b.tiktokCreatedAt - a.tiktokCreatedAt
+          })
+          setVideos(sortedVideos2)
         }
 
-        setUsername(data.userName);
-        setUserId(data._id);
-        setSocialAccounts(data.socialAccounts);
-        setProLinks(data.proLinks);
-        setProCategories(data.proCategories);
-        setAllProductLinks(data.allProductLinks);
+        setUsername(data.userName)
+        setUserId(data._id)
+        setSocialAccounts(data.socialAccounts)
+        setProLinks(data.proLinks)
+        setProCategories(data.proCategories)
+        setAllProductLinks(data.allProductLinks)
 
         if (data.youtubeProOrAll) {
-          setYoutubeVideos(data.proYoutubeVideos.reverse());
+          setYoutubeVideos(data.proYoutubeVideos.reverse())
         } else {
-          setYoutubeVideos(data.youtubeVideos);
+          setYoutubeVideos(data.youtubeVideos)
         }
 
         if (data.profileBio) {
-          setProfileBio(data.profileBio);
+          setProfileBio(data.profileBio)
         }
 
-        if (!(data.proVideos.length === 0 && data.youtubeVideos.length === 0)) {
-          let showSocialSelection;
-          if (data.showSocialSelections.length > 0) {
-            showSocialSelection = data.showSocialSelections;
-          } else {
-            showSocialSelection = [
-              ["tiktok", "all"],
-              ["youtube", "all_youtube"],
-              ["allProductLinks", "all_read"],
-            ];
-          }
-
-          const filteredShowSocialSelections = [];
-          for (const eachSocial of showSocialSelection) {
-            if (eachSocial[0] == "tiktok") {
-              if (
-                data.tiktokProOrAll &&
-                data.proVideos.length !== 0 &&
-                !data.proVideos.includes(null)
-              ) {
-                filteredShowSocialSelections.push(eachSocial);
-              } else if (!data.tiktokProOrAll && data.videos.length !== 0) {
-                filteredShowSocialSelections.push(eachSocial);
-              }
-            }
-            if (eachSocial[0] == "youtube" && data.youtubeVideos.length !== 0) {
-              if (data.youtubeProOrAll && data.proYoutubeVideos.length !== 0) {
-                filteredShowSocialSelections.push(eachSocial);
-              } else if (
-                !data.youtubeProOrAll &&
-                data.youtubeVideos.length !== 0
-              ) {
-                filteredShowSocialSelections.push(eachSocial);
-              }
-            }
-            if (
-              eachSocial[0] == "allProductLinks" &&
-              data.allProductLinks.length > 0
-            ) {
-              filteredShowSocialSelections.push(eachSocial);
-            }
-          }
-
-          if (filteredShowSocialSelections.length > 0) {
-            setShowSocialSelections(filteredShowSocialSelections);
-            setShowSocial(filteredShowSocialSelections[0][0]);
-            setSelectedCategoryName(filteredShowSocialSelections[0][0]);
-            setSelectedCategoryId(filteredShowSocialSelections[0][1]);
-          }
-        } else {
-          setShowSocialSelections([
-            ["tiktok", "all"],
-            ["youtube", "all_youtube"],
-            ["allProductLinks", "all_read"],
-          ]);
-        }
-
-        setIsLoading(false);
-      });
+        setIsLoading(false)
+      })
     }
-  };
+  }
 
   // load data
   useEffect(() => {
-    const windowLocationName = window.location.pathname.slice(1);
-    if (windowLocationName === "profile" || windowLocationName === "profile/") {
-      handleProfileLoad();
+    const windowLocationName = window.location.pathname.slice(1)
+    if (windowLocationName === 'profile' || windowLocationName === 'profile/') {
+      handleProfileLoad()
     } else {
       axios
-        .get("/v1/users/getByUserNamePro/" + windowLocationName)
+        .get('/v1/users/getByUserNamePro/' + windowLocationName)
         .then((response) => {
-          let data = response.data[0];
+          let data = response.data[0]
 
           if (!data || !data._id) {
-            history.push("/404");
+            history.push('/404')
           } else {
             // load profile if user is on his own page
-            if (data._id === localStorage.getItem("USER_ID")) {
-              handleProfileLoad();
+            if (data._id === localStorage.getItem('USER_ID')) {
+              handleProfileLoad()
             } else {
-              setImage(data.picture);
-              setProTheme(data.proTheme);
+              setImage(data.picture)
+              setProTheme(data.proTheme)
 
               const sortedVideos = data.proVideos.sort((a, b) => {
-                return b.tiktokCreatedAt - a.tiktokCreatedAt;
-              });
-              setVideos(sortedVideos);
+                return b.tiktokCreatedAt - a.tiktokCreatedAt
+              })
+              setVideos(sortedVideos)
 
-              setUsername(data.userName);
-              setUserId(data._id);
-              setSocialAccounts(data.socialAccounts);
-              setProLinks(data.proLinks);
-              setProCategories(data.proCategories);
-              setAllProductLinks(data.allProductLinks);
+              setUsername(data.userName)
+              setUserId(data._id)
+              setSocialAccounts(data.socialAccounts)
+              setProLinks(data.proLinks)
+              setProCategories(data.proCategories)
+              setAllProductLinks(data.allProductLinks)
 
               if (data.youtubeProOrAll) {
-                setYoutubeVideos(data.proYoutubeVideos.reverse());
+                setYoutubeVideos(data.proYoutubeVideos.reverse())
               } else {
-                setYoutubeVideos(data.youtubeVideos);
+                setYoutubeVideos(data.youtubeVideos)
               }
 
               if (data.profileBio) {
-                setProfileBio(data.profileBio);
+                setProfileBio(data.profileBio)
               }
 
-              if (
-                !(
-                  data.proVideos.length === 0 && data.youtubeVideos.length === 0
-                )
-              ) {
-                let showSocialSelection;
-                if (data.showSocialSelections.length > 0) {
-                  showSocialSelection = data.showSocialSelections;
-                } else {
-                  showSocialSelection = [
-                    ["tiktok", "all"],
-                    ["youtube", "all_youtube"],
-                    ["allProductLinks", "all_read"],
-                  ];
-                }
-                const filteredShowSocialSelections = [];
-                for (const eachSocial of showSocialSelection) {
-                  if (eachSocial[0] == "tiktok") {
-                    if (
-                      data.tiktokProOrAll &&
-                      data.proVideos.length !== 0 &&
-                      !data.proVideos.includes(null)
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    } else if (
-                      !data.tiktokProOrAll &&
-                      data.videos.length !== 0
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    }
-                  }
-                  if (
-                    eachSocial[0] == "youtube" &&
-                    data.youtubeVideos.length !== 0
-                  ) {
-                    if (
-                      data.youtubeProOrAll &&
-                      data.proYoutubeVideos.length !== 0
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    } else if (
-                      !data.youtubeProOrAll &&
-                      data.youtubeVideos.length !== 0
-                    ) {
-                      filteredShowSocialSelections.push(eachSocial);
-                    }
-                  }
-                  if (
-                    eachSocial[0] == "allProductLinks" &&
-                    data.allProductLinks.length > 0
-                  ) {
-                    filteredShowSocialSelections.push(eachSocial);
-                  }
-                }
-                if (filteredShowSocialSelections.length > 0) {
-                  setShowSocialSelections(filteredShowSocialSelections);
-                  setShowSocial(filteredShowSocialSelections[0][0]);
-                  setSelectedCategoryName(filteredShowSocialSelections[0][0]);
-                  setSelectedCategoryId(filteredShowSocialSelections[0][1]);
-                }
-              } else {
-                setShowSocialSelections([
-                  ["tiktok", "all"],
-                  ["youtube", "all_youtube"],
-                  ["allProductLinks", "all_read"],
-                ]);
-              }
-
-              // check if already following
-              // axios
-              //   .get(
-              //     `/v1/follow/isFollowing/${localStorage.getItem("USER_ID")}/${
-              //       data._id
-              //     }`
-              //   )
-              //   .then((res) => {
-              //     setIsFollowing(res.data.isFollowing);
-              //   });
-
-              setIsLoading(false);
+              setIsLoading(false)
             }
           }
-        });
-      axios.post("/v1/metrics/incrementMetrics", {
+        })
+      axios.post('/v1/metrics/incrementMetrics', {
         id: userId,
-        unqiueIdentifier: "total page visits",
-      });
+        unqiueIdentifier: 'total page visits',
+      })
+
+      setTimeout(() => {
+        setVoshBanner(true)
+      }, 30000)
     }
 
-    PageView();
-  }, [loginCheck]);
+    PageView()
+  }, [loginCheck])
 
-  const [shareStatus, setShareStatus] = useState(false);
+  const [shareStatus, setShareStatus] = useState(false)
   const handleShareClicked = () => {
-    axios.post("/v1/metrics/incrementMetrics", {
+    axios.post('/v1/metrics/incrementMetrics', {
       id: userId,
-      unqiueIdentifier: "total profile shares",
-    });
+      unqiueIdentifier: 'total profile shares',
+    })
     axios
-      .post("/v1/follow/followUser", {
-        followerId: localStorage.getItem("USER_ID"),
+      .post('/v1/follow/followUser', {
+        followerId: localStorage.getItem('USER_ID'),
         followingId: userId,
       })
       .then(() => {
-        console.log("followed");
-      });
-    setShareStatus(true);
-    setTimeout(() => setShareStatus(false), 1300);
-  };
+        console.log('followed')
+      })
+    setShareStatus(true)
+    setTimeout(() => setShareStatus(false), 1300)
+  }
 
   // SCROLL VIEW
-  const [scrollView, setScrollView] = useState(false);
-  const [viewIndex, setViewIndex] = useState(0);
+  const [scrollView, setScrollView] = useState(false)
+  const [viewIndex, setViewIndex] = useState(0)
   const handleScrollViewOpen = (i) => {
-    setScrollView(true);
-    setViewIndex(i);
+    setScrollView(true)
+    setViewIndex(i)
 
     window.history.pushState(
       {
-        scrollView: "scrollView",
+        scrollView: 'scrollView',
       },
-      "",
-      ""
-    );
-  };
+      '',
+      '',
+    )
+  }
   const handleScrollViewClose = () => {
-    history.goBack();
-  };
+    history.goBack()
+  }
   const handleScrollViewPop = useCallback(() => {
-    setScrollView(false);
-  }, []);
+    setScrollView(false)
+  }, [])
   useDidMountEffect(() => {
     if (globalModalOpened) {
-      window.removeEventListener("popstate", handleScrollViewPop, true);
+      window.removeEventListener('popstate', handleScrollViewPop, true)
     } else if (scrollView) {
-      window.addEventListener("popstate", handleScrollViewPop, true);
+      window.addEventListener('popstate', handleScrollViewPop, true)
     } else {
-      window.removeEventListener("popstate", handleScrollViewPop, true);
+      window.removeEventListener('popstate', handleScrollViewPop, true)
     }
-  }, [scrollView, globalModalOpened]);
+  }, [scrollView, globalModalOpened])
 
   // SCROLL VIEW END
-  const [showSocialSelections, setShowSocialSelections] = useState([]);
+  const [showSocialSelections, setShowSocialSelections] = useState([
+    ['allProductLinks', 'all_read'],
+    ['tiktok', 'all'],
+  ])
 
-  const [showSocial, setShowSocial] = useState("tiktok");
-  // to be deprecated
-  const [selectedCategoryName, setSelectedCategoryName] = useState("tiktok");
-  const [selectedCategoryId, setSelectedCategoryId] = useState("all");
+  const [showSocial, setShowSocial] = useState('allProductLinks')
 
-  const handleCategorySelection = (id, name) => {
-    setScrolledBottomCount(0);
-    setSelectedCategoryId(id);
-
-    // to be deprecated
-    setSelectedCategoryName(name);
-  };
-
-  const topRef = useRef();
-  const isVisible = useOnScreen(topRef);
+  const topRef = useRef()
+  const isVisible = useOnScreen(topRef)
 
   const getSimilarSocialColor = (color) => {
-    if (color == "white") {
-      return "grey";
-    } else if (color == "black") {
-      return "#f2f2f2";
+    if (color == 'white') {
+      return 'grey'
+    } else if (color == 'black') {
+      return '#f2f2f2'
     }
-  };
+  }
 
   return (
     <div className="ProProfile" ref={scrollRef}>
@@ -449,7 +313,7 @@ export const EditProProfile = ({ match, location }) => {
                     autoPlay: true,
                     animationData: legoData.default,
                     rendererSettings: {
-                      preserveAspectRatio: "xMidYMid slice",
+                      preserveAspectRatio: 'xMidYMid slice',
                     },
                   }}
                   height={220}
@@ -470,7 +334,7 @@ export const EditProProfile = ({ match, location }) => {
                   <div className="pro_profile_top_image">
                     {image ? (
                       <div
-                        style={{ position: "relative" }}
+                        style={{ position: 'relative' }}
                         onClick={handleUploadClick}
                       >
                         <ImageLoad
@@ -491,7 +355,7 @@ export const EditProProfile = ({ match, location }) => {
                               type="file"
                               name="file"
                               onChange={(e) => {
-                                handleFileUpload(e.target.files[0]);
+                                handleFileUpload(e.target.files[0])
                               }}
                             />
                           </div>
@@ -504,7 +368,7 @@ export const EditProProfile = ({ match, location }) => {
                       <div
                         className="edit_pro_profile_top_edit_button"
                         onClick={() => {
-                          history.push("/ProEdit");
+                          history.push('/ProEdit')
                         }}
                       >
                         <SettingsOutlinedIcon
@@ -517,11 +381,11 @@ export const EditProProfile = ({ match, location }) => {
                       </div>
                     </div>
                   ) : (
-                    <CopyToClipboard text={"vosh.club/" + username}>
+                    <CopyToClipboard text={'vosh.club/' + username}>
                       <div
                         className="pro_profile_top_follow"
                         onClick={() => {
-                          handleShareClicked();
+                          handleShareClicked()
                         }}
                       >
                         <div className="edit_pro_profile_top_edit_button">
@@ -567,27 +431,27 @@ export const EditProProfile = ({ match, location }) => {
                           <img
                             src={convertSocialTypeToImage(socialType)}
                             style={
-                              proTheme.socialIconsColor === "white"
+                              proTheme.socialIconsColor === 'white'
                                 ? {
                                     height: 19,
                                     margin: 10,
-                                    filter: "invert(100%)",
-                                    WebkitFilter: "invert(100%)",
+                                    filter: 'invert(100%)',
+                                    WebkitFilter: 'invert(100%)',
                                   }
                                 : {
                                     height: 19,
                                     margin: 10,
-                                    filter: "invert(0%)",
-                                    WebkitFilter: "invert(0%)",
+                                    filter: 'invert(0%)',
+                                    WebkitFilter: 'invert(0%)',
                                   }
                             }
                             onClick={() => {
-                              if (socialType == "Email") {
+                              if (socialType == 'Email') {
                                 window.open(
-                                  `mailto:${socialLink}?subject=From Vosh`
-                                );
+                                  `mailto:${socialLink}?subject=From Vosh`,
+                                )
                               } else {
-                                window.open(socialLink, "_blank");
+                                window.open(socialLink, '_blank')
                               }
                             }}
                           />
@@ -602,27 +466,27 @@ export const EditProProfile = ({ match, location }) => {
                             <img
                               src={convertSocialTypeToImage(socialType)}
                               style={
-                                proTheme.socialIconsColor === "white"
+                                proTheme.socialIconsColor === 'white'
                                   ? {
                                       height: 16,
                                       margin: 6,
-                                      filter: "invert(100%)",
-                                      WebkitFilter: "invert(100%)",
+                                      filter: 'invert(100%)',
+                                      WebkitFilter: 'invert(100%)',
                                     }
                                   : {
                                       height: 16,
                                       margin: 6,
-                                      filter: "invert(0%)",
-                                      WebkitFilter: "invert(0%)",
+                                      filter: 'invert(0%)',
+                                      WebkitFilter: 'invert(0%)',
                                     }
                               }
                               onClick={() => {
-                                if (socialType == "Email") {
+                                if (socialType == 'Email') {
                                   window.open(
-                                    `mailto:${socialLink}?subject=From Vosh`
-                                  );
+                                    `mailto:${socialLink}?subject=From Vosh`,
+                                  )
                                 } else {
-                                  window.open(socialLink, "_blank");
+                                  window.open(socialLink, '_blank')
                                 }
                               }}
                             />
@@ -635,27 +499,27 @@ export const EditProProfile = ({ match, location }) => {
                             <img
                               src={convertSocialTypeToImage(socialType)}
                               style={
-                                proTheme.socialIconsColor === "white"
+                                proTheme.socialIconsColor === 'white'
                                   ? {
                                       height: 16,
                                       margin: 6,
-                                      filter: "invert(100%)",
-                                      WebkitFilter: "invert(100%)",
+                                      filter: 'invert(100%)',
+                                      WebkitFilter: 'invert(100%)',
                                     }
                                   : {
                                       height: 16,
                                       margin: 6,
-                                      filter: "invert(0%)",
-                                      WebkitFilter: "invert(0%)",
+                                      filter: 'invert(0%)',
+                                      WebkitFilter: 'invert(0%)',
                                     }
                               }
                               onClick={() => {
-                                if (socialType == "Email") {
+                                if (socialType == 'Email') {
                                   window.open(
-                                    `mailto:${socialLink}?subject=From Vosh`
-                                  );
+                                    `mailto:${socialLink}?subject=From Vosh`,
+                                  )
                                 } else {
-                                  window.open(socialLink, "_blank");
+                                  window.open(socialLink, '_blank')
                                 }
                               }}
                             />
@@ -670,8 +534,8 @@ export const EditProProfile = ({ match, location }) => {
                 <div
                   className="pro_profile_top_profileBio"
                   style={{
-                    position: "relative",
-                    width: "90%",
+                    position: 'relative',
+                    width: '90%',
                     color: proTheme.primaryFontColor,
                   }}
                 >
@@ -679,15 +543,15 @@ export const EditProProfile = ({ match, location }) => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 className="pro_profile_top_linker"
-                style={proLinks.length == 0 ? { margin: "0.5rem" } : null}
+                style={proLinks.length == 0 ? { margin: '0.5rem' } : null}
               >
                 {proLinks.length > 0 ? (
                   proLinks.map(({ proLinkName, proLink }) => (
                     <div
                       className="pro_profile_top_link_div"
-                      onClick={() => window.open(proLink, "_blank")}
+                      onClick={() => window.open(proLink, '_blank')}
                       style={{
                         backgroundColor: proTheme.linkBoxColor,
                       }}
@@ -701,139 +565,122 @@ export const EditProProfile = ({ match, location }) => {
                   <div
                     className="pro_profile_top_link_div"
                     onClick={() => {
-                      history.push("/ProEdit");
+                      history.push('/ProEdit')
                     }}
                     style={
                       onProfile
                         ? {
                             backgroundColor: proTheme.linkBoxColor,
                           }
-                        : { display: "none" }
+                        : { display: 'none' }
                     }
                   >
                     <p style={{ color: proTheme.linkWordsColor }}>
-                      Set Up Your Links!
+                      Set Up Your Shoppable Links!
                     </p>
                   </div>
                 )}
-              </div>
+              </div>*/}
             </div>
           </div>
-
-          <div className="pro_profile_social_selector">
-            {!(
-              showVideos.length == 0 &&
-              showYoutubeVideos.length == 0 &&
-              showReadProducts.length == 0
-            ) &&
-              showSocialSelections.map(([social, socialId]) => {
-                return (
-                  <div
-                    className="pro_profile_social_selector_line"
-                    style={
-                      showSocial == social
-                        ? {
-                            borderBottom: `1px solid ${proTheme.socialIconsColor}`,
-                          }
-                        : {
-                            borderBottom: `1px solid ${getSimilarSocialColor(
-                              proTheme.socialIconsColor
-                            )}`,
-                          }
-                    }
-                    onClick={() => {
-                      setShowSocial(social);
-                      handleCategorySelection(socialId);
-                    }}
-                  >
-                    {social == "tiktok" ? (
-                      <GridOnIcon
-                        style={
-                          showSocial == social
-                            ? { fontSize: 22, color: proTheme.socialIconsColor }
-                            : {
-                                fontSize: 22,
-                                color: getSimilarSocialColor(
-                                  proTheme.socialIconsColor
-                                ),
-                              }
-                        }
-                      />
-                    ) : social == "youtube" ? (
-                      <SlideshowOutlinedIcon
-                        style={
-                          showSocial == social
-                            ? { fontSize: 25, color: proTheme.socialIconsColor }
-                            : {
-                                fontSize: 25,
-                                color: getSimilarSocialColor(
-                                  proTheme.socialIconsColor
-                                ),
-                              }
-                        }
-                      />
-                    ) : social == "allProductLinks" ? (
-                      <BallotOutlinedIcon
-                        style={
-                          showSocial == social
-                            ? { fontSize: 25, color: proTheme.socialIconsColor }
-                            : {
-                                fontSize: 25,
-                                color: getSimilarSocialColor(
-                                  proTheme.socialIconsColor
-                                ),
-                              }
-                        }
-                      />
-                    ) : null}
-                  </div>
-                );
-              })}
-          </div>
-
-          <CategoriesSelector
-            proTheme={proTheme}
-            isVisible={isVisible}
-            showSocial={showSocial}
-            selectedCategoryId={selectedCategoryId}
-            proCategories={proCategories}
-            handleCategorySelection={handleCategorySelection}
-          />
         </div>
       )}
+
+      <div className="pro_profile_social_selector">
+        {showReadProducts.length > 0 &&
+          showSocialSelections.map(([social, socialId]) => {
+            return (
+              <div
+                className="pro_profile_social_selector_line"
+                style={
+                  showSocial == social
+                    ? {
+                        borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                      }
+                    : {
+                        borderBottom: `1px solid ${getSimilarSocialColor(
+                          proTheme.socialIconsColor,
+                        )}`,
+                      }
+                }
+                onClick={() => {
+                  setShowSocial(social)
+                }}
+              >
+                {social == 'tiktok' ? (
+                  <div className="pro_profile_icon_name">
+                    <LoyaltyOutlinedIcon
+                      style={
+                        showSocial == social
+                          ? { fontSize: 22, color: proTheme.socialIconsColor }
+                          : {
+                              fontSize: 22,
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor,
+                              ),
+                            }
+                      }
+                    />
+                    <p
+                      style={
+                        showSocial == social
+                          ? {
+                              color: proTheme.socialIconsColor,
+                              marginTop: '5px',
+                            }
+                          : {
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor,
+                              ),
+                              marginTop: '5px',
+                            }
+                      }
+                    >
+                      Favourites
+                    </p>
+                  </div>
+                ) : social == 'allProductLinks' ? (
+                  <div className="pro_profile_icon_name">
+                    <BallotOutlinedIcon
+                      style={
+                        showSocial == social
+                          ? { fontSize: 25, color: proTheme.socialIconsColor }
+                          : {
+                              fontSize: 25,
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor,
+                              ),
+                            }
+                      }
+                    />
+                    <p
+                      style={
+                        showSocial == social
+                          ? {
+                              color: proTheme.socialIconsColor,
+                              marginTop: '5px',
+                            }
+                          : {
+                              color: getSimilarSocialColor(
+                                proTheme.socialIconsColor,
+                              ),
+                              marginTop: '5px',
+                            }
+                      }
+                    >
+                      Collection
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+            )
+          })}
+      </div>
 
       <div className="pro_profile_bottom">
         {isLoading ? (
           <div></div>
-        ) : showSocial === "tiktok" ? (
-          <VideoGrid
-            videos={videos.filter((video) => {
-              if (selectedCategoryId === "all") {
-                return video;
-              } else {
-                if (video) {
-                  return video.proCategories.includes(selectedCategoryId);
-                }
-              }
-            })}
-            showVideos={showVideos}
-            setShowVideos={setShowVideos}
-            handleChangeView={handleScrollViewOpen}
-            scrolledBottomCount={scrolledBottomCount}
-            selectedCategoryId={selectedCategoryId}
-            onProfile={onProfile}
-          />
-        ) : showSocial === "youtube" ? (
-          <YoutubeGrid
-            youtubeVideos={youtubeVideos}
-            size={size}
-            proTheme={proTheme}
-            showYoutubeVideos={showYoutubeVideos}
-            setShowYoutubeVideos={setShowYoutubeVideos}
-            scrolledBottomCount={scrolledBottomCount}
-            onProfile={onProfile}
-          />
-        ) : showSocial === "allProductLinks" ? (
+        ) : (
           <ReadGrid
             allProductLinks={allProductLinks}
             size={size}
@@ -841,21 +688,21 @@ export const EditProProfile = ({ match, location }) => {
             showReadProducts={showReadProducts}
             setShowReadProducts={setShowReadProducts}
             scrolledBottomCount={scrolledBottomCount}
+            handleScrollViewOpen={handleScrollViewOpen}
           />
-        ) : null}
+        )}
       </div>
 
-      {!localStorage.getItem("USER_ID") && onProfile ? (
+      {!localStorage.getItem('USER_ID') && onProfile ? (
         <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
       ) : null}
 
       {scrollView && (
-        <ScrollVideo
-          openScrollVideo={scrollView}
-          videos={videos}
+        <ExploreScroll
           viewIndex={viewIndex}
+          allProductLinks={allProductLinks}
+          scrollView={scrollView}
           handleScrollViewClose={handleScrollViewClose}
-          selectedCategoryId={selectedCategoryId}
           proTheme={proTheme}
         />
       )}
@@ -877,11 +724,33 @@ export const EditProProfile = ({ match, location }) => {
         <img id="backgroundImage" src={proTheme.background1} />
       )}
 
+      {voshBanner && (
+        <div
+          style={{ zIndex: 4001 }}
+          className="pro_profile_bottom_snackbar_temp"
+          onClick={() => {
+            history.push('/getStarted')
+          }}
+        ></div>
+      )}
+
+      {/* <Snackbar
+        style={{ zIndex: 4000 }}
+        open={voshBanner}
+        message="Shoppable TikToks with Vosh"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        action={
+          <React.Fragment>
+            <ClearOutlinedIcon onClick={() => setVoshBanner(false)} />
+          </React.Fragment>
+        }
+      />
+
       <Snackbar
         open={shareStatus}
         message="Profile copied!"
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      />
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      /> */}
     </div>
-  );
-};
+  )
+}

@@ -47,7 +47,7 @@ export const Home = ({}) => {
       </div>
       <div className="home_phone_blocks" style={{ minHeight: "13rem" }}>
         <p className="home_phone_blocks_text">
-          Connect all your audiences and content with a single website
+        Connect all your audiences and shoppable content with a single website
         </p>
       </div>
       <div className="home_phone_blocks" style={{ minHeight: "3rem" }}>

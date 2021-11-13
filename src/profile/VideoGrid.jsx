@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useDidMountEffect } from "../customHooks/useDidMountEffect";
+import React, { useEffect } from 'react'
+import { useDidMountEffect } from '../customHooks/useDidMountEffect'
 
-import "./VideoGrid.css";
-import ShopIcon from "@material-ui/icons/Shop";
+import './VideoGrid.css'
+import ShopIcon from '@material-ui/icons/Shop'
 
-import { DisplayPreviewFile } from "./DisplayPreviewFile";
-import { useHistory } from "react-router";
+import { DisplayPreviewFile } from './DisplayPreviewFile'
+import { useHistory } from 'react-router'
 
 export const VideoGrid = ({
   videos,
@@ -17,23 +17,23 @@ export const VideoGrid = ({
   onProfile,
 }) => {
   useEffect(() => {
-    setShowVideos(videos.slice(0, 9));
-  }, [selectedCategoryId]);
+    setShowVideos(videos.slice(0, 9))
+  }, [selectedCategoryId])
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowVideos((prevState) => [
       ...prevState,
       ...videos.slice(scrolledBottomCount * 9, scrolledBottomCount * 9 + 9),
-    ]);
-  };
+    ])
+  }
 
   useDidMountEffect(() => {
     if (scrolledBottomCount != 0) {
-      getHistoryFeed(scrolledBottomCount);
+      getHistoryFeed(scrolledBottomCount)
     }
-  }, [scrolledBottomCount]);
+  }, [scrolledBottomCount])
 
-  const history = useHistory();
+  const history = useHistory()
   if (videos.length === 0) {
     if (onProfile) {
       return (
@@ -41,15 +41,15 @@ export const VideoGrid = ({
           <div
             className="Video_Grid_redirect_button"
             onClick={() => {
-              history.push("/ContentTagging");
+              history.push('/ContentTagging')
             }}
           >
-            <p>Import & Tag Your Content</p>
+            <p>Set Up Your Shoppable Links!</p>
           </div>
         </div>
-      );
+      )
     } else {
-      return <div></div>;
+      return <div></div>
     }
   }
 
@@ -59,7 +59,7 @@ export const VideoGrid = ({
         {showVideos.map((eachVideo, i) => (
           <div
             className="profile_bottom_grid_video"
-            style={{ position: "relative" }}
+            style={{ position: 'relative' }}
           >
             {eachVideo.affiliateProducts.length > 0 && (
               <ShopIcon
@@ -85,15 +85,15 @@ export const VideoGrid = ({
       <div
         className="pro_profile_icon_and_name profile_bottom_container_logo"
         onClick={() => {
-          history.push("/getStarted");
+          history.push('/getStarted')
         }}
       >
-        <p style={{ color: "white", fontSize: "14px" }}>Vosh</p>
+        <p style={{ color: 'white', fontSize: '14px' }}>Vosh</p>
         <img
           src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
-          style={{ height: "16px" }}
+          style={{ height: '16px' }}
         />
       </div>
     </div>
-  );
-};
+  )
+}

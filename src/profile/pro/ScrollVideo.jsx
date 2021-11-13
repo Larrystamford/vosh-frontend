@@ -1,33 +1,33 @@
-import React from "react";
-import "./ProEdit.css";
-import { FeedProfileRefactored } from "../../feed/FeedProfileRefactored";
+import React from 'react'
+import './ProEdit.css'
+import { FeedProfileRefactored } from '../../feed/FeedProfileRefactored'
 
-import { useHistory } from "react-router";
+import { useHistory } from 'react-router'
 
-import Dialog from "@material-ui/core/Dialog";
-import { makeStyles } from "@material-ui/core";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
+import Dialog from '@material-ui/core/Dialog'
+import { makeStyles } from '@material-ui/core'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
-    position: "absolute",
+    position: 'absolute',
     margin: 0,
-    width: "104vw",
-    minHeight: "100vh",
-    backgroundColor: "white",
+    width: '104vw',
+    minHeight: '100vh',
+    backgroundColor: 'white',
   },
   root: {
-    width: "100%",
-    "& > * + *": {
+    width: '100%',
+    '& > * + *': {
       marginTop: theme.spacing(2),
     },
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "40ch",
+      width: '40ch',
     },
   },
-}));
+}))
 
 export const ScrollVideo = ({
   openScrollVideo,
@@ -38,10 +38,10 @@ export const ScrollVideo = ({
   proTheme,
   userId,
 }) => {
-  const history = useHistory();
-  const classes = useStyles();
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const history = useHistory()
+  const classes = useStyles()
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Dialog
@@ -54,10 +54,10 @@ export const ScrollVideo = ({
     >
       <FeedProfileRefactored
         videos={videos.filter((video) => {
-          if (selectedCategoryId === "all") {
-            return video;
+          if (selectedCategoryId === 'all') {
+            return video
           } else {
-            return video.proCategories.includes(selectedCategoryId);
+            return video.proCategories.includes(selectedCategoryId)
           }
         })}
         viewIndex={viewIndex}
@@ -66,5 +66,5 @@ export const ScrollVideo = ({
         userId={userId}
       />
     </Dialog>
-  );
-};
+  )
+}
