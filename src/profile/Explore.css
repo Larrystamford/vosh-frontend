@@ -211,7 +211,6 @@
 
 .contentDetailsBottomRow {
   width: 95%;
-  min-height: 1.5rem;
   color: black;
   margin-top: 10px;
   margin-bottom: 1px;
@@ -221,7 +220,7 @@
   align-items: center;
   justify-content: space-between;
 
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   font-family: Poppins Regular, 'Century Gothic', CenturyGothic, AppleGothic,
     sans-serif;
@@ -286,4 +285,21 @@
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid grey;
+}
+
+.exploreImageCover {
+  width: 100%;
+  overflow: hidden;
+  max-height: 480px;
+  position: relative;
+}
+
+@media only screen and (max-height: 680px) {
+  .exploreImageCover {
+    max-height: 420px;
+  }
+
+  .explore_page_image_container {
+    margin-top: 0.1rem;
+  }
 }
