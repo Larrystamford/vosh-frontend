@@ -63,7 +63,7 @@ export const EditProProfile = ({ match, location }) => {
 
   const [userId, setUserId] = useState('')
   const [username, setUsername] = useState('')
-  const [image, setImage] = useState('')
+  const [userImage, setUserImage] = useState('')
   const [videos, setVideos] = useState([])
   const [socialAccounts, setSocialAccounts] = useState([])
   const [proLinks, setProLinks] = useState([])
@@ -109,7 +109,7 @@ export const EditProProfile = ({ match, location }) => {
       await axios.put('/v1/users/update/' + localStorage.getItem('USER_ID'), {
         picture: imageUrl,
       })
-      setImage(imageUrl)
+      setUserImage(imageUrl)
       localStorage.setItem('PICTURE', imageUrl)
     }
   }
@@ -133,7 +133,7 @@ export const EditProProfile = ({ match, location }) => {
     if (userId) {
       axios.get('/v1/users/getPro/' + userId).then((response) => {
         let data = response.data[0]
-        setImage(data.picture)
+        setUserImage(data.picture)
         setProTheme(data.proTheme)
 
         if (data.tiktokProOrAll) {
@@ -188,7 +188,7 @@ export const EditProProfile = ({ match, location }) => {
             if (data._id === localStorage.getItem('USER_ID')) {
               handleProfileLoad()
             } else {
-              setImage(data.picture)
+              setUserImage(data.picture)
               setProTheme(data.proTheme)
 
               const sortedVideos = data.proVideos.sort((a, b) => {
@@ -254,7 +254,6 @@ export const EditProProfile = ({ match, location }) => {
   const handleScrollViewOpen = (i) => {
     setScrollView(true)
     setViewIndex(i)
-
     window.history.pushState(
       {
         scrollView: 'scrollView',
@@ -264,6 +263,7 @@ export const EditProProfile = ({ match, location }) => {
     )
   }
   const handleScrollViewClose = () => {
+    setScrollView(false)
     history.goBack()
   }
   const handleScrollViewPop = useCallback(() => {
@@ -332,13 +332,13 @@ export const EditProProfile = ({ match, location }) => {
               <div className="pro_profile_top_photo_and_social">
                 <div className="pro_profile_top_image_name">
                   <div className="pro_profile_top_image">
-                    {image ? (
+                    {userImage ? (
                       <div
                         style={{ position: 'relative' }}
                         onClick={handleUploadClick}
                       >
                         <ImageLoad
-                          src={image}
+                          src={userImage}
                           className="pro_profile_top_image_circular"
                         />
 
@@ -586,7 +586,7 @@ export const EditProProfile = ({ match, location }) => {
         </div>
       )}
 
-      <div className="pro_profile_social_selector">
+      {/* <div className="pro_profile_social_selector">
         {showReadProducts.length > 0 &&
           showSocialSelections.map(([social, socialId]) => {
             return (
@@ -675,14 +675,17 @@ export const EditProProfile = ({ match, location }) => {
               </div>
             )
           })}
-      </div>
+      </div> */}
+
+      {/* temp */}
+      <div style={{ height: '1rem' }}></div>
 
       <div className="pro_profile_bottom">
         {isLoading ? (
           <div></div>
         ) : (
           <ReadGrid
-            allProductLinks={allProductLinks}
+            proLinks={proLinks}
             size={size}
             proTheme={proTheme}
             showReadProducts={showReadProducts}
@@ -699,11 +702,14 @@ export const EditProProfile = ({ match, location }) => {
 
       {scrollView && (
         <ExploreScroll
+          username={username}
+          userImage={userImage}
           viewIndex={viewIndex}
-          allProductLinks={allProductLinks}
+          proLinks={proLinks}
+          proTheme={proTheme}
+          size={size}
           scrollView={scrollView}
           handleScrollViewClose={handleScrollViewClose}
-          proTheme={proTheme}
         />
       )}
 

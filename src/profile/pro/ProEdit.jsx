@@ -27,6 +27,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Snackbar } from '@material-ui/core'
 
 import axios from '../../axios'
+import { CollectionsBookmarkOutlined } from '@material-ui/icons'
 
 export const ProEdit = () => {
   const history = useHistory()
@@ -44,6 +45,7 @@ export const ProEdit = () => {
     if (userId) {
       axios.get('/v1/users/getPro/' + userId).then((response) => {
         let data = response.data[0]
+        console.log(data)
         setSocialItems({ items: data.socialAccounts })
         setProLinks({ items: data.proLinks })
         setProCategories({ items: data.proCategories })
@@ -294,10 +296,10 @@ export const ProEdit = () => {
         </div>
         <div className="SlidingEdit_Pannel" onClick={handleLinksOpen}>
           <div className="SlidingEdit_TypeLeft">
-            <LinkOutlinedIcon style={{ fontSize: 20 }} />
+            <LoyaltyOutlinedIcon style={{ fontSize: 20 }} />
           </div>
           <div className="SlidingEdit_TypeAndIcon">
-            <p>General Links</p>
+            <p>Product Links</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: '1rem' }}
             />

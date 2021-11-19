@@ -1,50 +1,89 @@
 import React, { useState } from 'react'
 import './Explore.css'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper-bundle.css'
 import { ImageLoad } from '../components/ImageLoad'
+import { ExploreVideo } from './ExploreVideo'
+import Dialog from '@material-ui/core/Dialog'
 
 export const ExploreImage = ({
   viewIndex,
-  allProductLinks,
-  scrollView,
-  handleScrollViewClose,
   proTheme,
+  username,
+  userImage,
+  imgLink,
+  proLinkName,
+  proLink,
+  tiktokVideoLink,
+  tiktokEmbedLink,
+  tiktokCoverImage,
+  size,
+  handleScrollViewClose,
 }) => {
+  const [openVideo, setOpenVideo] = useState(false)
   return (
     <div className="explore_page_image_container">
-      <div className="exploreIframeContainer">
-        <div className="contentDetailsHeaderContainer">
-          <div
-            className="pro_profile_icon_name"
-            style={{ marginBottom: '3px' }}
-          >
-            <ImageLoad
-              src={
-                'https://dciv99su0d7r5.cloudfront.net/1621312433108_3986BD1D-C45F-4F18-A2C3-E505B587EA4D.jpeg'
-              }
-              className="explore_header_image_circular"
-            />
-            <p style={{ marginTop: '-5px', marginLeft: '7px' }}>pattywhoa</p>
-          </div>
-        </div>
-
-        <ImageLoad
-          src="https://dciv99su0d7r5.cloudfront.net/1636549730473_BCEB06E1-157E-4961-86BB-D9BA6B98A48B.jpeg"
-          style={{ width: '100%' }}
-        />
-        <div className="contentDetailsBottomContainer">
-          <div className="contentDetailsBottomRow">
-            <p>Demon Slayer Tamaguchi</p>
-          </div>
-          <div className="contentDetailsBottomRowMetrics">
-            <p>200 views</p>
-          </div>
-          <div className="contentDetailsBottomButton">
-            <p>View on Website</p>
-          </div>
+      <div className="contentDetailsHeaderContainer">
+        <div
+          className="pro_profile_icon_name"
+          style={{
+            marginBottom: '15px',
+            marginTop: '15px',
+            marginLeft: '5px',
+          }}
+        >
+          <ImageLoad
+            src={userImage}
+            className="explore_header_image_circular"
+          />
+          <p style={{ marginTop: '-5px', marginLeft: '7px' }}>{username}</p>
         </div>
       </div>
+      {tiktokEmbedLink ? (
+        <div
+          className="exploreImageCover"
+          onClick={() => {
+            setOpenVideo(true)
+          }}
+        >
+          <ImageLoad
+            src={imgLink}
+            style={{
+              width: '100%',
+            }}
+          />
+          <div className="exploreImageVideoClick">Watch Video</div>
+        </div>
+      ) : (
+        <div className="exploreImageCover">
+          <ImageLoad
+            src={imgLink}
+            style={{
+              width: '100%',
+            }}
+          />
+        </div>
+      )}
+
+      <div className="exploreImageBottomContainer">
+        <div className="contentDetailsBottomRow">
+          <p>{proLinkName}</p>
+        </div>
+        {/* <div className="contentDetailsBottomRowMetrics">
+          <p>200 views</p>
+        </div> */}
+        <div
+          className="contentDetailsBottomButton"
+          onClick={() => window.open(proLink, '_blank')}
+        >
+          <p>View on Website</p>
+        </div>
+      </div>
+
+      <ExploreVideo
+        openVideo={openVideo}
+        setOpenVideo={setOpenVideo}
+        tiktokEmbedLink={tiktokEmbedLink}
+      />
     </div>
   )
 }

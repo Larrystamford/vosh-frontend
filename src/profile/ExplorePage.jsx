@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Explore.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper-bundle.css'
@@ -10,52 +10,98 @@ import { ImageLoad } from '../components/ImageLoad'
 import ExploreOutlined from '@material-ui/icons/ExploreOutlined'
 import { ExploreVideo } from './ExploreVideo'
 import { ExploreImage } from './ExploreImage'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener'
+import { useDidMountEffect } from '../customHooks/useDidMountEffect'
 
 export const ExplorePage = ({
   viewIndex,
-  allProductLinks,
-  scrollView,
-  handleScrollViewClose,
+  username,
+  userImage,
+  proLinks,
   proTheme,
+  size,
+  handleScrollViewClose,
 }) => {
-  const { isMobile } = useDeviceDetect()
-  const size = useWindowSize()
-  const [showSocialSelections, setShowSocialSelections] = useState([
-    ['allProductLinks', 'all_read'],
-    ['tiktok', 'all'],
-  ])
-  const [showSocial, setShowSocial] = useState('allProductLinks')
-  const getSimilarSocialColor = (color) => {
-    if (color == 'white') {
-      return 'grey'
-    } else if (color == 'black') {
-      return '#f2f2f2'
-    }
-  }
-  return (
-    <div className="ExplorePage">
-      <ExploreImage />
-      <ExploreVideo />
-      <ExploreVideo />
-      <ExploreVideo />
+  const [scrolledBottomCount, setScrolledBottomCount] = useState(0)
+  const scrollRef = useBottomScrollListener(() => {
+    setScrolledBottomCount(scrolledBottomCount + 1)
+  })
 
-      {/* background image */}
-      {/* {!isMobile &&
-      (size.width > 1100 || size.width == 640) ? null : proTheme.background3 &&
-        proTheme.background3.videoUrl &&
-        proTheme.background3.imageUrl ? (
-        <video
-          src={proTheme.background3.videoUrl}
-          poster={proTheme.background3.imageUrl}
-          playsInline
-          autoPlay
-          muted
-          loop
-          id="backgroundVideo"
-        />
-      ) : (
-        <img id="backgroundImage" src={proTheme.background1} />
-      )} */}
+  const [showReadProducts, setShowReadProducts] = useState([])
+  useEffect(() => {
+    setShowReadProducts(proLinks.slice(viewIndex, viewIndex + 7))
+  }, [])
+
+  const getHistoryFeed = (scrolledBottomCount) => {
+    setShowReadProducts((prevState) => [
+      ...prevState,
+      ...proLinks.slice(
+        viewIndex + scrolledBottomCount * 7,
+        viewIndex + scrolledBottomCount * 7 + 7,
+      ),
+    ])
+  }
+
+  useDidMountEffect(() => {
+    if (scrolledBottomCount != 0) {
+      getHistoryFeed(scrolledBottomCount)
+    }
+  }, [scrolledBottomCount])
+  return (
+    <div className="ExplorePage" ref={scrollRef}>
+      {showReadProducts.map(
+        (
+          {
+            id,
+            proLink,
+            proLink2,
+            proLink3,
+            proLink4,
+            proLink5,
+            proLinkName,
+            productImageLink,
+            tiktokVideoLink,
+            tiktokEmbedLink,
+            tiktokCoverImage,
+          },
+          i,
+        ) => {
+          if (productImageLink) {
+            return (
+              <ExploreImage
+                username={username}
+                userImage={userImage}
+                proLinkName={proLinkName}
+                imgLink={productImageLink}
+                proLink={proLink}
+                tiktokEmbedLink={tiktokEmbedLink}
+                tiktokCoverImage={tiktokCoverImage}
+              />
+            )
+          }
+        },
+      )}
+      {/* <ExploreImage
+        imgLink={
+          'https://media2locoloco-dev.s3.ap-southeast-1.amazonaws.com/1637056737437_2021-11-16%2017.58.35.jpg'
+        }
+      />
+      <ExploreImage
+        imgLink={
+          'https://dciv99su0d7r5.cloudfront.net/1636549730473_BCEB06E1-157E-4961-86BB-D9BA6B98A48B.jpeg'
+        }
+      />
+      <ExploreImage
+        imgLink={
+          'https://media2locoloco-dev.s3.ap-southeast-1.amazonaws.com/1637056737437_2021-11-16%2017.58.35.jpg'
+        }
+      />
+      <ExploreImage
+        imgLink={
+          'https://dciv99su0d7r5.cloudfront.net/1636549730473_BCEB06E1-157E-4961-86BB-D9BA6B98A48B.jpeg'
+        }
+      /> */}
+      <div style={{ marginTop: '3rem', width: '100%' }}></div>
     </div>
   )
 }

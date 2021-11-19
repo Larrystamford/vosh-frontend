@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDidMountEffect } from "../customHooks/useDidMountEffect";
+import React, { useState, useEffect, useCallback } from 'react'
+import { useDidMountEffect } from '../customHooks/useDidMountEffect'
 
-import { ImageLoad } from "../components/ImageLoad";
-import { ProductImagesCarousel } from "../components/ProductImagesCarousel";
-import "./VideoGrid.css";
-import { useHistory } from "react-router";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
-import ShopIcon from "@material-ui/icons/Shop";
+import { ImageLoad } from '../components/ImageLoad'
+import { ProductImagesCarousel } from '../components/ProductImagesCarousel'
+import './VideoGrid.css'
+import { useHistory } from 'react-router'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Slide from '@material-ui/core/Slide'
+import ShopIcon from '@material-ui/icons/Shop'
 
-import axios from "../axios";
+import axios from '../axios'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+  return <Slide direction="up" ref={ref} {...props} />
+})
 
 export const YoutubeGrid = ({
   youtubeVideos,
@@ -29,70 +29,69 @@ export const YoutubeGrid = ({
   scrolledBottomCount,
   onProfile,
 }) => {
-  const history = useHistory();
+  const history = useHistory()
 
   useEffect(() => {
-    setShowYoutubeVideos(youtubeVideos.slice(0, 3));
-  }, []);
+    setShowYoutubeVideos(youtubeVideos.slice(0, 3))
+  }, [])
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowYoutubeVideos((prevState) => [
       ...prevState,
       ...youtubeVideos.slice(
         scrolledBottomCount * 3,
-        scrolledBottomCount * 3 + 3
+        scrolledBottomCount * 3 + 3,
       ),
-    ]);
-  };
+    ])
+  }
 
   useDidMountEffect(() => {
     if (scrolledBottomCount != 0) {
-      getHistoryFeed(scrolledBottomCount);
+      getHistoryFeed(scrolledBottomCount)
     }
-  }, [scrolledBottomCount]);
+  }, [scrolledBottomCount])
 
-  const [header, setHeader] = React.useState("");
-  const [reading, setReading] = React.useState("");
+  const [header, setHeader] = React.useState('')
+  const [reading, setReading] = React.useState('')
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const handleClickOpen = (name, desc) => {
-    setHeader(name);
-    setReading(desc);
-    setOpen(true);
-  };
+    setHeader(name)
+    setReading(desc)
+    setOpen(true)
+  }
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
-  const [clickedAffiliateGroupName, setClickedAffiliateGroupName] =
-    useState("");
-  const [clickedAffiliateProducts, setClickedAffiliateProducts] = useState([]);
+  const [clickedAffiliateGroupName, setClickedAffiliateGroupName] = useState('')
+  const [clickedAffiliateProducts, setClickedAffiliateProducts] = useState([])
 
-  const [openAffiliate, setOpenAffiliate] = useState(false);
+  const [openAffiliate, setOpenAffiliate] = useState(false)
   // affiliate
   const handleAffiliateOpen = () => {
-    setOpenAffiliate(true);
+    setOpenAffiliate(true)
     window.history.pushState(
       {
-        affiliate: "affiliate",
+        affiliate: 'affiliate',
       },
-      "",
-      ""
-    );
-  };
+      '',
+      '',
+    )
+  }
   const handleAffiliateClose = () => {
-    window.history.back();
-  };
+    window.history.back()
+  }
   const handleAffiliatePop = useCallback(() => {
-    setOpenAffiliate(false);
-  }, []);
+    setOpenAffiliate(false)
+  }, [])
   useEffect(() => {
-    window.addEventListener("popstate", handleAffiliatePop);
+    window.addEventListener('popstate', handleAffiliatePop)
     // cleanup this component
     return () => {
-      window.removeEventListener("popstate", handleAffiliatePop);
-    };
-  }, []);
+      window.removeEventListener('popstate', handleAffiliatePop)
+    }
+  }, [])
 
   if (showYoutubeVideos.length === 0) {
     if (onProfile) {
@@ -101,15 +100,15 @@ export const YoutubeGrid = ({
           <div
             className="Video_Grid_redirect_button"
             onClick={() => {
-              history.push("/ContentTagging");
+              history.push('/ContentTagging')
             }}
           >
             <p>Import & Tag Your Content</p>
           </div>
         </div>
-      );
+      )
     } else {
-      return <div></div>;
+      return <div></div>
     }
   }
 
@@ -131,13 +130,13 @@ export const YoutubeGrid = ({
               oallowfullscreen="oallowfullscreen"
               webkitallowfullscreen="webkitallowfullscreen"
               frameBorder="0"
-              src={"https://www.youtube.com/embed/" + eachVideo.videoId}
+              src={'https://www.youtube.com/embed/' + eachVideo.videoId}
             ></iframe>
           </div>
           {eachVideo.affiliateProducts.length > 0 && (
             <div
               className="profile_bottom_container_youtube_row_items"
-              style={{ position: "absolute", bottom: 0 }}
+              style={{ position: 'absolute', bottom: 0 }}
             >
               <div className="profile_bottom_container_youtube_row_item">
                 <div className="videoFooter_icon_and_name">
@@ -145,14 +144,12 @@ export const YoutubeGrid = ({
                     style={{
                       opacity: 1,
                       fontSize: 30,
-                      color: "white",
+                      color: 'white',
                     }}
                     onClick={() => {
-                      setClickedAffiliateGroupName(
-                        eachVideo.affiliateGroupName
-                      );
-                      setClickedAffiliateProducts(eachVideo.affiliateProducts);
-                      handleAffiliateOpen();
+                      setClickedAffiliateGroupName(eachVideo.affiliateGroupName)
+                      setClickedAffiliateProducts(eachVideo.affiliateProducts)
+                      handleAffiliateOpen()
                     }}
                   />
                 </div>
@@ -165,13 +162,13 @@ export const YoutubeGrid = ({
       <div
         className="pro_profile_icon_and_name profile_bottom_container_logo"
         onClick={() => {
-          history.push("/getStarted");
+          history.push('/getStarted')
         }}
       >
-        <p style={{ color: "white", fontSize: "14px" }}>Vosh</p>
+        <p style={{ color: 'white', fontSize: '14px' }}>Vosh</p>
         <img
           src="https://dciv99su0d7r5.cloudfront.net/ShopLocoLoco+Small+Symbol+White.png"
-          style={{ height: "16px" }}
+          style={{ height: '16px' }}
         />
       </div>
 
@@ -187,29 +184,29 @@ export const YoutubeGrid = ({
           <div
             style={{
               backgroundImage: `url(${proTheme.background1})`,
-              minWidth: "16rem",
-              height: "60%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "flex-start",
+              minWidth: '16rem',
+              height: '60%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
             }}
           >
             <h3
               id="simple-dialog-title"
-              style={{ color: proTheme.linkBoxColor, margin: "1.3rem" }}
+              style={{ color: proTheme.linkBoxColor, margin: '1.3rem' }}
             >
               {clickedAffiliateGroupName}
             </h3>
             <div
               style={{
-                width: "90%",
-                overflowY: "scroll",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                paddingBottom: "1rem",
+                width: '90%',
+                overflowY: 'scroll',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingBottom: '1rem',
               }}
             >
               {clickedAffiliateProducts.map((product) => (
@@ -217,30 +214,30 @@ export const YoutubeGrid = ({
                   className="sidebar_amazonlogolink"
                   style={{ backgroundColor: proTheme.linkBoxColor }}
                   onClick={() => {
-                    window.open(product.itemLink, "_blank");
-                    axios.post("/v1/metrics/incrementMetrics", {
-                      id: localStorage.getItem("USER_ID"),
+                    window.open(product.itemLink, '_blank')
+                    axios.post('/v1/metrics/incrementMetrics', {
+                      id: localStorage.getItem('USER_ID'),
                       unqiueIdentifier: product.id,
-                    });
+                    })
 
-                    return false;
+                    return false
                   }}
                   key={product.itemLinkName}
                 >
                   {product.itemImage ? (
                     <div
                       style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        width: "95%",
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        width: '95%',
                       }}
                     >
                       <ImageLoad
                         src={product.itemImage}
                         className="SlidingEdit_TypeLeft_Image_Placeholder"
-                        style={{ margin: "5px 20px 5px 10px" }}
+                        style={{ margin: '5px 20px 5px 10px' }}
                       />
 
                       <p
@@ -267,5 +264,5 @@ export const YoutubeGrid = ({
         </Dialog>
       )}
     </div>
-  );
-};
+  )
+}

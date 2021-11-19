@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export const ReadGrid = ({
-  allProductLinks,
+  proLinks,
   size,
   proTheme,
   showReadProducts,
@@ -30,16 +30,13 @@ export const ReadGrid = ({
   const history = useHistory()
 
   useEffect(() => {
-    setShowReadProducts(allProductLinks.slice(0, 7))
+    setShowReadProducts(proLinks.slice(0, 7))
   }, [])
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowReadProducts((prevState) => [
       ...prevState,
-      ...allProductLinks.slice(
-        scrolledBottomCount * 7,
-        scrolledBottomCount * 7 + 7,
-      ),
+      ...proLinks.slice(scrolledBottomCount * 7, scrolledBottomCount * 7 + 7),
     ])
   }
 
@@ -48,21 +45,6 @@ export const ReadGrid = ({
       getHistoryFeed(scrolledBottomCount)
     }
   }, [scrolledBottomCount])
-
-  // if (videos.length === 0) {
-  //   return (
-  //     <div className="Purchases_NoInfo">
-  //       <div
-  //         className="Video_Grid_redirect_button"
-  //         onClick={() => {
-  //           history.push("/ContentTagging");
-  //         }}
-  //       >
-  //         <p>Import & Tag Your TikToks</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   const [header, setHeader] = React.useState('')
   const [reading, setReading] = React.useState('')
@@ -77,51 +59,10 @@ export const ReadGrid = ({
     setOpen(false)
   }
 
-  const addElipsis = (name, desc, square) => {
-    if (square) {
-      if (desc && desc.length > 150) {
-        return (
-          <p className="profile_bottom_container_read_box_desc">
-            {desc.slice(0, 150) + '... '}
-            <span
-              style={{ fontSize: '12px', fontWeight: 'bold' }}
-              onClick={(e) => {
-                e.stopPropagation()
-                handleClickOpen(name, desc)
-              }}
-            >
-              read more
-            </span>
-          </p>
-        )
-      }
-    } else {
-      if (desc && desc.length > 100) {
-        return (
-          <p className="profile_bottom_container_read_box_desc">
-            {desc.slice(0, 100) + '... '}
-            <span
-              style={{ fontSize: '12px', fontWeight: 'bold' }}
-              onMouseDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
-                e.stopPropagation()
-                handleClickOpen(name, desc)
-              }}
-            >
-              read more
-            </span>
-          </p>
-        )
-      }
-    }
-
-    return <p className="profile_bottom_container_read_box_desc">{desc}</p>
-  }
-
   return (
     <div className="profile_bottom_container" style={{ marginTop: '2px' }}>
       {showReadProducts.map((eachProductLink, i) => {
-        if (eachProductLink.itemImage) {
+        if (eachProductLink.productImageLink) {
           if (i % 2 === 1) {
             return (
               <div
@@ -130,7 +71,7 @@ export const ReadGrid = ({
                 onClick={() => handleScrollViewOpen(i)}
               >
                 <ImageLoad
-                  src={eachProductLink.itemImage}
+                  src={eachProductLink.productImageLink}
                   style={{
                     height: size.width / 2,
                     width: size.width / 2,
@@ -142,17 +83,12 @@ export const ReadGrid = ({
                   style={{
                     backgroundColor: proTheme.linkBoxColor,
                     color: proTheme.linkWordsColor,
-                    opacity: 0.85,
+                    opacity: 0.8,
                   }}
                 >
                   <h4 className="profile_bottom_container_read_box_title">
-                    {eachProductLink.itemLinkName}
+                    {eachProductLink.proLinkName}
                   </h4>
-                  {addElipsis(
-                    eachProductLink.itemLinkName,
-                    eachProductLink.itemLinkDesc,
-                    true,
-                  )}
                 </div>
               </div>
             )
@@ -168,20 +104,15 @@ export const ReadGrid = ({
                   style={{
                     backgroundColor: proTheme.linkBoxColor,
                     color: proTheme.linkWordsColor,
-                    opacity: 0.85,
+                    opacity: 0.8,
                   }}
                 >
                   <h4 className="profile_bottom_container_read_box_title">
-                    {eachProductLink.itemLinkName}
+                    {eachProductLink.proLinkName}
                   </h4>
-                  {addElipsis(
-                    eachProductLink.itemLinkName,
-                    eachProductLink.itemLinkDesc,
-                    true,
-                  )}
                 </div>
                 <ImageLoad
-                  src={eachProductLink.itemImage}
+                  src={eachProductLink.productImageLink}
                   style={{
                     height: size.width / 2,
                     width: size.width / 2,
@@ -206,17 +137,12 @@ export const ReadGrid = ({
                 style={{
                   backgroundColor: proTheme.linkBoxColor,
                   color: proTheme.linkWordsColor,
-                  opacity: 0.85,
+                  opacity: 0.8,
                 }}
               >
                 <h4 className="profile_bottom_container_read_box_title">
-                  {eachProductLink.itemLinkName}
+                  {eachProductLink.proLinkName}
                 </h4>
-                {addElipsis(
-                  eachProductLink.itemLinkName,
-                  eachProductLink.itemLinkDesc,
-                  false,
-                )}
               </div>
             </div>
           )
