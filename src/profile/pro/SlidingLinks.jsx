@@ -48,7 +48,12 @@ function Draggable_Item({
           <div className="Draggable_Icon_Wrap">
             <MoreVertOutlinedIcon style={{ fontSize: 16 }} />
           </div>
-          <div className="SlidingEdit_TypeLeft"></div>
+          <div className="SlidingEdit_TypeLeft">
+            <img
+              src={item.productImageLink}
+              style={{ height: '30px', width: '30px', objectFit: 'cover' }}
+            />
+          </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p className="Draggable_Link_Item_Content_2">{item.proLinkName}</p>
 
