@@ -31,7 +31,7 @@ export const ExploreImage = ({
             marginLeft: '5px',
           }}
         >
-          <ImageLoad
+          <img
             src={userImage}
             className="explore_header_image_circular"
           />
@@ -45,7 +45,7 @@ export const ExploreImage = ({
             setOpenVideo(true)
           }}
         >
-          <ImageLoad
+          <img
             src={imgLink}
             style={{
               width: '100%',
@@ -55,7 +55,7 @@ export const ExploreImage = ({
         </div>
       ) : (
         <div className="exploreImageCover">
-          <ImageLoad
+          <img
             src={imgLink}
             style={{
               width: '100%',
