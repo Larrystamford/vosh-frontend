@@ -44,7 +44,7 @@ export const ProEdit = () => {
     const userId = localStorage.getItem('USER_ID')
     if (userId) {
       axios.get('/v1/users/getPro/' + userId).then((response) => {
-        let data = response.data[0]
+        const data = response.data.user[0]
         console.log(data)
         setSocialItems({ items: data.socialAccounts })
         setProLinks({ items: data.proLinks })

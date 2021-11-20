@@ -134,7 +134,7 @@ export const EditProProfile = ({ match, location }) => {
     const userId = localStorage.getItem('USER_ID')
     if (userId) {
       axios.get('/v1/users/getPro/' + userId).then((response) => {
-        let data = response.data.user[0]
+        const data = response.data.user[0]
 
         setUserImage(data.picture)
         setProTheme(data.proTheme)

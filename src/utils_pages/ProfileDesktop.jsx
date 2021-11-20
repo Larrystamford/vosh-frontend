@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react";
-import "./Landing.css";
-import { useHistory } from "react-router";
+import React, { useEffect, useState } from 'react'
+import './Landing.css'
+import { useHistory } from 'react-router'
 
-import axios from "../axios";
+import axios from '../axios'
 
 export const ProfileDesktop = ({}) => {
-  const currentLocation = window.location.pathname;
-  const history = useHistory();
-  const [proTheme, setProTheme] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const currentLocation = window.location.pathname
+  const history = useHistory()
+  const [proTheme, setProTheme] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
   // load data
   useEffect(() => {
-    const windowLocationName = window.location.pathname.slice(1);
-    if (windowLocationName === "profile" || windowLocationName === "profile/") {
-      const userId = localStorage.getItem("USER_ID");
+    const windowLocationName = window.location.pathname.slice(1)
+    if (windowLocationName === 'profile' || windowLocationName === 'profile/') {
+      const userId = localStorage.getItem('USER_ID')
       if (userId) {
-        axios.get("/v1/users/getPro/" + userId).then((response) => {
-          let data = response.data[0];
-          setProTheme(data.proTheme);
-          setIsLoading(false);
-        });
+        axios.get('/v1/users/getPro/' + userId).then((response) => {
+          const data = response.data.user[0]
+          setProTheme(data.proTheme)
+          setIsLoading(false)
+        })
       }
     } else {
       axios
-        .get("/v1/users/getByUserNamePro/" + windowLocationName)
+        .get('/v1/users/getByUserNamePro/' + windowLocationName)
         .then((response) => {
-          let data = response.data[0];
+          const data = response.data.user[0]
           if (data && data.proTheme) {
-            setProTheme(data.proTheme);
+            setProTheme(data.proTheme)
           }
-          setIsLoading(false);
-        });
+          setIsLoading(false)
+        })
     }
-  }, []);
+  }, [])
 
   return (
     <div className="computer_landing_body">
@@ -67,5 +67,5 @@ export const ProfileDesktop = ({}) => {
         <img id="backgroundImage" src={proTheme.background1} />
       )}
     </div>
-  );
-};
+  )
+}

@@ -176,7 +176,7 @@ export const ContentTagging = () => {
     const userId = localStorage.getItem('USER_ID')
     if (userId) {
       axios.get('/v1/users/getPro/' + userId).then((response) => {
-        let data = response.data[0]
+        const data = response.data.user[0]
         setSocialItems({ items: data.socialAccounts })
         for (const eachSocialAccount of data.socialAccounts) {
           if (eachSocialAccount.socialType == 'Youtube') {

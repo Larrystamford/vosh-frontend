@@ -73,7 +73,7 @@ export const ProProfile = ({ match, location }) => {
         axios
           .get("/v1/users/getByUserNamePro/" + windowLocationName)
           .then((response) => {
-            let data = response.data[0];
+            const data = response.data.user[0]
 
             // redirect to profile if user clicks on own userName
             if (data._id === localStorage.getItem("USER_ID")) {
