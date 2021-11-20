@@ -48,12 +48,12 @@ export const ExploreImage = ({
   useDidMountEffect(() => {
     if (isVisible) {
       setAnimateOpenVideo(true)
-      setTimeout(() => setAnimateWord(true), 800)
+      setTimeout(() => setAnimateWord(true), 1000)
 
       setTimeout(() => {
         setAnimateOpenVideo(false)
         setAnimateWord(false)
-      }, 4000)
+      }, 4200)
     }
   }, [isVisible])
 
