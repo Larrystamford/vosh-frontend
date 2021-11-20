@@ -29,15 +29,15 @@ export const ExplorePage = ({
 
   const [showReadProducts, setShowReadProducts] = useState([])
   useEffect(() => {
-    setShowReadProducts(proLinks.slice(viewIndex, viewIndex + 7))
+    setShowReadProducts(proLinks.slice(viewIndex, viewIndex + 10))
   }, [])
 
   const getHistoryFeed = (scrolledBottomCount) => {
     setShowReadProducts((prevState) => [
       ...prevState,
       ...proLinks.slice(
-        viewIndex + scrolledBottomCount * 7,
-        viewIndex + scrolledBottomCount * 7 + 7,
+        viewIndex + scrolledBottomCount * 10,
+        viewIndex + scrolledBottomCount * 10 + 10,
       ),
     ])
   }
@@ -52,6 +52,7 @@ export const ExplorePage = ({
       {showReadProducts.map(
         (
           {
+            _id,
             id,
             proLink,
             proLink2,
@@ -63,6 +64,7 @@ export const ExplorePage = ({
             tiktokVideoLink,
             tiktokEmbedLink,
             tiktokCoverImage,
+            linkClickCount,
           },
           i,
         ) => {
@@ -71,11 +73,14 @@ export const ExplorePage = ({
               <ExploreImage
                 username={username}
                 userImage={userImage}
+                productId={_id}
                 proLinkName={proLinkName}
                 imgLink={productImageLink}
                 proLink={proLink}
                 tiktokEmbedLink={tiktokEmbedLink}
                 tiktokCoverImage={tiktokCoverImage}
+                linkClickCount={linkClickCount}
+                keyIndex={i}
               />
             )
           }
