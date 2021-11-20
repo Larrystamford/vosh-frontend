@@ -71,6 +71,7 @@ export const ExplorePage = ({
           if (productImageLink) {
             return (
               <ExploreImage
+                key={_id}
                 username={username}
                 userImage={userImage}
                 productId={_id}

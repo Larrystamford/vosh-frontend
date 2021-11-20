@@ -42,7 +42,6 @@ import VolumeUpOutlinedIcon from '@material-ui/icons/VolumeUpOutlined'
 import LoyaltyIcon from '@material-ui/icons/Loyalty'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-import useOnScreen from '../../customHooks/useOnScreen'
 
 import axios from '../../axios'
 

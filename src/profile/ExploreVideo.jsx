@@ -39,7 +39,13 @@ export const ExploreVideo = ({ openVideo, setOpenVideo, tiktokEmbedLink }) => {
           setOpenVideo(false)
         }}
       >
-        <div className="exploreVideoBottomButton">
+        <div
+          className="exploreVideoBottomButton"
+          onClick={() => {
+            stopVideos()
+            setOpenVideo(false)
+          }}
+        >
           <p>Close</p>
         </div>
       </div>

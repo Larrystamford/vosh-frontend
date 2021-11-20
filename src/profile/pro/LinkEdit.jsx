@@ -108,7 +108,7 @@ export const LinkEdit = ({
       }
 
       if (haveHttp) {
-        let tiktokEmbedLink, tiktokCoverImage
+        let tiktokEmbedLink, tiktokCoverImage, tiktokCaption
 
         if (inputValues.tiktokVideoLink) {
           const redirected = await axios.get('/v1/utils/getRedirectedLink/', {
@@ -121,6 +121,8 @@ export const LinkEdit = ({
           )
           const tiktokData = await tiktokResponse.json()
           tiktokCoverImage = tiktokData.thumbnail_url
+          tiktokCaption = tiktokData.title
+          console.log(tiktokCaption)
           tiktokEmbedLink =
             'https://www.tiktok.com/embed/' + redirected.data.tiktokVideoId
         }
@@ -139,6 +141,7 @@ export const LinkEdit = ({
             tiktokVideoLink: inputValues.tiktokVideoLink,
             productImageLink: inputValues.productImageLink,
             tiktokCoverImage: tiktokCoverImage,
+            tiktokCaption: tiktokCaption,
             tiktokEmbedLink: tiktokEmbedLink,
           }
           setlinksState({ items: prevItems })
@@ -157,6 +160,7 @@ export const LinkEdit = ({
                 tiktokVideoLink: inputValues.tiktokVideoLink,
                 productImageLink: inputValues.productImageLink,
                 tiktokCoverImage: tiktokCoverImage,
+                tiktokCaption: tiktokCaption,
                 tiktokEmbedLink: tiktokEmbedLink,
               },
               ...prevState['items'],

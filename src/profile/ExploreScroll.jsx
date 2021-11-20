@@ -35,7 +35,7 @@ export const ExploreScroll = ({
     >
       <div className="ExploreHeader">
         <ArrowBackIosIcon
-          style={{ fontSize: '30px', marginLeft: '1rem' }}
+          style={{ fontSize: '27px', marginLeft: '1rem' }}
           onClick={handleScrollViewClose}
         />
         <p>Explore</p>

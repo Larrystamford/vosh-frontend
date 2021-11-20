@@ -15,8 +15,6 @@ import ReplyOutlinedIcon from '@material-ui/icons/ReplyOutlined'
 
 import { Snackbar } from '@material-ui/core'
 
-import useOnScreen from '../../customHooks/useOnScreen'
-
 import { ExploreScroll } from '../ExploreScroll'
 
 import { ImageLoad } from '../../components/ImageLoad'
@@ -289,7 +287,6 @@ export const EditProProfile = ({ match, location }) => {
   const [selectionChoice, setSelectionChoice] = useState('standard')
 
   const topRef = useRef()
-  const isVisible = useOnScreen(topRef)
 
   const getSimilarSocialColor = (color) => {
     if (color == 'white') {

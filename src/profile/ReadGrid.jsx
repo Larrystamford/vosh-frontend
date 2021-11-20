@@ -92,6 +92,7 @@ export const ReadGrid = ({
                 className="profile_bottom_container_read_row"
                 style={{ height: size.width / 2 }}
                 onClick={() => handleScrollViewOpen(i)}
+                key={i}
               >
                 <ImageLoad
                   src={eachProductLink.productImageLink}
@@ -121,6 +122,7 @@ export const ReadGrid = ({
                 className="profile_bottom_container_read_row"
                 style={{ height: size.width / 2 }}
                 onClick={() => handleScrollViewOpen(i)}
+                key={i}
               >
                 <div
                   className="profile_bottom_container_read_box"
@@ -154,6 +156,7 @@ export const ReadGrid = ({
                 borderBottom: `2px solid ${proTheme.linkBoxColor}`,
               }}
               onClick={() => handleScrollViewOpen(i)}
+              key={i}
             >
               <div
                 className="profile_bottom_container_no_image"
