@@ -31,6 +31,11 @@ export const ExploreImage = ({
       params: { username: username, productId: productId },
     })
   }
+
+  const viewCountHelper = (viewCount) => {
+    return viewCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+  
   return (
     <div className="explore_page_image_container">
       {keyIndex > 9 ? (
@@ -44,10 +49,7 @@ export const ExploreImage = ({
                 marginLeft: '5px',
               }}
             >
-              <ImageLoad
-                src={userImage}
-                className="explore_header_image_circular"
-              />
+              <img src={userImage} className="explore_header_image_circular" />
               <p style={{ marginTop: '-5px', marginLeft: '7px' }}>{username}</p>
             </div>
           </div>
@@ -125,7 +127,9 @@ export const ExploreImage = ({
           <p>{proLinkName}</p>
         </div>
         <div className="contentDetailsBottomRowMetrics">
-          {linkClickCount > 0 && <p>{linkClickCount * 11} views</p>}
+          {linkClickCount > 0 && (
+            <p>{viewCountHelper(linkClickCount * 11)} views</p>
+          )}
         </div>
         <div className="contentDetailsBottomButton" onClick={handleClickItem}>
           <p>View on Website</p>

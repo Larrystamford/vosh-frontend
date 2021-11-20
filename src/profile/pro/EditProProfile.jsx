@@ -8,7 +8,7 @@ import { useDidMountEffect } from '../../customHooks/useDidMountEffect'
 import useDeviceDetect from '../../customHooks/useDeviceDetect'
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined'
 import LoyaltyOutlinedIcon from '@material-ui/icons/LoyaltyOutlined'
-
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import { CategoriesSelector } from './CategoriesSelector'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ReplyOutlinedIcon from '@material-ui/icons/ReplyOutlined'
@@ -45,6 +45,7 @@ import { useWindowSize } from '../../customHooks/useWindowSize'
 
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
 import { database } from 'firebase'
+import { hel } from '@material-ui/icons'
 
 export const EditProProfile = ({ match, location }) => {
   const { isMobile } = useDeviceDetect()
@@ -67,6 +68,7 @@ export const EditProProfile = ({ match, location }) => {
   const [videos, setVideos] = useState([])
   const [socialAccounts, setSocialAccounts] = useState([])
   const [proLinks, setProLinks] = useState([])
+  const [sortedProLinks, setSortedProLinks] = useState([])
   const [allProductLinks, setAllProductLinks] = useState([])
   const [youtubeVideos, setYoutubeVideos] = useState([])
 
@@ -132,7 +134,8 @@ export const EditProProfile = ({ match, location }) => {
     const userId = localStorage.getItem('USER_ID')
     if (userId) {
       axios.get('/v1/users/getPro/' + userId).then((response) => {
-        let data = response.data[0]
+        let data = response.data.user[0]
+
         setUserImage(data.picture)
         setProTheme(data.proTheme)
 
@@ -152,6 +155,7 @@ export const EditProProfile = ({ match, location }) => {
         setUserId(data._id)
         setSocialAccounts(data.socialAccounts)
         setProLinks(data.proLinks)
+        setSortedProLinks(response.data.sortedProLinks)
         setProCategories(data.proCategories)
         setAllProductLinks(data.allProductLinks)
 
@@ -179,7 +183,7 @@ export const EditProProfile = ({ match, location }) => {
       axios
         .get('/v1/users/getByUserNamePro/' + windowLocationName)
         .then((response) => {
-          let data = response.data[0]
+          let data = response.data.user[0]
 
           if (!data || !data._id) {
             history.push('/404')
@@ -200,6 +204,7 @@ export const EditProProfile = ({ match, location }) => {
               setUserId(data._id)
               setSocialAccounts(data.socialAccounts)
               setProLinks(data.proLinks)
+              setSortedProLinks(response.data.sortedProLinks)
               setProCategories(data.proCategories)
               setAllProductLinks(data.allProductLinks)
 
@@ -280,12 +285,8 @@ export const EditProProfile = ({ match, location }) => {
   }, [scrollView, globalModalOpened])
 
   // SCROLL VIEW END
-  const [showSocialSelections, setShowSocialSelections] = useState([
-    ['allProductLinks', 'all_read'],
-    ['tiktok', 'all'],
-  ])
-
-  const [showSocial, setShowSocial] = useState('allProductLinks')
+  const selectionsBar = ['standard', 'top']
+  const [selectionChoice, setSelectionChoice] = useState('standard')
 
   const topRef = useRef()
   const isVisible = useOnScreen(topRef)
@@ -294,7 +295,7 @@ export const EditProProfile = ({ match, location }) => {
     if (color == 'white') {
       return 'grey'
     } else if (color == 'black') {
-      return '#f2f2f2'
+      return 'lightgrey'
     }
   }
 
@@ -586,14 +587,14 @@ export const EditProProfile = ({ match, location }) => {
         </div>
       )}
 
-      {/* <div className="pro_profile_social_selector">
+      <div className="pro_profile_social_selector">
         {showReadProducts.length > 0 &&
-          showSocialSelections.map(([social, socialId]) => {
+          selectionsBar.map((selection) => {
             return (
               <div
                 className="pro_profile_social_selector_line"
                 style={
-                  showSocial == social
+                  selectionChoice == selection
                     ? {
                         borderBottom: `1px solid ${proTheme.socialIconsColor}`,
                       }
@@ -604,14 +605,14 @@ export const EditProProfile = ({ match, location }) => {
                       }
                 }
                 onClick={() => {
-                  setShowSocial(social)
+                  setSelectionChoice(selection)
                 }}
               >
-                {social == 'tiktok' ? (
+                {selection == 'top' ? (
                   <div className="pro_profile_icon_name">
-                    <LoyaltyOutlinedIcon
+                    <FavoriteBorderIcon
                       style={
-                        showSocial == social
+                        selectionChoice == selection
                           ? { fontSize: 22, color: proTheme.socialIconsColor }
                           : {
                               fontSize: 22,
@@ -621,29 +622,12 @@ export const EditProProfile = ({ match, location }) => {
                             }
                       }
                     />
-                    <p
-                      style={
-                        showSocial == social
-                          ? {
-                              color: proTheme.socialIconsColor,
-                              marginTop: '5px',
-                            }
-                          : {
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor,
-                              ),
-                              marginTop: '5px',
-                            }
-                      }
-                    >
-                      Favourites
-                    </p>
                   </div>
-                ) : social == 'allProductLinks' ? (
+                ) : selection == 'standard' ? (
                   <div className="pro_profile_icon_name">
                     <BallotOutlinedIcon
                       style={
-                        showSocial == social
+                        selectionChoice == selection
                           ? { fontSize: 25, color: proTheme.socialIconsColor }
                           : {
                               fontSize: 25,
@@ -653,39 +637,21 @@ export const EditProProfile = ({ match, location }) => {
                             }
                       }
                     />
-                    <p
-                      style={
-                        showSocial == social
-                          ? {
-                              color: proTheme.socialIconsColor,
-                              marginTop: '5px',
-                            }
-                          : {
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor,
-                              ),
-                              marginTop: '5px',
-                            }
-                      }
-                    >
-                      Collection
-                    </p>
                   </div>
                 ) : null}
               </div>
             )
           })}
-      </div> */}
-
-      {/* temp */}
-      <div style={{ height: '1rem' }}></div>
+      </div>
 
       <div className="pro_profile_bottom">
         {isLoading ? (
           <div></div>
         ) : (
           <ReadGrid
+            selectionChoice={selectionChoice}
             proLinks={proLinks}
+            sortedProLinks={sortedProLinks}
             size={size}
             proTheme={proTheme}
             showReadProducts={showReadProducts}
@@ -700,18 +666,30 @@ export const EditProProfile = ({ match, location }) => {
         <StaySlidingSetUp open={loginCheck} handleClose={handleLoginClose} />
       ) : null}
 
-      {scrollView && (
-        <ExploreScroll
-          username={username}
-          userImage={userImage}
-          viewIndex={viewIndex}
-          proLinks={proLinks}
-          proTheme={proTheme}
-          size={size}
-          scrollView={scrollView}
-          handleScrollViewClose={handleScrollViewClose}
-        />
-      )}
+      {scrollView &&
+        (selectionChoice == 'standard' ? (
+          <ExploreScroll
+            username={username}
+            userImage={userImage}
+            viewIndex={viewIndex}
+            proLinks={proLinks}
+            proTheme={proTheme}
+            size={size}
+            scrollView={scrollView}
+            handleScrollViewClose={handleScrollViewClose}
+          />
+        ) : (
+          <ExploreScroll
+            username={username}
+            userImage={userImage}
+            viewIndex={viewIndex}
+            proLinks={sortedProLinks}
+            proTheme={proTheme}
+            size={size}
+            scrollView={scrollView}
+            handleScrollViewClose={handleScrollViewClose}
+          />
+        ))}
 
       {!isMobile &&
       (size.width > 1100 || size.width == 640) ? null : proTheme.background3 &&

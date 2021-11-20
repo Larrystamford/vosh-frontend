@@ -19,7 +19,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 export const ReadGrid = ({
+  selectionChoice,
   proLinks,
+  sortedProLinks,
   size,
   proTheme,
   showReadProducts,
@@ -30,14 +32,27 @@ export const ReadGrid = ({
   const history = useHistory()
 
   useEffect(() => {
-    setShowReadProducts(proLinks.slice(0, 7))
+    setShowReadProducts(proLinks.slice(0, 10))
   }, [])
 
   const getHistoryFeed = (scrolledBottomCount) => {
-    setShowReadProducts((prevState) => [
-      ...prevState,
-      ...proLinks.slice(scrolledBottomCount * 7, scrolledBottomCount * 7 + 7),
-    ])
+    if (selectionChoice == 'standard') {
+      setShowReadProducts((prevState) => [
+        ...prevState,
+        ...proLinks.slice(
+          scrolledBottomCount * 10,
+          scrolledBottomCount * 10 + 10,
+        ),
+      ])
+    } else {
+      setShowReadProducts((prevState) => [
+        ...prevState,
+        ...sortedProLinks.slice(
+          scrolledBottomCount * 10,
+          scrolledBottomCount * 10 + 10,
+        ),
+      ])
+    }
   }
 
   useDidMountEffect(() => {
@@ -45,6 +60,14 @@ export const ReadGrid = ({
       getHistoryFeed(scrolledBottomCount)
     }
   }, [scrolledBottomCount])
+
+  useDidMountEffect(() => {
+    if (selectionChoice == 'standard') {
+      setShowReadProducts(proLinks.slice(0, 10))
+    } else {
+      setShowReadProducts(sortedProLinks.slice(0, 10))
+    }
+  }, [selectionChoice])
 
   const [header, setHeader] = React.useState('')
   const [reading, setReading] = React.useState('')
