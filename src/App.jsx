@@ -1,99 +1,100 @@
-import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
+import React, { useState, useEffect, useRef } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import './App.css'
 
-import { useWindowSize } from "./customHooks/useWindowSize";
+import { useWindowSize } from './customHooks/useWindowSize'
 
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import reduxThunk from "redux-thunk";
-import reducers from "./reducers/index";
-import axios from "./axios";
-import { useGlobalState } from "./GlobalStates";
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import reduxThunk from 'redux-thunk'
+import reducers from './reducers/index'
+import axios from './axios'
+import { useGlobalState } from './GlobalStates'
 
-import Login from "./login/Login";
-import { Logout } from "./login/Logout";
-import { ProProfile } from "./profile/pro/ProProfile";
-import { SetTheme } from "./profile/pro/SetTheme";
-import { NonSlidingBio } from "./profile/pro/NonSlidingBio";
-import StayLoginFormPage from "./login/StayLoginFormPage";
-import { ChangePassword } from "./login/ChangePassword";
-import { EditProProfile } from "./profile/pro/EditProProfile";
-import { ContentTagging } from "./profile/pro/ContentTagging";
-import { ProEdit } from "./profile/pro/ProEdit";
-import { Verified } from "./verified/Verified";
-import { VerifiedUsername } from "./verified/VerifiedUsername";
-import { FeedRefactored } from "./feed/FeedRefactored";
-import { Discover } from "./discover/Discover";
-import { Home } from "./home/Home";
-import { HomeDesktop } from "./home/HomeDesktop";
-import { GetStartedDesktop } from "./home/GetStartedDesktop";
-import { SignUpDesktop } from "./home/SignUpDesktop";
-import { SignInDesktop } from "./home/SignInDesktop";
+import Login from './login/Login'
+import { Logout } from './login/Logout'
+import { ProProfile } from './profile/pro/ProProfile'
+import { SetTheme } from './profile/pro/SetTheme'
+import { NonSlidingBio } from './profile/pro/NonSlidingBio'
+import { AdSense } from './profile/pro/AdSense'
+import StayLoginFormPage from './login/StayLoginFormPage'
+import { ChangePassword } from './login/ChangePassword'
+import { EditProProfile } from './profile/pro/EditProProfile'
+import { ContentTagging } from './profile/pro/ContentTagging'
+import { ProEdit } from './profile/pro/ProEdit'
+import { Verified } from './verified/Verified'
+import { VerifiedUsername } from './verified/VerifiedUsername'
+import { FeedRefactored } from './feed/FeedRefactored'
+import { Discover } from './discover/Discover'
+import { Home } from './home/Home'
+import { HomeDesktop } from './home/HomeDesktop'
+import { GetStartedDesktop } from './home/GetStartedDesktop'
+import { SignUpDesktop } from './home/SignUpDesktop'
+import { SignInDesktop } from './home/SignInDesktop'
 
-import { BottomNavigationBar } from "./components/BottomNavigationBar";
-import { PersonalProfile } from "./profile/PersonalProfile";
-import { Profile } from "./profile/Profile";
-import { VideoIndividual } from "./feed/VideoIndividual";
-import { Inbox } from "./inbox/Inbox";
-import { Room } from "./inbox/Room";
-import { PageNoExist } from "./utils_pages/PageNoExist";
-import { AboutUs } from "./utils_pages/AboutUs";
-import { Review } from "./profile/Review";
-import { Upload } from "./upload/Upload";
-import { InstallPWA } from "./components/pwa/InstallPWA";
-import { ServiceWorkerWrapper } from "./ServiceWorkerWrapper";
-import { OfflineDetection } from "./utils/OfflineDetection";
+import { BottomNavigationBar } from './components/BottomNavigationBar'
+import { PersonalProfile } from './profile/PersonalProfile'
+import { Profile } from './profile/Profile'
+import { VideoIndividual } from './feed/VideoIndividual'
+import { Inbox } from './inbox/Inbox'
+import { Room } from './inbox/Room'
+import { PageNoExist } from './utils_pages/PageNoExist'
+import { AboutUs } from './utils_pages/AboutUs'
+import { Review } from './profile/Review'
+import { Upload } from './upload/Upload'
+import { InstallPWA } from './components/pwa/InstallPWA'
+import { ServiceWorkerWrapper } from './ServiceWorkerWrapper'
+import { OfflineDetection } from './utils/OfflineDetection'
 
-import { ComputerLanding } from "./utils_pages/ComputerLanding";
-import { ProfileDesktop } from "./utils_pages/ProfileDesktop";
+import { ComputerLanding } from './utils_pages/ComputerLanding'
+import { ProfileDesktop } from './utils_pages/ProfileDesktop'
 
-import ReactGA from "react-ga";
-import { Exception } from "./components/tracking/Tracker";
+import ReactGA from 'react-ga'
+import { Exception } from './components/tracking/Tracker'
 
-const jwtToken = localStorage.getItem("JWT_TOKEN");
-axios.defaults.headers.common["Authorization"] = jwtToken;
+const jwtToken = localStorage.getItem('JWT_TOKEN')
+axios.defaults.headers.common['Authorization'] = jwtToken
 axios.defaults.headers.common = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-};
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+}
 
 function App() {
-  const size = useWindowSize();
-  document.documentElement.style.setProperty("--vh", `${size.height * 0.01}px`);
+  const size = useWindowSize()
+  document.documentElement.style.setProperty('--vh', `${size.height * 0.01}px`)
 
   const appRef = useRef({
-    userProfileName: "/",
-  });
+    userProfileName: '/',
+  })
 
-  const [userInfo, setUserInfo] = useGlobalState("hasUserInfo");
+  const [userInfo, setUserInfo] = useGlobalState('hasUserInfo')
   useEffect(() => {
-    if (!localStorage.getItem("USER_ID")) {
-      setUserInfo(false);
+    if (!localStorage.getItem('USER_ID')) {
+      setUserInfo(false)
     } else {
       ReactGA.set({
-        userId: localStorage.getItem("USER_ID"),
-      });
+        userId: localStorage.getItem('USER_ID'),
+      })
 
       axios
-        .get("/v1/users/getUserInfo/" + localStorage.getItem("USER_ID"))
+        .get('/v1/users/getUserInfo/' + localStorage.getItem('USER_ID'))
         .then((res) => {
           // account does not exist
           if (res.data.length === 0) {
-            localStorage.removeItem("JWT_TOKEN");
-            localStorage.removeItem("PICTURE");
-            localStorage.removeItem("USER_ID");
-            localStorage.removeItem("USER_NAME");
-            setUserInfo(false);
+            localStorage.removeItem('JWT_TOKEN')
+            localStorage.removeItem('PICTURE')
+            localStorage.removeItem('USER_ID')
+            localStorage.removeItem('USER_NAME')
+            setUserInfo(false)
           } else {
-            setUserInfo(res.data[0]);
+            setUserInfo(res.data[0])
           }
         })
         .catch((err) => {
-          Exception(err + "failed to get user address on app load");
-        });
+          Exception(err + 'failed to get user address on app load')
+        })
     }
-  }, []);
+  }, [])
 
   // if (size.width > 1100 && window.location.pathname == "/") {
   //   return <HomeDesktop currentLocation={window.location.pathname} />;
@@ -118,7 +119,7 @@ function App() {
           <Route component={ProfileDesktop} />
         </Switch>
       </Router>
-    );
+    )
   }
 
   return (
@@ -131,7 +132,7 @@ function App() {
             isAuthenticated: jwtToken ? true : false,
           },
         },
-        applyMiddleware(reduxThunk)
+        applyMiddleware(reduxThunk),
       )}
     >
       <Router>
@@ -159,7 +160,7 @@ function App() {
           component={FeedRefactored}
         /> */}
 
-        <Route path={["/"]} exact component={Home} />
+        <Route path={['/']} exact component={Home} />
 
         <Switch>
           <Route path="/video/:id" component={VideoIndividual} />
@@ -169,6 +170,7 @@ function App() {
           <Route path="/ProEdit" component={ProEdit} />
           <Route path="/ContentTagging" component={ContentTagging} />
           <Route path="/profileBio" component={NonSlidingBio} />
+          <Route path="/adsense" component={AdSense} />
           <Route path="/theme" component={SetTheme} />
           <Route path="/login" component={StayLoginFormPage} />
           <Route path="/changePassword" component={ChangePassword} />
@@ -185,10 +187,10 @@ function App() {
         </Switch>
       </Router>
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App
 
 // <Route path="/" component={OfflineDetection} />
 

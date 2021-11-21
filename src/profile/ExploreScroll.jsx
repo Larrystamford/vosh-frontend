@@ -19,6 +19,7 @@ export const ExploreScroll = ({
   size,
   scrollView,
   handleScrollViewClose,
+  setOpenWebsiteChance,
 }) => {
   const history = useHistory()
   const theme = useTheme()
@@ -50,6 +51,7 @@ export const ExploreScroll = ({
         proTheme={proTheme}
         size={size}
         handleScrollViewClose={handleScrollViewClose}
+        setOpenWebsiteChance={setOpenWebsiteChance}
       />
     </Dialog>
   )

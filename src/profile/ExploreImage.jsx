@@ -26,6 +26,7 @@ export const ExploreImage = ({
   size,
   handleScrollViewClose,
   keyIndex,
+  setOpenWebsiteChance,
 }) => {
   const [openVideo, setOpenVideo] = useState(false)
   const [animateOpenVideo, setAnimateOpenVideo] = useState(false)
@@ -35,6 +36,14 @@ export const ExploreImage = ({
   const isVisible = useOnScreen(visibleRef)
 
   const handleClickItem = async () => {
+    setOpenWebsiteChance(true)
+    window.history.pushState(
+      {
+        websiteClicked: 'websiteClicked',
+      },
+      '',
+      '',
+    )
     window.open(proLink, '_blank')
     await axios.get('/v1/users/incrementProductClickCount/', {
       params: { username: username, productId: productId },
@@ -54,6 +63,8 @@ export const ExploreImage = ({
         setAnimateOpenVideo(false)
         setAnimateWord(false)
       }, 4200)
+
+      setOpenWebsiteChance(false)
     }
   }, [isVisible])
 

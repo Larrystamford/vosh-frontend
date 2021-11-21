@@ -40,6 +40,9 @@ export const ExploreVideo = ({ openVideo, setOpenVideo, tiktokEmbedLink }) => {
         }}
       >
         <div
+          style={{ height: '2rem', backgroundColor: 'white', width: '100%' }}
+        ></div>
+        <div
           className="exploreVideoBottomButton"
           onClick={() => {
             stopVideos()

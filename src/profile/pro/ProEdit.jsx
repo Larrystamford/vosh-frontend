@@ -21,8 +21,7 @@ import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ReplyOutlinedIcon from '@material-ui/icons/ReplyOutlined'
-import ShopIcon from '@material-ui/icons/Shop'
-
+import LocalAtmIcon from '@material-ui/icons/LocalAtm'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Snackbar } from '@material-ui/core'
 
@@ -316,6 +315,24 @@ export const ProEdit = () => {
           </div>
           <div className="SlidingEdit_TypeAndIcon">
             <p>Themes</p>
+            <ArrowForwardIosOutlinedIcon
+              style={{ fontSize: 12, marginLeft: '1rem' }}
+            />
+          </div>
+        </div>
+        <div
+          className="SlidingEdit_Pannel"
+          onClick={() => {
+            history.push({
+              pathname: '/adsense',
+            })
+          }}
+        >
+          <div className="SlidingEdit_TypeLeft">
+            <LocalAtmIcon style={{ fontSize: 20 }} />
+          </div>
+          <div className="SlidingEdit_TypeAndIcon">
+            <p>AdSense</p>
             <ArrowForwardIosOutlinedIcon
               style={{ fontSize: 12, marginLeft: '1rem' }}
             />

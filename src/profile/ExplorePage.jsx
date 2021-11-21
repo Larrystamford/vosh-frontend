@@ -10,6 +10,8 @@ import { ImageLoad } from '../components/ImageLoad'
 import ExploreOutlined from '@material-ui/icons/ExploreOutlined'
 import { ExploreVideo } from './ExploreVideo'
 import { ExploreImage } from './ExploreImage'
+import { AdComponent } from './pro/AdComponent'
+
 import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { useDidMountEffect } from '../customHooks/useDidMountEffect'
 
@@ -21,6 +23,7 @@ export const ExplorePage = ({
   proTheme,
   size,
   handleScrollViewClose,
+  setOpenWebsiteChance,
 }) => {
   const [scrolledBottomCount, setScrolledBottomCount] = useState(0)
   const scrollRef = useBottomScrollListener(() => {
@@ -69,21 +72,44 @@ export const ExplorePage = ({
           i,
         ) => {
           if (productImageLink) {
-            return (
-              <ExploreImage
-                key={_id}
-                username={username}
-                userImage={userImage}
-                productId={_id}
-                proLinkName={proLinkName}
-                imgLink={productImageLink}
-                proLink={proLink}
-                tiktokEmbedLink={tiktokEmbedLink}
-                tiktokCoverImage={tiktokCoverImage}
-                linkClickCount={linkClickCount}
-                keyIndex={i}
-              />
-            )
+            if (i != 0 && i % 3 == 0) {
+              return (
+                <>
+                  {/* <AdComponent /> */}
+                  <ExploreImage
+                    key={_id}
+                    username={username}
+                    userImage={userImage}
+                    productId={_id}
+                    proLinkName={proLinkName}
+                    imgLink={productImageLink}
+                    proLink={proLink}
+                    tiktokEmbedLink={tiktokEmbedLink}
+                    tiktokCoverImage={tiktokCoverImage}
+                    linkClickCount={linkClickCount}
+                    keyIndex={i}
+                    setOpenWebsiteChance={setOpenWebsiteChance}
+                  />
+                </>
+              )
+            } else {
+              return (
+                <ExploreImage
+                  key={_id}
+                  username={username}
+                  userImage={userImage}
+                  productId={_id}
+                  proLinkName={proLinkName}
+                  imgLink={productImageLink}
+                  proLink={proLink}
+                  tiktokEmbedLink={tiktokEmbedLink}
+                  tiktokCoverImage={tiktokCoverImage}
+                  linkClickCount={linkClickCount}
+                  keyIndex={i}
+                  setOpenWebsiteChance={setOpenWebsiteChance}
+                />
+              )
+            }
           }
         },
       )}

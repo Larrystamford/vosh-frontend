@@ -1,19 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import './ProProfile.css'
-import { VideoGrid } from '../VideoGrid'
-import { YoutubeGrid } from '../YoutubeGrid'
 import { ReadGrid } from '../ReadGrid'
 import { useGlobalState } from '../../GlobalStates'
 import { useDidMountEffect } from '../../customHooks/useDidMountEffect'
 import useDeviceDetect from '../../customHooks/useDeviceDetect'
-import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined'
-import LoyaltyOutlinedIcon from '@material-ui/icons/LoyaltyOutlined'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import { CategoriesSelector } from './CategoriesSelector'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ReplyOutlinedIcon from '@material-ui/icons/ReplyOutlined'
-
-import { Snackbar } from '@material-ui/core'
 
 import { ExploreScroll } from '../ExploreScroll'
 
@@ -26,9 +19,6 @@ import {
 } from '../../helpers/CommonFunctions'
 
 import CreateIcon from '@material-ui/icons/Create'
-import SlideshowOutlinedIcon from '@material-ui/icons/SlideshowOutlined'
-import GridOnIcon from '@material-ui/icons/GridOn'
-import WallpaperIcon from '@material-ui/icons/Wallpaper'
 import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined'
 
 import * as legoData from '../../components/lego-loader'
@@ -42,8 +32,6 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener'
 import { useWindowSize } from '../../customHooks/useWindowSize'
 
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
-import { database } from 'firebase'
-import { hel } from '@material-ui/icons'
 
 export const EditProProfile = ({ match, location }) => {
   const { isMobile } = useDeviceDetect()
@@ -269,18 +257,24 @@ export const EditProProfile = ({ match, location }) => {
     setScrollView(false)
     history.goBack()
   }
+
+  const [openWebsiteChance, setOpenWebsiteChance] = useState(false)
+
   const handleScrollViewPop = useCallback(() => {
     setScrollView(false)
   }, [])
+
   useDidMountEffect(() => {
     if (globalModalOpened) {
+      window.removeEventListener('popstate', handleScrollViewPop, true)
+    } else if (openWebsiteChance) {
       window.removeEventListener('popstate', handleScrollViewPop, true)
     } else if (scrollView) {
       window.addEventListener('popstate', handleScrollViewPop, true)
     } else {
       window.removeEventListener('popstate', handleScrollViewPop, true)
     }
-  }, [scrollView, globalModalOpened])
+  }, [scrollView, globalModalOpened, openWebsiteChance])
 
   // SCROLL VIEW END
   const selectionsBar = ['standard', 'top']
@@ -427,6 +421,7 @@ export const EditProProfile = ({ match, location }) => {
                         .slice(0, 5)
                         .map(({ socialType, socialLink }) => (
                           <img
+                            key={socialLink}
                             src={convertSocialTypeToImage(socialType)}
                             style={
                               proTheme.socialIconsColor === 'white'
@@ -462,6 +457,7 @@ export const EditProProfile = ({ match, location }) => {
                           .slice(0, 5)
                           .map(({ socialType, socialLink }) => (
                             <img
+                              key={socialLink}
                               src={convertSocialTypeToImage(socialType)}
                               style={
                                 proTheme.socialIconsColor === 'white'
@@ -584,62 +580,66 @@ export const EditProProfile = ({ match, location }) => {
         </div>
       )}
 
-      <div className="pro_profile_social_selector">
-        {showReadProducts.length > 0 &&
-          selectionsBar.map((selection) => {
-            return (
-              <div
-                className="pro_profile_social_selector_line"
-                style={
-                  selectionChoice == selection
-                    ? {
-                        borderBottom: `1px solid ${proTheme.socialIconsColor}`,
-                      }
-                    : {
-                        borderBottom: `1px solid ${getSimilarSocialColor(
-                          proTheme.socialIconsColor,
-                        )}`,
-                      }
-                }
-                onClick={() => {
-                  setSelectionChoice(selection)
-                }}
-              >
-                {selection == 'top' ? (
-                  <div className="pro_profile_icon_name">
-                    <FavoriteBorderIcon
-                      style={
-                        selectionChoice == selection
-                          ? { fontSize: 22, color: proTheme.socialIconsColor }
-                          : {
-                              fontSize: 22,
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor,
-                              ),
-                            }
-                      }
-                    />
-                  </div>
-                ) : selection == 'standard' ? (
-                  <div className="pro_profile_icon_name">
-                    <BallotOutlinedIcon
-                      style={
-                        selectionChoice == selection
-                          ? { fontSize: 25, color: proTheme.socialIconsColor }
-                          : {
-                              fontSize: 25,
-                              color: getSimilarSocialColor(
-                                proTheme.socialIconsColor,
-                              ),
-                            }
-                      }
-                    />
-                  </div>
-                ) : null}
-              </div>
-            )
-          })}
-      </div>
+      {proLinks.length > 10 ? (
+        <div className="pro_profile_social_selector">
+          {showReadProducts.length > 0 &&
+            selectionsBar.map((selection) => {
+              return (
+                <div
+                  className="pro_profile_social_selector_line"
+                  style={
+                    selectionChoice == selection
+                      ? {
+                          borderBottom: `1px solid ${proTheme.socialIconsColor}`,
+                        }
+                      : {
+                          borderBottom: `1px solid ${getSimilarSocialColor(
+                            proTheme.socialIconsColor,
+                          )}`,
+                        }
+                  }
+                  onClick={() => {
+                    setSelectionChoice(selection)
+                  }}
+                >
+                  {selection == 'top' ? (
+                    <div className="pro_profile_icon_name">
+                      <FavoriteBorderIcon
+                        style={
+                          selectionChoice == selection
+                            ? { fontSize: 22, color: proTheme.socialIconsColor }
+                            : {
+                                fontSize: 22,
+                                color: getSimilarSocialColor(
+                                  proTheme.socialIconsColor,
+                                ),
+                              }
+                        }
+                      />
+                    </div>
+                  ) : selection == 'standard' ? (
+                    <div className="pro_profile_icon_name">
+                      <BallotOutlinedIcon
+                        style={
+                          selectionChoice == selection
+                            ? { fontSize: 25, color: proTheme.socialIconsColor }
+                            : {
+                                fontSize: 25,
+                                color: getSimilarSocialColor(
+                                  proTheme.socialIconsColor,
+                                ),
+                              }
+                        }
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              )
+            })}
+        </div>
+      ) : (
+        <div style={{ height: '1rem' }}></div>
+      )}
 
       <div className="pro_profile_bottom">
         {isLoading ? (
@@ -674,6 +674,7 @@ export const EditProProfile = ({ match, location }) => {
             size={size}
             scrollView={scrollView}
             handleScrollViewClose={handleScrollViewClose}
+            setOpenWebsiteChance={setOpenWebsiteChance}
           />
         ) : (
           <ExploreScroll
@@ -685,6 +686,7 @@ export const EditProProfile = ({ match, location }) => {
             size={size}
             scrollView={scrollView}
             handleScrollViewClose={handleScrollViewClose}
+            setOpenWebsiteChance={setOpenWebsiteChance}
           />
         ))}
 
