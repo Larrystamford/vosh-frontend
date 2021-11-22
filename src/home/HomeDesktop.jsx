@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import "./Home.css";
+import React, { useState } from 'react'
+import './Home.css'
 
-import { useHistory } from "react-router";
-import { ImageLoad } from "../components/ImageLoad";
+import { useHistory } from 'react-router'
+import { ImageLoad } from '../components/ImageLoad'
 
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles'
 
-import axios from "../axios";
+import axios from '../axios'
 
 export const HomeDesktop = ({}) => {
-  const history = useHistory();
+  const history = useHistory()
   return (
     <div className="home_phone_body">
       <div className="home_header">
         <div
           className="pro_profile_icon_and_name"
           onClick={() => {
-            history.push("/");
+            history.push('/')
           }}
         >
           <img
             src="https://dciv99su0d7r5.cloudfront.net/whale+black.png"
-            style={{ height: "16px" }}
+            style={{ height: '16px' }}
           />
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: 'flex' }}>
           <div
             className="home_header_button"
-            style={{ color: "black", backgroundColor: "transparent" }}
+            style={{ color: 'black', backgroundColor: 'transparent' }}
             onClick={() => {
-              history.push("/login");
+              history.push('/login')
             }}
           >
             Sign In
@@ -38,49 +38,50 @@ export const HomeDesktop = ({}) => {
           <div
             className="home_header_button"
             onClick={() => {
-              history.push("/getStarted");
+              history.push('/getStarted')
             }}
           >
             Sign Up
           </div>
         </div>
       </div>
-      <div className="home_dekstop_blocks" style={{ minHeight: "50rem" }}>
+      <div className="home_dekstop_blocks" style={{ minHeight: '50rem' }}>
         <div className="home_dekstop_blocks_left">
           <p className="home_desktop_blocks_text">
-          Connect all your audiences and shoppable content with a single website
+            Connect all your audiences and shoppable content with a single
+            website
           </p>
           <p
             className="home_desktop_blocks_text"
-            style={{ fontSize: "23px", marginTop: "1rem" }}
+            style={{ fontSize: '23px', marginTop: '1rem' }}
           >
             Import your content from your socials with one click
           </p>
           <p
             className="home_desktop_blocks_text"
-            style={{ fontSize: "23px", marginTop: "1rem" }}
+            style={{ fontSize: '23px', marginTop: '1rem' }}
           >
-            Help your audience discover all your important content
+            Show your audience what you love with a TikTok video
           </p>
           <p
             className="home_desktop_blocks_text"
-            style={{ fontSize: "23px", marginTop: "1rem" }}
+            style={{ fontSize: '23px', marginTop: '1rem' }}
           >
             Customise and build your personal brand
           </p>
           <div
             className="home_header_button"
             onClick={() => {
-              history.push("/getStarted");
+              history.push('/getStarted')
             }}
-            style={{ width: "8.5rem", marginTop: "2rem" }}
+            style={{ width: '8.5rem', marginTop: '2rem' }}
           >
             Get Started
           </div>
         </div>
         <div
           className="home_dekstop_blocks_right"
-          style={{ position: "relative" }}
+          style={{ position: 'relative' }}
         >
           <iframe
             src="/danieltamago"
@@ -89,35 +90,35 @@ export const HomeDesktop = ({}) => {
             title="Iframe Example"
             style={{
               borderRadius: 20,
-              border: "6px solid grey",
-              marginBottom: "80px",
+              border: '6px solid grey',
+              marginBottom: '80px',
             }}
           ></iframe>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
               bottom: 0,
             }}
             onClick={() => {
-              window.open("/danieltamago", "_self");
+              window.open('/danieltamago', '_self')
             }}
           >
             <img
               src="https://dciv99su0d7r5.cloudfront.net/1622786851626_photo_2021-06-04_01-33-19.jpg"
               className="pro_profile_top_image_circular"
               style={{
-                border: "4px solid white",
-                height: "100px",
-                width: "100px",
+                border: '4px solid white',
+                height: '100px',
+                width: '100px',
               }}
             />
             <p
               className="home_phone_blocks_smaller_text"
-              style={{ marginTop: "0.5rem", fontWeight: 600, color: "grey" }}
+              style={{ marginTop: '0.5rem', fontWeight: 600, color: 'grey' }}
             >
               vosh.club/danieltamago
             </p>
@@ -125,8 +126,8 @@ export const HomeDesktop = ({}) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 {
   /* <div className="computer_QrWrapper">
