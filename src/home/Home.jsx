@@ -86,7 +86,7 @@ export const Home = ({}) => {
           }}
         >
           <img
-            src="https://dciv99su0d7r5.cloudfront.net/1622786851626_photo_2021-06-04_01-33-19.jpg"
+            src="https://dciv99su0d7r5.cloudfront.net/1623528019984_DE300B0D-53DC-4343-AB33-0976C811291F.jpeg"
             className="pro_profile_top_image_circular"
             style={{
               border: "4px solid white",
