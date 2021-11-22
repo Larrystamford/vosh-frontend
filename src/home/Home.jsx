@@ -66,7 +66,7 @@ export const Home = ({}) => {
         style={{ minHeight: "45rem", position: "relative" }}
       >
         <iframe
-          src="/danieltamago"
+          src="/pattywhoa"
           height="570"
           width="300"
           title="Iframe Example"
@@ -82,7 +82,7 @@ export const Home = ({}) => {
             bottom: 0,
           }}
           onClick={() => {
-            history.push("/danieltamago");
+            history.push("/pattywhoa");
           }}
         >
           <img
@@ -98,7 +98,7 @@ export const Home = ({}) => {
             className="home_phone_blocks_smaller_text"
             style={{ marginTop: "0.5rem", fontWeight: 600, color: "grey" }}
           >
-            vosh.club/danieltamago
+            vosh.club/pattywhoa
           </p>
         </div>
       </div>
