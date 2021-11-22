@@ -84,7 +84,7 @@ export const HomeDesktop = ({}) => {
           style={{ position: 'relative' }}
         >
           <iframe
-            src="/pattywhoa"
+            src="/josephxtan"
             height="570"
             width="300"
             title="Iframe Example"
@@ -104,7 +104,7 @@ export const HomeDesktop = ({}) => {
               bottom: 0,
             }}
             onClick={() => {
-              window.open('/pattywhoa', '_self')
+              window.open('/josephxtan', '_self')
             }}
           >
             <img
@@ -120,7 +120,7 @@ export const HomeDesktop = ({}) => {
               className="home_phone_blocks_smaller_text"
               style={{ marginTop: '0.5rem', fontWeight: 600, color: 'grey' }}
             >
-              vosh.club/pattywhoa
+              vosh.club/josephxtan
             </p>
           </div>
         </div>
