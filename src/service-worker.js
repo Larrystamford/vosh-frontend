@@ -113,7 +113,7 @@ function getCacheOrFetch(event) {
                   event.request.url.indexOf("service-worker") > -1 ||
                   event.request.url.indexOf("hot-update") > -1 ||
                   event.request.url.indexOf("manifest.json") > -1 ||
-                  event.request.url.indexOf("api.shoplocoloco") > -1 ||
+                  event.request.url.indexOf("api.vosh") > -1 ||
                   event.request.url.indexOf("stripe") > -1 ||
                   event.request.url.indexOf("pay.google.com") > -1 ||
                   event.request.destination === "video" ||

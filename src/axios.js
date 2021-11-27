@@ -1,20 +1,14 @@
-import axios from "axios";
+import axios from 'axios'
 
-let instance;
-if (process.env.NODE_ENV === "development") {
+let instance
+if (process.env.NODE_ENV === 'development') {
   instance = new axios.create({
-    baseURL: "http://localhost:5000/",
-  });
-
-  // instance = new axios.create({
-  //   baseURL: "https://api.shoplocoloco.com/",
-  // });
+    baseURL: 'http://localhost:5000/',
+  })
 } else {
-
   instance = new axios.create({
-    baseURL: "https://api.shoplocoloco.com/",
-  });
+    baseURL: 'https://api.vosh.club/',
+  })
 }
 
-export default instance;
-
+export default instance
