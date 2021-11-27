@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'development') {
   })
 } else {
   instance = new axios.create({
-    baseURL: 'https://api.vosh.club/',
+    baseURL: 'http://shoplocolocousprod-env.eba-qfdhmgut.us-east-1.elasticbeanstalk.com/',
   })
 }
 
