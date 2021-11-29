@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import OnImagesLoaded from "react-on-images-loaded";
+import React, { useState } from 'react'
+import OnImagesLoaded from 'react-on-images-loaded'
 
-export const ImageLoad = ({ src, className, style, onClick }) => {
-  const [showImage, setShowImage] = useState(false);
+export const ImageLoad = ({ src, className, style, onClick, alt }) => {
+  const [showImage, setShowImage] = useState(false)
 
   return (
     <OnImagesLoaded
@@ -13,13 +13,14 @@ export const ImageLoad = ({ src, className, style, onClick }) => {
       <img
         style={{
           opacity: showImage ? 1 : 0,
-          transition: "all 1.2s",
+          transition: 'all 1.2s',
           ...style,
         }}
         className={className}
         src={src}
         onClick={onClick}
+        alt={alt}
       />
     </OnImagesLoaded>
-  );
-};
+  )
+}

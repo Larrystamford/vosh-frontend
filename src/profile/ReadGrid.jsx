@@ -13,6 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Slide from '@material-ui/core/Slide'
+import { Helmet } from 'react-helmet'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
@@ -94,7 +95,14 @@ export const ReadGrid = ({
                 onClick={() => handleScrollViewOpen(i)}
                 key={i}
               >
+                <Helmet>
+                  <meta
+                    name="description"
+                    content={eachProductLink.proLinkName}
+                  />
+                </Helmet>
                 <ImageLoad
+                  alt={eachProductLink.proLinkName}
                   src={eachProductLink.productImageLink}
                   style={{
                     height: size.width / 2,
@@ -137,6 +145,7 @@ export const ReadGrid = ({
                   </h4>
                 </div>
                 <ImageLoad
+                  alt={eachProductLink.proLinkName}
                   src={eachProductLink.productImageLink}
                   style={{
                     height: size.width / 2,

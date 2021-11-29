@@ -36,8 +36,6 @@ import { BottomNavigationBar } from './components/BottomNavigationBar'
 import { PersonalProfile } from './profile/PersonalProfile'
 import { Profile } from './profile/Profile'
 import { VideoIndividual } from './feed/VideoIndividual'
-import { Inbox } from './inbox/Inbox'
-import { Room } from './inbox/Room'
 import { PageNoExist } from './utils_pages/PageNoExist'
 import { AboutUs } from './utils_pages/AboutUs'
 import { Review } from './profile/Review'
@@ -176,8 +174,6 @@ function App() {
           <Route path="/changePassword" component={ChangePassword} />
           <Route path="/discover" component={Discover} />
           <Route path="/upload" component={Upload} />
-          <Route path="/inbox" component={Inbox} />
-          <Route path="/room/:id" component={Room} />
           <Route path="/review" component={Review} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/logout" exact component={Logout} />

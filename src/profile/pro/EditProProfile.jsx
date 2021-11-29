@@ -7,6 +7,7 @@ import useDeviceDetect from '../../customHooks/useDeviceDetect'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ReplyOutlinedIcon from '@material-ui/icons/ReplyOutlined'
+import { Helmet } from 'react-helmet'
 
 import { ExploreScroll } from '../ExploreScroll'
 
@@ -292,6 +293,12 @@ export const EditProProfile = ({ match, location }) => {
 
   return (
     <div className="ProProfile" ref={scrollRef}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          {window.location.pathname.slice(1)} | Vosh Club mobile website
+        </title>
+      </Helmet>
       {isLoading ? (
         !isMobile ? (
           <div ref={topRef} className="pro_profile_top_with_left_right"></div>
