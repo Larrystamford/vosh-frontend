@@ -1,2 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
- 
+User-agent: Mediapartners-Google
+Disallow:
+User-agent: *
+Disallow: /search?q=
+Allow: /
+Sitemap: https://www.vosh.club/sitemap.xml
+Sitemap: https://www.vosh.club/sitemap-pages.xml
