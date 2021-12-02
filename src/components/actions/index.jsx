@@ -93,7 +93,7 @@ export const signIn = (data) => {
         payload: res.data.token,
       });
     } catch (err) {
-      Exception(err, "incorrect email or password");
+      Exception(err, "incorrect email / password");
 
       dispatch({
         type: AUTH_ERROR,
